@@ -1,0 +1,40 @@
+@startuml
+!theme sunlust
+skinparam classAttributeIconSize 0
+
+class Client {
+}
+
+abstract class Component {
+    # parent: Component*
+    + setParent(Component*): void
+    + getParent(): Component*
+    + add(Component): void
+    + remove(Component): void
+    + isComposite(): bool
+    + operation(): string
+}
+
+class Leaf {
+    + operation(): string
+}
+
+class Composite {
+    - children: vector<Component*>
+    + add(Component): void
+    + remove(Component): void
+    + isComposite(): bool
+    + operation(): string
+}
+
+Client --> Component
+Component <|-- Leaf
+Component <|-- Composite
+Composite o--> Component : children
+
+note right of Composite::operation
+    for each child in children
+        child->operation()
+end note
+
+@enduml

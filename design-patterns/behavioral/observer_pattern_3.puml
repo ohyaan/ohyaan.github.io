@@ -1,0 +1,36 @@
+@startuml
+!theme sunlust
+class EventManager {
+    -listeners: Map<string, List<EventListener>>
+    +subscribe(string, EventListener): void
+    +unsubscribe(string, EventListener): void
+    +notify(string, string): void
+}
+
+interface EventListener {
+    +onEvent(string, string): void
+}
+
+class LoggingListener {
+    +onEvent(string, string): void
+}
+
+class EmailAlerter {
+    +onEvent(string, string): void
+}
+
+class SMSAlerter {
+    +onEvent(string, string): void
+}
+
+EventManager o--> EventListener : listeners
+EventListener <|.. LoggingListener
+EventListener <|.. EmailAlerter
+EventListener <|.. SMSAlerter
+
+note right of EventManager
+    Manages subscriptions to
+    different event types
+    (file operations, errors, etc.)
+end note
+@enduml

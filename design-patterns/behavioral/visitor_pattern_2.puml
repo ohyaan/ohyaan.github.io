@@ -1,0 +1,64 @@
+@startuml
+!theme sunlust
+interface ShapeVisitor {
+    +visitCircle(Circle): void
+    +visitRectangle(Rectangle): void
+    +visitCompoundShape(CompoundShape): void
+}
+
+interface Shape {
+    +accept(ShapeVisitor): void
+}
+
+class XMLExportVisitor {
+    -xml: string
+    +visitCircle(Circle): void
+    +visitRectangle(Rectangle): void
+    +visitCompoundShape(CompoundShape): void
+    +getXML(): string
+}
+
+class JSONExportVisitor {
+    -shapes: vector<string>
+    +visitCircle(Circle): void
+    +visitRectangle(Rectangle): void
+    +visitCompoundShape(CompoundShape): void
+    +getJSON(): string
+}
+
+class AreaCalculatorVisitor {
+    -totalArea: double
+    +visitCircle(Circle): void
+    +visitRectangle(Rectangle): void
+    +visitCompoundShape(CompoundShape): void
+    +getTotalArea(): double
+}
+
+class Circle {
+    -x, y, radius: double
+    +accept(ShapeVisitor): void
+    +getX(), getY(), getRadius(): double
+    +getArea(): double
+}
+
+class Rectangle {
+    -x, y, width, height: double
+    +accept(ShapeVisitor): void
+    +getX(), getY(), getWidth(), getHeight(): double
+    +getArea(): double
+}
+
+class CompoundShape {
+    -children: vector<Shape>
+    +add(Shape): void
+    +accept(ShapeVisitor): void
+    +getChildren(): vector<Shape>
+}
+
+ShapeVisitor <|.. XMLExportVisitor
+ShapeVisitor <|.. JSONExportVisitor
+ShapeVisitor <|.. AreaCalculatorVisitor
+Shape <|.. Circle
+Shape <|.. Rectangle
+Shape <|.. CompoundShape
+@enduml

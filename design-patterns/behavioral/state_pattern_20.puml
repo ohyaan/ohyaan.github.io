@@ -1,0 +1,15 @@
+@startuml
+!theme sunlust
+
+state "Connection Pool" as cp {
+  [*] --> Available
+  Available --> InUse : acquire
+  InUse --> Released : release
+  Released --> Available : validated
+  InUse --> Timeout : idle too long
+  InUse --> Closed : error
+  Timeout --> Closed
+  Closed --> [*]
+}
+
+@enduml

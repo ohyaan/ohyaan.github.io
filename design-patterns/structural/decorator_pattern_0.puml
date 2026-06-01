@@ -1,0 +1,46 @@
+@startuml
+!theme sunlust
+skinparam classAttributeIconSize 0
+
+class Client {
+}
+
+interface Component {
+    + operation(): string
+}
+
+class ConcreteComponent {
+    + operation(): string
+}
+
+abstract class Decorator {
+    # component: Component*
+    + Decorator(Component*)
+    + operation(): string
+}
+
+class ConcreteDecoratorA {
+    + operation(): string
+}
+
+class ConcreteDecoratorB {
+    + operation(): string
+}
+
+Client --> Component
+Component <|.. ConcreteComponent
+Component <|.. Decorator
+Decorator o--> Component : component
+Decorator <|-- ConcreteDecoratorA
+Decorator <|-- ConcreteDecoratorB
+
+note right of Decorator::operation
+    component->operation()
+end note
+
+note right of ConcreteDecoratorA::operation
+    addBehavior()
+    Decorator::operation()
+end note
+
+@enduml

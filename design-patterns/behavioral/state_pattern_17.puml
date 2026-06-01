@@ -1,0 +1,17 @@
+@startuml
+!theme sunlust
+
+[*] --> Idle
+Idle --> CardInserted : insert card
+CardInserted --> PINEntry : card read
+PINEntry --> Valid : correct PIN
+PINEntry --> Invalid : wrong PIN
+Valid --> SelectService : authenticated
+SelectService --> Processing : service selected
+Processing --> Dispensing : process complete
+Dispensing --> Complete : cash dispensed
+Complete --> CardEject : transaction done
+Invalid --> CardEject : too many attempts
+CardEject --> Idle : card ejected
+
+@enduml

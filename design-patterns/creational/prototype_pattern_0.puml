@@ -1,0 +1,69 @@
+@startuml
+!theme sunlust
+
+interface Prototype {
+    + {abstract} clone() : Prototype*
+}
+
+class ConcretePrototype1 {
+    - field1 : type
+    + ConcretePrototype1(ConcretePrototype1&)
+    + clone() : Prototype*
+}
+
+class ConcretePrototype2 {
+    - field2 : type
+    + ConcretePrototype2(ConcretePrototype2&)
+    + clone() : Prototype*
+}
+
+class ComplexPrototype {
+    - nestedObject : Object*
+    + ComplexPrototype(ComplexPrototype&)
+    + clone() : Prototype*
+}
+
+class PrototypeFactory {
+    - prototypes : map<string, Prototype*>
+    + registerPrototype(string, Prototype*) : void
+    + createPrototype(string) : Prototype*
+    + unregisterPrototype(string) : void
+}
+
+class Client {
+    + operation() : void
+}
+
+Prototype <|.. ConcretePrototype1
+Prototype <|.. ConcretePrototype2
+Prototype <|.. ComplexPrototype
+
+PrototypeFactory o--> Prototype : manages
+Client ..> Prototype : uses
+Client ..> PrototypeFactory : uses
+
+note right of Prototype
+    Declares the cloning interface.
+    Usually contains a single
+    clone() method.
+end note
+
+note right of ConcretePrototype1
+    Implements the cloning operation.
+    Creates a copy of itself and
+    returns it to the caller.
+end note
+
+note right of PrototypeFactory
+    Maintains a registry of prototypes.
+    Provides clones of registered
+    prototypes on demand.
+end note
+
+note bottom of ComplexPrototype
+    Performs deep copy when cloning
+    to avoid sharing nested objects
+    between original and clone.
+end note
+
+@enduml

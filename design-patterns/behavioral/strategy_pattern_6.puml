@@ -1,0 +1,37 @@
+@startuml
+!theme sunlust
+actor Client
+participant "context:\nContext" as Context
+participant "strategyA:\nConcreteStrategyA" as StrategyA
+participant "strategyB:\nConcreteStrategyB" as StrategyB
+
+Client -> Context: new Context(strategyA)
+activate Context
+Context -> Context: strategy = strategyA
+deactivate Context
+
+Client -> Context: executeStrategy()
+activate Context
+Context -> StrategyA: execute()
+activate StrategyA
+StrategyA -> StrategyA: algorithm A implementation
+StrategyA --> Context: result
+deactivate StrategyA
+Context --> Client: result
+deactivate Context
+
+Client -> Context: setStrategy(strategyB)
+activate Context
+Context -> Context: strategy = strategyB
+deactivate Context
+
+Client -> Context: executeStrategy()
+activate Context
+Context -> StrategyB: execute()
+activate StrategyB
+StrategyB -> StrategyB: algorithm B implementation
+StrategyB --> Context: result
+deactivate StrategyB
+Context --> Client: result
+deactivate Context
+@enduml

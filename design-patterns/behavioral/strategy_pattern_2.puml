@@ -1,0 +1,43 @@
+@startuml
+!theme sunlust
+interface PaymentStrategy {
+    +pay(amount: double): void
+    +getName(): string
+}
+
+class ShoppingCart {
+    -paymentStrategy: PaymentStrategy
+    -items: List<Item>
+    +addItem(name, price): void
+    +setPaymentMethod(PaymentStrategy): void
+    +checkout(): void
+}
+
+class CreditCardPayment {
+    -cardNumber: string
+    -cvv: string
+    -expiryDate: string
+    +pay(amount): void
+}
+
+class PayPalPayment {
+    -email: string
+    +pay(amount): void
+}
+
+class CryptocurrencyPayment {
+    -walletAddress: string
+    -currency: string
+    +pay(amount): void
+}
+
+ShoppingCart o--> PaymentStrategy
+PaymentStrategy <|.. CreditCardPayment
+PaymentStrategy <|.. PayPalPayment
+PaymentStrategy <|.. CryptocurrencyPayment
+
+note bottom of ShoppingCart
+    Customer selects payment
+    method at checkout
+end note
+@enduml

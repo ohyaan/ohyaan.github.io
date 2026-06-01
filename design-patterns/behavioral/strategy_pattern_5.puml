@@ -1,0 +1,37 @@
+@startuml
+!theme sunlust
+interface DiscountStrategy {
+    +applyDiscount(price: double): double
+    +getDescription(): string
+}
+
+class PricingCalculator {
+    -discountStrategy: DiscountStrategy
+    +setDiscountStrategy(DiscountStrategy): void
+    +calculatePrice(basePrice, quantity): double
+}
+
+class NoDiscount {
+    +applyDiscount(price): double
+}
+
+class PercentageDiscount {
+    -percentage: double
+    +applyDiscount(price): double
+}
+
+class FixedAmountDiscount {
+    -amount: double
+    +applyDiscount(price): double
+}
+
+class BuyOneGetOneFree {
+    +applyDiscount(price): double
+}
+
+PricingCalculator o--> DiscountStrategy
+DiscountStrategy <|.. NoDiscount
+DiscountStrategy <|.. PercentageDiscount
+DiscountStrategy <|.. FixedAmountDiscount
+DiscountStrategy <|.. BuyOneGetOneFree
+@enduml

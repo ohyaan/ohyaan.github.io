@@ -1,0 +1,39 @@
+@startuml
+!theme sunlust
+interface Strategy {
+    +execute(): void
+}
+
+class Context {
+    -strategy: Strategy
+    +setStrategy(Strategy): void
+    +executeStrategy(): void
+}
+
+class ConcreteStrategyA {
+    +execute(): void
+}
+
+class ConcreteStrategyB {
+    +execute(): void
+}
+
+class ConcreteStrategyC {
+    +execute(): void
+}
+
+Context o--> Strategy
+Strategy <|.. ConcreteStrategyA
+Strategy <|.. ConcreteStrategyB
+Strategy <|.. ConcreteStrategyC
+
+note right of Context
+    Context delegates work
+    to strategy object
+end note
+
+note bottom of Strategy
+    Common interface for
+    all concrete strategies
+end note
+@enduml
