@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://with-raspberry-pi.pages.dev/os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/">
+        <link rel="canonical" href="https://with-raspberry-pi.pages.dev/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">
       
       
-        <link rel="prev" href="../03._uart_%22hello_world%22_-_first_output_from_our_os/">
+        <link rel="prev" href="../hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/">
       
       
-        <link rel="next" href="../../phase2-hardware/05._gpio_control_-_controlling_hardware_pins/">
+        <link rel="next" href="../how_to_build_a_usb_midi_device_with_raspberry_pi/">
       
       
-      <link rel="icon" href="../../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+      <link rel="icon" href="../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>04. System Timer - Precise Timing for Your OS - With Raspberry Pi</title>
+        <title>How to Boot Raspberry Pi 5 from NVMe SSD & Enable PCIe Gen 3 - With Raspberry Pi</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,7 +52,7 @@
     
       <link rel="stylesheet" href="/stylesheets/custom.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -132,7 +132,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#04-system-timer-precise-timing-for-your-os" class="md-skip">
+        <a href="#how-to-boot-raspberry-pi-5-from-nvme-ssd-enable-pcie-gen-3" class="md-skip">
           Skip to content
         </a>
       
@@ -148,7 +148,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -168,7 +168,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              04. System Timer - Precise Timing for Your OS
+              How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3
             
           </span>
         </div>
@@ -264,7 +264,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../getting-started/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
     
@@ -284,7 +284,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../basic-operations/" class="md-tabs__link">
+        <a href="../../basic-operations/" class="md-tabs__link">
           
   
     
@@ -304,7 +304,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../programming/" class="md-tabs__link">
+        <a href="../../programming/" class="md-tabs__link">
           
   
     
@@ -324,7 +324,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../cpp-learning/" class="md-tabs__link">
+        <a href="../../cpp-learning/" class="md-tabs__link">
           
   
     
@@ -344,7 +344,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../design-patterns/" class="md-tabs__link">
+        <a href="../../design-patterns/" class="md-tabs__link">
           
   
     
@@ -364,12 +364,32 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../assembly/" class="md-tabs__link">
+        <a href="../../assembly/" class="md-tabs__link">
           
   
     
   
   Arm64 Assembly
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../os-development/" class="md-tabs__link">
+          
+  
+    
+  
+  OS Development
 
         </a>
       </li>
@@ -386,27 +406,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
-          
-  
-    
-  
-  OS Development
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../tips/" class="md-tabs__link">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -426,7 +426,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../troubleshooting/" class="md-tabs__link">
+        <a href="../../troubleshooting/" class="md-tabs__link">
           
   
     
@@ -469,7 +469,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -514,7 +514,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../getting-started/" class="md-nav__link ">
+            <a href="../../getting-started/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
+      <a href="../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -570,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -592,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
+      <a href="../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -648,7 +648,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../basic-operations/" class="md-nav__link ">
+            <a href="../../basic-operations/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -682,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -704,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -726,7 +726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -788,7 +788,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../programming/" class="md-nav__link ">
+            <a href="../../programming/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -822,7 +822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -844,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
+      <a href="../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -866,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
+      <a href="../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -888,7 +888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
+      <a href="../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -910,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
+      <a href="../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -932,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
+      <a href="../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -990,7 +990,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cpp-learning/" class="md-nav__link ">
+            <a href="../../cpp-learning/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1077,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/1.introduction/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/1.introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1099,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1121,7 +1121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/4.functions/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/4.functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1165,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/5.operators/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/5.operators/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1187,7 +1187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1266,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1288,7 +1288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1310,7 +1310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1332,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1409,7 +1409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part3/1.containers/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1431,7 +1431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part3/1.templates/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1453,7 +1453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1532,7 +1532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1554,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1576,7 +1576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1598,7 +1598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1662,7 +1662,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../design-patterns/" class="md-nav__link ">
+            <a href="../../design-patterns/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1769,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1791,7 +1791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1813,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/creational/builder_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/builder_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1835,7 +1835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1920,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1942,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1964,7 +1964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/facade_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/facade_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1986,7 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2008,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/composite_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/composite_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2030,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2052,7 +2052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2143,7 +2143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2165,7 +2165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2187,7 +2187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2209,7 +2209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2231,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2253,7 +2253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2275,7 +2275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2297,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2319,7 +2319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2341,7 +2341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2409,7 +2409,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../assembly/" class="md-nav__link ">
+            <a href="../../assembly/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2443,7 +2443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2465,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2487,7 +2487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2509,7 +2509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2531,7 +2531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2557,8 +2557,6 @@
       
   
   
-    
-  
   
   
     
@@ -2581,22 +2579,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
+            <a href="../../os-development/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2608,13 +2603,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             OS Development
@@ -2627,10 +2622,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2648,11 +2641,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
         
           
           <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
@@ -2667,7 +2660,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_2">
             <span class="md-nav__icon md-icon"></span>
             Phase1 Foundation
@@ -2681,7 +2674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2703,7 +2696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2725,7 +2718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2744,31 +2737,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    04. System Timer - Precise Timing for Your OS
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2778,116 +2750,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#why-do-we-need-a-timer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why Do We Need a Timer?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-raspberry-pi-timers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding Raspberry Pi Timers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arm-generic-timer-registers" class="md-nav__link">
-    <span class="md-ellipsis">
-      ARM Generic Timer Registers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementing-the-timer-driver" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementing the Timer Driver
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-timer-in-your-kernel" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using the Timer in Your Kernel
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#building-and-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Building and Testing
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-accurate-is-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      How Accurate Is It?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#complete-source-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Complete Source Code
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      What's Next?
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2953,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2975,7 +2837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3050,7 +2912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3072,7 +2934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3147,7 +3009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3169,7 +3031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3244,7 +3106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3266,7 +3128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3300,6 +3162,8 @@
       
   
   
+    
+  
   
   
     
@@ -3396,19 +3260,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../tips/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3420,13 +3287,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -3442,7 +3309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/automated_backup_strategies/" class="md-nav__link">
+      <a href="../automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3464,7 +3331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3486,7 +3353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3508,7 +3375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3530,7 +3397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3552,7 +3419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3574,7 +3441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3596,7 +3463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3618,7 +3485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3640,7 +3507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3662,7 +3529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3684,7 +3551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3706,7 +3573,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3725,10 +3592,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -3738,6 +3626,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-the-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Install the Hardware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-flash-raspberry-pi-os-to-the-ssd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Flash Raspberry Pi OS to the SSD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-configure-boot-priority-in-eeprom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Configure Boot Priority in EEPROM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-enable-pcie-gen-3-speed-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Enable PCIe Gen 3 (Speed Override)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-test-the-ssd-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Test the SSD Performance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3750,7 +3730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3772,7 +3752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3794,7 +3774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3816,7 +3796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3838,7 +3818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3860,7 +3840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3882,7 +3862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3904,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3926,7 +3906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3948,7 +3928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3970,7 +3950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3992,7 +3972,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4014,7 +3994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4036,7 +4016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4058,7 +4038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4080,7 +4060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4102,7 +4082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4124,7 +4104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4146,7 +4126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4168,7 +4148,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4190,7 +4170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4212,7 +4192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4234,7 +4214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4256,7 +4236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/setting_up_vpn_access/" class="md-nav__link">
+      <a href="../setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4278,7 +4258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4300,7 +4280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4322,7 +4302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
+      <a href="../top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4344,7 +4324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4398,7 +4378,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../troubleshooting/" class="md-nav__link ">
+            <a href="../../troubleshooting/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4432,7 +4412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
+      <a href="../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4454,7 +4434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
+      <a href="../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4492,199 +4472,11 @@
 
 
 
-<div><h1 id="04-system-timer-precise-timing-for-your-os">04. System Timer - Precise Timing for Your OS<a class="headerlink" href="#04-system-timer-precise-timing-for-your-os" title="Permanent link">¶</a></h1>
-<p>Now that we can communicate via UART, let's add timing capabilities to our OS using the Raspberry Pi's system timer.</p>
-<h2 id="why-do-we-need-a-timer">Why Do We Need a Timer?<a class="headerlink" href="#why-do-we-need-a-timer" title="Permanent link">¶</a></h2>
-<p>Timers are essential for:
-- <strong>Delays</strong>: <code>sleep()</code> functions
-- <strong>Scheduling</strong>: Task switching in multitasking
-- <strong>Timeouts</strong>: Network or hardware communication
-- <strong>Performance measurement</strong>: Benchmarking code</p>
-<h2 id="understanding-raspberry-pi-timers">Understanding Raspberry Pi Timers<a class="headerlink" href="#understanding-raspberry-pi-timers" title="Permanent link">¶</a></h2>
-<p>The Raspberry Pi 4B has multiple timing mechanisms:</p>
-<h3 id="1-system-timer-legacy">1. System Timer (Legacy)<a class="headerlink" href="#1-system-timer-legacy" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Base Address</strong>: <code>0xFE003000</code> (RPi 4)</li>
-<li><strong>Frequency</strong>: 1 MHz (fixed)</li>
-<li><strong>Use</strong>: Simple delays, legacy compatibility</li>
-</ul>
-<h3 id="2-arm-generic-timer-preferred">2. ARM Generic Timer (Preferred)<a class="headerlink" href="#2-arm-generic-timer-preferred" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Built into CPU</strong>: Part of ARM architecture</li>
-<li><strong>Frequency</strong>: Typically 54 MHz on RPi 4</li>
-<li><strong>Advantages</strong>: More precise, accessible via special registers</li>
-</ul>
-<p>We'll use the <strong>ARM Generic Timer</strong> as it's more accurate and follows ARM standards.</p>
-<h2 id="arm-generic-timer-registers">ARM Generic Timer Registers<a class="headerlink" href="#arm-generic-timer-registers" title="Permanent link">¶</a></h2>
-<p>The ARM architecture provides special system registers for timing:</p>
-<table>
-<thead>
-<tr>
-<th>Register</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CNTPCT_EL0</code></td>
-<td>Physical Count register (current tick count)</td>
-</tr>
-<tr>
-<td><code>CNTFRQ_EL0</code></td>
-<td>Counter Frequency register (ticks per second)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="reading-registers-in-assembly">Reading Registers in Assembly<a class="headerlink" href="#reading-registers-in-assembly" title="Permanent link">¶</a></h3>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nf">mrs</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">cntpct_el0</span><span class="w">  </span><span class="c1">; Read current counter</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nf">mrs</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">cntfrq_el0</span><span class="w">  </span><span class="c1">; Read frequency</span>
-</code></pre></div></td></tr></table></div>
-<p>From C, we use inline assembly:</p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">timer_read_cntpct</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">"mrs %0, cntpct_el0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">count</span><span class="p">));</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="implementing-the-timer-driver">Implementing the Timer Driver<a class="headerlink" href="#implementing-the-timer-driver" title="Permanent link">¶</a></h2>
-<h3 id="header-file-includetimerh">Header File: <code>include/timer.h</code><a class="headerlink" href="#header-file-includetimerh" title="Permanent link">¶</a></h3>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cp">#ifndef TIMER_H</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="cp">#define TIMER_H</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"types.h"</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">timer_get_ticks</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer_sleep</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ms</span><span class="p">);</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="cp">#endif</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="driver-implementation-driverstimerc">Driver Implementation: <code>drivers/timer.c</code><a class="headerlink" href="#driver-implementation-driverstimerc" title="Permanent link">¶</a></h3>
-<h4 id="1-reading-timer-registers">1. Reading Timer Registers<a class="headerlink" href="#1-reading-timer-registers" title="Permanent link">¶</a></h4>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">timer_read_cntpct</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">"mrs %0, cntpct_el0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">count</span><span class="p">));</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="p">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">timer_read_freq</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">"mrs %0, cntfrq_el0"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="p">(</span><span class="n">freq</span><span class="p">));</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h4 id="2-initialization">2. Initialization<a class="headerlink" href="#2-initialization" title="Permanent link">¶</a></h4>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">static</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">timer_freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="n">timer_freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timer_read_freq</span><span class="p">();</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p>On the Raspberry Pi 4, <code>timer_freq</code> is typically <strong>54,000,000</strong> (54 MHz).</p>
-<h4 id="3-sleep-function">3. Sleep Function<a class="headerlink" href="#3-sleep-function" title="Permanent link">¶</a></h4>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span>
-<span class="normal"><a href="#__codelineno-5-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">timer_sleep</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ms</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">timer_freq</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">        </span><span class="n">timer_init</span><span class="p">();</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timer_get_ticks</span><span class="p">();</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">ticks_per_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">timer_freq</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">ticks_per_ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ms</span><span class="p">);</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">timer_get_ticks</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">        </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="p">(</span><span class="s">"nop"</span><span class="p">);</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><strong>How it works:</strong>
-1. Calculate how many ticks = 1 millisecond
-2. Compute target tick count
-3. Busy-wait until we reach that count</p>
-<div class="admonition warning">
-<p class="admonition-title">Busy-Wait Limitation</p>
-<p>This is a <strong>busy-wait</strong> implementation. The CPU actively waits, wasting power. In a real OS, we'd use interrupts to sleep efficiently.</p>
-</div>
-<h2 id="using-the-timer-in-your-kernel">Using the Timer in Your Kernel<a class="headerlink" href="#using-the-timer-in-your-kernel" title="Permanent link">¶</a></h2>
-<p>Update <code>kernel/main.c</code>:</p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"uart.h"</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"timer.h"</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">kernel_main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="n">uart_init</span><span class="p">();</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span><span class="n">timer_init</span><span class="p">();</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="n">uart_puts</span><span class="p">(</span><span class="s">"System Timer initialized.</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">        </span><span class="n">uart_puts</span><span class="p">(</span><span class="s">"Tick "</span><span class="p">);</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">        </span><span class="c1">// Print count...</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">        </span><span class="n">uart_puts</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15"></a>
-<a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">        </span><span class="n">timer_sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1 second delay</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
-<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="building-and-testing">Building and Testing<a class="headerlink" href="#building-and-testing" title="Permanent link">¶</a></h2>
+<div><h1 id="how-to-boot-raspberry-pi-5-from-nvme-ssd-enable-pcie-gen-3">How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3<a class="headerlink" href="#how-to-boot-raspberry-pi-5-from-nvme-ssd-enable-pcie-gen-3" title="Permanent link">¶</a></h1>
+<p>Supercharge your Raspberry Pi 5 by booting from a high-speed NVMe M.2 SSD! This guide covers hardware installation, configuring boot priority, and overriding PCIe settings to enable PCIe Gen 3 speeds for maximum storage performance.</p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
+<p>One of the most exciting features of the Raspberry Pi 5 is its built-in PCI Express (PCIe) 2.0 x1 connector. By using an M.2 NVMe HAT (Hardware Attached on Top), you can bypass the slow MicroSD card slot and boot your system from a solid-state drive (SSD). </p>
+<p>This upgrade boosts read and write speeds from ~40-80 MB/s (on MicroSD) to <strong>over 800 MB/s</strong> (on NVMe SSD), while eliminating the risk of MicroSD card corruption.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -4694,73 +4486,97 @@
   </script>
 </div>
 
-<h3 id="1-build-the-kernel">1. Build the Kernel<a class="headerlink" href="#1-build-the-kernel" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>os-rasp/build
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>make
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<p>To follow this guide, you will need:
+- <strong>Raspberry Pi 5</strong>
+- <strong>NVMe M.2 SSD</strong> (typically M.2 2230 or 2280 depending on your HAT, M-Key recommended).
+- <strong>M.2 NVMe HAT</strong> (e.g., Raspberry Pi M.2 HAT+, Pineberry Pi HatDrive, or Waveshare M.2 HAT).
+- <strong>Official Raspberry Pi 27W USB-C Power Supply</strong> (highly recommended, as NVMe SSDs draw more power during peak read/write operations).</p>
+<hr>
+<h2 id="step-1-install-the-hardware">Step 1: Install the Hardware<a class="headerlink" href="#step-1-install-the-hardware" title="Permanent link">¶</a></h2>
+<ol>
+<li>Ensure the Raspberry Pi 5 is completely powered off and unplugged.</li>
+<li>Connect the FPC (Flexible Printed Circuit) cable from the NVMe HAT to the Raspberry Pi 5 PCIe port. Be extremely gentle with the ribbon connector lock.</li>
+<li>Secure the NVMe HAT onto the Pi 5 using the provided spacers and screws.</li>
+<li>Insert your NVMe SSD into the M.2 slot on the HAT and secure it with the mounting screw.</li>
+</ol>
+<hr>
+<h2 id="step-2-flash-raspberry-pi-os-to-the-ssd">Step 2: Flash Raspberry Pi OS to the SSD<a class="headerlink" href="#step-2-flash-raspberry-pi-os-to-the-ssd" title="Permanent link">¶</a></h2>
+<p>The easiest way to install the OS on your SSD is using the <strong>Raspberry Pi Imager</strong> on another computer.</p>
+<ol>
+<li>Connect your NVMe SSD to your PC using a USB-to-NVMe adapter (or mount it to the Pi and use a MicroSD card to run Raspberry Pi Imager locally).</li>
+<li>Open Raspberry Pi Imager.</li>
+<li>Select <strong>Raspberry Pi 5</strong> as the device.</li>
+<li>Choose <strong>Raspberry Pi OS (64-bit)</strong>.</li>
+<li>Select your NVMe SSD as the target storage.</li>
+<li>Click <strong>Next</strong> and configure any OS settings (like SSH, Username, and Wi-Fi), then write the image.</li>
+</ol>
+<p><em>Alternatively, if you already have the Pi running on a MicroSD card with the SSD connected, you can open the built-in </em><em>SD Card Copier</em><em> tool in the Raspberry Pi OS desktop menu to clone your active SD card directly to the SSD.</em></p>
+<hr>
+<h2 id="step-3-configure-boot-priority-in-eeprom">Step 3: Configure Boot Priority in EEPROM<a class="headerlink" href="#step-3-configure-boot-priority-in-eeprom" title="Permanent link">¶</a></h2>
+<p>For the Raspberry Pi 5 to boot from the PCIe lane instead of looking for a MicroSD card first, you must update the bootloader (EEPROM) settings.</p>
+<ol>
+<li>Boot your Pi 5 (using your SD card if the SSD isn't bootable yet).</li>
+<li>Open a terminal and edit the bootloader configuration:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>rpi-eeprom-config<span class="w"> </span>--edit
+</code></pre></div></td></tr></table></div></li>
+<li>Look for the <code>BOOT_ORDER</code> line. Change it to the following:
+   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>BOOT_ORDER=0xf416
 </code></pre></div></td></tr></table></div>
-<p>Verify that <code>drivers/timer.c</code> is compiled.</p>
-<h3 id="2-deploy-to-raspberry-pi">2. Deploy to Raspberry Pi<a class="headerlink" href="#2-deploy-to-raspberry-pi" title="Permanent link">¶</a></h3>
-<p>Copy <code>kernel8.img</code> to your SD card (along with firmware files).</p>
-<h3 id="3-connect-serial-and-boot">3. Connect Serial and Boot<a class="headerlink" href="#3-connect-serial-and-boot" title="Permanent link">¶</a></h3>
-<p>Open terminal:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>screen<span class="w"> </span>/dev/ttyUSB0<span class="w"> </span><span class="m">115200</span>
-</code></pre></div></td></tr></table></div>
-<p>Expected output:
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>Hello World from Bare Metal RPi OS!
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>System Timer initialized.
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>Tick 0
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>Tick 1
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a>Tick 2
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>...
-</code></pre></div></td></tr></table></div>
-<p>You should see a message every second!</p>
-<h2 id="how-accurate-is-it">How Accurate Is It?<a class="headerlink" href="#how-accurate-is-it" title="Permanent link">¶</a></h2>
-<p>The ARM Generic Timer is quite precise:
-- <strong>Jitter</strong>: &lt; 1 microsecond
-- <strong>Drift</strong>: Negligible for short durations</p>
-<p>For comparison:
-- System Timer (1 MHz): 1 µs resolution
-- ARM Generic (54 MHz): ~18.5 ns resolution</p>
-<h2 id="complete-source-code">Complete Source Code<a class="headerlink" href="#complete-source-code" title="Permanent link">¶</a></h2>
-<p>The full implementation is available:
-- <a href="file:///home/pa/src/os-rasp/drivers/timer.c">drivers/timer.c</a>
-- <a href="file:///home/pa/src/os-rasp/include/timer.h">include/timer.h</a>
-- <a href="file:///home/pa/src/os-rasp/kernel/main.c">kernel/main.c</a></p>
+   <em>Explanation</em>: The number <code>6</code> at the end tells the bootloader to try booting from the NVMe device (PCIe) first, before falling back to the SD card (<code>1</code>).</li>
+<li>Save and exit the editor (<code>Ctrl+X</code>, <code>Y</code>, <code>Enter</code>).</li>
+<li>Reboot your system to apply the bootloader changes:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>reboot
+</code></pre></div></td></tr></table></div></li>
+</ol>
+<p>At this point, you can remove the MicroSD card and verify that the Raspberry Pi 5 boots directly from the SSD.</p>
+<hr>
+<h2 id="step-4-enable-pcie-gen-3-speed-override">Step 4: Enable PCIe Gen 3 (Speed Override)<a class="headerlink" href="#step-4-enable-pcie-gen-3-speed-override" title="Permanent link">¶</a></h2>
+<p>By default, the Raspberry Pi 5 PCIe connection is officially rated for <strong>PCIe Gen 2.0</strong> speeds (~400-450 MB/s). However, the hardware is capable of running at <strong>PCIe Gen 3.0</strong> speeds. While Gen 3 is not officially certified, most modern NVMe SSDs run perfectly fine and double the speed to <strong>800+ MB/s</strong>.</p>
+<ol>
+<li>Open <code>/boot/firmware/config.txt</code>:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
+</code></pre></div></td></tr></table></div></li>
+<li>Add the following lines to the bottom of the file:
+   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a># Enable PCIe Gen 3.0 Speeds
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>dtparam=pciex1_gen=3
+</code></pre></div></td></tr></table></div></li>
+<li>Save and close the file.</li>
+<li>Reboot the Pi to apply:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>reboot
+</code></pre></div></td></tr></table></div></li>
+</ol>
+<hr>
+<h2 id="step-5-test-the-ssd-performance">Step 5: Test the SSD Performance<a class="headerlink" href="#step-5-test-the-ssd-performance" title="Permanent link">¶</a></h2>
+<p>Once your Pi boots up, open the terminal and measure the read speeds of your SSD to verify PCIe Gen 3 is working.</p>
+<ol>
+<li>Install <code>hdparm</code>:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hdparm<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div></li>
+<li>Test the disk read speed (replace <code>/dev/nvme0n1</code> with your drive identifier if different):
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>hdparm<span class="w"> </span>-tT<span class="w"> </span>/dev/nvme0n1
+</code></pre></div></td></tr></table></div></li>
+</ol>
+<h3 id="expected-results">Expected Results:<a class="headerlink" href="#expected-results" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>PCIe Gen 2 (Default)</strong>: Read speeds around <strong>410 - 450 MB/s</strong>.</li>
+<li><strong>PCIe Gen 3 (Enabled)</strong>: Read speeds around <strong>810 - 870 MB/s</strong>!</li>
+</ul>
+<hr>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Problem</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Messages print too fast/slow</td>
-<td>Check timer frequency with <code>uart_puts</code></td>
-</tr>
-<tr>
-<td>No output at all</td>
-<td>Ensure <code>timer_init()</code> is called</td>
-</tr>
-<tr>
-<td>Incorrect delays</td>
-<td>Verify 64-bit arithmetic (not 32-bit overflow)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
-<p>With timing capabilities in place, we can now:
-- Implement <strong>interrupts</strong> (timer-based interrupts for preemptive multitasking)
-- Add <strong>watchdog timer</strong> (system recovery)
-- Create <strong>performance profiling</strong> tools</p>
-<p>Stay tuned for the next article on <strong>Exception Handling and Interrupts</strong>!</p></div>
+<ul>
+<li><strong>The Pi fails to boot from the SSD</strong>:<ul>
+<li>Double-check the ribbon FPC cable connection. Unplug and reseat the cable on both the Pi and the HAT.</li>
+<li>Verify your power supply. Underpowered SSDs will disconnect during boot. If you aren't using the official 27W adapter, the Pi 5 restricts current limits which might crash the SSD.</li>
+</ul>
+</li>
+<li><strong>System is unstable at PCIe Gen 3 speeds</strong>:<ul>
+<li>Some cheaper NVMe SSDs or poorly shielded FPC cables cannot handle PCIe Gen 3 interference. If you experience random crashes or read/write errors, open <code>/boot/firmware/config.txt</code> and change the parameter to <code>dtparam=pciex1_gen=2</code> to fall back to the stable Gen 2 standard.</li>
+</ul>
+</li>
+</ul></div>
 
 
 
@@ -4815,10 +4631,10 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>
