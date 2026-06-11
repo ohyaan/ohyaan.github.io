@@ -10,28 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://with-raspberry-pi.pages.dev/os-development/">
+        <link rel="canonical" href="https://with-raspberry-pi.pages.dev/tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/">
       
       
-        <link rel="prev" href="../assembly/introduction_to_arm64_assembly_on_raspberry_pi/">
+        <link rel="prev" href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">
       
       
-        <link rel="next" href="phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/">
+        <link rel="next" href="../how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/">
       
       
-      <link rel="icon" href="../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+      <link rel="icon" href="../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>Building a Raspberry Pi OS from Scratch - With Raspberry Pi</title>
+        <title>How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions - With Raspberry Pi</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -52,7 +52,7 @@
     
       <link rel="stylesheet" href="/stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -132,7 +132,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#building-a-raspberry-pi-os-from-scratch" class="md-skip">
+        <a href="#how-to-build-a-cicd-pipeline-for-raspberry-pi-with-docker-and-github-actions" class="md-skip">
           Skip to content
         </a>
       
@@ -148,7 +148,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -168,7 +168,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Building a Raspberry Pi OS from Scratch
+              How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions
             
           </span>
         </div>
@@ -264,7 +264,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../getting-started/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
     
@@ -284,7 +284,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../basic-operations/" class="md-tabs__link">
+        <a href="../../basic-operations/" class="md-tabs__link">
           
   
     
@@ -304,7 +304,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../programming/" class="md-tabs__link">
+        <a href="../../programming/" class="md-tabs__link">
           
   
     
@@ -324,7 +324,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../cpp-learning/" class="md-tabs__link">
+        <a href="../../cpp-learning/" class="md-tabs__link">
           
   
     
@@ -344,7 +344,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../design-patterns/" class="md-tabs__link">
+        <a href="../../design-patterns/" class="md-tabs__link">
           
   
     
@@ -364,12 +364,32 @@
     
     
       <li class="md-tabs__item">
-        <a href="../assembly/" class="md-tabs__link">
+        <a href="../../assembly/" class="md-tabs__link">
           
   
     
   
   Arm64 Assembly
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../os-development/" class="md-tabs__link">
+          
+  
+    
+  
+  OS Development
 
         </a>
       </li>
@@ -386,27 +406,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
-          
-  
-    
-  
-  OS Development
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../tips/" class="md-tabs__link">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -426,7 +426,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting/" class="md-tabs__link">
+        <a href="../../troubleshooting/" class="md-tabs__link">
           
   
     
@@ -469,7 +469,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -514,7 +514,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../getting-started/" class="md-nav__link ">
+            <a href="../../getting-started/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
+      <a href="../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -570,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -592,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
+      <a href="../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -648,7 +648,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../basic-operations/" class="md-nav__link ">
+            <a href="../../basic-operations/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -682,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -704,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -726,7 +726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -788,7 +788,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../programming/" class="md-nav__link ">
+            <a href="../../programming/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -822,7 +822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -844,7 +844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/2._controlling_led_with_gpio/" class="md-nav__link">
+      <a href="../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -866,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
+      <a href="../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -888,7 +888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
+      <a href="../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -910,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
+      <a href="../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -932,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
+      <a href="../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -990,7 +990,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cpp-learning/" class="md-nav__link ">
+            <a href="../../cpp-learning/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1077,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/1.introduction/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/1.introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1099,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1121,7 +1121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/3.control_flow/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1143,7 +1143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/4.functions/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/4.functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1165,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/5.operators/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/5.operators/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1187,7 +1187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1266,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/1.memory_management/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1288,7 +1288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1310,7 +1310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/3.inheritance/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1332,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1409,7 +1409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.containers/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1431,7 +1431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.templates/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1453,7 +1453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/2.algorithms/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1532,7 +1532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1554,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/2.cpp20/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1576,7 +1576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/3.cpp23/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1598,7 +1598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/4.build_systems/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1662,7 +1662,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../design-patterns/" class="md-nav__link ">
+            <a href="../../design-patterns/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/singleton_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1769,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1791,7 +1791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1813,7 +1813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/builder_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/builder_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1835,7 +1835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/prototype_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1920,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/adapter_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1942,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/decorator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1964,7 +1964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/facade_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/facade_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1986,7 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/proxy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2008,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/composite_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/composite_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2030,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/bridge_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2052,7 +2052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2143,7 +2143,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2165,7 +2165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2187,7 +2187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2209,7 +2209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/command_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2231,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/state_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2253,7 +2253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2275,7 +2275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2297,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2319,7 +2319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2341,7 +2341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2409,7 +2409,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../assembly/" class="md-nav__link ">
+            <a href="../../assembly/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2443,7 +2443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2465,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2487,7 +2487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2509,7 +2509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2531,7 +2531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2557,8 +2557,6 @@
       
   
   
-    
-  
   
   
     
@@ -2581,22 +2579,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../os-development/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2608,13 +2603,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             OS Development
@@ -2679,7 +2674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2701,7 +2696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2723,7 +2718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2745,7 +2740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2820,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2842,7 +2837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2917,7 +2912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2939,7 +2934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3014,7 +3009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3036,7 +3031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3111,7 +3106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3133,7 +3128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3167,6 +3162,8 @@
       
   
   
+    
+  
   
   
     
@@ -3269,19 +3266,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../tips/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3293,13 +3293,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -3315,7 +3315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/automated_backup_strategies/" class="md-nav__link">
+      <a href="../automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3337,7 +3337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3359,7 +3359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3381,7 +3381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3403,7 +3403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3425,7 +3425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3447,7 +3447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3469,7 +3469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3491,7 +3491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3513,7 +3513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3535,7 +3535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3557,7 +3557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3579,7 +3579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3601,7 +3601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+      <a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3620,10 +3620,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -3633,6 +3654,89 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-a-self-hosted-runner" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use a Self-Hosted Runner?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-writing-the-application-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Writing the Application Dockerfile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-setting-up-the-self-hosted-runner-on-the-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Setting Up the Self-Hosted Runner on the Pi
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-creating-the-github-actions-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Creating the GitHub Actions Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-testing-the-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Testing the Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3645,7 +3749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+      <a href="../how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3667,7 +3771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+      <a href="../how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3689,7 +3793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3711,7 +3815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3733,7 +3837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3755,7 +3859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3777,7 +3881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3799,7 +3903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3821,7 +3925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3843,7 +3947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3865,7 +3969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3887,7 +3991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3909,7 +4013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3931,7 +4035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3953,7 +4057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3975,7 +4079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3997,7 +4101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4019,7 +4123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4041,7 +4145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4063,7 +4167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4085,7 +4189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4107,7 +4211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4129,7 +4233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4151,7 +4255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4173,7 +4277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4195,7 +4299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/setting_up_vpn_access/" class="md-nav__link">
+      <a href="../setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4217,7 +4321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4239,7 +4343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4261,7 +4365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
+      <a href="../top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4283,7 +4387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4337,7 +4441,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../troubleshooting/" class="md-nav__link ">
+            <a href="../../troubleshooting/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4371,7 +4475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
+      <a href="../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4393,7 +4497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/frequently_asked_questions/" class="md-nav__link">
+      <a href="../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4431,116 +4535,248 @@
 
 
 
-<div><h1 id="building-a-raspberry-pi-os-from-scratch">Building a Raspberry Pi OS from Scratch<a class="headerlink" href="#building-a-raspberry-pi-os-from-scratch" title="Permanent link">¶</a></h1>
-<p>Welcome to the OS Development series! In this comprehensive tutorial, we'll build a bare-metal operating system for the Raspberry Pi 4B from the ground up.</p>
-<h2 id="disclaimer">⚠️ Disclaimer<a class="headerlink" href="#disclaimer" title="Permanent link">¶</a></h2>
-<p><strong>Proceed at your own risk.</strong>
-This tutorial involves low-level hardware programming. While every effort has been made to ensure the correctness of the code, writing directly to hardware registers carries inherent risks. The author is not responsible for any damage to your Raspberry Pi, SD card, or other peripherals that may occur while following this guide.</p>
-<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Bare-metal programming</strong>: Writing code that runs directly on hardware without an existing OS</li>
-<li><strong>ARM64 assembly</strong>: Understanding the low-level architecture of the Raspberry Pi</li>
-<li><strong>Memory management</strong>: Controlling physical and virtual memory</li>
-<li><strong>Device drivers</strong>: Communicating with hardware like UART, GPIO, and timers</li>
-<li><strong>Process management</strong>: Implementing multitasking and scheduling</li>
-<li><strong>File systems</strong>: Reading and writing data to SD cards</li>
-</ul>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<h3 id="required-knowledge">Required Knowledge<a class="headerlink" href="#required-knowledge" title="Permanent link">¶</a></h3>
-<ul>
-<li>Basic C programming</li>
-<li>Understanding of computer architecture</li>
-<li>Familiarity with Linux command line</li>
-<li>Git basics</li>
-</ul>
-<h3 id="required-hardware">Required Hardware<a class="headerlink" href="#required-hardware" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Raspberry Pi 4B</strong> (target platform)</li>
-<li><strong>SD Card</strong> (8GB or larger)</li>
-<li><strong>USB-to-TTL Serial Cable</strong> (for UART debugging)</li>
-<li><strong>PC/Mac</strong> (for development)</li>
-</ul>
-<h3 id="software-tools">Software Tools<a class="headerlink" href="#software-tools" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>aarch64 cross-compiler</strong> (<code>aarch64-linux-gnu-gcc</code>)</li>
-<li><strong>CMake</strong> (build system)</li>
-<li><strong>Git</strong> (version control)</li>
-</ul>
-<h2 id="course-roadmap">Course Roadmap<a class="headerlink" href="#course-roadmap" title="Permanent link">¶</a></h2>
-<p>This series is organized into phases, building from basic hardware initialization to advanced OS features.</p>
-<h3 id="phase-1-foundation">✅ Phase 1: Foundation<a class="headerlink" href="#phase-1-foundation" title="Permanent link">¶</a></h3>
-<ol>
-<li><a href="phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/">Environment Setup</a> - Setting up your development environment</li>
-<li><a href="phase1-foundation/02._understanding_the_raspberry_pi_boot_process/">Boot Process</a> - Understanding how the Raspberry Pi boots</li>
-<li><a href="phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/">UART Hello World</a> - Implementing serial communication</li>
-<li><a href="phase1-foundation/04._system_timer_-_precise_timing_for_your_os/">System Timer</a> - Precise timing and delays</li>
-</ol>
-<h3 id="phase-2-hardware-control">✅ Phase 2: Hardware Control<a class="headerlink" href="#phase-2-hardware-control" title="Permanent link">¶</a></h3>
-<ol>
-<li><a href="phase2-hardware/05._gpio_control_-_controlling_hardware_pins/">GPIO Control</a> - Controlling LEDs and reading buttons</li>
-<li><a href="phase2-hardware/06._interrupts_and_exception_handling/">Interrupts</a> - Handling hardware interrupts and exceptions</li>
-</ol>
-<h3 id="phase-3-display-and-graphics">✅ Phase 3: Display and Graphics<a class="headerlink" href="#phase-3-display-and-graphics" title="Permanent link">¶</a></h3>
-<ol>
-<li><a href="phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/">Framebuffer</a> - Drawing graphics to the screen</li>
-<li><a href="phase3-display/08._text_rendering_-_writing_to_the_screen/">Text Rendering</a> - Rendering text on the framebuffer</li>
-</ol>
-<h3 id="phase-4-memory-management">✅ Phase 4: Memory Management<a class="headerlink" href="#phase-4-memory-management" title="Permanent link">¶</a></h3>
-<ol>
-<li><a href="phase4-memory/09._memory_allocation_-_managing_the_heap/">Memory Allocation</a> - Dynamic memory management (malloc/free)</li>
-<li><a href="phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/">Virtual Memory (MMU)</a> - Enabling caching and memory protection</li>
-</ol>
-<h3 id="phase-5-process-management">✅ Phase 5: Process Management<a class="headerlink" href="#phase-5-process-management" title="Permanent link">¶</a></h3>
-<ol>
-<li><a href="phase5-process/11._context_switching_-_the_heart_of_multitasking/">Context Switching</a> - The foundation of multitasking</li>
-<li><a href="phase5-process/12._scheduler_-_preemptive_multitasking/">Scheduler</a> - Preemptive multitasking with time slicing</li>
-</ol>
-<h3 id="phase-6-synchronization-primitives">📋 Phase 6: Synchronization Primitives<a class="headerlink" href="#phase-6-synchronization-primitives" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Synchronization Primitives</strong> - Mutexes, semaphores, and spinlocks (Race conditions, ARM64 atomic instructions)</li>
-</ol>
-<h3 id="phase-7-file-systems">📋 Phase 7: File Systems<a class="headerlink" href="#phase-7-file-systems" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>SD Card Driver</strong> - EMMC controller and block device abstraction</li>
-<li><strong>FAT32 File System</strong> - Reading and writing files</li>
-</ol>
-<h3 id="phase-8-user-space">📋 Phase 8: User Space<a class="headerlink" href="#phase-8-user-space" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>User Space &amp; System Calls</strong> - EL0/EL1 switching, System Calls, loading programs</li>
-</ol>
-<h2 id="source-code-repository">Source Code Repository<a class="headerlink" href="#source-code-repository" title="Permanent link">¶</a></h2>
-<p>All source code for this series is available at:
-<code>/home/pa/src/os-rasp</code></p>
-<p>Each article references specific files and explains their implementation details.</p>
-<h3 id="progressive-feature-enablement">Progressive Feature Enablement<a class="headerlink" href="#progressive-feature-enablement" title="Permanent link">¶</a></h3>
-<p>The OS supports building with features progressively enabled. This allows you to follow along with the articles and enable features as you learn:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<div><h1 id="how-to-build-a-cicd-pipeline-for-raspberry-pi-with-docker-and-github-actions">How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions<a class="headerlink" href="#how-to-build-a-cicd-pipeline-for-raspberry-pi-with-docker-and-github-actions" title="Permanent link">¶</a></h1>
+<p>If you develop applications for your Raspberry Pi (like smart home scripts, web servers, or Discord bots), you have probably faced the tedious workflow of manual deployment: SSHing into the Pi, running <code>git pull</code>, building dependencies, and manually restarting the application. </p>
+<p>This manual process is slow and error-prone. A modern <strong>CI/CD (Continuous Integration / Continuous Deployment)</strong> pipeline automates this entirely. </p>
+<p>In this guide, we will configure a <strong>GitHub Actions Self-Hosted Runner</strong> directly on a Raspberry Pi. We will then build a deployment workflow that triggers on every <code>git push</code> to build a <strong>Docker</strong> container locally on the Pi and deploy it instantly using <strong>Docker Compose</strong>.</p>
+<hr>
+<h2 id="why-use-a-self-hosted-runner">Why Use a Self-Hosted Runner?<a class="headerlink" href="#why-use-a-self-hosted-runner" title="Permanent link">¶</a></h2>
+<p>GitHub provides free cloud runners to build and run workflows, but they have two major drawbacks for Raspberry Pi deployment:
+1.  <strong>Architecture Mismatch:</strong> GitHub's runners run on x86_64 virtual machines. Building ARM-compatible Docker containers on x86 requires emulation (QEMU), which is extremely slow.
+2.  <strong>Firewall Limitations:</strong> A standard GitHub cloud runner cannot access a Raspberry Pi sitting behind a home router/firewall without risky configurations like port forwarding.</p>
+<p>A <strong>Self-Hosted Runner</strong> runs locally on your Pi. It connects outbound to GitHub via long-polling (WebSockets), meaning <strong>no open ports</strong> are needed on your router. Additionally, it builds Docker containers natively on ARM, making builds incredibly fast.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Build up to Article 08 (Text Rendering)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>cmake<span class="w"> </span>-DENABLE_MEMORY_ALLOC<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">      </span>-DENABLE_MMU<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">      </span>-DENABLE_MULTITASKING<span class="o">=</span>OFF<span class="w"> </span>..
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>make
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Deployment Flow:
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>[Push Code] ---&gt; [GitHub Repository]
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>                        |
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>            (Outbound Connection / Long-Poll)
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>                        v
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>[Raspberry Pi] &lt;--- [Self-Hosted Runner] ---&gt; [Docker Build &amp; Compose Up]
 </code></pre></div></td></tr></table></div>
-<p>See <code>README_FEATURES.md</code> in the source repository for details.</p>
-<h2 id="learning-path">Learning Path<a class="headerlink" href="#learning-path" title="Permanent link">¶</a></h2>
-<h3 id="recommended-order-beginner-friendly">Recommended Order (Beginner-Friendly)<a class="headerlink" href="#recommended-order-beginner-friendly" title="Permanent link">¶</a></h3>
-<p>Follow the articles in numerical order (01 → 12). This path provides early visual feedback and gradually introduces complexity.</p>
-<h3 id="quick-start-experienced-developers">Quick Start (Experienced Developers)<a class="headerlink" href="#quick-start-experienced-developers" title="Permanent link">¶</a></h3>
-<p>If you're already familiar with OS concepts, you can jump to specific topics:
-- <strong>Memory Management</strong>: Start at Article 09
-- <strong>Multitasking</strong>: Start at Article 11
-- <strong>Graphics</strong>: Start at Article 07</p>
-<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">¶</a></h2>
-<p>If you encounter issues:
-1. Check the article's "Troubleshooting" section
-2. Verify your hardware connections (especially UART)
-3. Review the example code in the <code>examples/</code> directory
-4. Ensure your toolchain is correctly installed</p>
 <hr>
-<p>Let's begin the journey of OS development!</p></div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<ul>
+<li>A Raspberry Pi 4 or 5 running <strong>Raspberry Pi OS (64-bit)</strong>.</li>
+<li><strong>Docker and Docker Compose</strong> installed on your Pi.</li>
+<li>A GitHub repository hosting your application code.</li>
+</ul>
+<hr>
+<h2 id="step-1-writing-the-application-dockerfile">Step 1: Writing the Application Dockerfile<a class="headerlink" href="#step-1-writing-the-application-dockerfile" title="Permanent link">¶</a></h2>
+<p>Containerizing your application ensures it runs identically on your development machine and your Raspberry Pi, isolating all dependencies.</p>
+<p>Here is an example <code>Dockerfile</code> for a simple Python web server. Save this in the root of your project:</p>
+<div class="language-dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c"># Use a lightweight official Python image matching the ARM architecture</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c"># Set the working directory</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c"># Install system dependencies if needed</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c"># Copy and install Python requirements</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="c"># Copy the rest of the application code</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="c"># Expose the port the app runs on</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="k">EXPOSE</span><span class="w"> </span><span class="s">5000</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="c"># Run the application</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app.py"</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<p>Create a matching <code>docker-compose.yml</code> to manage runtime configuration and automatic restarts:</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.8'</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nt">services</span><span class="p">:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="nt">web-app</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-app:latest</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-running-app</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"5000:5000"</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENV=production</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="step-2-setting-up-the-self-hosted-runner-on-the-pi">Step 2: Setting Up the Self-Hosted Runner on the Pi<a class="headerlink" href="#step-2-setting-up-the-self-hosted-runner-on-the-pi" title="Permanent link">¶</a></h2>
+<p>Now, we need to register your Raspberry Pi as a runner in your GitHub repository.</p>
+<ol>
+<li>On GitHub, go to your repository -&gt; <strong>Settings</strong> -&gt; <strong>Actions</strong> -&gt; <strong>Runners</strong>.</li>
+<li>Click <strong>New self-hosted runner</strong>.</li>
+<li>Choose <strong>Linux</strong> as the runner image and <strong>ARM64</strong> as the architecture.</li>
+<li>Open a terminal on your Raspberry Pi and run the commands displayed on GitHub. They will look similar to this:</li>
+</ol>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Create a folder for the runner</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>mkdir<span class="w"> </span>actions-runner<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>actions-runner
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Download the latest runner package</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>curl<span class="w"> </span>-o<span class="w"> </span>actions-runner-linux-arm64-2.316.1.tar.gz<span class="w"> </span>-L<span class="w"> </span>https://github.com/actions/runner/releases/download/v2.316.1/actions-runner-linux-arm64-2.316.1.tar.gz
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1"># Extract the installer</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>tar<span class="w"> </span>xzf<span class="w"> </span>./actions-runner-linux-arm64-2.316.1.tar.gz
+</code></pre></div></td></tr></table></div>
+<h3 id="configuring-the-runner">Configuring the Runner<a class="headerlink" href="#configuring-the-runner" title="Permanent link">¶</a></h3>
+<ol>
+<li>Run the configuration script:
+    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>./config.sh<span class="w"> </span>--url<span class="w"> </span>https://github.com/your-username/your-repo<span class="w"> </span>--token<span class="w"> </span>YOUR_TOKEN
+</code></pre></div></td></tr></table></div></li>
+<li>Follow the prompts:
+    *   Enter the runner group name (default is fine).
+    *   Name your runner (e.g. <code>pi-deploy-runner</code>).
+    *   Add labels. <strong>IMPORTANT:</strong> Give your runner the label <code>self-hosted</code> and <code>raspberry-pi</code>. This will let you target the Pi specifically in your workflow.</li>
+</ol>
+<h3 id="running-as-a-system-service">Running as a System Service<a class="headerlink" href="#running-as-a-system-service" title="Permanent link">¶</a></h3>
+<p>To prevent the runner from closing when you log out, configure it as a systemd service:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Install the runner helper service</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>./svc.sh<span class="w"> </span>install
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1"># Start the runner service</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>sudo<span class="w"> </span>./svc.sh<span class="w"> </span>start
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c1"># Verify status</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>sudo<span class="w"> </span>./svc.sh<span class="w"> </span>status
+</code></pre></div></td></tr></table></div>
+<p>On your GitHub repository settings page, you should now see your runner marked as <strong>Idle</strong> and <strong>Online</strong>.</p>
+<hr>
+<h2 id="step-3-creating-the-github-actions-workflow">Step 3: Creating the GitHub Actions Workflow<a class="headerlink" href="#step-3-creating-the-github-actions-workflow" title="Permanent link">¶</a></h2>
+<p>With the runner online, we can write the automation instructions. Create a file at <code>.github/workflows/deploy.yml</code> in your repository:</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CI/CD Deploy to Raspberry Pi</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nt">on</span><span class="p">:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span><span class="w"> </span><span class="c1"># Trigger workflow on pushes to main</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and Deploy Container</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">self-hosted</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">raspberry-pi</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># Target your Raspberry Pi runner</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout Repository</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build New Docker Image</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">          </span><span class="no">docker compose build --no-cache</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Containers with Docker Compose</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="w">          </span><span class="no">docker compose up -d --force-recreate</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a>
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Clean Up Stale Docker Images</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">          </span><span class="no">docker image prune -f</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="step-4-testing-the-pipeline">Step 4: Testing the Pipeline<a class="headerlink" href="#step-4-testing-the-pipeline" title="Permanent link">¶</a></h2>
+<ol>
+<li>Ensure you have added the runner user (usually <code>pi</code> or standard login user) to the <code>docker</code> group so the runner can execute docker commands without <code>sudo</code>:
+    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="c1"># Restart the runner service to apply group changes</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>sudo<span class="w"> </span>./svc.sh<span class="w"> </span>stop
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>sudo<span class="w"> </span>./svc.sh<span class="w"> </span>start
+</code></pre></div></td></tr></table></div></li>
+<li>Make a change to your application code (e.g., change a text label in your server response).</li>
+<li>Commit and push the change to GitHub:
+    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Update UI response text"</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div></td></tr></table></div></li>
+<li>Navigate to the <strong>Actions</strong> tab on your GitHub repository.</li>
+<li>Select the running workflow. You will see it connect to your Raspberry Pi, pull the code changes, rebuild the Docker container, and spin up the new version in real-time.</li>
+</ol>
+<hr>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p>By running a self-hosted runner natively on the Pi, you avoid cross-compilation errors and enjoy instant, automated local deployment. Every push to your main branch builds, validates, and deploys your changes safely. </p>
+<p>This setup is ideal for scaling microservices on a home cluster or ensuring your home automation servers stay up-to-date with minimal downtime.</p></div>
 
 
 
@@ -4595,10 +4831,10 @@ This tutorial involves low-level hardware programming. While every effort has be
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>
