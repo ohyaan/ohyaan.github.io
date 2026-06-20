@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
+    <meta name="twitter:description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
   
 
   <meta property="og:type" content="website">
@@ -646,6 +646,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -739,11 +743,55 @@
   
   
     <li class="md-nav__item">
+      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Management for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     System Settings Configuration for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-operations/user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User and Permission Management for Raspberry Pi
     
   </span>
   
@@ -4470,36 +4518,99 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-open-the-networkmanager-configuration" class="md-nav__link">
+  <a href="#why-use-a-static-ip" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Open the NetworkManager Configuration
+      Why Use a Static IP?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-modify-the-connection-to-set-a-static-ip" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Modify the Connection to Set a Static IP
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-save-and-apply-the-configuration" class="md-nav__link">
+  <a href="#method-1-networkmanager-nmcli-recommended" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Save and Apply the Configuration
+      Method 1: NetworkManager (nmcli) — Recommended
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-verify-the-static-ip" class="md-nav__link">
+  <a href="#method-2-nmtui-interactive-text-ui" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Verify the Static IP
+      Method 2: nmtui — Interactive Text UI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-3-dhcpcdconf-legacy-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: dhcpcd.conf — Legacy Method
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-ipv6-static-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring IPv6 Static Address
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-your-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying Your Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-dhcp-reservation-alternative-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced: DHCP Reservation (Alternative Approach)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -4604,6 +4715,8 @@
       
         
       
+        
+      
     
     
       
@@ -4690,6 +4803,28 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Troubleshooting Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4711,10 +4846,32 @@
                 
                   
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">Raspberry Pi OS</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">bookworm</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">networking</span>
+      
+    
+  </nav>
+
 
 
 <div><h1 id="static-ip-configuration-on-raspberry-pi-os">Static IP Configuration on Raspberry Pi OS<a class="headerlink" href="#static-ip-configuration-on-raspberry-pi-os" title="Permanent link">¶</a></h1>
-<p>Setting a static IP address on Raspberry Pi OS Bookworm ensures your Raspberry Pi always uses the same IP, simplifying remote access.</p>
+<p>Setting a static IP address ensures your Raspberry Pi always uses the same network address, which is essential for servers, remote access, and IoT deployments. This guide covers all methods for configuring static IPs on Raspberry Pi OS Bookworm and later.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -4724,34 +4881,375 @@
   </script>
 </div>
 
-<h2 id="1-open-the-networkmanager-configuration">1. Open the NetworkManager Configuration<a class="headerlink" href="#1-open-the-networkmanager-configuration" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>show
+<h2 id="why-use-a-static-ip">Why Use a Static IP?<a class="headerlink" href="#why-use-a-static-ip" title="Permanent link">¶</a></h2>
+<p>By default, your Raspberry Pi gets a <strong>dynamic IP</strong> via DHCP from your router. This IP can change after reboots or lease expirations, which causes problems when:</p>
+<ul>
+<li><strong>SSH / VNC access</strong> — You need a consistent address to connect to</li>
+<li><strong>Running servers</strong> — Web servers, Pi-hole, Home Assistant need a fixed address</li>
+<li><strong>Port forwarding</strong> — Router rules point to a specific IP</li>
+<li><strong>IoT devices</strong> — Other devices on your network need to find your Pi reliably</li>
+<li><strong>DNS records</strong> — Internal DNS entries need a stable target</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<p>Before configuring a static IP, gather your network information:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Check your current IP, gateway, and DNS</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>ip<span class="w"> </span>addr<span class="w"> </span>show
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>ip<span class="w"> </span>route<span class="w"> </span>show<span class="w"> </span>default
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cat<span class="w"> </span>/etc/resolv.conf
 </code></pre></div></td></tr></table></div>
-<h2 id="2-modify-the-connection-to-set-a-static-ip">2. Modify the Connection to Set a Static IP<a class="headerlink" href="#2-modify-the-connection-to-set-a-static-ip" title="Permanent link">¶</a></h2>
-<p></p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.1.100/24
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.gateway<span class="w"> </span><span class="m">192</span>.168.1.1
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.dns<span class="w"> </span><span class="s2">"8.8.8.8 8.8.4.4"</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.method<span class="w"> </span>manual
+<p>Note these values:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Example</th>
+<th>How to Find</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Current IP</strong></td>
+<td>192.168.1.50</td>
+<td><code>ip addr show eth0</code></td>
+</tr>
+<tr>
+<td><strong>Subnet Mask</strong></td>
+<td>/24 (255.255.255.0)</td>
+<td>Same as above</td>
+</tr>
+<tr>
+<td><strong>Gateway</strong></td>
+<td>192.168.1.1</td>
+<td><code>ip route show default</code></td>
+</tr>
+<tr>
+<td><strong>DNS Servers</strong></td>
+<td>8.8.8.8, 1.1.1.1</td>
+<td><code>cat /etc/resolv.conf</code></td>
+</tr>
+<tr>
+<td><strong>Connection Name</strong></td>
+<td>"Wired connection 1"</td>
+<td><code>nmcli connection show</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Avoid IP conflicts</p>
+<p>Choose an IP address <strong>outside</strong> your router's DHCP range. Most routers use DHCP range 192.168.1.100–200, so picking an address like 192.168.1.10–50 is usually safe. Check your router's admin page to confirm.</p>
+</div>
+<h2 id="method-1-networkmanager-nmcli-recommended">Method 1: NetworkManager (nmcli) — Recommended<a class="headerlink" href="#method-1-networkmanager-nmcli-recommended" title="Permanent link">¶</a></h2>
+<p>Raspberry Pi OS Bookworm (and later) uses <strong>NetworkManager</strong> as the default network manager. This is the recommended method.</p>
+<h3 id="configuring-ethernet-wired">Configuring Ethernet (Wired)<a class="headerlink" href="#configuring-ethernet-wired" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Step 1: Check your connection name</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
 </code></pre></div></td></tr></table></div>
-Replace <code>192.168.1.100</code> with your desired IP, and adjust the gateway and DNS settings as needed.
-<h2 id="3-save-and-apply-the-configuration">3. Save and Apply the Configuration<a class="headerlink" href="#3-save-and-apply-the-configuration" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<p>You'll see output like:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>NAME                UUID                                  TYPE      DEVICE
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>Wired connection 1  a1b2c3d4-e5f6-7890-abcd-ef1234567890  ethernet  eth0
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>preconfigured       f1e2d3c4-b5a6-7890-abcd-ef1234567890  wifi      wlan0
 </code></pre></div></td></tr></table></div>
-<h2 id="4-verify-the-static-ip">4. Verify the Static IP<a class="headerlink" href="#4-verify-the-static-ip" title="Permanent link">¶</a></h2>
-<p></p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span>
+<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Step 2: Set static IP, gateway, and DNS</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.1.100/24<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"8.8.8.8 1.1.1.1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="c1"># Step 3: Apply changes</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
 </code></pre></div></td></tr></table></div>
-Check that the IP address matches your static configuration.
-<hr>
-<p>Your Raspberry Pi is now set with a static IP address using NetworkManager! 🌐</p></div>
+<h3 id="configuring-wi-fi-wireless">Configuring Wi-Fi (Wireless)<a class="headerlink" href="#configuring-wi-fi-wireless" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Step 1: Find your Wi-Fi connection name</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1"># Step 2: Set static IP for Wi-Fi</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"preconfigured"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.1.101/24<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="m">192</span>.168.1.1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"8.8.8.8 1.1.1.1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="c1"># Step 3: Apply changes</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"preconfigured"</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="reverting-to-dhcp">Reverting to DHCP<a class="headerlink" href="#reverting-to-dhcp" title="Permanent link">¶</a></h3>
+<p>If you need to go back to automatic IP assignment:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span>ipv4.method<span class="w"> </span>auto
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="method-2-nmtui-interactive-text-ui">Method 2: nmtui — Interactive Text UI<a class="headerlink" href="#method-2-nmtui-interactive-text-ui" title="Permanent link">¶</a></h2>
+<p>If you prefer a visual interface in the terminal:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>nmtui
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Select <strong>Edit a connection</strong></li>
+<li>Choose your connection (e.g., "Wired connection 1")</li>
+<li>Change <strong>IPv4 CONFIGURATION</strong> from <code>Automatic</code> to <code>Manual</code></li>
+<li>Click <strong>Add</strong> next to Addresses and enter your static IP (e.g., <code>192.168.1.100/24</code>)</li>
+<li>Set the <strong>Gateway</strong> (e.g., <code>192.168.1.1</code>)</li>
+<li>Add <strong>DNS servers</strong> (e.g., <code>8.8.8.8, 1.1.1.1</code>)</li>
+<li>Click <strong>OK</strong> → <strong>Back</strong> → <strong>Quit</strong></li>
+<li>Restart the connection:</li>
+</ol>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="method-3-dhcpcdconf-legacy-method">Method 3: dhcpcd.conf — Legacy Method<a class="headerlink" href="#method-3-dhcpcdconf-legacy-method" title="Permanent link">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">For older Raspberry Pi OS versions only</p>
+<p>This method works on Raspberry Pi OS <strong>Bullseye and earlier</strong>, which use <code>dhcpcd</code> instead of NetworkManager. If you're on Bookworm or later, use Method 1.</p>
+</div>
+<p>Edit <code>/etc/dhcpcd.conf</code>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dhcpcd.conf
+</code></pre></div></td></tr></table></div>
+<p>Add at the end of the file:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a># Static IP for Ethernet
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>interface eth0
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>static ip_address=192.168.1.100/24
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>static routers=192.168.1.1
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>static domain_name_servers=8.8.8.8 1.1.1.1
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a># Static IP for Wi-Fi
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>interface wlan0
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a>static ip_address=192.168.1.101/24
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a>static routers=192.168.1.1
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a>static domain_name_servers=8.8.8.8 1.1.1.1
+</code></pre></div></td></tr></table></div>
+<p>Apply changes:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dhcpcd
+</code></pre></div></td></tr></table></div>
+<h2 id="configuring-ipv6-static-address">Configuring IPv6 Static Address<a class="headerlink" href="#configuring-ipv6-static-address" title="Permanent link">¶</a></h2>
+<p>To set a static IPv6 address alongside your IPv4 configuration:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Set static IPv6 address</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>ipv6.addresses<span class="w"> </span><span class="s2">"fd00::100/64"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>ipv6.gateway<span class="w"> </span><span class="s2">"fd00::1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>ipv6.method<span class="w"> </span>manual
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="c1"># Apply</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<p>To disable IPv6 entirely (useful for reducing attack surface on IoT devices):</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span>ipv6.method<span class="w"> </span>disabled
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="verifying-your-configuration">Verifying Your Configuration<a class="headerlink" href="#verifying-your-configuration" title="Permanent link">¶</a></h2>
+<p>After applying changes, verify everything works:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-13-10">10</a></span>
+<span class="normal"><a href="#__codelineno-13-11">11</a></span>
+<span class="normal"><a href="#__codelineno-13-12">12</a></span>
+<span class="normal"><a href="#__codelineno-13-13">13</a></span>
+<span class="normal"><a href="#__codelineno-13-14">14</a></span>
+<span class="normal"><a href="#__codelineno-13-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Check IP address</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eth0
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="c1"># Check gateway/routing</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>ip<span class="w"> </span>route<span class="w"> </span>show<span class="w"> </span>default
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="c1"># Check DNS resolution</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a>nslookup<span class="w"> </span>google.com
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="c1"># Test internet connectivity</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">8</span>.8.8.8
+<a id="__codelineno-13-12" name="__codelineno-13-12"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>google.com
+<a id="__codelineno-13-13" name="__codelineno-13-13"></a>
+<a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="c1"># Check NetworkManager connection details</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ipv4
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="advanced-dhcp-reservation-alternative-approach">Advanced: DHCP Reservation (Alternative Approach)<a class="headerlink" href="#advanced-dhcp-reservation-alternative-approach" title="Permanent link">¶</a></h2>
+<p>Instead of configuring a static IP on the Pi itself, you can reserve an IP in your <strong>router's DHCP settings</strong>. This way, the Pi still uses DHCP but always gets the same IP.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>No configuration changes on the Pi</li>
+<li>Centralized IP management on the router</li>
+<li>Works even after OS reinstall</li>
+</ul>
+<p><strong>How to set up:</strong></p>
+<ol>
+<li>Log into your router's admin page (usually <code>192.168.1.1</code>)</li>
+<li>Find <strong>DHCP Reservation</strong> or <strong>Address Reservation</strong> (varies by router)</li>
+<li>Add your Pi's MAC address and desired IP</li>
+<li>Save and restart the Pi</li>
+</ol>
+<p>Find your Pi's MAC address:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>eth0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ether
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="c1"># Example output: link/ether dc:a6:32:xx:xx:xx</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<h3 id="no-internet-after-setting-static-ip">"No internet after setting static IP"<a class="headerlink" href="#no-internet-after-setting-static-ip" title="Permanent link">¶</a></h3>
+<p><strong>Cause:</strong> Incorrect gateway or DNS settings.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c1"># Check if gateway is reachable</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">192</span>.168.1.1
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="c1"># If gateway works but DNS doesn't:</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">8</span>.8.8.8<span class="w">        </span><span class="c1"># Works → DNS problem</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>nslookup<span class="w"> </span>google.com<span class="w">       </span><span class="c1"># Fails → Confirm DNS issue</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="c1"># Fix DNS</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"8.8.8.8 1.1.1.1"</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="ip-address-conflict-detected">"IP address conflict detected"<a class="headerlink" href="#ip-address-conflict-detected" title="Permanent link">¶</a></h3>
+<p><strong>Cause:</strong> Another device on your network already uses the same IP.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Scan for IP conflicts</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>arp-scan
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>sudo<span class="w"> </span>arp-scan<span class="w"> </span>--localnet<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">192</span>.168.1.100
+</code></pre></div></td></tr></table></div>
+<p>Choose a different IP that's not in use.</p>
+<h3 id="static-ip-works-but-reverts-after-reboot">"Static IP works but reverts after reboot"<a class="headerlink" href="#static-ip-works-but-reverts-after-reboot" title="Permanent link">¶</a></h3>
+<p><strong>Cause:</strong> Multiple network managers are conflicting.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span>
+<span class="normal"><a href="#__codelineno-17-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Check which network manager is active</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>NetworkManager
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>systemctl<span class="w"> </span>status<span class="w"> </span>dhcpcd
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="c1"># On Bookworm, ensure dhcpcd is disabled</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>dhcpcd
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>dhcpcd
+</code></pre></div></td></tr></table></div>
+<h3 id="cannot-ssh-after-changing-ip">"Cannot SSH after changing IP"<a class="headerlink" href="#cannot-ssh-after-changing-ip" title="Permanent link">¶</a></h3>
+<p><strong>Cause:</strong> You're trying to connect to the old IP.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span>
+<span class="normal"><a href="#__codelineno-18-5">5</a></span>
+<span class="normal"><a href="#__codelineno-18-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># From another machine, find the Pi's new IP:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="c1"># Option 1: Check your router's connected devices list</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="c1"># Option 2: Scan the network</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>nmap<span class="w"> </span>-sn<span class="w"> </span><span class="m">192</span>.168.1.0/24<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-B<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s2">"Raspberry"</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="c1"># Option 3: If you have mDNS working</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a>ping<span class="w"> </span>raspberrypi.local
+</code></pre></div></td></tr></table></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>Document your IP assignments</strong> — Keep a spreadsheet or document listing all static IPs on your network</li>
+<li><strong>Use IPs outside the DHCP range</strong> — Prevents conflicts with automatically assigned addresses</li>
+<li><strong>Always set a DNS server</strong> — Without DNS, you can reach IPs but not domain names</li>
+<li><strong>Test connectivity after changes</strong> — Always verify with <code>ping</code> before closing your SSH session</li>
+<li><strong>Have physical access as backup</strong> — If you lose network access, you'll need a keyboard and monitor</li>
+<li><strong>Consider DHCP reservation</strong> — Often easier and more maintainable than static configuration</li>
+</ol>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong><a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">Networking Setup and Management</a></strong> — Complete networking guide</li>
+<li><strong><a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless Setup Guide</a></strong> — Set up your Pi without a monitor</li>
+<li><strong><a href="../raspberry_pi_security_hardening_complete_guide/">Security Hardening Guide</a></strong> — Secure your network-connected Pi</li>
+<li><strong><a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale Remote Access</a></strong> — Access your Pi from anywhere without port forwarding</li>
+</ul></div>
 
 
 
 
 
 
+
+  
+  
 
 
 
