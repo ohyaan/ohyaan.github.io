@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Learn memory management in Modern C++. Master Stack vs Heap, the RAII paradigm, std::unique_ptr, std::shared_ptr, std::weak_ptr, circular reference leaks, and move semantics.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Learn memory management in Modern C++. Master Stack vs Heap, the RAII paradigm, std::unique_ptr, std::shared_ptr, std::weak_ptr, circular reference leaks, and move semantics.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Learn memory management in Modern C++. Master Stack vs Heap, the RAII paradigm, std::unique_ptr, std::shared_ptr, std::weak_ptr, circular reference leaks, and move semantics.">
+    <meta name="twitter:description" content="Learn memory management in Modern C++. Master Stack vs Heap, the RAII paradigm, std::unique_ptr, std::shared_ptr, std::weak_ptr, circular reference leaks, and move semantics.">
   
 
   <meta property="og:type" content="website">
@@ -1382,63 +1382,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#stack-vs-heap" class="md-nav__link">
+  <a href="#1-the-stack-and-the-heap" class="md-nav__link">
     <span class="md-ellipsis">
-      Stack vs. Heap
+      1. The Stack and the Heap
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pointers-vs-references" class="md-nav__link">
+  <a href="#2-legacy-manual-management-new-and-delete" class="md-nav__link">
     <span class="md-ellipsis">
-      Pointers vs. References
+      2. Legacy Manual Management: new and delete
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#raii-resource-acquisition-is-initialization" class="md-nav__link">
+  <a href="#3-the-raii-paradigm" class="md-nav__link">
     <span class="md-ellipsis">
-      RAII (Resource Acquisition Is Initialization)
+      3. The RAII Paradigm
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#smart-pointers-modern-c" class="md-nav__link">
+  <a href="#4-modern-c-smart-pointers" class="md-nav__link">
     <span class="md-ellipsis">
-      Smart Pointers (Modern C++)
+      4. Modern C++ Smart Pointers
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#move-semantics-c11" class="md-nav__link">
+  <a href="#5-circular-reference-leaks" class="md-nav__link">
     <span class="md-ellipsis">
-      Move Semantics (C++11)
+      5. Circular Reference Leaks
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-copy-vs-shallow-copy" class="md-nav__link">
+  <a href="#6-move-semantics-performance-optimized" class="md-nav__link">
     <span class="md-ellipsis">
-      Deep Copy vs. Shallow Copy
+      6. Move Semantics: Performance Optimized
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#related-guides" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices
+      Related Guides
     </span>
   </a>
   
@@ -1464,7 +1464,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1629,7 +1629,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -4815,127 +4815,308 @@
 
 
 <div><h1 id="memory-management">Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">¶</a></h1>
-<p>Managing memory efficiently and safely is one of C++'s core strengths. Modern C++ automates much of this using RAII and Smart Pointers, making manual <code>new</code> and <code>delete</code> largely obsolete.</p>
-<h2 id="stack-vs-heap">Stack vs. Heap<a class="headerlink" href="#stack-vs-heap" title="Permanent link">¶</a></h2>
-<p>Understanding where your data lives is crucial.</p>
-<h3 id="the-stack">The Stack<a class="headerlink" href="#the-stack" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Fast</strong>: Allocation is just moving a pointer.</li>
-<li><strong>Automatic</strong>: Variables are destroyed when they go out of scope.</li>
-<li><strong>Limited Size</strong>: Large arrays can cause a stack overflow.</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// On the stack</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w"> </span><span class="c1">// On the stack</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="p">}</span><span class="w"> </span><span class="c1">// x and array are automatically destroyed here</span>
+<p>Memory management is one of C++'s most powerful attributes, giving developers precise control over system resources. While legacy C++ required manual allocations prone to memory leaks, Modern C++ utilizes safety abstractions that automate resource lifetimes with near-zero runtime overhead.</p>
+<hr>
+<h2 id="1-the-stack-and-the-heap">1. The Stack and the Heap<a class="headerlink" href="#1-the-stack-and-the-heap" title="Permanent link">¶</a></h2>
+<p>A running C++ program splits its allocated RAM into several areas, most notably the <strong>Stack</strong> and the <strong>Heap</strong>.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>    High Memory Addresses
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>    ┌───────────────────────────┐
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>    │          Stack            │  ◄── Local variables, grows downwards
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>    │            │              │
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>    │            ▼              │
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>    │                           │
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>    │            ▲              │
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>    │            │              │
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>    │          Heap             │  ◄── Dynamic variables (new/malloc), grows upwards
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>    └───────────────────────────┘
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>    Low Memory Addresses
 </code></pre></div></td></tr></table></div>
-<h3 id="the-heap-free-store">The Heap (Free Store)<a class="headerlink" href="#the-heap-free-store" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Flexible</strong>: You control the lifetime.</li>
-<li><strong>Large</strong>: Limited only by system memory.</li>
-<li><strong>Slower</strong>: Allocation involves finding free blocks.</li>
-<li><strong>Manual Management</strong>: Requires explicit cleanup (or smart pointers).</li>
-</ul>
-<h2 id="pointers-vs-references">Pointers vs. References<a class="headerlink" href="#pointers-vs-references" title="Permanent link">¶</a></h2>
-<p>Both refer to data elsewhere in memory, but they have key differences.</p>
-<h3 id="references">References (<code>&amp;</code>)<a class="headerlink" href="#references" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Must be initialized</strong> when declared.</li>
-<li><strong>Cannot be null</strong>.</li>
-<li><strong>Cannot be reseated</strong> (cannot refer to a different object later).</li>
-<li><strong>Syntax</strong>: Use like a normal variable.</li>
-</ul>
+<h3 id="the-stack-automatic-storage">The Stack (Automatic Storage)<a class="headerlink" href="#the-stack-automatic-storage" title="Permanent link">¶</a></h3>
+<p>The stack is a "LIFO" (Last In, First Out) memory structure managed automatically by the CPU.
+- <strong>Speed</strong>: Extremely fast. Allocation is just incrementing the stack pointer register.
+- <strong>Lifetime</strong>: Managed by scope. When a variable goes out of scope (e.g. at a closing brace <code>}</code>), its memory is popped and automatically freed.
+- <strong>Limitations</strong>: Relatively small size (typically 1–8 MB depending on the OS). Allocating massive arrays on the stack causes a <strong>Stack Overflow</strong> crash.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="c1">// a is now 20</span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">calculate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span><span class="w"> </span><span class="c1">// 4 KB on the stack (Automatic destruction at end of function)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">}</span><span class="w"> </span>
 </code></pre></div></td></tr></table></div>
-<h3 id="pointers">Pointers (<code>*</code>)<a class="headerlink" href="#pointers" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Can be uninitialized</strong> (dangerous!).</li>
-<li><strong>Can be null</strong> (<code>nullptr</code>).</li>
-<li><strong>Can be reseated</strong>.</li>
-<li><strong>Syntax</strong>: Use <code>*</code> to dereference (access value) and <code>-&gt;</code> to access members.</li>
-</ul>
+<h3 id="the-heap-dynamic-storage-free-store">The Heap (Dynamic Storage / Free Store)<a class="headerlink" href="#the-heap-dynamic-storage-free-store" title="Permanent link">¶</a></h3>
+<p>The heap is a large pool of system memory managed manually or via runtime libraries.
+- <strong>Speed</strong>: Slower. The OS must search for a free block of suitable size.
+- <strong>Lifetime</strong>: Controlled entirely by the programmer. Variables persist until explicitly deleted.
+- <strong>Limitations</strong>: Large capacity (limited by system RAM). Requires careful management to prevent leaks.</p>
+<hr>
+<h2 id="2-legacy-manual-management-new-and-delete">2. Legacy Manual Management: <code>new</code> and <code>delete</code><a class="headerlink" href="#2-legacy-manual-management-new-and-delete" title="Permanent link">¶</a></h2>
+<p>Historically, C++ allocated heap memory using <code>new</code> and freed it using <code>delete</code>.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// ptr holds the address of a</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">     </span><span class="c1">// a is now 20</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// ptr now points to nothing</span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// Allocate an integer on the heap</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">pVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1">// Allocate an array of integers on the heap</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">pArr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span><span class="w"> </span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">// Cleanup (Must match! array allocation requires delete[])</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="k">delete</span><span class="w"> </span><span class="n">pVal</span><span class="p">;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">pArr</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="raii-resource-acquisition-is-initialization">RAII (Resource Acquisition Is Initialization)<a class="headerlink" href="#raii-resource-acquisition-is-initialization" title="Permanent link">¶</a></h2>
-<p>This is the most important idiom in C++. It binds the life cycle of a resource (memory, file, lock) to the life cycle of an object.</p>
-<ul>
-<li><strong>Constructor</strong>: Acquires the resource.</li>
-<li><strong>Destructor</strong>: Releases the resource.</li>
-</ul>
-<p>Because stack objects are destroyed automatically, RAII guarantees no resource leaks, even if exceptions are thrown.</p>
-<h2 id="smart-pointers-modern-c">Smart Pointers (Modern C++)<a class="headerlink" href="#smart-pointers-modern-c" title="Permanent link">¶</a></h2>
-<p>Never use <code>new</code> and <code>delete</code> directly unless you are writing a low-level data structure. Use smart pointers from <code>&lt;memory&gt;</code>.</p>
-<h3 id="stdunique_ptr"><code>std::unique_ptr</code><a class="headerlink" href="#stdunique_ptr" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Exclusive ownership</strong>: Only one pointer owns the object.</li>
-<li><strong>Zero overhead</strong>: Same size and speed as a raw pointer.</li>
-<li><strong>Transferable</strong>: Can be moved (<code>std::move</code>), but not copied.</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">process</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">();</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">do_something</span><span class="p">();</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">}</span><span class="w"> </span><span class="c1">// ptr is destroyed, MyClass is deleted automatically</span>
+<h3 id="the-dangers-of-manual-management">The Dangers of Manual Management<a class="headerlink" href="#the-dangers-of-manual-management" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Memory Leaks</strong>: Forgetting to call <code>delete</code> keeps memory allocated, slowly consuming RAM until the OS terminates the process.</li>
+<li><strong>Dangling Pointers</strong>: Accessing a pointer after its memory has been deleted.</li>
+<li><strong>Double Free</strong>: Calling <code>delete</code> twice on the same memory address, causing heap corruption.</li>
+<li><strong>Exception Unsafety</strong>: If an exception is thrown between <code>new</code> and <code>delete</code>, the delete statement is bypassed, causing a leak.</li>
+</ol>
+<hr>
+<h2 id="3-the-raii-paradigm">3. The RAII Paradigm<a class="headerlink" href="#3-the-raii-paradigm" title="Permanent link">¶</a></h2>
+<p><strong>RAII (Resource Acquisition Is Initialization)</strong> is the single most important design pattern in C++. It binds the lifetime of a resource (heap memory, file handles, network sockets, database connections, or mutex locks) to the lifetime of a stack-allocated object.</p>
+<ol>
+<li><strong>Acquire</strong> the resource inside the object's <strong>constructor</strong>.</li>
+<li><strong>Release</strong> the resource inside the object's <strong>destructor</strong>.</li>
+</ol>
+<p>Since stack-allocated objects are guaranteed to call their destructors when going out of scope—even during exceptions—resources are never leaked.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mutex&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">write_to_file</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="w"> </span><span class="n">file_mutex</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="c1">// RAII Lock: locks mutex on initialization, unlocks automatically at end of scope</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">lock_guard</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">(</span><span class="n">file_mutex</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="c1">// RAII File: opens file on initialization, closes automatically in destructor</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="s">"log.txt"</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Writing secure log data.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="p">}</span><span class="w"> </span><span class="c1">// 'file' and 'lock' go out of scope here. Mutex unlocked, file closed.</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="stdshared_ptr"><code>std::shared_ptr</code><a class="headerlink" href="#stdshared_ptr" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Shared ownership</strong>: Multiple pointers can own the same object.</li>
-<li><strong>Reference counting</strong>: The object is deleted only when the last <code>shared_ptr</code> is destroyed.</li>
-<li><strong>Overhead</strong>: Slightly slower due to reference counting.</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">ptr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">();</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Both point to the same object, ref_count = 2</span>
+<hr>
+<h2 id="4-modern-c-smart-pointers">4. Modern C++ Smart Pointers<a class="headerlink" href="#4-modern-c-smart-pointers" title="Permanent link">¶</a></h2>
+<p>Modern C++ has made manual <code>new</code> and <code>delete</code> obsolete. The standard library provides three <strong>smart pointer</strong> templates in the <code>&lt;memory&gt;</code> header. They are stack objects that wrap raw pointers and leverage RAII to delete the underlying heap memory automatically.</p>
+<h3 id="1-stdunique_ptrt">1. <code>std::unique_ptr&lt;T&gt;</code><a class="headerlink" href="#1-stdunique_ptrt" title="Permanent link">¶</a></h3>
+<p>Represents <strong>exclusive ownership</strong> of a heap resource. Only one <code>unique_ptr</code> can point to the resource at a time. It cannot be copied, only moved.</p>
+<p></p><div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Device</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">ping</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Device active</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="p">};</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="kt">void</span><span class="w"> </span><span class="nf">run_device</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="c1">// Preferred creation method (Exception-safe and clean)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="n">dev</span><span class="o">-&gt;</span><span class="n">ping</span><span class="p">();</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="c1">// std::unique_ptr&lt;Device&gt; copy_dev = dev; // Compile Error! Copying is forbidden.</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;</span><span class="w"> </span><span class="n">moved_dev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dev</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK. 'dev' is now null.</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="p">}</span><span class="w"> </span><span class="c1">// 'moved_dev' goes out of scope here; Device is automatically deleted.</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="stdweak_ptr"><code>std::weak_ptr</code><a class="headerlink" href="#stdweak_ptr" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Non-owning observer</strong>: Points to an object managed by <code>shared_ptr</code> without increasing the reference count.</li>
-<li><strong>Prevents cyclic references</strong>: Essential for tree/graph structures.</li>
-</ul>
-<h2 id="move-semantics-c11">Move Semantics (C++11)<a class="headerlink" href="#move-semantics-c11" title="Permanent link">¶</a></h2>
-<p>Move semantics allow resources to be <strong>transferred</strong> rather than copied. This is a massive performance optimization.</p>
-<h3 id="lvalues-vs-rvalues">Lvalues vs. Rvalues<a class="headerlink" href="#lvalues-vs-rvalues" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Lvalue</strong>: Has a name and an address (e.g., <code>x</code>).</li>
-<li><strong>Rvalue</strong>: Temporary value (e.g., <code>10</code>, <code>x + y</code>, return value of a function).</li>
-</ul>
-<h3 id="stdmove"><code>std::move</code><a class="headerlink" href="#stdmove" title="Permanent link">¶</a></h3>
-<p>Casts an lvalue to an rvalue, enabling the move constructor/assignment.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span><span class="w"> </span>
+<em>Overhead: Zero. Compiles down to the exact same assembly as a raw pointer.</em>
+<h3 id="2-stdshared_ptrt">2. <code>std::shared_ptr&lt;T&gt;</code><a class="headerlink" href="#2-stdshared_ptrt" title="Permanent link">¶</a></h3>
+<p>Represents <strong>shared ownership</strong> of a resource. Multiple <code>shared_ptr</code> objects can point to the same resource. It maintains an internal <strong>Reference Count</strong> block.
+- Creating/copying a <code>shared_ptr</code> increments the count.
+- Destroying a <code>shared_ptr</code> decrements the count.
+- When the reference count reaches 0, the heap resource is deleted.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1">// v2 now owns the data. </span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="c1">// v1 is empty (valid but unspecified state).</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">shared_demo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// ref_count = 1</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span><span class="w"> </span><span class="c1">// ref_count = 2</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">p2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">// p2 goes out of scope, ref_count = 1</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="p">}</span><span class="w"> </span><span class="c1">// p1 goes out of scope, ref_count = 0, heap memory is deleted.</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="deep-copy-vs-shallow-copy">Deep Copy vs. Shallow Copy<a class="headerlink" href="#deep-copy-vs-shallow-copy" title="Permanent link">¶</a></h2>
+<h3 id="why-use-stdmake_shared">Why Use <code>std::make_shared</code>?<a class="headerlink" href="#why-use-stdmake_shared" title="Permanent link">¶</a></h3>
+<p>Using <code>std::shared_ptr&lt;T&gt;(new T)</code> performs two separate heap allocations: one for the object <code>T</code>, and one for the reference control block. <code>std::make_shared</code> allocates both in a single contiguous block, improving cache locality and performance.</p>
+<h3 id="3-stdweak_ptrt">3. <code>std::weak_ptr&lt;T&gt;</code><a class="headerlink" href="#3-stdweak_ptrt" title="Permanent link">¶</a></h3>
+<p>A <strong>non-owning observer</strong> pointing to an object managed by <code>std::shared_ptr</code>. It does not increment the reference count. To access the resource, it must be promoted to a <code>shared_ptr</code> using <code>.lock()</code>.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">weak_demo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shared</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">weak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shared</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">    </span><span class="c1">// Check if the object still exists before accessing</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">locked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weak</span><span class="p">.</span><span class="n">lock</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Value: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">locked</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Resource has already been deleted.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="5-circular-reference-leaks">5. Circular Reference Leaks<a class="headerlink" href="#5-circular-reference-leaks" title="Permanent link">¶</a></h2>
+<p>A major vulnerability of <code>std::shared_ptr</code> is the <strong>Circular Reference</strong> (or reference cycle). If two objects contain <code>shared_ptr</code>s pointing to each other, their reference counts can never drop to 0, resulting in a permanent memory leak.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>       ┌───────────┐  shared_ptr   ┌───────────┐
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>       │  Node A   │ ────────────&amp;gt; │  Node B   │
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>       │           │ &amp;lt;──────────── │           │
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>       └───────────┘  shared_ptr   └───────────┘
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>     (Ref Count = 1)             (Ref Count = 1)
+</code></pre></div></td></tr></table></div>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span><span class="w"> </span><span class="n">partner</span><span class="p">;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="o">~</span><span class="n">Node</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Node destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="p">};</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="kt">void</span><span class="w"> </span><span class="nf">create_leak</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">    </span><span class="n">a</span><span class="o">-&gt;</span><span class="n">partner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// b ref count = 2</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">    </span><span class="n">b</span><span class="o">-&gt;</span><span class="n">partner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// a ref count = 2</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="p">}</span><span class="w"> </span><span class="c1">// a and b stack variables go out of scope. </span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">  </span><span class="c1">// ref counts decrement to 1. Neither destructor runs! Memory is leaked.</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="the-fix-use-stdweak_ptr">The Fix: Use <code>std::weak_ptr</code><a class="headerlink" href="#the-fix-use-stdweak_ptr" title="Permanent link">¶</a></h3>
+<p>Break the cycle by declaring one of the pointers as a <code>weak_ptr</code>:</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span>
+<span class="normal"><a href="#__codelineno-9-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Node</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span><span class="w"> </span><span class="n">partner</span><span class="p">;</span><span class="w"> </span><span class="c1">// Observer. Resolves cyclic reference.</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="o">~</span><span class="n">Node</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Node destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="6-move-semantics-performance-optimized">6. Move Semantics: Performance Optimized<a class="headerlink" href="#6-move-semantics-performance-optimized" title="Permanent link">¶</a></h2>
+<p>C++11 introduced <strong>Move Semantics</strong> to eliminate expensive deep copy operations on temporary objects (Rvalues). Instead of copying the underlying memory block, a move constructor "steals" the pointer from the source object, resetting the source's pointer to null.</p>
 <ul>
-<li><strong>Shallow Copy</strong>: Copies pointer values. Both objects point to the same memory. (Dangerous if not handled carefully).</li>
-<li><strong>Deep Copy</strong>: Allocates new memory and copies the actual data. (Safer but slower).</li>
+<li><strong>Lvalues</strong>: Objects that have an identifiable location in memory (an address) and a name (e.g., <code>int x</code>).</li>
+<li><strong>Rvalues</strong>: Temporary values that do not persist beyond the expression (e.g., the result of <code>x + y</code>, or a temporary string returned by a function).</li>
 </ul>
-<p>Smart pointers and STL containers handle this correctly automatically.</p>
+<p><code>std::move</code> casts an Lvalue into an Rvalue reference (<code>T&amp;&amp;</code>), signaling to the compiler that the resource can be safely moved.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">    </span><span class="c1">// Moves data from source to destination.</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="c1">// Underlying array pointer is copied, and source is set to empty.</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">destination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">source</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Source size: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w">           </span><span class="c1">// Prints 0</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Destination size: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">destination</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Prints 5</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../../part1/6.pointers_references/">Pointers and References</a> — Address basics and pointer types.</li>
+<li><a href="../2.classes_objects/">Classes and Objects</a> — Destructors, copy constructors, and move assignment.</li>
+</ul>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -4943,21 +5124,16 @@
   <script>
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-</div>
-
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
-<ol>
-<li><strong>Prefer Stack</strong>: Use stack variables whenever possible.</li>
-<li><strong>Use <code>std::unique_ptr</code></strong>: By default for heap allocation.</li>
-<li><strong>Use <code>std::shared_ptr</code></strong>: Only when ownership is truly shared.</li>
-<li><strong>Avoid <code>new</code>/<code>delete</code></strong>: They are error-prone.</li>
-</ol></div>
+</div></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

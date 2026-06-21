@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Deep dive into C++ functions. Learn declaration vs definition, parameter passing mechanisms, name mangling, lambdas, constexpr functions, and trailing return types.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Deep dive into C++ functions. Learn declaration vs definition, parameter passing mechanisms, name mangling, lambdas, constexpr functions, and trailing return types.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Deep dive into C++ functions. Learn declaration vs definition, parameter passing mechanisms, name mangling, lambdas, constexpr functions, and trailing return types.">
+    <meta name="twitter:description" content="Deep dive into C++ functions. Learn declaration vs definition, parameter passing mechanisms, name mangling, lambdas, constexpr functions, and trailing return types.">
   
 
   <meta property="og:type" content="website">
@@ -1259,63 +1259,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#declaration-and-definition" class="md-nav__link">
+  <a href="#1-declarations-vs-definitions" class="md-nav__link">
     <span class="md-ellipsis">
-      Declaration and Definition
+      1. Declarations vs. Definitions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameter-passing" class="md-nav__link">
+  <a href="#2-parameter-passing-semantics" class="md-nav__link">
     <span class="md-ellipsis">
-      Parameter Passing
+      2. Parameter Passing Semantics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#function-overloading" class="md-nav__link">
+  <a href="#3-function-overloading-name-mangling" class="md-nav__link">
     <span class="md-ellipsis">
-      Function Overloading
+      3. Function Overloading &amp; Name Mangling
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#default-arguments" class="md-nav__link">
+  <a href="#4-lambda-expressions" class="md-nav__link">
     <span class="md-ellipsis">
-      Default Arguments
+      4. Lambda Expressions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#inline-functions" class="md-nav__link">
+  <a href="#5-compile-time-functions-constexpr-and-consteval" class="md-nav__link">
     <span class="md-ellipsis">
-      inline Functions
+      5. Compile-Time Functions: constexpr and consteval
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#constexpr-functions" class="md-nav__link">
+  <a href="#6-trailing-return-types" class="md-nav__link">
     <span class="md-ellipsis">
-      constexpr Functions
+      6. Trailing Return Types
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#return-type-deduction-auto-c14" class="md-nav__link">
+  <a href="#related-guides" class="md-nav__link">
     <span class="md-ellipsis">
-      Return Type Deduction (auto) (C++14)
+      Related Guides
     </span>
   </a>
   
@@ -1464,7 +1464,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1629,7 +1629,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -4815,95 +4815,127 @@
 
 
 <div><h1 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">¶</a></h1>
-<p>Functions are the fundamental units of code organization in C++. They allow you to break down complex tasks into smaller, reusable pieces.</p>
-<h2 id="declaration-and-definition">Declaration and Definition<a class="headerlink" href="#declaration-and-definition" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Declaration (Prototype)</strong>: Tells the compiler about the function's name, return type, and parameters. Usually in header files (<code>.h</code>).</li>
-<li><strong>Definition</strong>: The actual implementation of the function. Usually in source files (<code>.cpp</code>).</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// Declaration</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<p>Functions are the building blocks of C++ codebases. They encapsulate logic, promote code reuse, and control execution paths. Modern C++ provides highly optimized ways to declare, parameterize, and execute functional logic, including inline execution and lambdas.</p>
+<hr>
+<h2 id="1-declarations-vs-definitions">1. Declarations vs. Definitions<a class="headerlink" href="#1-declarations-vs-definitions" title="Permanent link">¶</a></h2>
+<p>To keep source code organized, C++ splits code components into:
+- <strong>Declaration (Prototype)</strong>: Specifies the function's interface (name, parameters, and return type). It does not contain code. Typically put in <strong>header files (<code>.hpp</code> or <code>.h</code>)</strong>.
+- <strong>Definition</strong>: The actual implementation containing the logic. Typically written in <strong>source files (<code>.cpp</code>)</strong>.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// math_utils.hpp</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="cp">#pragma once </span><span class="c1">// Prevents double inclusion</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">// Definition</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="p">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// Function Declaration</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">// math_utils.cpp</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"math_utils.hpp"</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="kt">int</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Function Definition</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="parameter-passing">Parameter Passing<a class="headerlink" href="#parameter-passing" title="Permanent link">¶</a></h2>
-<p>How you pass data to functions matters for performance and safety.</p>
+<hr>
+<h2 id="2-parameter-passing-semantics">2. Parameter Passing Semantics<a class="headerlink" href="#2-parameter-passing-semantics" title="Permanent link">¶</a></h2>
+<p>In C++, how you pass arguments to a function has massive implications for performance and safety.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>       1. Pass-by-Value
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>       ┌──────────────────┐
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>       │   Copies Data    │ ◄── [Primitive types like int, double, bool]
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>       └──────────────────┘
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>       2. Pass-by-Reference
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>       ┌──────────────────┐
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>       │ Modifies Original│ ◄── [Output parameters / updating state]
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>       └──────────────────┘
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>       3. Pass-by-Const-Reference
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>       ┌──────────────────┐
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>       │  Zero-Copy/Read  │ ◄── [Large objects: std::string, std::vector]
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>       └──────────────────┘
+</code></pre></div></td></tr></table></div>
 <h3 id="1-pass-by-value">1. Pass by Value<a class="headerlink" href="#1-pass-by-value" title="Permanent link">¶</a></h3>
-<p>Creates a copy of the argument. Safe, but slow for large objects.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print_int</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// x is a copy</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// Does not affect the caller's variable</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="2-pass-by-reference">2. Pass by Reference (<code>&amp;</code>)<a class="headerlink" href="#2-pass-by-reference" title="Permanent link">¶</a></h3>
-<p>Passes the original object. Fast (no copy), but allows modification.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<p>The compiler creates a copy of the argument. Modifications inside the function do not affect the original variable.
+</p><div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">increment</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="n">x</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// Modifies the caller's variable</span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">updateValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="c1">// Changes local copy only</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="p">}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="n">updateValue</span><span class="p">(</span><span class="n">num</span><span class="p">);</span><span class="w"> </span><span class="c1">// num remains 5</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="3-pass-by-const-reference-const">3. Pass by Const Reference (<code>const &amp;</code>)<a class="headerlink" href="#3-pass-by-const-reference-const" title="Permanent link">¶</a></h3>
-<p>The best of both worlds: fast (no copy) and safe (read-only). <strong>Use this for strings, vectors, and custom classes.</strong></p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<em>Best for: small types (1-8 bytes) like <code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>.</em>
+<h3 id="2-pass-by-reference">2. Pass by Reference (<code>&amp;</code>)<a class="headerlink" href="#2-pass-by-reference" title="Permanent link">¶</a></h3>
+<p>The function parameter becomes an alias for the original argument. Modifications directly affect the caller's variable.
+</p><div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
 <span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print_message</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="c1">// msg = "New"; // Error: Read-only</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">incrementValue</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="n">val</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="c1">// Modifies the original variable</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="function-overloading">Function Overloading<a class="headerlink" href="#function-overloading" title="Permanent link">¶</a></h2>
-<p>You can have multiple functions with the same name, as long as their parameter lists differ.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<em>Best for: output parameters or modifiable states.</em>
+<h3 id="3-pass-by-const-reference-const">3. Pass by Const Reference (<code>const &amp;</code>)<a class="headerlink" href="#3-pass-by-const-reference-const" title="Permanent link">¶</a></h3>
+<p>Passes a reference to avoid copying, but the compiler prevents any modification of the parameter.
+</p><div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Int: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Double: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"String: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">displayInfo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="c1">// info = "New State"; // Error: read-only reference</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="default-arguments">Default Arguments<a class="headerlink" href="#default-arguments" title="Permanent link">¶</a></h2>
-<p>You can provide default values for parameters. They must be at the end of the parameter list.</p>
+<em>Best for: large types like <code>std::string</code>, <code>std::vector</code>, and custom classes/structs.</em>
+<hr>
+<h2 id="3-function-overloading-name-mangling">3. Function Overloading &amp; Name Mangling<a class="headerlink" href="#3-function-overloading-name-mangling" title="Permanent link">¶</a></h2>
+<p>You can define multiple functions with the same name, as long as their parameter types or quantities differ. This is called <strong>Function Overloading</strong>.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
 <span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ip</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">80</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="c1">// ...</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="p">}</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">connect</span><span class="p">(</span><span class="s">"192.168.1.1"</span><span class="p">);</span><span class="w">      </span><span class="c1">// Uses port 80</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="n">connect</span><span class="p">(</span><span class="s">"192.168.1.1"</span><span class="p">,</span><span class="w"> </span><span class="mi">443</span><span class="p">);</span><span class="w"> </span><span class="c1">// Uses port 443</span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Integer: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Double: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"String: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<!-- Inline AdSense Component -->
-<div class="adsense-inline">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-<h2 id="inline-functions"><code>inline</code> Functions<a class="headerlink" href="#inline-functions" title="Permanent link">¶</a></h2>
-<p>The <code>inline</code> keyword suggests to the compiler to replace the function call with the function body itself. This can improve performance for small functions but increases binary size.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="p">}</span>
+<h3 id="how-name-mangling-works">How Name Mangling Works<a class="headerlink" href="#how-name-mangling-works" title="Permanent link">¶</a></h3>
+<p>Behind the scenes, the C++ compiler distinguishes overloaded functions by generating unique names for the linker. This is called <strong>Name Mangling</strong>. For example, the function <code>void print(int)</code> might compile to a linker symbol like <code>_Z5printi</code>, while <code>void print(double)</code> becomes <code>_Z5printd</code>.</p>
+<hr>
+<h2 id="4-lambda-expressions">4. Lambda Expressions<a class="headerlink" href="#4-lambda-expressions" title="Permanent link">¶</a></h2>
+<p>Lambdas are anonymous, in-line functions. They are extremely powerful for temporary operations (e.g., passing predicates to STL algorithms).</p>
+<h3 id="lambda-syntax-anatomy">Lambda Syntax Anatomy<a class="headerlink" href="#lambda-syntax-anatomy" title="Permanent link">¶</a></h3>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="p">[</span><span class="w"> </span><span class="n">capture_list</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">return_type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="constexpr-functions"><code>constexpr</code> Functions<a class="headerlink" href="#constexpr-functions" title="Permanent link">¶</a></h2>
-<p>These functions <em>can</em> be evaluated at compile-time if given constant arguments. This is powerful for performance.</p>
+<ul>
+<li><strong><code>[capture_list]</code></strong>: Defines what variables from the surrounding scope are accessible inside the lambda.<ul>
+<li><code>[]</code>: Empty capture. No outside variables are accessible.</li>
+<li><code>[=]</code>: Capture all variables in the surrounding scope <strong>by value</strong> (read-only copy).</li>
+<li><code>[&amp;]</code>: Capture all variables in the surrounding scope <strong>by reference</strong> (modifiable).</li>
+<li><code>[x, &amp;y]</code>: Capture <code>x</code> by value and <code>y</code> by reference.</li>
+</ul>
+</li>
+<li><strong><code>mutable</code></strong>: By default, lambdas capturing by value are read-only. Adding <code>mutable</code> allows you to modify variables captured by value inside the lambda body (though it won't affect the external variable).</li>
+</ul>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
@@ -4915,33 +4947,127 @@
 <span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-7-10">10</a></span>
 <span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="p">}</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="c1">// Evaluated at compile-time!</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w"> </span>
-<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">static_assert</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8"></a>
-<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="c1">// Evaluated at runtime</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="kt">int</span><span class="w"> </span><span class="n">input</span><span class="p">;</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">input</span><span class="p">;</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="kt">int</span><span class="w"> </span><span class="n">runtime_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="n">input</span><span class="p">);</span><span class="w"> </span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="c1">// Lambda capturing by value. Without 'mutable', 'counter++' would fail compilation.</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">increment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">counter</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">        </span><span class="n">counter</span><span class="o">++</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Inside lambda: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Prints 11</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">    </span><span class="n">increment</span><span class="p">();</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Outside lambda: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="c1">// Prints 10 (unchanged)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="return-type-deduction-auto-c14">Return Type Deduction (<code>auto</code>) (C++14)<a class="headerlink" href="#return-type-deduction-auto-c14" title="Permanent link">¶</a></h2>
-<p>The compiler can deduce the return type from the <code>return</code> statement.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Deduced as int</span>
+<hr>
+<h2 id="5-compile-time-functions-constexpr-and-consteval">5. Compile-Time Functions: <code>constexpr</code> and <code>consteval</code><a class="headerlink" href="#5-compile-time-functions-constexpr-and-consteval" title="Permanent link">¶</a></h2>
+<h3 id="constexpr-functions"><code>constexpr</code> Functions<a class="headerlink" href="#constexpr-functions" title="Permanent link">¶</a></h3>
+<p>A <code>constexpr</code> function can be evaluated at compile time if the inputs are known at compile time. If the inputs are only known at runtime, it runs as a standard runtime function.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">add_constexpr</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div></div>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="c1">// Evaluated at compile-time (optimizes to direct constant placement)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_constexpr</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">val</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s">"Validation check"</span><span class="p">);</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="c1">// Evaluated at runtime</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add_constexpr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"> </span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="consteval-functions-c20"><code>consteval</code> Functions (C++20)<a class="headerlink" href="#consteval-functions-c20" title="Permanent link">¶</a></h3>
+<p>Introduced in C++20, <code>consteval</code> functions (also known as immediate functions) <strong>must</strong> be evaluated at compile time. Running them with runtime parameters generates a compiler error.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">consteval</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">force_compile_time_math</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="p">}</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">force_compile_time_math</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">    </span><span class="c1">// int run_val = 5;</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">    </span><span class="c1">// int ans2 = force_compile_time_math(run_val); </span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">    </span><span class="c1">// ERROR: run_val is not a compile-time constant!</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="6-trailing-return-types">6. Trailing Return Types<a class="headerlink" href="#6-trailing-return-types" title="Permanent link">¶</a></h2>
+<p>Modern C++ provides two ways to specify return types:
+1. <strong>Auto Deduction (C++14)</strong>: The compiler deduces the return type automatically from the return statement.
+2. <strong>Trailing Return Type</strong>: Useful when the return type depends on the parameters or when writing complex template functions.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span>
+<span class="normal"><a href="#__codelineno-10-8">8</a></span>
+<span class="normal"><a href="#__codelineno-10-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1">// 1. Auto deduction</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Deduced as int</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="p">}</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="c1">// 2. Trailing return type</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="k">auto</span><span class="w"> </span><span class="n">multiply</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../2.basic_syntax/">Basic Syntax</a> — Variable types and initialization.</li>
+<li><a href="../../part3/1.templates/">Templates</a> — Generic template functions.</li>
+</ul>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

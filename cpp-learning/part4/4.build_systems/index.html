@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Guide to C++ build systems. Master compilations, Makefiles structure, modern target-based CMake, library differences, and automatic dependency management.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Guide to C++ build systems. Master compilations, Makefiles structure, modern target-based CMake, library differences, and automatic dependency management.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Guide to C++ build systems. Master compilations, Makefiles structure, modern target-based CMake, library differences, and automatic dependency management.">
+    <meta name="twitter:description" content="Guide to C++ build systems. Master compilations, Makefiles structure, modern target-based CMake, library differences, and automatic dependency management.">
   
 
   <meta property="og:type" content="website">
@@ -1358,7 +1358,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1523,7 +1523,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -1714,36 +1714,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-compilation-process" class="md-nav__link">
+  <a href="#1-why-do-we-need-build-systems" class="md-nav__link">
     <span class="md-ellipsis">
-      The Compilation Process
+      1. Why Do We Need Build Systems?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#make" class="md-nav__link">
+  <a href="#2-make-and-makefiles" class="md-nav__link">
     <span class="md-ellipsis">
-      Make
+      2. Make and Makefiles
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#cmake" class="md-nav__link">
+  <a href="#3-modern-target-based-cmake" class="md-nav__link">
     <span class="md-ellipsis">
-      CMake
+      3. Modern Target-Based CMake
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#libraries" class="md-nav__link">
+  <a href="#4-third-party-dependency-management-fetchcontent" class="md-nav__link">
     <span class="md-ellipsis">
-      Libraries
+      4. Third-Party Dependency Management: FetchContent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-static-vs-dynamic-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Static vs. Dynamic Libraries
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -4788,71 +4806,207 @@
 
 
 <div><h1 id="build-systems">Build Systems<a class="headerlink" href="#build-systems" title="Permanent link">¶</a></h1>
-<p>C++ code needs to be compiled and linked. While you can use the compiler directly, build systems automate this process.</p>
-<h2 id="the-compilation-process">The Compilation Process<a class="headerlink" href="#the-compilation-process" title="Permanent link">¶</a></h2>
-<ol>
-<li><strong>Preprocessing</strong>: Handles <code>#include</code>, <code>#define</code>, etc.</li>
-<li><strong>Compilation</strong>: Translates C++ to Assembly/Machine Code (Object files <code>.o</code>).</li>
-<li><strong>Linking</strong>: Combines object files and libraries into an executable.</li>
-</ol>
-<h2 id="make">Make<a class="headerlink" href="#make" title="Permanent link">¶</a></h2>
-<p>The classic build tool. Uses a <code>Makefile</code>.</p>
-<div class="language-makefile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c"># Simple Makefile</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">CXX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>g++
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nv">CXXFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-std<span class="o">=</span>c++20<span class="w"> </span>-Wall
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">my_program</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="nf">my_program</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>.<span class="n">o</span> <span class="n">utils</span>.<span class="n">o</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>my_program<span class="w"> </span>main.o<span class="w"> </span>utils.o
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="nf">main.o</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>.<span class="n">cpp</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>main.cpp
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="nf">clean</span><span class="o">:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span>*.o<span class="w"> </span>my_program
+<p>Writing C++ code is only the first step. To execute the code, it must be compiled and linked. While using the compiler directly works for single-file projects, professional C++ development relies on automated build systems to manage multiple dependencies, trigger incremental compilations, and compile binaries across different platforms.</p>
+<hr>
+<h2 id="1-why-do-we-need-build-systems">1. Why Do We Need Build Systems?<a class="headerlink" href="#1-why-do-we-need-build-systems" title="Permanent link">¶</a></h2>
+<p>A typical C++ application consists of multiple header files (<code>.hpp</code>) and source files (<code>.cpp</code>). If you modify only a single <code>.cpp</code> file, compiling the entire project from scratch is highly inefficient.</p>
+<p>A <strong>Build System</strong> performs the following:
+1. <strong>Dependency Tracking</strong>: Knows which source files depend on which headers.
+2. <strong>Incremental Compilations</strong>: Compiles <em>only</em> the modified files, linking them with the cached unchanged object files.
+3. <strong>Linker Orchestration</strong>: Manages linking order and integrates external third-party libraries.</p>
+<hr>
+<h2 id="2-make-and-makefiles">2. Make and Makefiles<a class="headerlink" href="#2-make-and-makefiles" title="Permanent link">¶</a></h2>
+<p><code>make</code> is a classic build tool that reads instructions from a file named <code>Makefile</code>. It uses <strong>rules</strong> to compile code based on file timestamps.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>       Target (File to create)
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>         │
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>         ▼
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>     my_program : main.o utils.o  ◄── Dependencies (Prerequisites)
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>    ┌───────────────────────────┐
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>    │  $(CXX) -o my_program ... │  ◄── Command (Must be preceded by a TAB character)
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>    └───────────────────────────┘
 </code></pre></div></td></tr></table></div>
-<h2 id="cmake">CMake<a class="headerlink" href="#cmake" title="Permanent link">¶</a></h2>
-<p>The modern standard. It generates build files (like Makefiles) for you. It is cross-platform.</p>
-<h3 id="cmakeliststxt"><code>CMakeLists.txt</code><a class="headerlink" href="#cmakeliststxt" title="Permanent link">¶</a></h3>
-<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.10</span><span class="p">)</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">MyProject</span><span class="p">)</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">20</span><span class="p">)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_program</span><span class="w"> </span><span class="s">main.cpp</span><span class="w"> </span><span class="s">utils.cpp</span><span class="p">)</span>
+<h3 id="anatomy-of-a-simple-makefile">Anatomy of a Simple <code>Makefile</code><a class="headerlink" href="#anatomy-of-a-simple-makefile" title="Permanent link">¶</a></h3>
+<div class="language-makefile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c"># Define variables</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">CXX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>g++
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nv">CXXFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-std<span class="o">=</span>c++20<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-O2
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c"># The default target</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">my_program</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="c"># Rule to link the final executable</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="nf">my_program</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>.<span class="n">o</span> <span class="n">utils</span>.<span class="n">o</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>my_program<span class="w"> </span>main.o<span class="w"> </span>utils.o
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c"># Rule to compile main.cpp to object file</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="nf">main.o</span><span class="o">:</span><span class="w"> </span><span class="n">main</span>.<span class="n">cpp</span> <span class="n">utils</span>.<span class="n">hpp</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>main.cpp
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="c"># Rule to compile utils.o</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="nf">utils.o</span><span class="o">:</span><span class="w"> </span><span class="n">utils</span>.<span class="n">cpp</span> <span class="n">utils</span>.<span class="n">hpp</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="k">$(</span>CXX<span class="k">)</span><span class="w"> </span><span class="k">$(</span>CXXFLAGS<span class="k">)</span><span class="w"> </span>-c<span class="w"> </span>utils.cpp
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="c"># Cleanup rule</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="nf">clean</span><span class="o">:</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span>*.o<span class="w"> </span>my_program
 </code></pre></div></td></tr></table></div>
-<h3 id="building-with-cmake">Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir<span class="w"> </span>build
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>build
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cmake<span class="w"> </span>..
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>make
-</code></pre></div></td></tr></table></div>
-<h2 id="libraries">Libraries<a class="headerlink" href="#libraries" title="Permanent link">¶</a></h2>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Strict Tab Constraint:</strong>
+Makefile commands <strong>must</strong> be indented using a literal <strong>Tab character</strong>. Using spaces instead of a tab will cause <code>make</code> to fail with a syntax error.</p>
+</blockquote>
+<hr>
+<h2 id="3-modern-target-based-cmake">3. Modern Target-Based CMake<a class="headerlink" href="#3-modern-target-based-cmake" title="Permanent link">¶</a></h2>
+<p><code>make</code> is platform-dependent and becomes verbose in large projects. <strong>CMake</strong> is a meta-build system. It does not compile code directly; instead, it generates build files (like Makefiles for Linux, or Visual Studio Project files for Windows).</p>
+<h3 id="legacy-vs-modern-target-based-cmake">Legacy vs. Modern Target-Based CMake<a class="headerlink" href="#legacy-vs-modern-target-based-cmake" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Static Library (<code>.a</code> / <code>.lib</code>)</strong>: Code is copied into your executable. Larger size, no runtime dependency.</li>
-<li><strong>Dynamic/Shared Library (<code>.so</code> / <code>.dll</code>)</strong>: Code is loaded at runtime. Smaller executable, requires library to be present.</li>
+<li><strong>Legacy CMake (Avoid)</strong>: Set global settings using <code>include_directories()</code> and <code>link_libraries()</code>. This pollutes all targets in a project.</li>
+<li><strong>Modern CMake (Preferred)</strong>: Uses a <strong>Target-Based</strong> approach where properties are bound directly to specific executable or library targets using <code>target_*</code> commands.</li>
+</ul>
+<h3 id="modern-cmakeliststxt-structure">Modern <code>CMakeLists.txt</code> Structure<a class="headerlink" href="#modern-cmakeliststxt-structure" title="Permanent link">¶</a></h3>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">SensorApp</span><span class="w"> </span><span class="s">VERSION</span><span class="w"> </span><span class="s">1.0</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c"># Require C++20</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">20</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c"># 1. Create a Library Target (contains utility logic)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="nb">add_library</span><span class="p">(</span><span class="s">sensor_lib</span><span class="w"> </span><span class="s">STATIC</span><span class="w"> </span><span class="s">src/sensor.cpp</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c"># Specify include directories public to anyone linking this library</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="nb">target_include_directories</span><span class="p">(</span><span class="s">sensor_lib</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s">include</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="c"># 2. Create the Executable Target</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">app</span><span class="w"> </span><span class="s">src/main.cpp</span><span class="p">)</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="c"># 3. Link targets (app inherits include paths of sensor_lib automatically)</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">sensor_lib</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="out-of-source-builds">Out-of-Source Builds<a class="headerlink" href="#out-of-source-builds" title="Permanent link">¶</a></h3>
+<p>To keep your source code clean, always compile C++ projects in a separate <code>build</code> folder:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>cmake<span class="w"> </span>..<span class="w">       </span><span class="c1"># 1. Generates Makefile based on CMakeLists.txt</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span><span class="c1"># 2. Runs the compiler (e.g. calls make)</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="4-third-party-dependency-management-fetchcontent">4. Third-Party Dependency Management: FetchContent<a class="headerlink" href="#4-third-party-dependency-management-fetchcontent" title="Permanent link">¶</a></h2>
+<p>Modern CMake (3.11+) provides a built-in module called <code>FetchContent</code> that automatically downloads, builds, and links external libraries at configure-time, solving the legacy problem of manually installing libraries to <code>/usr/local/lib</code>.</p>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c"># Declare external repository (e.g. nlohmann/json library)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nb">FetchContent_Declare</span><span class="p">(</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="s">json</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="s">GIT_REPOSITORY</span><span class="w"> </span><span class="s">https://github.com/nlohmann/json.git</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="s">GIT_TAG</span><span class="w">        </span><span class="s">v3.10.5</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c"># Download and load the project targets</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">json</span><span class="p">)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="c"># Link it to your executable</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">nlohmann_json::nlohmann_json</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="5-static-vs-dynamic-libraries">5. Static vs. Dynamic Libraries<a class="headerlink" href="#5-static-vs-dynamic-libraries" title="Permanent link">¶</a></h2>
+<p>When building libraries, you must choose between two formats:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>  Static Library (.a / .lib)
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>  ┌───────────┐     ┌───────────┐     ┌───────────────────────┐
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>  │ app.o     │  +  │ lib.a     │ ──&amp;gt; │ Compiled app (Large)  │
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>  └───────────┘     └───────────┘     └───────────────────────┘
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>                                      (Independent at runtime)
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>  Dynamic Library (.so / .dll)
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>  ┌───────────┐     ┌───────────┐     ┌───────────────────────┐
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>  │ app.o     │  +  │ lib.so    │ ──&amp;gt; │ Compiled app (Small)  │
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a>  └───────────┘     └───────────┘     └───────────────────────┘
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>                          │           (Requires lib.so file)
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>                          ▼
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a>                    Loaded at Runtime
+</code></pre></div></td></tr></table></div>
+<h3 id="1-static-libraries-a-on-linux-lib-on-windows">1. Static Libraries (<code>.a</code> on Linux, <code>.lib</code> on Windows)<a class="headerlink" href="#1-static-libraries-a-on-linux-lib-on-windows" title="Permanent link">¶</a></h3>
+<p>The linker copies all object code from the library directly into your final executable.
+- <strong>Pros</strong>: Independent. The executable can be distributed alone without any runtime library dependencies.
+- <strong>Cons</strong>: Large binary size. Modifying the library code requires compiling the entire application again.</p>
+<h3 id="2-dynamicshared-libraries-so-on-linux-dll-on-windows">2. Dynamic/Shared Libraries (<code>.so</code> on Linux, <code>.dll</code> on Windows)<a class="headerlink" href="#2-dynamicshared-libraries-so-on-linux-dll-on-windows" title="Permanent link">¶</a></h3>
+<p>The linker inserts a reference to the library, but the actual code is loaded dynamically in RAM when the application runs.
+- <strong>Pros</strong>: Small binary size. Multiple applications can share a single library file in RAM, reducing system memory usage.
+- <strong>Cons</strong>: Dependency issues ("DLL hell"). The application will crash on startup if the <code>.so</code> file is missing or updated with breaking changes.</p>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../../part1/1.introduction/">Introduction</a> — First compiler flags and basic compilation steps.</li>
+<li><a href="../../part3/1.containers/">STL Containers</a> — External STL code structure.</li>
 </ul>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
@@ -4868,6 +5022,9 @@
 
 
 
+
+  
+  
 
 
 

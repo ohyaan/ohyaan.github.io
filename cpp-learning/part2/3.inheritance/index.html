@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Guide to inheritance and polymorphism in Modern C++. Learn access modes, virtual tables (vtable/vptr), abstract interfaces, virtual destructors, and RTTI casts.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Guide to inheritance and polymorphism in Modern C++. Learn access modes, virtual tables (vtable/vptr), abstract interfaces, virtual destructors, and RTTI casts.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Guide to inheritance and polymorphism in Modern C++. Learn access modes, virtual tables (vtable/vptr), abstract interfaces, virtual destructors, and RTTI casts.">
+    <meta name="twitter:description" content="Guide to inheritance and polymorphism in Modern C++. Learn access modes, virtual tables (vtable/vptr), abstract interfaces, virtual destructors, and RTTI casts.">
   
 
   <meta property="og:type" content="website">
@@ -1360,7 +1360,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1426,45 +1426,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#inheritance-basics" class="md-nav__link">
+  <a href="#1-inheritance-basics" class="md-nav__link">
     <span class="md-ellipsis">
-      Inheritance Basics
+      1. Inheritance Basics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#polymorphism-virtual-functions" class="md-nav__link">
+  <a href="#2-polymorphism-and-virtual-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Polymorphism &amp; Virtual Functions
+      2. Polymorphism and Virtual Functions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#abstract-classes-pure-virtual-functions" class="md-nav__link">
+  <a href="#3-abstract-classes-and-pure-virtual-functions" class="md-nav__link">
     <span class="md-ellipsis">
-      Abstract Classes &amp; Pure Virtual Functions
+      3. Abstract Classes and Pure Virtual Functions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#virtual-destructors" class="md-nav__link">
+  <a href="#4-the-critical-rule-of-virtual-destructors" class="md-nav__link">
     <span class="md-ellipsis">
-      Virtual Destructors
+      4. The Critical Rule of Virtual Destructors
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-final-keyword" class="md-nav__link">
+  <a href="#5-controlling-overriding-final" class="md-nav__link">
     <span class="md-ellipsis">
-      The final Keyword
+      5. Controlling Overriding: final
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-casting-in-inherited-hierarchies" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Casting in Inherited Hierarchies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -1611,7 +1629,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -4797,35 +4815,84 @@
 
 
 <div><h1 id="inheritance-polymorphism">Inheritance &amp; Polymorphism<a class="headerlink" href="#inheritance-polymorphism" title="Permanent link">¶</a></h1>
-<p>Inheritance allows you to create new classes based on existing ones, promoting code reuse. Polymorphism allows you to treat objects of different types uniformly.</p>
-<h2 id="inheritance-basics">Inheritance Basics<a class="headerlink" href="#inheritance-basics" title="Permanent link">¶</a></h2>
-<p>A derived class inherits members from a base class.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">8</a></span>
-<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">eat</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Eating..."</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="p">};</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Dog inherits from Animal</span>
+<p>Inheritance and polymorphism are the two pillars of object-oriented code reuse and abstraction. Inheritance allows a new class to inherit attributes and behaviors from an existing class, while polymorphism enables treated objects of different types to be interacted with through a unified interface.</p>
+<hr>
+<h2 id="1-inheritance-basics">1. Inheritance Basics<a class="headerlink" href="#1-inheritance-basics" title="Permanent link">¶</a></h2>
+<p>In C++, you inherit from a base class using a colon syntax. The inheritance mode (<code>public</code>, <code>protected</code>, or <code>private</code>) determines how the inherited members are exposed to the outside world.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">Device</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="k">protected</span><span class="o">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">bark</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Woof!"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="p">};</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="n">Device</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">name</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">power_on</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" powering on.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="p">};</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="c1">// Publicly inherits from Device</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="k">class</span><span class="w"> </span><span class="nc">Camera</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">resolution</span><span class="p">;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="n">Camera</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Device</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">resolution</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">capture</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Capturing at "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">resolution</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"MP.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="p">};</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="access-control-in-inheritance">Access Control in Inheritance<a class="headerlink" href="#access-control-in-inheritance" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Base Member Access</th>
+<th style="text-align: left;"><code>public</code> Inheritance</th>
+<th style="text-align: left;"><code>protected</code> Inheritance</th>
+<th style="text-align: left;"><code>private</code> Inheritance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>public</code></strong></td>
+<td style="text-align: left;">Remains <code>public</code></td>
+<td style="text-align: left;">Becomes <code>protected</code></td>
+<td style="text-align: left;">Becomes <code>private</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>protected</code></strong></td>
+<td style="text-align: left;">Remains <code>protected</code></td>
+<td style="text-align: left;">Becomes <code>protected</code></td>
+<td style="text-align: left;">Becomes <code>private</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>private</code></strong></td>
+<td style="text-align: left;">Hidden (accessible only via base class functions)</td>
+<td style="text-align: left;">Hidden</td>
+<td style="text-align: left;">Hidden</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><strong><code>public</code> inheritance</strong>: <code>public</code> members stay <code>public</code>, <code>protected</code> stay <code>protected</code>. (Most common)</li>
-<li><strong><code>protected</code> inheritance</strong>: <code>public</code> and <code>protected</code> become <code>protected</code>.</li>
-<li><strong><code>private</code> inheritance</strong>: All inherited members become <code>private</code>. (Implementation inheritance)</li>
+<li><strong><code>public</code> inheritance</strong>: Models an <strong>"IS-A"</strong> relationship (e.g. a Camera is a Device). This is by far the most common type of inheritance.</li>
+<li><strong><code>private</code> / <code>protected</code> inheritance</strong>: Models "implemented in terms of." It is rarely used, as composition (having a member variable of the class type) is usually preferred.</li>
 </ul>
-<h2 id="polymorphism-virtual-functions">Polymorphism &amp; Virtual Functions<a class="headerlink" href="#polymorphism-virtual-functions" title="Permanent link">¶</a></h2>
-<p>Polymorphism allows a function to behave differently based on the object it is called on. This is achieved using <strong>virtual functions</strong>.</p>
+<hr>
+<h2 id="2-polymorphism-and-virtual-functions">2. Polymorphism and Virtual Functions<a class="headerlink" href="#2-polymorphism-and-virtual-functions" title="Permanent link">¶</a></h2>
+<p>Polymorphism ("many forms") allows a base class pointer or reference to call member functions of a derived class at runtime. This dynamic behavior is triggered by marking functions with the <code>virtual</code> keyword.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
@@ -4843,55 +4910,52 @@
 <span class="normal"><a href="#__codelineno-1-15">15</a></span>
 <span class="normal"><a href="#__codelineno-1-16">16</a></span>
 <span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Shape</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Drawing a generic shape.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="p">};</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="c1">// 'override' ensures we are actually overriding a base method</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Drawing a circle.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="p">};</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="kt">void</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span><span class="w"> </span><span class="c1">// Calls the correct version based on the actual object type</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Shape</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Drawing generic shape.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Shape</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="p">};</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="k">class</span><span class="w"> </span><span class="nc">Circle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Shape</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="c1">// C++11 override: guarantees a base method signature is matched</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Drawing a circle.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="p">};</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="kt">void</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape</span><span class="o">&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="n">shape</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span><span class="w"> </span><span class="c1">// Resolves at runtime to call the correct function</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="abstract-classes-pure-virtual-functions">Abstract Classes &amp; Pure Virtual Functions<a class="headerlink" href="#abstract-classes-pure-virtual-functions" title="Permanent link">¶</a></h2>
-<p>An <strong>abstract class</strong> defines an interface but not necessarily an implementation. It cannot be instantiated directly.</p>
-<p>A function becomes <strong>pure virtual</strong> by assigning <code>= 0</code> to it.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Sensor</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Sensor</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"> </span><span class="c1">// Always virtual destructor!</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">read_value</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Pure virtual</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">};</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">TempSensor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Sensor</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">read_value</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">25.5</span><span class="p">;</span><span class="w"> </span><span class="c1">// Must implement this</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="p">};</span>
+<h3 id="the-under-the-hood-mechanism-vtables-and-vptrs">The Under the Hood Mechanism: Vtables and Vptrs<a class="headerlink" href="#the-under-the-hood-mechanism-vtables-and-vptrs" title="Permanent link">¶</a></h3>
+<p>Dynamic polymorphism is implemented using a <strong>Virtual Table (vtable)</strong>.
+- Every class that declares or inherits a virtual function has a hidden <strong>vtable</strong>, which is an array of function pointers pointing to the virtual methods.
+- Every object instance of that class contains a hidden pointer called <strong>vptr</strong> (virtual pointer), which points to the class's vtable.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>       Instance of Circle:
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>       ┌──────────────┐
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>       │   vptr       │ ───────&amp;gt; [ Class Circle Vtable ]
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>       ├──────────────┤          ┌──────────────────────────┐
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>       │  (data members)│          │ Circle::draw() pointer   │
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>       └──────────────┘          └──────────────────────────┘
 </code></pre></div></td></tr></table></div>
-<h2 id="virtual-destructors">Virtual Destructors<a class="headerlink" href="#virtual-destructors" title="Permanent link">¶</a></h2>
-<p><strong>Crucial Rule</strong>: If a class is intended to be used as a base class, its destructor must be <code>virtual</code>.</p>
-<p>If not, deleting a derived object through a base pointer results in <strong>undefined behavior</strong> (usually a resource leak because the derived destructor is not called).</p>
+<p>When calling <code>shape.draw()</code>, the program dereferences the object's <code>vptr</code>, locates the <code>draw()</code> entry in the vtable, and jumps to that function pointer. This adds a slight pointer-chasing overhead, which is the trade-off for dynamic flexibility.</p>
+<hr>
+<h2 id="3-abstract-classes-and-pure-virtual-functions">3. Abstract Classes and Pure Virtual Functions<a class="headerlink" href="#3-abstract-classes-and-pure-virtual-functions" title="Permanent link">¶</a></h2>
+<p>An <strong>Abstract Class</strong> defines an interface (contract) that derived classes must implement. You cannot instantiate an abstract class directly.</p>
+<p>A function is declared <strong>pure virtual</strong> by appending <code>= 0</code> to its declaration.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
@@ -4903,30 +4967,29 @@
 <span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-3-10">10</a></span>
 <span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Base</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Base destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="p">};</span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1">// Abstract Base Class</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Sensor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Sensor</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"> </span><span class="c1">// Mandatory virtual destructor</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">public</span><span class="o">:</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="o">~</span><span class="n">Derived</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Derived destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">};</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="n">Base</span><span class="o">*</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Derived</span><span class="p">();</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="k">delete</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span><span class="w"> </span><span class="c1">// Correctly calls ~Derived() then ~Base()</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="c1">// Pure virtual function</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">read</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="p">};</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">TemperatureSensor</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Sensor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">read</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">24.3</span><span class="p">;</span><span class="w"> </span><span class="c1">// Must implement to allow instantiation</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="p">};</span>
 </code></pre></div></td></tr></table></div>
-<!-- Inline AdSense Component -->
-<div class="adsense-inline">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
-<h2 id="the-final-keyword">The <code>final</code> Keyword<a class="headerlink" href="#the-final-keyword" title="Permanent link">¶</a></h2>
-<p>You can prevent a class from being inherited or a function from being overridden.</p>
+<hr>
+<h2 id="4-the-critical-rule-of-virtual-destructors">4. The Critical Rule of Virtual Destructors<a class="headerlink" href="#4-the-critical-rule-of-virtual-destructors" title="Permanent link">¶</a></h2>
+<p>If a class has at least one virtual function, its <strong>destructor must be declared virtual</strong>.</p>
+<p>If you delete a derived object using a pointer to its base class, and the base class has a non-virtual destructor, only the base class destructor is executed. The derived class's destructor is bypassed, leading to <strong>Undefined Behavior</strong> and major memory/resource leaks.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
@@ -4936,23 +4999,134 @@
 <span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
 <span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">FinalClass</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1">// class Derived : public FinalClass {}; // Error</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">BadBase</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="o">~</span><span class="n">BadBase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"BadBase destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="p">};</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">final</span><span class="p">;</span><span class="w"> </span><span class="c1">// Cannot be overridden further</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="p">};</span>
-</code></pre></div></td></tr></table></div></div>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">BadBase</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="n">Derived</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">buffer</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">])</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">    </span><span class="o">~</span><span class="n">Derived</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">        </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Derived destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="p">};</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="n">BadBase</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Derived</span><span class="p">();</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// LEAK! Only prints "BadBase destroyed", Derived destructor never runs.</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>The Fix:</strong>
+</p><div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GoodBase</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">public</span><span class="o">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">GoodBase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"GoodBase destroyed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="5-controlling-overriding-final">5. Controlling Overriding: <code>final</code><a class="headerlink" href="#5-controlling-overriding-final" title="Permanent link">¶</a></h2>
+<p>You can restrict inheritance and overrides using the <code>final</code> keyword:
+- <strong>Final Class</strong>: Prevents other classes from inheriting from it.
+- <strong>Final Function</strong>: Prevents derived classes from overriding that specific virtual function further down the hierarchy.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span>
+<span class="normal"><a href="#__codelineno-6-8">8</a></span>
+<span class="normal"><a href="#__codelineno-6-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Controller</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Cannot be inherited */</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">();</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="p">};</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">Intermediate</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="k">final</span><span class="p">;</span><span class="w"> </span><span class="c1">// Child classes cannot override this</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="6-casting-in-inherited-hierarchies">6. Casting in Inherited Hierarchies<a class="headerlink" href="#6-casting-in-inherited-hierarchies" title="Permanent link">¶</a></h2>
+<p>C++ provides explicit cast operators to traverse class hierarchies safely.</p>
+<ul>
+<li><strong><code>static_cast</code></strong>: Performs fast compile-time casts up or down a hierarchy. It does not check types at runtime. Using it to downcast to an incorrect derived class leads to undefined behavior.</li>
+<li><strong><code>dynamic_cast</code></strong>: Performs safe runtime checks (downcasting). It checks the runtime type information (RTTI) of the object.<ul>
+<li>If casting a <strong>pointer</strong> fails, it returns <code>nullptr</code>.</li>
+<li>If casting a <strong>reference</strong> fails, it throws a <code>std::bad_cast</code> exception.</li>
+<li><em>Note: <code>dynamic_cast</code> only works on polymorphic classes (classes containing at least one virtual function).</em></li>
+</ul>
+</li>
+</ul>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Animal</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">bark</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">meow</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">play_with_animal</span><span class="p">(</span><span class="n">Animal</span><span class="o">*</span><span class="w"> </span><span class="n">animal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">    </span><span class="c1">// Safely verify if the Animal is actually a Dog</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Dog</span><span class="o">*</span><span class="w"> </span><span class="n">dog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Dog</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">animal</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">        </span><span class="n">dog</span><span class="o">-&gt;</span><span class="n">bark</span><span class="p">();</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Not a dog!</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../2.classes_objects/">Classes and Objects</a> — Encapsulation, constructors, and access specifiers.</li>
+<li><a href="../../part3/1.templates/">Templates</a> — Compile-time polymorphism vs runtime polymorphism.</li>
+</ul>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

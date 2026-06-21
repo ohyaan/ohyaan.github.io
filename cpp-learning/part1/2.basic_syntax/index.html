@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Learn C++ basic syntax and type systems. Discover uniform initialization, type deduction (auto), const vs constexpr vs consteval, structured bindings, and type casting.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Learn C++ basic syntax and type systems. Discover uniform initialization, type deduction (auto), const vs constexpr vs consteval, structured bindings, and type casting.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Learn C++ basic syntax and type systems. Discover uniform initialization, type deduction (auto), const vs constexpr vs consteval, structured bindings, and type casting.">
+    <meta name="twitter:description" content="Learn C++ basic syntax and type systems. Discover uniform initialization, type deduction (auto), const vs constexpr vs consteval, structured bindings, and type casting.">
   
 
   <meta property="og:type" content="website">
@@ -1215,63 +1215,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#comments" class="md-nav__link">
+  <a href="#1-comments-and-code-documentation" class="md-nav__link">
     <span class="md-ellipsis">
-      Comments
+      1. Comments and Code Documentation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#variables-and-initialization" class="md-nav__link">
+  <a href="#2-variables-and-modern-initialization" class="md-nav__link">
     <span class="md-ellipsis">
-      Variables and Initialization
+      2. Variables and Modern Initialization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#fundamental-types" class="md-nav__link">
+  <a href="#3-type-deduction-auto" class="md-nav__link">
     <span class="md-ellipsis">
-      Fundamental Types
+      3. Type Deduction (auto)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#literals" class="md-nav__link">
+  <a href="#4-fundamental-types-and-platform-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Literals
+      4. Fundamental Types and Platform Architecture
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#constants-const-vs-constexpr" class="md-nav__link">
+  <a href="#5-modern-constants-const-vs-constexpr-vs-consteval" class="md-nav__link">
     <span class="md-ellipsis">
-      Constants: const vs constexpr
+      5. Modern Constants: const vs constexpr vs consteval
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#scope-and-lifetimes" class="md-nav__link">
+  <a href="#6-structured-bindings-c17" class="md-nav__link">
     <span class="md-ellipsis">
-      Scope and Lifetimes
+      6. Structured Bindings (C++17)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#type-conversion-casting" class="md-nav__link">
+  <a href="#7-type-aliases-using" class="md-nav__link">
     <span class="md-ellipsis">
-      Type Conversion (Casting)
+      7. Type Aliases (using)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-type-conversions-and-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Type Conversions and Casting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -1464,7 +1482,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1629,7 +1647,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -4815,99 +4833,137 @@
 
 
 <div><h1 id="basic-syntax-types">Basic Syntax &amp; Types<a class="headerlink" href="#basic-syntax-types" title="Permanent link">¶</a></h1>
-<p>In this chapter, we will explore the building blocks of C++: variables, types, and how to manage data.</p>
-<h2 id="comments">Comments<a class="headerlink" href="#comments" title="Permanent link">¶</a></h2>
-<p>Comments are ignored by the compiler but are crucial for code readability.</p>
+<p>In C++, understanding the core type system and variable semantics is crucial for writing efficient and safe code. Because C++ is a strongly-typed and statically-typed language, the compiler must know the type of every entity at compile time.</p>
+<hr>
+<h2 id="1-comments-and-code-documentation">1. Comments and Code Documentation<a class="headerlink" href="#1-comments-and-code-documentation" title="Permanent link">¶</a></h2>
+<p>Comments are ignored by the compiler but are essential for humans reading the codebase. Modern C++ codebases typically use two comment formats:</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span>
 <span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// This is a single-line comment</span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// This is a single-line comment. Used for brief notes.</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cm">/*</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="cm">   This is a multi-line comment.</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="cm">   It can span multiple lines.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="cm">   This is a multi-line comment block.</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="cm">   Use this for longer explanations.</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="cm">*/</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="doxygen-style">Doxygen Style<a class="headerlink" href="#doxygen-style" title="Permanent link">¶</a></h3>
-<p>For documentation generation, use <code>///</code> or <code>/** ... */</code>.</p>
+<h3 id="doxygen-documentation-style">Doxygen Documentation Style<a class="headerlink" href="#doxygen-documentation-style" title="Permanent link">¶</a></h3>
+<p>For professional C++ libraries, comments are often parsed by documentation generators like Doxygen. Use three slashes <code>///</code> or a block starting with <code>/**</code> to generate API documentation:</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">/// Calculates the sum of two integers.</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1">/// @param a First integer</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">/// @param b Second integer</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1">/// @return Sum of a and b</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">/// Read data from a digital GPIO pin.</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1">/// @param pin The GPIO pin number (BCM layout).</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">/// @return true if the pin reads HIGH, false if LOW.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">readGpioPin</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pin</span><span class="p">);</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="variables-and-initialization">Variables and Initialization<a class="headerlink" href="#variables-and-initialization" title="Permanent link">¶</a></h2>
-<p>A variable is a named storage location in memory. In Modern C++, we strongly recommend using <strong>Uniform Initialization</strong> (brace initialization).</p>
-<h3 id="why-uniform-initialization">Why Uniform Initialization?<a class="headerlink" href="#why-uniform-initialization" title="Permanent link">¶</a></h3>
-<p>It prevents "narrowing conversions" (accidental data loss) and is consistent across all types.</p>
+<hr>
+<h2 id="2-variables-and-modern-initialization">2. Variables and Modern Initialization<a class="headerlink" href="#2-variables-and-modern-initialization" title="Permanent link">¶</a></h2>
+<p>A variable is a named memory location. Modern C++ (C++11 and later) introduced <strong>Brace Initialization</strong> (also called <strong>Uniform Initialization</strong>) to unify initialization syntax across all types.</p>
+<h3 id="initialization-styles-in-c">Initialization Styles in C++<a class="headerlink" href="#initialization-styles-in-c" title="Permanent link">¶</a></h3>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">     </span><span class="c1">// C-style assignment</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kt">int</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">      </span><span class="c1">// Constructor style</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// Modern Uniform Initialization (Preferred)</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// int d { 3.14 }; // Error! Prevents narrowing double to int</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="kt">int</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="p">;</span><span class="w">   </span><span class="c1">// Compiles but truncates to 3 (Warning)</span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">     </span><span class="c1">// 1. Copy initialization (C-style)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="kt">int</span><span class="w"> </span><span class="nf">b</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">      </span><span class="c1">// 2. Direct initialization (Constructor-style)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="mi">10</span><span class="p">};</span><span class="w">      </span><span class="c1">// 3. Direct brace initialization (Modern)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">};</span><span class="w">   </span><span class="c1">// 4. Copy brace initialization</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="type-deduction-auto">Type Deduction (<code>auto</code>)<a class="headerlink" href="#type-deduction-auto" title="Permanent link">¶</a></h3>
-<p>The <code>auto</code> keyword lets the compiler deduce the type from the initializer. This guarantees initialization and avoids type mismatches.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">        </span><span class="c1">// int</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">voltage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.3</span><span class="p">;</span><span class="w">     </span><span class="c1">// double</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">auto</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Raspberry"</span><span class="p">;</span><span class="w"> </span><span class="c1">// const char*</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">auto</span><span class="w"> </span><span class="n">is_ready</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">   </span><span class="c1">// bool</span>
+<h3 id="why-you-should-prefer-brace-initialization">Why You Should Prefer Brace Initialization <code>{}</code><a class="headerlink" href="#why-you-should-prefer-brace-initialization" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Prevents Narrowing Conversions</strong>: The compiler will raise an error if you attempt to assign a value that cannot fit into the target type without loss of precision.
+   <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.5</span><span class="p">;</span><span class="w">    </span><span class="c1">// Compiles, but x becomes 5 (truncation warning).</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="c1">// int y{5.5};  // Compile Error! Narrowing double to int is forbidden.</span>
+</code></pre></div></td></tr></table></div></li>
+<li><strong>Avoids the "Most Vexing Parse"</strong>: Sometimes, standard parentheses syntax can be mistaken by the compiler as a function declaration rather than object initialization. Brace syntax avoids this confusion.
+   <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1">// Supposed to call default constructor, but interpreted as function declaration:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1">// Widget w(); </span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1">// Correctly initializes a Widget object:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">Widget</span><span class="w"> </span><span class="n">w</span><span class="p">{};</span><span class="w"> </span>
+</code></pre></div></td></tr></table></div></li>
+</ol>
+<hr>
+<h2 id="3-type-deduction-auto">3. Type Deduction (<code>auto</code>)<a class="headerlink" href="#3-type-deduction-auto" title="Permanent link">¶</a></h2>
+<p>The <code>auto</code> keyword instructs the compiler to automatically deduce the type of a variable from its initializer expression. This is resolved at compile time, meaning there is zero runtime overhead.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">          </span><span class="c1">// Deduce as int</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14f</span><span class="p">;</span><span class="w">      </span><span class="c1">// Deduce as float</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="k">auto</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"RPi"</span><span class="p">;</span><span class="w">      </span><span class="c1">// Deduce as const char*</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="fundamental-types">Fundamental Types<a class="headerlink" href="#fundamental-types" title="Permanent link">¶</a></h2>
-<p>C++ provides a rich set of built-in types. On a 64-bit Raspberry Pi (ARM64), typical sizes are:</p>
-<h3 id="integer-types">Integer Types<a class="headerlink" href="#integer-types" title="Permanent link">¶</a></h3>
+<h3 id="important-gotcha-cv-qualifiers-and-references">Important Gotcha: CV Qualifiers and References<a class="headerlink" href="#important-gotcha-cv-qualifiers-and-references" title="Permanent link">¶</a></h3>
+<p>By default, <code>auto</code> strips away <code>const</code> and reference qualifications (<code>&amp;</code>).</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">active_pin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="k">auto</span><span class="w"> </span><span class="n">pin_copy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">active_pin</span><span class="p">;</span><span class="w"> </span><span class="c1">// Type is "int" (const is dropped!)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pin_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">active_pin</span><span class="p">;</span><span class="w"> </span><span class="c1">// Type is "const int&amp;" (explicitly preserved)</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Rule of Thumb:</strong>
+- Use <code>auto</code> for primitive types when the type is obvious.
+- Use <code>const auto&amp;</code> for complex objects (like classes and STL containers) to prevent expensive copy operations.</p>
+<hr>
+<h2 id="4-fundamental-types-and-platform-architecture">4. Fundamental Types and Platform Architecture<a class="headerlink" href="#4-fundamental-types-and-platform-architecture" title="Permanent link">¶</a></h2>
+<p>C++ provides native types whose sizes are implementation-dependent. When programming on a Raspberry Pi, the word size depends on whether you run a <strong>32-bit (ARMhf)</strong> or <strong>64-bit (ARM64)</strong> OS.</p>
+<h3 id="standard-integer-types">Standard Integer Types<a class="headerlink" href="#standard-integer-types" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Type</th>
-<th style="text-align: left;">Size</th>
-<th style="text-align: left;">Range (Approx)</th>
+<th style="text-align: left;">Typical Size (ARM64 / 64-bit OS)</th>
+<th style="text-align: left;">Range (Signed)</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>int</code></td>
-<td style="text-align: left;">4 bytes</td>
-<td style="text-align: left;">±2 Billion</td>
-<td style="text-align: left;">Standard integer</td>
+<td style="text-align: left;"><code>char</code></td>
+<td style="text-align: left;">1 byte</td>
+<td style="text-align: left;">-128 to 127</td>
+<td style="text-align: left;">Stores ASCII values / characters</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>short</code></td>
 <td style="text-align: left;">2 bytes</td>
-<td style="text-align: left;">±32,768</td>
-<td style="text-align: left;">Small integer</td>
+<td style="text-align: left;">-32,768 to 32,767</td>
+<td style="text-align: left;">Small integers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>int</code></td>
+<td style="text-align: left;">4 bytes</td>
+<td style="text-align: left;">~ ±2.14 Billion</td>
+<td style="text-align: left;">Default standard integer</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>long</code></td>
-<td style="text-align: left;">8 bytes</td>
-<td style="text-align: left;">±9 Quintillion</td>
-<td style="text-align: left;">Large integer (64-bit)</td>
+<td style="text-align: left;">8 bytes (4 bytes on 32-bit)</td>
+<td style="text-align: left;">~ ±9.22 Quintillion</td>
+<td style="text-align: left;">Platform-dependent integer</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>long long</code></td>
 <td style="text-align: left;">8 bytes</td>
-<td style="text-align: left;">±9 Quintillion</td>
-<td style="text-align: left;">Guaranteed at least 64-bit</td>
+<td style="text-align: left;">~ ±9.22 Quintillion</td>
+<td style="text-align: left;">Guaranteed to be at least 64-bit</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Unsigned Types</strong>: Adding <code>unsigned</code> shifts the range to start at 0 (e.g., <code>unsigned int</code> is 0 to 4 Billion).</p>
+<blockquote>
+<p>[!NOTE]
+To use integers with guaranteed bit-widths across different systems (essential for embedded and hardware-level programming), include <code>&lt;cstdint&gt;</code> and use fixed-width types:
+- <code>int8_t</code>, <code>int16_t</code>, <code>int32_t</code>, <code>int64_t</code> (Signed)
+- <code>uint8_t</code>, <code>uint16_t</code>, <code>uint32_t</code>, <code>uint64_t</code> (Unsigned)</p>
+</blockquote>
 <h3 id="floating-point-types">Floating-Point Types<a class="headerlink" href="#floating-point-types" title="Permanent link">¶</a></h3>
 <table>
 <thead>
@@ -4915,29 +4971,154 @@
 <th style="text-align: left;">Type</th>
 <th style="text-align: left;">Size</th>
 <th style="text-align: left;">Precision</th>
-<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Typical Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;"><code>float</code></td>
 <td style="text-align: left;">4 bytes</td>
-<td style="text-align: left;">~7 digits</td>
-<td style="text-align: left;">Single precision</td>
+<td style="text-align: left;">~7 decimal digits</td>
+<td style="text-align: left;">Fast calculations, GPU usage</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>double</code></td>
 <td style="text-align: left;">8 bytes</td>
-<td style="text-align: left;">~15 digits</td>
-<td style="text-align: left;">Double precision (Default)</td>
+<td style="text-align: left;">~15 decimal digits</td>
+<td style="text-align: left;">Default for floating-point literals</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>long double</code></td>
+<td style="text-align: left;">8/16 bytes</td>
+<td style="text-align: left;">Platform-dependent</td>
+<td style="text-align: left;">High precision math</td>
 </tr>
 </tbody>
 </table>
-<h3 id="other-types">Other Types<a class="headerlink" href="#other-types" title="Permanent link">¶</a></h3>
+<hr>
+<h2 id="5-modern-constants-const-vs-constexpr-vs-consteval">5. Modern Constants: <code>const</code> vs <code>constexpr</code> vs <code>consteval</code><a class="headerlink" href="#5-modern-constants-const-vs-constexpr-vs-consteval" title="Permanent link">¶</a></h2>
+<p>Modern C++ has robust mechanisms to declare constant values and evaluate expressions at compile time.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>                  [Compile Time]                         [Runtime]
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>                       │                                     │
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a> consteval (C++20) ◄───┼─────────────────────────────────────┤
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>                       │                                     │
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a> constexpr ◄───────────┼─────────────────── (Depends) ───────┤
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>                       │                                     │
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a> const ◄───────────────┼─────────────────────────────────────┼─── (Always Checked)
+</code></pre></div></td></tr></table></div>
 <ul>
-<li><strong><code>bool</code></strong>: Represents truth values (<code>true</code> or <code>false</code>). Size is usually 1 byte.</li>
-<li><strong><code>char</code></strong>: A single character (ASCII). 1 byte.</li>
-<li><strong><code>void</code></strong>: Represents the absence of a type (used for functions returning nothing).</li>
+<li><strong><code>const</code></strong>: Stands for "read-only." Its value can be determined at runtime, but once initialized, it cannot be modified.</li>
+<li><strong><code>constexpr</code></strong>: Tells the compiler that the value <strong>can</strong> be computed at compile time. This allows the compiler to optimize out the calculation and embed the result directly in the binary.</li>
+<li><strong><code>consteval</code> (C++20)</strong>: Implies that the function/expression <strong>must</strong> be evaluated at compile time. It is a compile error if it cannot be.</li>
+</ul>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">get_sensor_reading</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// Evaluated at runtime</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">val1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_sensor_reading</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK: determined at runtime</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="c1">// constexpr int val2 = get_sensor_reading(); </span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="c1">// ERROR: get_sensor_reading() cannot be evaluated at compile-time!</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">max_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK: compile-time constant</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="6-structured-bindings-c17">6. Structured Bindings (C++17)<a class="headerlink" href="#6-structured-bindings-c17" title="Permanent link">¶</a></h2>
+<p>Structured bindings allow you to unpack objects, arrays, or tuples into separate variables using a clean syntax.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tuple&gt;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="p">};</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">pt</span><span class="p">{</span><span class="mf">3.5</span><span class="p">,</span><span class="w"> </span><span class="mf">4.2</span><span class="p">};</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">    </span><span class="c1">// Unpack struct members directly into two variables</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">posX</span><span class="p">,</span><span class="w"> </span><span class="n">posY</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"X: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">posX</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">", Y: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">posY</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">    </span><span class="c1">// Works with std::pair / std::tuple as well</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">error</span><span class="p">{</span><span class="mi">404</span><span class="p">,</span><span class="w"> </span><span class="s">"Not Found"</span><span class="p">};</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20"></a>
+<a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="7-type-aliases-using">7. Type Aliases (<code>using</code>)<a class="headerlink" href="#7-type-aliases-using" title="Permanent link">¶</a></h2>
+<p>C++ allows you to create aliases for complex types. While the older C-style <code>typedef</code> is still valid, the modern <code>using</code> syntax is preferred because it is more readable and supports templates.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1">// C-style alias (not recommended in modern C++)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="k">typedef</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">byte</span><span class="p">;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="c1">// Modern C++ alias (preferred)</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="k">using</span><span class="w"> </span><span class="n">byte</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="p">;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="k">using</span><span class="w"> </span><span class="n">GpioConfigMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="8-type-conversions-and-casting">8. Type Conversions and Casting<a class="headerlink" href="#8-type-conversions-and-casting" title="Permanent link">¶</a></h2>
+<p>Avoid implicit type conversions that might hide bugs. When you need to cast one type to another, use C++ explicit cast operators rather than C-style casts.</p>
+<h3 id="why-avoid-c-style-casts">Why Avoid C-style Casts?<a class="headerlink" href="#why-avoid-c-style-casts" title="Permanent link">¶</a></h3>
+<p>C-style casts <code>(int)value</code> are aggressive. They try a <code>static_cast</code>, a <code>const_cast</code>, and a <code>reinterpret_cast</code> behind the scenes, which can lead to silent bugs.</p>
+<h3 id="explicit-c-casts">Explicit C++ Casts<a class="headerlink" href="#explicit-c-casts" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong><code>static_cast</code></strong>: The most common cast. Used for safe compile-time conversions (e.g. <code>double</code> to <code>int</code>, <code>float</code> to <code>double</code>).
+   <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14159</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">approximation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pi</span><span class="p">);</span><span class="w"> </span><span class="c1">// Value is 3</span>
+</code></pre></div></td></tr></table></div></li>
+<li><strong><code>const_cast</code></strong>: Used to strip away the <code>const</code> qualifier of a variable (use with caution).</li>
+<li><strong><code>reinterpret_cast</code></strong>: Casts any pointer type to any other pointer type. Used for low-level memory operations (e.g. mapping physical register addresses).</li>
+</ol>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../3.control_flow/">Control Flow</a> — Conditional logic and loops.</li>
+<li><a href="../6.pointers_references/">Pointers and References</a> — Dive into pointer types and memory addresses.</li>
 </ul>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
@@ -4946,73 +5127,16 @@
   <script>
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-</div>
-
-<h2 id="literals">Literals<a class="headerlink" href="#literals" title="Permanent link">¶</a></h2>
-<p>Literals are fixed values written directly in code.</p>
-<ul>
-<li><strong>Integer</strong>: <code>42</code>, <code>0xFF</code> (Hex), <code>0b1010</code> (Binary), <code>100L</code> (Long), <code>10u</code> (Unsigned).</li>
-<li><strong>Floating-point</strong>: <code>3.14</code>, <code>1.0f</code> (Float), <code>2.5e-3</code> (Scientific).</li>
-<li><strong>Character</strong>: <code>'A'</code>, <code>'\n'</code> (Newline).</li>
-<li><strong>String</strong>: <code>"Hello"</code>, <code>u8"UTF-8 String"</code>.</li>
-<li><strong>Boolean</strong>: <code>true</code>, <code>false</code>.</li>
-<li><strong>Pointer</strong>: <code>nullptr</code> (Modern null pointer).</li>
-</ul>
-<h2 id="constants-const-vs-constexpr">Constants: <code>const</code> vs <code>constexpr</code><a class="headerlink" href="#constants-const-vs-constexpr" title="Permanent link">¶</a></h2>
-<p>Immutability is key for robust software.</p>
-<ul>
-<li><strong><code>const</code></strong>: "I promise not to change this." Checked at compile-time, but value might be determined at runtime.</li>
-<li><strong><code>constexpr</code></strong>: "This value is known at compile-time." Crucial for performance and template metaprogramming.</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">    </span><span class="c1">// Runtime constant</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span><span class="w"> </span><span class="c1">// Compile-time constant</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="scope-and-lifetimes">Scope and Lifetimes<a class="headerlink" href="#scope-and-lifetimes" title="Permanent link">¶</a></h2>
-<p>Variables have a <strong>scope</strong> (where they are visible) and a <strong>lifetime</strong> (when they exist in memory).</p>
-<h3 id="local-scope-block-scope">Local Scope (Block Scope)<a class="headerlink" href="#local-scope-block-scope" title="Permanent link">¶</a></h3>
-<p>Variables declared inside <code>{ ... }</code> exist only within that block.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="c1">// std::cout &lt;&lt; y; // Error: y is out of scope</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="global-scope">Global Scope<a class="headerlink" href="#global-scope" title="Permanent link">¶</a></h3>
-<p>Variables declared outside any function. Avoid them if possible, as they make code hard to debug.</p>
-<h2 id="type-conversion-casting">Type Conversion (Casting)<a class="headerlink" href="#type-conversion-casting" title="Permanent link">¶</a></h2>
-<p>Sometimes you need to convert between types.</p>
-<ul>
-<li><strong>Implicit</strong>: Automatic (e.g., <code>int</code> to <code>double</code>).</li>
-<li><strong>Explicit (<code>static_cast</code>)</strong>: The safe, modern way to cast.</li>
-</ul>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kt">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14159</span><span class="p">;</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">approx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pi</span><span class="p">);</span><span class="w"> </span><span class="c1">// Explicitly convert to int (3)</span>
-</code></pre></div></td></tr></table></div>
-<p>Avoid C-style casts like <code>(int)pi</code>.</p></div>
+</div></div>
 
 
 
 
 
 
+
+  
+  
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master Raspberry Pi with our comprehensive tutorials covering setup, programming, troubleshooting, and advanced projects. Perfect for beginners and experts alike.">
+        <meta name="description" content="Introduction to Modern C++ and environment setup on Raspberry Pi. Learn compile-time mechanics, intermediate assembly files, compiler flags, and build your first CMake project.">
       
       
       
@@ -66,7 +66,7 @@
   
   <!-- SEO Meta Tags -->
   
-    <meta name="description" content="Comprehensive Raspberry Pi tutorials, guides, and tips for beginners to experts. Learn hardware setup, programming, troubleshooting, and advanced projects.">
+    <meta name="description" content="Introduction to Modern C++ and environment setup on Raspberry Pi. Learn compile-time mechanics, intermediate assembly files, compiler flags, and build your first CMake project.">
   
   <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
   <meta name="author" content="Raspberry Pi Guide">
@@ -78,8 +78,8 @@
   
 
   
-    <meta property="og:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
-    <meta name="twitter:description" content="Master Raspberry Pi with our comprehensive guides covering setup, programming, troubleshooting, and advanced projects.">
+    <meta property="og:description" content="Introduction to Modern C++ and environment setup on Raspberry Pi. Learn compile-time mechanics, intermediate assembly files, compiler flags, and build your first CMake project.">
+    <meta name="twitter:description" content="Introduction to Modern C++ and environment setup on Raspberry Pi. Learn compile-time mechanics, intermediate assembly files, compiler flags, and build your first CMake project.">
   
 
   <meta property="og:type" content="website">
@@ -1193,54 +1193,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-c" class="md-nav__link">
+  <a href="#1-what-is-c-a-brief-history" class="md-nav__link">
     <span class="md-ellipsis">
-      What is C++?
+      1. What is C++? A Brief History
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-up-the-environment" class="md-nav__link">
+  <a href="#2-setting-up-the-c-environment-on-raspberry-pi" class="md-nav__link">
     <span class="md-ellipsis">
-      Setting up the Environment
+      2. Setting up the C++ Environment on Raspberry Pi
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-compilation-process" class="md-nav__link">
+  <a href="#3-the-c-compilation-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      The Compilation Process
+      3. The C++ Compilation Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#your-first-program-hello-world" class="md-nav__link">
+  <a href="#4-analyzing-your-first-c-program" class="md-nav__link">
     <span class="md-ellipsis">
-      Your First Program: "Hello, World!"
+      4. Analyzing Your First C++ Program
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-with-cmake" class="md-nav__link">
+  <a href="#5-compiler-flags-and-optimization" class="md-nav__link">
     <span class="md-ellipsis">
-      Building with CMake
+      5. Compiler Flags and Optimization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-inputoutput" class="md-nav__link">
+  <a href="#6-project-automation-with-cmake" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Input/Output
+      6. Project Automation with CMake
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-basic-interactive-inputoutput" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Basic Interactive Input/Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -1455,7 +1473,7 @@
         
   
   <span class="md-ellipsis">
-    Classes &amp; Objects
+    Classes and Objects
     
   </span>
   
@@ -1620,7 +1638,7 @@
         
   
   <span class="md-ellipsis">
-    STL Algorithms &amp; Lambdas
+    STL Algorithms &amp; Ranges
     
   </span>
   
@@ -4806,41 +4824,76 @@
 
 
 <div><h1 id="introduction-environment-setup">Introduction &amp; Environment Setup<a class="headerlink" href="#introduction-environment-setup" title="Permanent link">¶</a></h1>
-<p>Welcome to the Modern C++ Masterclass! This course is designed to take you from the basics of C++ to the advanced features of C++20 and C++23, specifically tailored for development on the Raspberry Pi.</p>
-<h2 id="what-is-c">What is C++?<a class="headerlink" href="#what-is-c" title="Permanent link">¶</a></h2>
-<p>C++ is a general-purpose programming language created by Bjarne Stroustrup. It is an extension of the C programming language, adding object-oriented features, generic programming, and direct memory manipulation.</p>
-<p><strong>Key Characteristics:</strong>
-- <strong>Performance</strong>: C++ is compiled directly to machine code, making it extremely fast.
-- <strong>Control</strong>: It gives you granular control over system resources and memory.
-- <strong>Portability</strong>: Standard C++ code can run on almost any platform, from microcontrollers to supercomputers.</p>
-<h2 id="setting-up-the-environment">Setting up the Environment<a class="headerlink" href="#setting-up-the-environment" title="Permanent link">¶</a></h2>
-<p>To write modern C++, we need a compiler that supports the latest standards (C++20/23). Raspberry Pi OS (Bookworm) comes with GCC 12, which is excellent.</p>
-<h3 id="1-install-build-tools">1. Install Build Tools<a class="headerlink" href="#1-install-build-tools" title="Permanent link">¶</a></h3>
-<p>Open your terminal and install the essential tools:</p>
+<p>Welcome to the Modern C++ Masterclass! C++ is one of the most widely used systems programming languages, providing both low-level hardware control and high-level abstract features. This course is specifically tailored for development on the Raspberry Pi, showing you how to build fast, robust, and modern applications.</p>
+<hr>
+<h2 id="1-what-is-c-a-brief-history">1. What is C++? A Brief History<a class="headerlink" href="#1-what-is-c-a-brief-history" title="Permanent link">¶</a></h2>
+<p>C++ was created by Bjarne Stroustrup at Bell Labs starting in 1979 as an extension to the C language. Originally called "C with Classes," it was renamed C++ in 1983 (where <code>++</code> is the increment operator, symbolizing progress).</p>
+<p>Over the decades, C++ has evolved through several standardizations managed by the ISO committee:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Era</th>
+<th style="text-align: left;">Standard</th>
+<th style="text-align: left;">Key Paradigm / Main Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Classic</strong></td>
+<td style="text-align: left;">C++98 / C++03</td>
+<td style="text-align: left;">Object-Oriented Programming (OOP) and introduction of the STL (Standard Template Library).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Modern C++</strong></td>
+<td style="text-align: left;">C++11</td>
+<td style="text-align: left;">A major reboot. Introduced move semantics, <code>auto</code>, lambdas, smart pointers, and multi-threading.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">C++14</td>
+<td style="text-align: left;">Bug fixes and minor updates to C++11 features (e.g., generic lambdas).</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">C++17</td>
+<td style="text-align: left;">Structured bindings, inline variables, <code>std::optional</code>, <code>std::variant</code>, and filesystem API.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Modern Evolution</strong></td>
+<td style="text-align: left;">C++20</td>
+<td style="text-align: left;">Concepts, Ranges, Coroutines, Modules, and <code>std::format</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">C++23</td>
+<td style="text-align: left;"><code>std::print</code>/<code>std::println</code>, <code>std::expected</code>, <code>std::mdspan</code>, and compiler improvements.</td>
+</tr>
+</tbody>
+</table>
+<p>On platforms like the Raspberry Pi, modern C++ allows you to write high-level hardware control logic without paying a performance penalty. The core philosophy of C++ is <strong>"Zero-Overhead Abstraction"</strong> — you don't pay for what you don't use.</p>
+<hr>
+<h2 id="2-setting-up-the-c-environment-on-raspberry-pi">2. Setting up the C++ Environment on Raspberry Pi<a class="headerlink" href="#2-setting-up-the-c-environment-on-raspberry-pi" title="Permanent link">¶</a></h2>
+<p>To write modern C++, we need an up-to-date compiler toolchain. Raspberry Pi OS (Bookworm and later) is based on Debian, shipping with recent versions of GCC (GNU Compiler Collection).</p>
+<h3 id="installing-build-tools">Installing Build Tools<a class="headerlink" href="#installing-build-tools" title="Permanent link">¶</a></h3>
+<p>Open your terminal and run the following command to install the essential packages:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>gdb<span class="w"> </span>git
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>gdb<span class="w"> </span>git<span class="w"> </span>-y
 </code></pre></div></td></tr></table></div>
 <ul>
-<li><strong><code>build-essential</code></strong>: Includes <code>gcc</code>, <code>g++</code>, and <code>make</code>.</li>
-<li><strong><code>cmake</code></strong>: A powerful build system generator.</li>
-<li><strong><code>gdb</code></strong>: The GNU Debugger.</li>
+<li><strong><code>build-essential</code></strong>: Installs <code>g++</code> (C++ compiler), <code>gcc</code> (C compiler), <code>make</code> (build tool), and fundamental system libraries.</li>
+<li><strong><code>cmake</code></strong>: A meta-build system generator used in almost all professional C++ projects.</li>
+<li><strong><code>gdb</code></strong>: The GNU Debugger, used for diagnosing segfaults and debugging runtime execution.</li>
 </ul>
-<h3 id="2-verify-installation">2. Verify Installation<a class="headerlink" href="#2-verify-installation" title="Permanent link">¶</a></h3>
-<p>Check that you have a recent version of GCC:</p>
+<h3 id="verifying-gcc-compiler-support">Verifying GCC Compiler Support<a class="headerlink" href="#verifying-gcc-compiler-support" title="Permanent link">¶</a></h3>
+<p>Confirm the version of <code>g++</code> installed by running:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>g++<span class="w"> </span>--version
 </code></pre></div></td></tr></table></div>
-<h2 id="the-compilation-process">The Compilation Process<a class="headerlink" href="#the-compilation-process" title="Permanent link">¶</a></h2>
-<p>Unlike interpreted languages (like Python), C++ code must be <strong>compiled</strong> before it can run. This process has four main stages:</p>
-<ol>
-<li><strong>Preprocessing</strong>: Handles directives starting with <code>#</code> (like <code>#include</code>). It copies header files into your source file.</li>
-<li><strong>Compilation</strong>: Translates C++ code into assembly language.</li>
-<li><strong>Assembly</strong>: Translates assembly into machine code (object files <code>.o</code>).</li>
-<li><strong>Linking</strong>: Combines object files and libraries into a single executable binary.</li>
-</ol>
-<h2 id="your-first-program-hello-world">Your First Program: "Hello, World!"<a class="headerlink" href="#your-first-program-hello-world" title="Permanent link">¶</a></h2>
-<p>Let's analyze a simple C++ program.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<p>Ideally, you want <strong>GCC 12</strong> or later (shipped with Raspberry Pi OS Bookworm) to ensure solid support for C++20 and initial support for C++23.</p>
+<hr>
+<h2 id="3-the-c-compilation-pipeline">3. The C++ Compilation Pipeline<a class="headerlink" href="#3-the-c-compilation-pipeline" title="Permanent link">¶</a></h2>
+<p>Unlike languages like Python, C++ code is not interpreted line-by-line at runtime. Instead, it must be compiled into machine-readable binary code before execution. The compiler goes through four primary stages:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
@@ -4850,29 +4903,208 @@
 <span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// main.cpp</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1">  // 1. Preprocessor directive</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1">// 2. Main function: The entry point of the program</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="c1">// 3. Standard Output</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello, Modern C++!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="c1">// 4. Return statement</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>[Source Code: main.cpp]
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>        │
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>        ▼ (Stage 1: Preprocessor - resolves #include and #define)
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>[Preprocessed Source: main.i]
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>        │
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>        ▼ (Stage 2: Compiler - translates C++ syntax to CPU instructions)
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>[Assembly Code: main.s]
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>        │
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>        ▼ (Stage 3: Assembler - translates assembly to machine instructions)
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>[Object File: main.o (ELF binary format)]
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>        │
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>        ▼ (Stage 4: Linker - merges object files and standard libraries)
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>[Executable Binary: hello (runnable by OS)]
 </code></pre></div></td></tr></table></div>
-<h3 id="code-breakdown">Code Breakdown<a class="headerlink" href="#code-breakdown" title="Permanent link">¶</a></h3>
+<p>Let's examine how you can manually inspect each phase of this process.</p>
+<h3 id="step-1-preprocessing">Step 1: Preprocessing<a class="headerlink" href="#step-1-preprocessing" title="Permanent link">¶</a></h3>
+<p>The preprocessor resolves preprocessor directives starting with <code>#</code>. It copies headers into the source file and handles conditional compilation macros (e.g. <code>#ifdef</code>).
+To inspect preprocessor output, use the <code>-E</code> flag:
+</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>g++<span class="w"> </span>-E<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>main.i
+</code></pre></div></td></tr></table></div>
+<em>(Open <code>main.i</code> in a text editor to see how a simple file grows to thousands of lines after copying <code>&lt;iostream&gt;</code>)</em>.
+<h3 id="step-2-compilation">Step 2: Compilation<a class="headerlink" href="#step-2-compilation" title="Permanent link">¶</a></h3>
+<p>The compiler parses the C++ code, optimizes it, and translates it into assembly language.
+To stop after the compilation phase and output assembly instructions, use the <code>-S</code> flag:
+</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>g++<span class="w"> </span>-S<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>main.s
+</code></pre></div></td></tr></table></div>
+<h3 id="step-3-assembly">Step 3: Assembly<a class="headerlink" href="#step-3-assembly" title="Permanent link">¶</a></h3>
+<p>The assembler takes assembly text files and translates them into binary machine instructions, creating an object file (e.g., <code>.o</code> or <code>.obj</code>).
+To compile to an object file without linking, use the <code>-c</code> flag:
+</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>g++<span class="w"> </span>-c<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>main.o
+</code></pre></div></td></tr></table></div>
+<h3 id="step-4-linking">Step 4: Linking<a class="headerlink" href="#step-4-linking" title="Permanent link">¶</a></h3>
+<p>The linker merges your object files with compiled code from runtime libraries (like <code>libc++</code> or <code>libstdc++</code>) to resolve addresses and create the final executable.
+</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>g++<span class="w"> </span>main.o<span class="w"> </span>-o<span class="w"> </span>hello
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="4-analyzing-your-first-c-program">4. Analyzing Your First C++ Program<a class="headerlink" href="#4-analyzing-your-first-c-program" title="Permanent link">¶</a></h2>
+<p>Let's analyze the components of a simple C++ program.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1">// file: main.cpp</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1">  // 1. Preprocessor directive</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="c1">// 2. Main function: Program entry point</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">    </span><span class="c1">// 3. Output stream with standard namespace</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello, Modern C++ on Raspberry Pi!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="c1">// 4. Return statement indicating successful exit</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="deep-dive-into-code-semantics">Deep Dive into Code Semantics<a class="headerlink" href="#deep-dive-into-code-semantics" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong><code>// ...</code></strong>: These are <strong>comments</strong>. The compiler ignores them.
-    - <code>//</code> for single-line comments.
-    - <code>/* ... */</code> for multi-line comments.</li>
-<li><strong><code>#include &lt;iostream&gt;</code></strong>: Tells the preprocessor to include the standard Input/Output stream library. This allows us to use <code>std::cout</code>.</li>
-<li><strong><code>int main() { ... }</code></strong>: Every C++ program must have exactly one <code>main</code> function. Execution starts here.</li>
-<li><strong><code>std::cout</code></strong>: Represents the <strong>Standard Output</strong> (usually the terminal).</li>
-<li><strong><code>&lt;&lt;</code></strong>: The <strong>insertion operator</strong>. It sends the string "Hello..." to <code>cout</code>.</li>
-<li><strong><code>std::endl</code></strong>: Inserts a newline character and flushes the buffer.</li>
-<li><strong><code>return 0;</code></strong>: Returns the exit status to the operating system. <code>0</code> typically means "success".</li>
+<li><strong><code>#include &lt;iostream&gt;</code></strong>: Tells the preprocessor to load the stream Input/Output header. It contains declarations for <code>std::cout</code>, <code>std::cin</code>, and <code>std::cerr</code>.</li>
+<li><strong><code>int main()</code></strong>: Every runnable C++ application requires a global function named <code>main</code>. It must return an <code>int</code>.</li>
+<li><strong><code>std::cout</code></strong>: Stands for "Standard Character Output". The <code>std::</code> prefix indicates it belongs to the <code>std</code> (standard) namespace. Namespaces prevent name collisions in large projects.</li>
+<li><strong><code>&lt;&lt;</code></strong>: The stream insertion operator. It pushes the string on the right side into the stream on the left side (<code>std::cout</code>).</li>
+<li><strong><code>std::endl</code></strong>: A stream manipulator. It inserts a newline (<code>\n</code>) and flushes the output buffer (forcing immediate terminal output). For performance-critical code, using <code>'\n'</code> is preferred over <code>std::endl</code> to avoid redundant buffer flushing.</li>
+<li><strong><code>return 0;</code></strong>: In C++, returning <code>0</code> from the <code>main</code> function signals to the operating system that the program terminated successfully. Non-zero values indicate errors.</li>
+</ul>
+<hr>
+<h2 id="5-compiler-flags-and-optimization">5. Compiler Flags and Optimization<a class="headerlink" href="#5-compiler-flags-and-optimization" title="Permanent link">¶</a></h2>
+<p>When compiling code, passing appropriate flags to the compiler dictates performance, code safety, and diagnostics.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++20<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-O2<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>hello
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><code>-std=c++20</code></strong>: Explicitly instructs the compiler to build with C++20 features enabled. For C++23, use <code>-std=c++23</code>.</li>
+<li><strong><code>-Wall</code></strong>: Enables "all" common warning messages. High-quality code should compile with zero warnings.</li>
+<li><strong><code>-Wextra</code></strong>: Enables additional warning messages not covered by <code>-Wall</code>. Helpful for catching subtle logic errors.</li>
+<li><strong><code>-O2</code></strong>: Turns on compiler optimizations. The compiler optimizes CPU registers and instruction orders, making the program run significantly faster. For maximum optimizations, use <code>-O3</code>. During debugging, use <code>-O0</code> (no optimization) or <code>-Og</code> (debug-friendly optimization) along with the <code>-g</code> flag to generate debugging symbols.</li>
+</ul>
+<hr>
+<h2 id="6-project-automation-with-cmake">6. Project Automation with CMake<a class="headerlink" href="#6-project-automation-with-cmake" title="Permanent link">¶</a></h2>
+<p>As soon as a project has more than one source file, running <code>g++</code> manually becomes tedious. <strong>CMake</strong> is the industry standard tool to generate system-native build files (like Makefiles).</p>
+<h3 id="1-create-a-project-directory">1. Create a Project Directory<a class="headerlink" href="#1-create-a-project-directory" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>my_project/src
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nb">cd</span><span class="w"> </span>my_project
+</code></pre></div></td></tr></table></div>
+<h3 id="2-create-the-source-file">2. Create the Source File<a class="headerlink" href="#2-create-the-source-file" title="Permanent link">¶</a></h3>
+<p>Save the "Hello, World" code into <code>src/main.cpp</code>.</p>
+<h3 id="3-create-the-cmakeliststxt">3. Create the <code>CMakeLists.txt</code><a class="headerlink" href="#3-create-the-cmakeliststxt" title="Permanent link">¶</a></h3>
+<p>In the root directory of <code>my_project/</code>, create a file named <code>CMakeLists.txt</code>:</p>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">RaspberryPiCppDemo</span><span class="w"> </span><span class="s">VERSION</span><span class="w"> </span><span class="s">1.0.0</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="c"># Require C++20 standard</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">20</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="c"># Enable common warnings for safety</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="nb">if</span><span class="p">(</span><span class="s">MSVC</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">    </span><span class="nb">add_compile_options</span><span class="p">(</span><span class="s">/W4</span><span class="p">)</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="nb">else</span><span class="p">()</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">    </span><span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span><span class="w"> </span><span class="s">-Wextra</span><span class="w"> </span><span class="s">-Wpedantic</span><span class="p">)</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="nb">endif</span><span class="p">()</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="c"># Define output executable and its source files</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">demo</span><span class="w"> </span><span class="s">src/main.cpp</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="4-build-and-run-the-app">4. Build and Run the App<a class="headerlink" href="#4-build-and-run-the-app" title="Permanent link">¶</a></h3>
+<p>Always use a separate <code>build</code> directory to prevent generated files from cluttering your source code:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Create and navigate to the build directory</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="c1"># 1. Configure the project (generates Makefiles)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>cmake<span class="w"> </span>..
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="c1"># 2. Build the project (calls make internally)</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>cmake<span class="w"> </span>--build<span class="w"> </span>.
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="c1"># 3. Execute the resulting binary</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a>./demo
+</code></pre></div></td></tr></table></div>
+<hr>
+<h2 id="7-basic-interactive-inputoutput">7. Basic Interactive Input/Output<a class="headerlink" href="#7-basic-interactive-inputoutput" title="Permanent link">¶</a></h2>
+<p>Besides writing to standard output, a command-line program often requires reading user input. C++ provides <code>std::cin</code> for input streams.</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span>
+<span class="normal"><a href="#__codelineno-12-16">16</a></span>
+<span class="normal"><a href="#__codelineno-12-17">17</a></span>
+<span class="normal"><a href="#__codelineno-12-18">18</a></span>
+<span class="normal"><a href="#__codelineno-12-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;limits&gt;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Enter your age: "</span><span class="p">;</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w"> </span><span class="c1">// Extraction operator</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="w">    </span><span class="c1">// Clear input buffer to handle remaining newline</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">ignore</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">streamsize</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">(),</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">);</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12"></a>
+<a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Enter your full name: "</span><span class="p">;</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">full_name</span><span class="p">;</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">,</span><span class="w"> </span><span class="n">full_name</span><span class="p">);</span><span class="w"> </span><span class="c1">// Reads the whole line including spaces</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16"></a>
+<a id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">Hello, "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">full_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"! You are "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" years old.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><code>std::cin &gt;&gt; age</code></strong>: Extracts data from standard input into the variable. It stops reading at whitespace.</li>
+<li><strong><code>std::getline(std::cin, full_name)</code></strong>: Used to read a full line of text including spaces. Since <code>std::cin &gt;&gt;</code> leaves a newline character (<code>\n</code>) in the stream, we call <code>std::cin.ignore()</code> first to flush any remaining character in the buffer before reading the string.</li>
+</ul>
+<hr>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../2.basic_syntax/">Basic Syntax</a> — Dig into variables, types, and modern C++ assignments.</li>
+<li><a href="../../part4/4.build_systems/">Build Systems</a> — Mastering advanced CMake layouts on Raspberry Pi.</li>
 </ul>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
@@ -4881,75 +5113,16 @@
   <script>
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-</div>
-
-<h2 id="building-with-cmake">Building with CMake<a class="headerlink" href="#building-with-cmake" title="Permanent link">¶</a></h2>
-<p>While you can compile manually with <code>g++ main.cpp -o app</code>, <strong>CMake</strong> is the standard for managing complex projects.</p>
-<p>Create a file named <code>CMakeLists.txt</code>:</p>
-<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.10</span><span class="p">)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">ModernCpp</span><span class="p">)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c"># Specify the C++ Standard (C++23)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">23</span><span class="p">)</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">hello</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="build-steps">Build Steps<a class="headerlink" href="#build-steps" title="Permanent link">¶</a></h3>
-<ol>
-<li>Create a build directory (to keep source clean):
-    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-</code></pre></div></td></tr></table></div></li>
-<li>Generate build files:
-    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>cmake<span class="w"> </span>..
-</code></pre></div></td></tr></table></div></li>
-<li>Compile:
-    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>make
-</code></pre></div></td></tr></table></div></li>
-<li>Run:
-    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>./hello
-</code></pre></div></td></tr></table></div></li>
-</ol>
-<h2 id="basic-inputoutput">Basic Input/Output<a class="headerlink" href="#basic-inputoutput" title="Permanent link">¶</a></h2>
-<p>Besides <code>std::cout</code>, we have <code>std::cin</code> for input.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span>
-<span class="normal"><a href="#__codelineno-8-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Enter your name: "</span><span class="p">;</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w"> </span><span class="c1">// Reads a single word</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Hello, "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><em>Note: <code>std::cin &gt;&gt;</code> stops at whitespace. To read a full line, use <code>std::getline(std::cin, name);</code>.</em></p></div>
+</div></div>
 
 
 
 
 
 
+
+  
+  
 
 
 
