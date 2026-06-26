@@ -5129,13 +5129,13 @@
 <hr>
 <h2 id="1-fastcgi-caching-architecture">1. FastCGI Caching Architecture<a class="headerlink" href="#1-fastcgi-caching-architecture" title="Permanent link">¶</a></h2>
 <p>When a client requests a page, Nginx checks if a cached version of the HTML exists in its directory.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Client Request] --&gt; B{Nginx Cache Check}
     B --&gt;|Cache Hit| C[Serve Static HTML from RAM]
     B --&gt;|Cache Miss| D[Pass to PHP-FPM]
     D --&gt; E[Query MariaDB Database]
     E --&gt;|Return Rendered HTML| F[Save HTML to Cache in RAM]
-    F --&gt; G[Serve to Client]</code></pre>
+    F --&gt; G[Serve to Client]</div>
 <h3 id="key-optimizations-in-this-setup">Key Optimizations in this Setup:<a class="headerlink" href="#key-optimizations-in-this-setup" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Zero Disk I/O Writes</strong>: By mounting the cache directory as a <strong>tmpfs (RAM-disk)</strong>, cache writes take place entirely in system memory. This eliminates SD card write wear completely and reduces page retrieval latency to under a millisecond.</li>
@@ -5430,6 +5430,8 @@ With FastCGI caching, performance increases from 29 to <strong>3,225 requests pe
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

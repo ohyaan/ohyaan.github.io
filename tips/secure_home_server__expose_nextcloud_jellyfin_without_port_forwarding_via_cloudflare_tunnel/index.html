@@ -5137,10 +5137,10 @@
 <hr>
 <h2 id="1-cloudflare-tunnel-architecture">1. Cloudflare Tunnel Architecture<a class="headerlink" href="#1-cloudflare-tunnel-architecture" title="Permanent link">¶</a></h2>
 <p>Unlike typical reverse proxies that listen for incoming connections, <code>cloudflared</code> initiates secure, encrypted outbound connections (over ports 7844/443) to Cloudflare’s global network.</p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A[Client Browser] --&gt;|HTTPS| B(Cloudflare Edge)
     B --&gt;|Encrypted Cloudflare Tunnel| C[cloudflared Daemon on Pi]
-    C --&gt;|Local Routing| D[Local Services: Nextcloud, Jellyfin]</code></pre>
+    C --&gt;|Local Routing| D[Local Services: Nextcloud, Jellyfin]</div>
 <h3 id="advantages-of-cloudflare-tunnels">Advantages of Cloudflare Tunnels:<a class="headerlink" href="#advantages-of-cloudflare-tunnels" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>No Port Forwarding</strong>: Protects your local network from open-port scanners.</li>
@@ -5294,10 +5294,10 @@ You can also follow the live systemd journal logs to debug connections:
 <hr>
 <h2 id="7-zero-trust-security-access-control-policies">7. Zero Trust Security: Access Control Policies<a class="headerlink" href="#7-zero-trust-security-access-control-policies" title="Permanent link">¶</a></h2>
 <p>Exposing services like Nextcloud or Jellyfin to the public web means hackers can attempt brute-force login attacks on your application pages. To prevent this, you can put <strong>Cloudflare Access (Zero Trust)</strong> in front of your subdomains to enforce multi-factor authentication (MFA) before anyone can even reach the login screen of your Raspberry Pi.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Unauthenticated Request] --&gt; B(Cloudflare Access)
     B --&gt;|Pass Google/GitHub Auth| C(Nextcloud Login Page)
-    B --&gt;|Fail Auth| D[Access Denied 403]</code></pre>
+    B --&gt;|Fail Auth| D[Access Denied 403]</div>
 <h3 id="implementing-cloudflare-access-rules">Implementing Cloudflare Access Rules:<a class="headerlink" href="#implementing-cloudflare-access-rules" title="Permanent link">¶</a></h3>
 <ol>
 <li>Log in to the <a href="https://dash.cloudflare.com/">Cloudflare Dashboard</a> and click on <strong>Zero Trust</strong> in the left sidebar.</li>
@@ -5382,6 +5382,8 @@ You can also follow the live systemd journal logs to debug connections:
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

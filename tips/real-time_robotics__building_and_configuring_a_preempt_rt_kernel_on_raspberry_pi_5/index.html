@@ -5137,7 +5137,7 @@
 <p>This guide provides a comprehensive walkthrough for downloading, patching, configuring, and compiling a <strong>PREEMPT_RT kernel for the Raspberry Pi 5</strong>, followed by latency testing using the industry-standard <code>cyclictest</code> benchmark.</p>
 <hr>
 <h2 id="1-real-time-vs-standard-kernels">1. Real-Time vs. Standard Kernels<a class="headerlink" href="#1-real-time-vs-standard-kernels" title="Permanent link">¶</a></h2>
-<pre class="mermaid"><code>gantt
+<div class="mermaid">gantt
     title CPU Scheduling Comparison
     dateFormat  X
     axisFormat %s
@@ -5151,7 +5151,7 @@
     Low-priority task        :active, b1, 0, 10
     System Interrupt (Preempted) :crit, b2, 10, 12
     High-priority Task (Immediate) :active, b3, 12, 22
-    System Interrupt (Resume) :crit, b4, 22, 35</code></pre>
+    System Interrupt (Resume) :crit, b4, 22, 35</div>
 <h3 id="technical-differences">Technical Differences:<a class="headerlink" href="#technical-differences" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Locking</strong>: Spinlocks are replaced with sleepable mutexes (<code>rt_mutex</code>). If a high-priority thread requests a resource held by a low-priority thread, the lock is preempted immediately using priority inheritance.</li>
@@ -5440,6 +5440,8 @@ The output must show <code>#1 SMP PREEMPT_RT</code> in the version string:
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

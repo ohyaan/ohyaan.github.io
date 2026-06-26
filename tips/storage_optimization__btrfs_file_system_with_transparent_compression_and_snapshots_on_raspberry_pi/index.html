@@ -5123,14 +5123,14 @@
 <hr>
 <h2 id="1-how-btrfs-optimizes-sd-cards">1. How Btrfs Optimizes SD Cards<a class="headerlink" href="#1-how-btrfs-optimizes-sd-cards" title="Permanent link">¶</a></h2>
 <p>In a traditional file system, when a file is modified, the data is overwritten directly in place. If the system loses power during this write window, the file is corrupted.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     subgraph ext4 (In-place Write)
         A[Original Data block] --&gt;|Overwrite| B[Corrupted block on Power Cut]
     end
     subgraph Btrfs (Copy-on-Write)
         C[Original Data block] --&gt;|Modify| D[Write modified data to free space]
         D --&gt;|Update pointer| E[New Metadata pointing to new block]
-    end</code></pre>
+    end</div>
 <p>Under <strong>Copy-on-Write</strong>, Btrfs writes modified data to a completely new, free location on the storage media. Only after the write operation completes successfully does the file system update its metadata pointers to point to the new data. If the power drops mid-write, the pointers still point to the safe, original data, preventing corruption.</p>
 <p>Furthermore, <strong>Transparent Compression</strong> means that when an application writes 100MB of text or code, Btrfs compresses it (e.g., to 30MB) in CPU RAM and writes only 30MB to the physical SD card. Because writing to flash storage is slow and wears out memory cells, reducing physical writes directly extends the life of your SD card and improves write throughput.</p>
 <hr>
@@ -5444,6 +5444,8 @@ This output shows that <strong>2.4GB</strong> of system files are compressed dow
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

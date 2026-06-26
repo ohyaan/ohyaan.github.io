@@ -5141,7 +5141,7 @@
 <hr>
 <h2 id="1-network-architecture">1. Network Architecture<a class="headerlink" href="#1-network-architecture" title="Permanent link">¶</a></h2>
 <p>When activated on a client, all traffic or DNS requests are securely sent to the Raspberry Pi over an encrypted UDP port.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     subgraph Client Device (Mobile/Laptop)
         A[Client Browser/App] --&gt;|Encrypted VPN Tunnel| B[WireGuard Client Interface]
     end
@@ -5150,7 +5150,7 @@
         C --&gt;|DNS Queries| D[Pi-hole Resolver]
         D --&gt;|Ad Blocked Queries| C
         C --&gt;|Web Traffic| E[WAN / Internet Gateway]
-    end</code></pre>
+    end</div>
 <p>Using <strong>WireGuard</strong> instead of older protocols (like OpenVPN) provides major advantages for mobile devices:
 - <strong>Low Power Consumption</strong>: WireGuard is implemented directly in the Linux kernel space and sleeps when not transmitting data, conserving smartphone battery.
 - <strong>Roaming Support</strong>: If you switch from Wi-Fi to a 4G/5G cellular network, WireGuard instantly re-establishes the tunnel connection without dropping active sessions.</p>
@@ -5313,6 +5313,8 @@ Enter a distinct name for the client when prompted (e.g., <code>iphone</code>):
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

@@ -5128,11 +5128,11 @@
 <hr>
 <h2 id="1-hardware-architecture-setup">1. Hardware Architecture &amp; Setup<a class="headerlink" href="#1-hardware-architecture-setup" title="Permanent link">¶</a></h2>
 <p>The Raspberry Pi AI Kit features a <strong>Hailo-8L M.2 AI Acceleration Module</strong> (Key A+E) mounted on the <strong>Raspberry Pi M.2 HAT+</strong>. </p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Raspberry Pi 5 CPU] ---|16-way FPC Cable| B[M.2 HAT+]
     B ---|PCIe Gen 2/3 x1 Interface| C[Hailo-8L M.2 Module]
     C ---|13 TOPS NPU| D[Hardware Accelerated Inference]
-    E[Raspberry Pi Camera Module v3] --&gt;|CSI Interface| A</code></pre>
+    E[Raspberry Pi Camera Module v3] --&gt;|CSI Interface| A</div>
 <h3 id="required-hardware">Required Hardware:<a class="headerlink" href="#required-hardware" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Raspberry Pi 5</strong> (8GB or 4GB recommended)</li>
@@ -5229,10 +5229,10 @@ You should see a output confirming the device model, firmware version, and uniqu
 <h2 id="4-converting-yolov11-to-hailo-executable-format-hef">4. Converting YOLOv11 to Hailo Executable Format (HEF)<a class="headerlink" href="#4-converting-yolov11-to-hailo-executable-format-hef" title="Permanent link">¶</a></h2>
 <p>Unlike standard CPUs/GPUs which read raw PyTorch <code>.pt</code> or ONNX weight files directly, the Hailo-8L NPU executes static computational graphs optimized for its hardware clusters. This compiler output is stored in a <code>.hef</code> file.</p>
 <p>To convert a custom or pre-trained YOLOv11 model, use the <strong>Hailo Dataflow Compiler (DFC)</strong> (usually run on a powerful host PC due to the RAM requirements of the quantization process).</p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A[YOLOv11 PyTorch .pt] --&gt;|Export| B[ONNX Model]
     B --&gt;|DFC Optimization| C[Quantization: Calibration Dataset]
-    C --&gt;|DFC Compiler| D[Hailo HEF Model .hef]</code></pre>
+    C --&gt;|DFC Compiler| D[Hailo HEF Model .hef]</div>
 <h3 id="step-1-export-yolov11-to-onnx">Step 1: Export YOLOv11 to ONNX<a class="headerlink" href="#step-1-export-yolov11-to-onnx" title="Permanent link">¶</a></h3>
 <p>On your machine containing the PyTorch model, export the model with static dimensions:
 </p><div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
@@ -5699,6 +5699,8 @@ You should see a output confirming the device model, firmware version, and uniqu
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>

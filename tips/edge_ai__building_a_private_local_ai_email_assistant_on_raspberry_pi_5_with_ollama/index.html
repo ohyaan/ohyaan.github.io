@@ -5129,14 +5129,14 @@
 <hr>
 <h2 id="1-system-architecture">1. System Architecture<a class="headerlink" href="#1-system-architecture" title="Permanent link">¶</a></h2>
 <p>The local AI assistant runs persistently as a system background service.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Email Server: Gmail/Outlook] --&gt;|IMAP over SSL| B[Python Agent on Pi 5]
     B --&gt;|Check for Unread| B
     B --&gt;|Send Content| C[Local Ollama: Llama 3]
     C --&gt;|Return Category, Summary, Draft| B
     B --&gt;|High Priority?| D{Decision}
     D --&gt;|Yes| E[Send Webhook payload to Discord]
-    D --&gt;|No| F[Log Locally]</code></pre>
+    D --&gt;|No| F[Log Locally]</div>
 <p>To run models efficiently on the Pi 5's RAM limits, we will use a 3-billion-parameter model (<strong>Llama-3-8B</strong> quantized to 4-bit, or <strong>Llama-3.2-3B</strong>). These quantized models run comfortably within the memory bandwidth of the Raspberry Pi 5.</p>
 <hr>
 <h2 id="2-installing-ollama-on-raspberry-pi-5">2. Installing Ollama on Raspberry Pi 5<a class="headerlink" href="#2-installing-ollama-on-raspberry-pi-5" title="Permanent link">¶</a></h2>
@@ -5684,6 +5684,8 @@ This fetches the model weights (approx. 2.0 GB). Once the download finishes, you
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
     
   </body>
