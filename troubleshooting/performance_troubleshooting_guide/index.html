@@ -5161,15 +5161,16 @@
 <h2 id="quick-diagnostic-overview">Quick Diagnostic Overview<a class="headerlink" href="#quick-diagnostic-overview" title="Permanent link">¶</a></h2>
 <p>Start here to identify the type of performance issue:</p>
 <div class="mermaid">graph TD
-    A["Pi is slow or unresponsive"] --&gt; B{"Check temperature&lt;br/&gt;vcgencmd measure_temp"}
-    B --&gt;|"&gt; 80°C"| C["Thermal throttling&lt;br/&gt;→ See Thermal section"]
-    B --&gt;|"&lt; 80°C"| D{"Check CPU usage&lt;br/&gt;top or htop"}
-    D --&gt;|"&gt; 90%"| E["CPU bottleneck&lt;br/&gt;→ See CPU section"]
-    D --&gt;|"&lt; 90%"| F{"Check memory&lt;br/&gt;free -h"}
-    F --&gt;|"Low free + swap in use"| G["Memory pressure&lt;br/&gt;→ See Memory section"]
-    F --&gt;|"Memory OK"| H{"Check disk I/O&lt;br/&gt;iostat or iotop"}
-    H --&gt;|"High I/O wait"| I["Storage bottleneck&lt;br/&gt;→ See Storage section"]
-    H --&gt;|"I/O OK"| J["Network or app issue&lt;br/&gt;→ See Network section"]
+    A[Pi is slow or unresponsive] --&gt; B{Check temperature via vcgencmd}
+    B --&gt;|Over 80C| C[Thermal throttling - Go to Thermal section]
+    B --&gt;|Under 80C| D{Check CPU usage via top or htop}
+    D --&gt;|Over 90 percent| E[CPU bottleneck - Go to CPU section]
+    D --&gt;|Under 90 percent| F{Check memory via free -h}
+    F --&gt;|Low free memory and Swap in use| G[Memory pressure - Go to Memory section]
+    F --&gt;|Memory OK| H{Check disk IO via iostat or iotop}
+    H --&gt;|High IO wait| I[Storage bottleneck - Go to Storage section]
+    H --&gt;|IO OK| J[Network or app issue - Go to Network section]
+
     style C fill:#ff6b6b,stroke:#333,color:#fff
     style E fill:#ffa94d,stroke:#333,color:#fff
     style G fill:#ffd43b,stroke:#333,color:#000
