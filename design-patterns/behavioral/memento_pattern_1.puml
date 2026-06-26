@@ -1,0 +1,45 @@
+@startuml
+!theme sunlust
+class TextEditor {
+    - content: string
+    - cursorPosition: int
+    + type(text: string): void
+    + deleteText(length: int): void
+    + save(): EditorMemento
+    + restore(m: EditorMemento): void
+}
+
+class EditorMemento {
+    - content: string
+    - cursorPosition: int
+    - timestamp: string
+    + getContent(): string
+    + getCursorPosition(): int
+}
+
+class EditorHistory {
+    - history: vector<EditorMemento>
+    - currentIndex: int
+    - editor: TextEditor
+    + save(): void
+    + undo(): void
+    + redo(): void
+    + showHistory(): void
+}
+
+TextEditor ..> EditorMemento : creates
+EditorHistory o-> EditorMemento : stores
+EditorHistory -> TextEditor : manages
+
+note right of TextEditor
+    Creates snapshots of
+    editing state including
+    content and cursor position
+end note
+
+note right of EditorHistory
+    Maintains undo/redo stack
+    Supports navigation through
+    editing history
+end note
+@enduml

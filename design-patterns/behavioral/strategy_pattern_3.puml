@@ -1,0 +1,35 @@
+@startuml
+!theme sunlust
+interface CompressionStrategy {
+    +compress(data: string): string
+    +decompress(data: string): string
+    +getName(): string
+}
+
+class FileCompressor {
+    -strategy: CompressionStrategy
+    +setCompressionStrategy(CompressionStrategy): void
+    +compressFile(filename, data): string
+    +decompressFile(filename, data): string
+}
+
+class ZipCompression {
+    +compress(data): string
+    +decompress(data): string
+}
+
+class RARCompression {
+    +compress(data): string
+    +decompress(data): string
+}
+
+class GzipCompression {
+    +compress(data): string
+    +decompress(data): string
+}
+
+FileCompressor o--> CompressionStrategy
+CompressionStrategy <|.. ZipCompression
+CompressionStrategy <|.. RARCompression
+CompressionStrategy <|.. GzipCompression
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+!theme sunlust
+abstract class UnitTest {
+    +run(): void
+    #getTestName(): string {abstract}
+    #runTest(): void {abstract}
+    #setUp(): void
+    #tearDown(): void
+    #assertTrue(bool, string): void
+    #assertEqual(int, int, string): void
+}
+
+class DatabaseConnectionTest {
+    #getTestName(): string
+    #setUp(): void
+    #runTest(): void
+    #tearDown(): void
+}
+
+class APIEndpointTest {
+    #getTestName(): string
+    #setUp(): void
+    #runTest(): void
+    #tearDown(): void
+}
+
+UnitTest <|-- DatabaseConnectionTest
+UnitTest <|-- APIEndpointTest
+
+note right of UnitTest
+    Test execution:
+    run() {
+        setUp();
+        try {
+            runTest();
+        } catch (...) {
+            // handle
+        }
+        tearDown();
+    }
+end note
+@enduml

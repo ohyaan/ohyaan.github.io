@@ -1,0 +1,33 @@
+@startuml
+!theme sunlust
+skinparam classAttributeIconSize 0
+
+class Client {
+}
+
+interface Subject {
+    + request(): string
+}
+
+class RealSubject {
+    + request(): string
+}
+
+class Proxy {
+    - realSubject: RealSubject*
+    + request(): string
+}
+
+Client --> Subject
+Subject <|.. RealSubject
+Subject <|.. Proxy
+Proxy o--> RealSubject : realSubject
+
+note right of Proxy::request
+    // Additional behavior
+    checkAccess()
+    realSubject->request()
+    logAccess()
+end note
+
+@enduml

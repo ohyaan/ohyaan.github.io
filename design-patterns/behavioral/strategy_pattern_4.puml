@@ -1,0 +1,40 @@
+@startuml
+!theme sunlust
+interface RouteStrategy {
+    +buildRoute(from, to): void
+    +getName(): string
+}
+
+class Navigator {
+    -strategy: RouteStrategy
+    +setRouteStrategy(RouteStrategy): void
+    +buildRoute(from, to): void
+}
+
+class CarRoute {
+    +buildRoute(from, to): void
+}
+
+class PublicTransportRoute {
+    +buildRoute(from, to): void
+}
+
+class WalkingRoute {
+    +buildRoute(from, to): void
+}
+
+class BicycleRoute {
+    +buildRoute(from, to): void
+}
+
+Navigator o--> RouteStrategy
+RouteStrategy <|.. CarRoute
+RouteStrategy <|.. PublicTransportRoute
+RouteStrategy <|.. WalkingRoute
+RouteStrategy <|.. BicycleRoute
+
+note right of Navigator
+    User selects transportation
+    mode, navigator adapts route
+end note
+@enduml

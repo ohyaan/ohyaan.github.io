@@ -1,0 +1,62 @@
+@startuml
+!theme sunlust
+interface CodeVisitor {
+    +visitCPPFile(CPPFile): void
+    +visitHeaderFile(HeaderFile): void
+    +visitTextFile(TextFile): void
+}
+
+interface CodeFile {
+    +accept(CodeVisitor): void
+    +getName(): string
+    +getLineCount(): size_t
+}
+
+class CodeStatisticsVisitor {
+    -totalLines: size_t
+    -totalFunctions: size_t
+    -totalClasses: size_t
+    -cppFileCount: size_t
+    -headerFileCount: size_t
+    +visitCPPFile(CPPFile): void
+    +visitHeaderFile(HeaderFile): void
+    +visitTextFile(TextFile): void
+    +printStatistics(): void
+}
+
+class DocumentationGeneratorVisitor {
+    -doc: stringstream
+    +visitCPPFile(CPPFile): void
+    +visitHeaderFile(HeaderFile): void
+    +visitTextFile(TextFile): void
+    +getDocumentation(): string
+}
+
+class CPPFile {
+    -name: string
+    -lines: size_t
+    -functions: size_t
+    +accept(CodeVisitor): void
+    +getFunctionCount(): size_t
+}
+
+class HeaderFile {
+    -name: string
+    -lines: size_t
+    -classes: size_t
+    +accept(CodeVisitor): void
+    +getClassCount(): size_t
+}
+
+class TextFile {
+    -name: string
+    -lines: size_t
+    +accept(CodeVisitor): void
+}
+
+CodeVisitor <|.. CodeStatisticsVisitor
+CodeVisitor <|.. DocumentationGeneratorVisitor
+CodeFile <|.. CPPFile
+CodeFile <|.. HeaderFile
+CodeFile <|.. TextFile
+@enduml

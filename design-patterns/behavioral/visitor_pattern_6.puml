@@ -1,0 +1,47 @@
+@startuml
+!theme sunlust
+participant Client
+participant "compound:\nCompoundShape" as Compound
+participant "visitor:\nAreaCalculator" as Visitor
+participant "circle:\nCircle" as Circle
+participant "rect:\nRectangle" as Rect
+
+Client -> Compound: accept(visitor)
+activate Compound
+
+Compound -> Visitor: visitCompoundShape(this)
+activate Visitor
+
+loop for each child
+    Visitor -> Circle: accept(visitor)
+    activate Circle
+    
+    Circle -> Visitor: visitCircle(this)
+    Visitor -> Circle: getArea()
+    Circle --> Visitor: area
+    Visitor -> Visitor: totalArea += area
+    
+    Circle --> Visitor: done
+    deactivate Circle
+    
+    Visitor -> Rect: accept(visitor)
+    activate Rect
+    
+    Rect -> Visitor: visitRectangle(this)
+    Visitor -> Rect: getArea()
+    Rect --> Visitor: area
+    Visitor -> Visitor: totalArea += area
+    
+    Rect --> Visitor: done
+    deactivate Rect
+end
+
+Visitor --> Compound: done
+deactivate Visitor
+
+Compound --> Client: done
+deactivate Compound
+
+Client -> Visitor: getTotalArea()
+Visitor --> Client: totalArea
+@enduml

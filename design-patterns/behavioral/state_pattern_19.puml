@@ -1,0 +1,13 @@
+@startuml
+!theme sunlust
+
+[*] --> New
+New --> Runnable : start
+Runnable --> Running : scheduled
+Running --> Runnable : yield
+Running --> BlockedWaiting : wait/block
+BlockedWaiting --> Runnable : notify/unblock
+Running --> Terminated : exit
+Terminated --> [*]
+
+@enduml

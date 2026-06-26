@@ -1,0 +1,46 @@
+@startuml
+!theme sunlust
+class MediaPlayer {
+    -state: PlayerState
+    -currentMedia: string
+    +play(): void
+    +pause(): void
+    +stop(): void
+}
+
+interface PlayerState {
+    +play(MediaPlayer): void
+    +pause(MediaPlayer): void
+    +stop(MediaPlayer): void
+}
+
+class StoppedState {
+    +play(): void
+}
+
+class PlayingState {
+    +pause(): void
+    +stop(): void
+}
+
+class PausedState {
+    +play(): void
+    +stop(): void
+}
+
+MediaPlayer o--> PlayerState
+PlayerState <|.. StoppedState
+PlayerState <|.. PlayingState
+PlayerState <|.. PausedState
+
+StoppedState --> PlayingState : play()
+PlayingState --> PausedState : pause()
+PlayingState --> StoppedState : stop()
+PausedState --> PlayingState : play()
+PausedState --> StoppedState : stop()
+
+note bottom of MediaPlayer
+    User controls trigger
+    state transitions
+end note
+@enduml

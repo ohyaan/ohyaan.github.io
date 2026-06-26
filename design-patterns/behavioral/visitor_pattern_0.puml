@@ -1,0 +1,53 @@
+@startuml
+!theme sunlust
+interface Visitor {
+    +visitConcreteElementA(ConcreteElementA): void
+    +visitConcreteElementB(ConcreteElementB): void
+}
+
+interface Element {
+    +accept(Visitor): void
+}
+
+class ConcreteVisitor1 {
+    +visitConcreteElementA(ConcreteElementA): void
+    +visitConcreteElementB(ConcreteElementB): void
+}
+
+class ConcreteVisitor2 {
+    +visitConcreteElementA(ConcreteElementA): void
+    +visitConcreteElementB(ConcreteElementB): void
+}
+
+class ConcreteElementA {
+    +accept(Visitor): void
+    +operationA(): void
+}
+
+class ConcreteElementB {
+    +accept(Visitor): void
+    +operationB(): void
+}
+
+Visitor <|.. ConcreteVisitor1
+Visitor <|.. ConcreteVisitor2
+Element <|.. ConcreteElementA
+Element <|.. ConcreteElementB
+
+ConcreteVisitor1 ..> ConcreteElementA : visits
+ConcreteVisitor1 ..> ConcreteElementB : visits
+ConcreteVisitor2 ..> ConcreteElementA : visits
+ConcreteVisitor2 ..> ConcreteElementB : visits
+
+note right of Element
+    accept(visitor) {
+        visitor.visitThis(this);
+    }
+end note
+
+note right of Visitor
+    Each visitor implements
+    operations for all
+    element types
+end note
+@enduml

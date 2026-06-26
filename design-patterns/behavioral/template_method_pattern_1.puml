@@ -1,0 +1,46 @@
+@startuml
+!theme sunlust
+abstract class DataProcessor {
+    +process(filename): void
+    #readData(filename): string {abstract}
+    #processData(data): string {abstract}
+    #saveData(data): void {abstract}
+    #shouldValidate(): bool
+    #validate(data): void
+}
+
+class CSVProcessor {
+    #readData(filename): string
+    #processData(data): string
+    #saveData(data): void
+}
+
+class JSONProcessor {
+    #readData(filename): string
+    #processData(data): string
+    #saveData(data): void
+    #validate(data): void
+}
+
+class XMLProcessor {
+    #readData(filename): string
+    #processData(data): string
+    #saveData(data): void
+    #shouldValidate(): bool
+}
+
+DataProcessor <|-- CSVProcessor
+DataProcessor <|-- JSONProcessor
+DataProcessor <|-- XMLProcessor
+
+note right of DataProcessor
+    Template method:
+    process() {
+        data = readData();
+        processed = processData(data);
+        if (shouldValidate())
+            validate(processed);
+        saveData(processed);
+    }
+end note
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+!theme sunlust
+abstract class GameAI {
+    +takeTurn(): void
+    #collectResources(): void
+    #buildStructures(): void {abstract}
+    #buildUnits(): void {abstract}
+    #attack(): void
+}
+
+class AggressiveAI {
+    #buildStructures(): void
+    #buildUnits(): void
+    #attack(): void
+}
+
+class DefensiveAI {
+    #collectResources(): void
+    #buildStructures(): void
+    #buildUnits(): void
+    #attack(): void
+}
+
+class BalancedAI {
+    #buildStructures(): void
+    #buildUnits(): void
+}
+
+GameAI <|-- AggressiveAI
+GameAI <|-- DefensiveAI
+GameAI <|-- BalancedAI
+
+note right of GameAI
+    Turn structure:
+    takeTurn() {
+        collectResources();
+        buildStructures();
+        buildUnits();
+        attack();
+    }
+end note
+@enduml

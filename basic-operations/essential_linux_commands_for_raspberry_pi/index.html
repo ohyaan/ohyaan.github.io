@@ -1,0 +1,6632 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Learn essential Linux commands for Raspberry Pi. Master terminal navigation, file management, package installation, and system monitoring.">
+      
+      
+      
+        <link rel="canonical" href="https://ohyaan.github.io/basic-operations/essential_linux_commands_for_raspberry_pi/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../networking_setup_and_management_for_raspberry_pi/">
+      
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
+      
+      <link rel="icon" href="../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Essential Linux Commands for Raspberry Pi - With Raspberry Pi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  
+  
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
+  <meta name="author" content="Raspberry Pi Guide">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  
+  
+    <meta property="og:title" content="Essential Linux Commands for Raspberry Pi - With Raspberry Pi">
+    <meta name="twitter:title" content="Essential Linux Commands for Raspberry Pi - With Raspberry Pi">
+  
+
+  
+    <meta property="og:description" content="Learn essential Linux commands for Raspberry Pi. Master terminal navigation, file management, package installation, and system monitoring.">
+    <meta name="twitter:description" content="Learn essential Linux commands for Raspberry Pi. Master terminal navigation, file management, package installation, and system monitoring.">
+  
+
+  <meta property="og:type" content="website">
+
+  
+    <meta property="og:url" content="https://ohyaan.github.io/basic-operations/essential_linux_commands_for_raspberry_pi/">
+  
+
+  
+    <meta property="og:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+    <meta name="twitter:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+  
+  <meta property="og:site_name" content="With Raspberry Pi">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Additional SEO -->
+  <meta name="google-site-verification" content="google07041ecefb07f871">
+  <meta name="msvalidate.01" content="BingSiteAuth">
+  
+  <!-- AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346"
+     crossorigin="anonymous"></script>
+     
+  <!-- Enhanced AdSense Script -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-6051992210534346",
+      enable_page_level_ads: true
+    });
+  </script>
+  
+  <!-- Structured Data for Better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Raspberry Pi Complete Guide",
+    "url": "https://ohyaan.github.io/",
+    "description": "Comprehensive Raspberry Pi tutorials and guides",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://ohyaan.github.io/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#essential-linux-commands-for-raspberry-pi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            With Raspberry Pi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Essential Linux Commands for Raspberry Pi
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Basic Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../programming/" class="md-tabs__link">
+          
+  
+    
+  
+  C++ Hardware Programming
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp-learning/" class="md-tabs__link">
+          
+  
+    
+  
+  Modern C++ Masterclass
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../design-patterns/" class="md-tabs__link">
+          
+  
+    
+  
+  Design Patterns
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../assembly/" class="md-tabs__link">
+          
+  
+    
+  
+  Arm64 Assembly
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../os-development/" class="md-tabs__link">
+          
+  
+    
+  
+  OS Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tips/" class="md-tabs__link">
+          
+  
+    
+  
+  Tips
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting/" class="md-tabs__link">
+          
+  
+    
+  
+  Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    With Raspberry Pi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware Setup for Raspberry Pi: Complete Assembly Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initial Setup Guide for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Basic Operations
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Basic Operations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Essential Linux Commands for Raspberry Pi
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Essential Linux Commands for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-the-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started with the Terminal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navigation Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Operations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#searching-and-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Searching and Filtering
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Processing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#piping-and-redirection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Piping and Redirection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Information
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-and-storage-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disk and Storage Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systemd-service-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      systemd Service Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text-editing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Editing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-one-liner-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful One-Liner Collection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell-script-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shell Script Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-command-line-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for Command Line Efficiency
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-more" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning More
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking Setup and Management for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Management for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Settings Configuration for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User and Permission Management for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../programming/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    C++ Hardware Programming
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++ Hardware Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Programming Basics for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Controlling LED with GPIO
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Controlling GPIO Input with a Tactile Switch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Controlling a Buzzer with PWM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Controlling a Positional Servo Motor with PWM (Basic)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Controlling a Continuous Rotation Servo Motor with PWM
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../cpp-learning/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Modern C++ Masterclass
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Modern C++ Masterclass
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1: Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1: Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/1.introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction &amp; Environment Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Basic Syntax &amp; Types
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/4.functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/5.operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operators
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pointers and References
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2: Memory & Object-Oriented Programming
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2: Memory & Object-Oriented Programming
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Classes and Objects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inheritance &amp; Polymorphism
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operator Overloading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3: The Standard Library (STL)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3: The Standard Library (STL)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part3/1.containers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL Containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part3/1.templates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Templates
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STL Algorithms &amp; Ranges
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4: Modern Evolution (C++17, C++20, C++23)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4: Modern Evolution (C++17, C++20, C++23)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modern Utilities (C++17)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The C++20 Revolution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Latest Standard (C++23)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build Systems
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../design-patterns/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Design Patterns
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Design Patterns
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Creational
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Creational
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Singleton Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Factory Method Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Abstract Factory Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/creational/builder_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Builder Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prototype Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Structural
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Structural
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adapter Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Decorator Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/facade_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Facade Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/composite_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Composite Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bridge Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flyweight Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Behavioral
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            Behavioral
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Strategy Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Observer Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Template Method Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    State Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Iterator Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chain of Responsibility Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mediator Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memento Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visitor Pattern
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../assembly/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Arm64 Assembly
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Arm64 Assembly
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arm64 Registers and Basic Instructions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Flow and Branching in Arm64 Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions and Stack Management in Arm64 Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inline Assembly in C++ on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interfacing with C++ and GPIO Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to Arm64 Assembly on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/neon_simd_vector_programming_on_arm64/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NEON SIMD Vector Programming on Arm64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../os-development/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    OS Development
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            OS Development
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Phase1 Foundation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            Phase1 Foundation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01. Environment Setup for Raspberry Pi OS Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02. Understanding the Raspberry Pi Boot Process
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03. UART "Hello World" - First Output from Our OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04. System Timer - Precise Timing for Your OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Phase2 Hardware
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Phase2 Hardware
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05. GPIO Control - Controlling Hardware Pins
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06. Interrupts and Exception Handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Phase3 Display
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Phase3 Display
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07. Framebuffer Graphics - Drawing to the Screen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08. Text Rendering - Writing to the Screen
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Phase4 Memory
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            Phase4 Memory
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09. Memory Allocation - Managing the Heap
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10. Virtual Memory (MMU) - Enabling Caching and Protection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Phase5 Process
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            Phase5 Process
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11. Context Switching - The Heart of Multitasking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12. Scheduler - Preemptive Multitasking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tips/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Tips
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/automated_backup_strategies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Automated Backup Strategies
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building a Voice Assistant with Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Building a Wireless IoT Sensor Node with Raspberry Pi Pico W and MQTT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cgroups v2 &amp; systemd-run - Resource Control and Sandboxing for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuring I/O Schedulers for Improved SD Card Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/cpu_frequency_scaling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU Frequency Scaling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CPU Isolation and Task Affinity for Multicore Optimization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating a USB Composite Multi-Function Gadget on Raspberry Pi using ConfigFS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    eBPF (Extended Berkeley Packet Filter) - Kernel Programming for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Edge AI: Building a Private Local AI Email Assistant on Raspberry Pi 5 with Ollama
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Edge AI: High-Speed YOLOv11 Object Detection with Raspberry Pi 5 and Hailo-8L AI Kit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Enabling Chromium to sync with Google Account
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fix Issue of I2C on Old Raspberry Pi Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FUSE (Filesystem in Userspace) - Complete Guide for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware Security Module (TPM) Setup with dm-verity and Encrypted Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High-Speed GPIO Control: C++ Direct Register Access vs libgpiod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a Network-Wide Ad Blocker with Raspberry Pi and Pi-hole
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a Portable Hacking and Security Pentesting Tool with Raspberry Pi and Kali Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a Private Cloud Storage on Raspberry Pi with Nextcloud
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a Raspberry Pi Home Media Server with Plex and Jellyfin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a Smart Home with Raspberry Pi and Home Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build a USB MIDI Device with Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Build an AI Smart Security Camera with Raspberry Pi and YOLOv8
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Create Docker Image of Raspberry Pi OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Monitor Raspberry Pi Performance with Prometheus and Grafana
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Move Rootfs to External USB Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Run a Discord Bot 24/7 on Raspberry Pi with Docker and Systemd
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to Turn Your Raspberry Pi into a USB HID Keyboard or Mouse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    inotify - Filesystem Monitoring and Event-Driven Automation for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction to Embedded Systems Development with Rust on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local LLM Optimization with llama.cpp - On-Device AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing Your Program as a Systemd Daemon
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network Attached Storage (NAS) Setup Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network Namespaces &amp; VRF - Virtual Network Isolation for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Next-Gen IoT: Building a Matter Smart Home Sensor Node with Raspberry Pi Pico W
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimizing Swap with ZRAM on Raspberry Pi OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OverlayFS - Layer-based Filesystems for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Power Saving on Raspberry Pi OS: Complete Optimization Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi as USB OTG Device Mass Storage Emulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Boot Time Optimization: Complete Performance Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Headless Setup Complete Guide: Remote Setup Made Easy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Remote Access and VNC Optimization: Complete Remote Desktop Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Security Hardening Complete Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Temperature Monitoring and Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi WiFi Access Point Setup: Complete Hotspot Configuration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Real-time Image Classification with Raspberry Pi Camera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Real-Time Robotics: Building and Configuring a PREEMPT_RT Kernel on Raspberry Pi 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remapping Caps Lock to Control
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running a Lightweight Kubernetes Cluster (k3s) on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure Home Server: Expose Nextcloud/Jellyfin without Port Forwarding via Cloudflare Tunnel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure Infrastructure: Secure Remote Connections with WireGuard and Pi-hole on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure Remote Access to Raspberry Pi using Tailscale (No Port Forwarding)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Secure Self-Hosting: Docker Compose and Nginx Proxy Manager on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Self-Hosted Local AI NVR with Frigate and Google Coral on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting Up Pi-hole and Unbound on Docker Compose for Network-Wide Ad Blocking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/setting_up_vpn_access/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting up VPN Access
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Static IP Configuration on Raspberry Pi OS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Optimization: Btrfs File System with Transparent Compression and Snapshots on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TensorFlow Lite Setup and Object Detection on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Top 5 Essential Security Settings for Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    USB Ethernet Gadget Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Performance: High-Speed Nginx FastCGI Caching Optimization on Raspberry Pi 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../troubleshooting/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Common Issues and Solutions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Asked Questions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance Troubleshooting Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div><h1 id="essential-linux-commands-for-raspberry-pi">Essential Linux Commands for Raspberry Pi<a class="headerlink" href="#essential-linux-commands-for-raspberry-pi" title="Permanent link">¶</a></h1>
+<p>The Raspberry Pi runs on Linux-based operating systems, primarily Raspberry Pi OS (formerly Raspbian). Understanding essential Linux commands will help you navigate, manage files, install software, and troubleshoot your Raspberry Pi effectively. This guide covers the most important commands you'll need for daily operations.</p>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="getting-started-with-the-terminal">Getting Started with the Terminal<a class="headerlink" href="#getting-started-with-the-terminal" title="Permanent link">¶</a></h2>
+<p>When you first open a terminal on Raspberry Pi OS, you'll see a <strong>command prompt</strong> that looks like this:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pi@raspberrypi:~ $
+</code></pre></div></td></tr></table></div>
+<p>This tells you:</p>
+<ul>
+<li><code>pi</code> — your username</li>
+<li><code>raspberrypi</code> — the hostname of your machine</li>
+<li><code>~</code> — your current directory (<code>~</code> means your home directory, <code>/home/pi</code>)</li>
+<li><code>$</code> — you're a regular user (root users see <code>#</code> instead)</li>
+</ul>
+<h2 id="navigation-commands">Navigation Commands<a class="headerlink" href="#navigation-commands" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>Print working directory - shows your current location</td>
+<td><code>pwd</code> → <code>/home/pi</code></td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>List files and directories in current location</td>
+<td><code>ls</code></td>
+</tr>
+<tr>
+<td><code>ls -l</code></td>
+<td>List files with detailed information (permissions, size, date)</td>
+<td><code>ls -l</code></td>
+</tr>
+<tr>
+<td><code>ls -a</code></td>
+<td>List all files including hidden ones (starting with .)</td>
+<td><code>ls -a</code></td>
+</tr>
+<tr>
+<td><code>ls -la</code></td>
+<td>Combine both detailed and all files options</td>
+<td><code>ls -la</code></td>
+</tr>
+<tr>
+<td><code>ls -lh</code></td>
+<td>List with human-readable file sizes (KB, MB, GB)</td>
+<td><code>ls -lh</code></td>
+</tr>
+<tr>
+<td><code>ls -lt</code></td>
+<td>List sorted by modification time (newest first)</td>
+<td><code>ls -lt</code></td>
+</tr>
+<tr>
+<td><code>cd directory</code></td>
+<td>Change directory - navigate to specified location</td>
+<td><code>cd Documents</code></td>
+</tr>
+<tr>
+<td><code>cd ..</code></td>
+<td>Move up one directory level</td>
+<td><code>cd ..</code></td>
+</tr>
+<tr>
+<td><code>cd ~</code></td>
+<td>Go to home directory</td>
+<td><code>cd ~</code></td>
+</tr>
+<tr>
+<td><code>cd /</code></td>
+<td>Go to root directory</td>
+<td><code>cd /</code></td>
+</tr>
+<tr>
+<td><code>cd -</code></td>
+<td>Go to the previous directory</td>
+<td><code>cd -</code></td>
+</tr>
+<tr>
+<td><code>tree</code></td>
+<td>Display directory structure as a tree</td>
+<td><code>tree -L 2</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example workflow:</strong></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Check where you are</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">pwd</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1"># List files in current directory with details</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>ls<span class="w"> </span>-la
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1"># Navigate to Documents folder</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="nb">cd</span><span class="w"> </span>Documents
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1"># Go back to previous directory</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="nb">cd</span><span class="w"> </span>-
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="c1"># Display directory tree (install with: sudo apt install tree)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>tree<span class="w"> </span>-L<span class="w"> </span><span class="m">2</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="file-operations">File Operations<a class="headerlink" href="#file-operations" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>touch filename</code></td>
+<td>Create an empty file</td>
+<td><code>touch notes.txt</code></td>
+</tr>
+<tr>
+<td><code>mkdir dirname</code></td>
+<td>Create a new directory</td>
+<td><code>mkdir projects</code></td>
+</tr>
+<tr>
+<td><code>mkdir -p a/b/c</code></td>
+<td>Create nested directories at once</td>
+<td><code>mkdir -p projects/web/assets</code></td>
+</tr>
+<tr>
+<td><code>cp source destination</code></td>
+<td>Copy files or directories</td>
+<td><code>cp file.txt backup/</code></td>
+</tr>
+<tr>
+<td><code>cp -r source destination</code></td>
+<td>Copy directories recursively</td>
+<td><code>cp -r projects backup/</code></td>
+</tr>
+<tr>
+<td><code>mv source destination</code></td>
+<td>Move/rename files or directories</td>
+<td><code>mv file.txt newname.txt</code></td>
+</tr>
+<tr>
+<td><code>rm filename</code></td>
+<td>Remove/delete a file</td>
+<td><code>rm unwanted.txt</code></td>
+</tr>
+<tr>
+<td><code>rm -r dirname</code></td>
+<td>Remove a directory and its contents</td>
+<td><code>rm -r oldproject</code></td>
+</tr>
+<tr>
+<td><code>rm -i filename</code></td>
+<td>Interactive removal (asks for confirmation)</td>
+<td><code>rm -i important.txt</code></td>
+</tr>
+<tr>
+<td><code>cat filename</code></td>
+<td>Display file contents</td>
+<td><code>cat config.txt</code></td>
+</tr>
+<tr>
+<td><code>less filename</code></td>
+<td>View file contents with scrolling</td>
+<td><code>less longfile.log</code></td>
+</tr>
+<tr>
+<td><code>head filename</code></td>
+<td>Show first 10 lines of file</td>
+<td><code>head data.csv</code></td>
+</tr>
+<tr>
+<td><code>head -n 20 file</code></td>
+<td>Show first 20 lines</td>
+<td><code>head -n 20 data.csv</code></td>
+</tr>
+<tr>
+<td><code>tail filename</code></td>
+<td>Show last 10 lines of file</td>
+<td><code>tail log.txt</code></td>
+</tr>
+<tr>
+<td><code>tail -f filename</code></td>
+<td>Watch file for changes in real-time</td>
+<td><code>tail -f /var/log/syslog</code></td>
+</tr>
+<tr>
+<td><code>wc -l filename</code></td>
+<td>Count lines in a file</td>
+<td><code>wc -l data.csv</code></td>
+</tr>
+<tr>
+<td><code>diff file1 file2</code></td>
+<td>Compare two files</td>
+<td><code>diff old.conf new.conf</code></td>
+</tr>
+<tr>
+<td><code>ln -s target link</code></td>
+<td>Create a symbolic link</td>
+<td><code>ln -s /etc/nginx/sites-available/mysite mysite</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example workflow for creating a backup:</strong></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Create a backup directory with timestamp</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>mkdir<span class="w"> </span>~/backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1"># Copy important configuration files</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>cp<span class="w"> </span>/boot/firmware/config.txt<span class="w"> </span>~/backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>/
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>cp<span class="w"> </span>-r<span class="w"> </span>~/projects<span class="w"> </span>~/backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>/
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1"># Verify the backup was created</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>ls<span class="w"> </span>-lh<span class="w"> </span>~/backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="file-permissions">File Permissions<a class="headerlink" href="#file-permissions" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chmod permissions file</code></td>
+<td>Change file permissions</td>
+<td><code>chmod 755 script.sh</code></td>
+</tr>
+<tr>
+<td><code>chmod +x filename</code></td>
+<td>Make a file executable</td>
+<td><code>chmod +x run.sh</code></td>
+</tr>
+<tr>
+<td><code>chmod -R 755 dir</code></td>
+<td>Apply permissions recursively</td>
+<td><code>chmod -R 755 /var/www</code></td>
+</tr>
+<tr>
+<td><code>chown user:group file</code></td>
+<td>Change file owner and group</td>
+<td><code>sudo chown pi:pi myfile.txt</code></td>
+</tr>
+<tr>
+<td><code>chown -R user:group dir</code></td>
+<td>Change ownership recursively</td>
+<td><code>sudo chown -R www-data:www-data /var/www</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="understanding-permission-numbers">Understanding Permission Numbers<a class="headerlink" href="#understanding-permission-numbers" title="Permanent link">¶</a></h3>
+<p>Each file has three permission groups: <strong>Owner</strong>, <strong>Group</strong>, and <strong>Others</strong>. Each group can have <strong>read (4)</strong>, <strong>write (2)</strong>, and <strong>execute (1)</strong> permissions:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>rwxr-xr-x = 755
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>│││ │││ │││
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>│││ │││ ╰╯╰── Others: read(4) + execute(1) = 5
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>│││ ╰╯╰────── Group:  read(4) + execute(1) = 5
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>╰╯╰────────── Owner:  read(4) + write(2) + execute(1) = 7
+</code></pre></div></td></tr></table></div>
+<p><strong>Common permission patterns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Numeric</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rwxr-xr-x</code></td>
+<td><code>755</code></td>
+<td>Executable scripts, directories</td>
+</tr>
+<tr>
+<td><code>rw-r--r--</code></td>
+<td><code>644</code></td>
+<td>Regular files, config files</td>
+</tr>
+<tr>
+<td><code>rw-------</code></td>
+<td><code>600</code></td>
+<td>Private files (SSH keys, passwords)</td>
+</tr>
+<tr>
+<td><code>rwx------</code></td>
+<td><code>700</code></td>
+<td>Private directories, scripts</td>
+</tr>
+<tr>
+<td><code>rwxrwxr-x</code></td>
+<td><code>775</code></td>
+<td>Shared group directories</td>
+</tr>
+</tbody>
+</table>
+<h2 id="searching-and-filtering">Searching and Filtering<a class="headerlink" href="#searching-and-filtering" title="Permanent link">¶</a></h2>
+<p>These commands are incredibly powerful for finding files and filtering text — essential skills for any Linux user.</p>
+<h3 id="find-search-for-files"><code>find</code> — Search for Files<a class="headerlink" href="#find-search-for-files" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Find files by name</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>find<span class="w"> </span>/home/pi<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.py"</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1"># Find files modified in the last 24 hours</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>find<span class="w"> </span>/var/log<span class="w"> </span>-mtime<span class="w"> </span>-1
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="c1"># Find files larger than 100MB</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>find<span class="w"> </span>/<span class="w"> </span>-size<span class="w"> </span>+100M<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1"># Find and delete all .tmp files</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>find<span class="w"> </span>~/projects<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.tmp"</span><span class="w"> </span>-delete
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="c1"># Find empty directories</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>find<span class="w"> </span>/home/pi<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-empty
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="c1"># Find files by permissions</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>find<span class="w"> </span>/etc<span class="w"> </span>-perm<span class="w"> </span><span class="m">777</span><span class="w"> </span>-type<span class="w"> </span>f
+</code></pre></div></td></tr></table></div>
+<h3 id="grep-search-inside-files"><code>grep</code> — Search Inside Files<a class="headerlink" href="#grep-search-inside-files" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Search for text in a file</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>grep<span class="w"> </span><span class="s2">"error"</span><span class="w"> </span>/var/log/syslog
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1"># Search recursively in a directory</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">"GPIO"</span><span class="w"> </span>~/projects/
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c1"># Case-insensitive search</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"raspberry"</span><span class="w"> </span>README.md
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="c1"># Show line numbers with results</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">"def "</span><span class="w"> </span>app.py
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="c1"># Count matching lines</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">"ERROR"</span><span class="w"> </span>/var/log/syslog
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="c1"># Invert match (show lines that DON'T contain the pattern)</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"DEBUG"</span><span class="w"> </span>/var/log/syslog
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="c1"># Search for exact word matches</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a>grep<span class="w"> </span>-w<span class="w"> </span><span class="s2">"pin"</span><span class="w"> </span>config.txt
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="c1"># Show 3 lines of context around each match</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a>grep<span class="w"> </span>-C<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="s2">"error"</span><span class="w"> </span>/var/log/syslog
+</code></pre></div></td></tr></table></div>
+<h3 id="combining-find-and-grep">Combining <code>find</code> and <code>grep</code><a class="headerlink" href="#combining-find-and-grep" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Find all Python files containing "import gpio"</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>find<span class="w"> </span>~/projects<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.py"</span><span class="w"> </span>-exec<span class="w"> </span>grep<span class="w"> </span>-l<span class="w"> </span><span class="s2">"import gpio"</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="c1"># Count occurrences of "TODO" across all source files</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>find<span class="w"> </span>~/projects<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.cpp"</span><span class="w"> </span>-exec<span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">"TODO"</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="text-processing">Text Processing<a class="headerlink" href="#text-processing" title="Permanent link">¶</a></h2>
+<h3 id="awk-column-based-processing"><code>awk</code> — Column-Based Processing<a class="headerlink" href="#awk-column-based-processing" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Print the 1st column of a space-separated file</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>awk<span class="w"> </span><span class="s1">'{print $1}'</span><span class="w"> </span>data.txt
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="c1"># Print processes using more than 1% CPU</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'$3 &gt; 1.0 {print $11, $3"%"}'</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="c1"># Sum values in a column</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>awk<span class="w"> </span><span class="s1">'{sum += $2} END {print "Total:", sum}'</span><span class="w"> </span>values.txt
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="c1"># Print specific columns with custom formatting</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>df<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{printf "%-20s %s\n", $6, $5}'</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="sed-stream-editor"><code>sed</code> — Stream Editor<a class="headerlink" href="#sed-stream-editor" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Replace first occurrence on each line</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>sed<span class="w"> </span><span class="s1">'s/old/new/'</span><span class="w"> </span>file.txt
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># Replace ALL occurrences (global flag)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>sed<span class="w"> </span><span class="s1">'s/old/new/g'</span><span class="w"> </span>file.txt
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="c1"># Edit file in-place</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s/old/new/g'</span><span class="w"> </span>file.txt
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="c1"># Delete lines containing a pattern</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>sed<span class="w"> </span><span class="s1">'/^#/d'</span><span class="w"> </span>config.txt<span class="w">    </span><span class="c1"># Remove comment lines</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="c1"># Insert text at a specific line</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>sed<span class="w"> </span><span class="s1">'5i\New line of text'</span><span class="w"> </span>file.txt
+</code></pre></div></td></tr></table></div>
+<h3 id="sort-and-uniq"><code>sort</code> and <code>uniq</code><a class="headerlink" href="#sort-and-uniq" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># Sort file contents alphabetically</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>sort<span class="w"> </span>names.txt
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c1"># Sort numerically</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>sort<span class="w"> </span>-n<span class="w"> </span>numbers.txt
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c1"># Sort by the 2nd column</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>sort<span class="w"> </span>-k2<span class="w"> </span>data.txt
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="c1"># Remove duplicate lines (file must be sorted first)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a>sort<span class="w"> </span>data.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="c1"># Count occurrences of each unique line</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a>sort<span class="w"> </span>access.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</code></pre></div></td></tr></table></div>
+<h2 id="piping-and-redirection">Piping and Redirection<a class="headerlink" href="#piping-and-redirection" title="Permanent link">¶</a></h2>
+<p>Piping (<code>|</code>) and redirection (<code>&gt;</code>, <code>&gt;&gt;</code>) are what make the Linux command line truly powerful. They let you chain commands together to build complex data processing pipelines.</p>
+<h3 id="redirection">Redirection<a class="headerlink" href="#redirection" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Save command output to a file (overwrite)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>&gt;<span class="w"> </span>filelist.txt
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="c1"># Append output to a file</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"New entry"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>log.txt
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="c1"># Redirect errors to a file</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="nb">command</span><span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>errors.log
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="c1"># Redirect both output and errors</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="nb">command</span><span class="w"> </span>&gt;<span class="w"> </span>output.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="c1"># Discard output</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="nb">command</span><span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="piping">Piping<a class="headerlink" href="#piping" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Count files in current directory</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>ls<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="c1"># Find the 5 largest files in home directory</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>du<span class="w"> </span>-ah<span class="w"> </span>~/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rh<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="c1"># Monitor system log for SSH connections</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/auth.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"sshd"</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="c1"># Find which processes are using the most memory</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11"></a>ps<span class="w"> </span>aux<span class="w"> </span>--sort<span class="o">=</span>-%mem<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
+<a id="__codelineno-11-12" name="__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="c1"># Extract unique IP addresses from a log file</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14"></a>cat<span class="w"> </span>/var/log/auth.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">'\d+\.\d+\.\d+\.\d+'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="process-management">Process Management<a class="headerlink" href="#process-management" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ps aux</code></td>
+<td>List all running processes</td>
+<td><code>ps aux</code></td>
+</tr>
+<tr>
+<td><code>top</code></td>
+<td>Show real-time system processes</td>
+<td><code>top</code></td>
+</tr>
+<tr>
+<td><code>htop</code></td>
+<td>Enhanced version of top (install: <code>sudo apt install htop</code>)</td>
+<td><code>htop</code></td>
+</tr>
+<tr>
+<td><code>kill PID</code></td>
+<td>Terminate a process by its ID</td>
+<td><code>kill 1234</code></td>
+</tr>
+<tr>
+<td><code>kill -9 PID</code></td>
+<td>Force kill a process</td>
+<td><code>kill -9 1234</code></td>
+</tr>
+<tr>
+<td><code>killall name</code></td>
+<td>Kill all processes by name</td>
+<td><code>killall chromium</code></td>
+</tr>
+<tr>
+<td><code>bg</code></td>
+<td>Resume a stopped job in the background</td>
+<td><code>bg</code></td>
+</tr>
+<tr>
+<td><code>fg</code></td>
+<td>Bring a background job to foreground</td>
+<td><code>fg</code></td>
+</tr>
+<tr>
+<td><code>jobs</code></td>
+<td>List background jobs</td>
+<td><code>jobs</code></td>
+</tr>
+<tr>
+<td><code>nohup cmd &amp;</code></td>
+<td>Run a command that survives logout</td>
+<td><code>nohup ./server.py &amp;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="running-long-processes">Running Long Processes<a class="headerlink" href="#running-long-processes" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Run a process in the background</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>./long_task.sh<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="c1"># Detach a running process from the terminal</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="c1"># Press Ctrl+Z to stop it, then:</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="nb">bg</span><span class="w">    </span><span class="c1"># Resume in background</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="nb">disown</span><span class="w">  </span><span class="c1"># Detach from terminal</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="c1"># Better approach: use screen or tmux</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tmux
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a>tmux<span class="w"> </span>new<span class="w"> </span>-s<span class="w"> </span>mysession
+<a id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="c1"># Run your command inside tmux</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="c1"># Detach: Ctrl+B then D</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="c1"># Reattach later:</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15"></a>tmux<span class="w"> </span>attach<span class="w"> </span>-t<span class="w"> </span>mysession
+</code></pre></div></td></tr></table></div>
+<h2 id="system-information">System Information<a class="headerlink" href="#system-information" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uname -a</code></td>
+<td>Show kernel and system info</td>
+<td><code>uname -a</code></td>
+</tr>
+<tr>
+<td><code>cat /etc/os-release</code></td>
+<td>Show OS version</td>
+<td><code>cat /etc/os-release</code></td>
+</tr>
+<tr>
+<td><code>hostname -I</code></td>
+<td>Show IP addresses</td>
+<td><code>hostname -I</code></td>
+</tr>
+<tr>
+<td><code>df -h</code></td>
+<td>Show disk space usage in human-readable format</td>
+<td><code>df -h</code></td>
+</tr>
+<tr>
+<td><code>du -sh dir</code></td>
+<td>Show directory size</td>
+<td><code>du -sh ~/projects</code></td>
+</tr>
+<tr>
+<td><code>free -h</code></td>
+<td>Display memory usage</td>
+<td><code>free -h</code></td>
+</tr>
+<tr>
+<td><code>vcgencmd measure_temp</code></td>
+<td>Show CPU temperature</td>
+<td><code>vcgencmd measure_temp</code></td>
+</tr>
+<tr>
+<td><code>vcgencmd measure_volts</code></td>
+<td>Show voltage</td>
+<td><code>vcgencmd measure_volts</code></td>
+</tr>
+<tr>
+<td><code>vcgencmd get_throttled</code></td>
+<td>Check throttling status</td>
+<td><code>vcgencmd get_throttled</code></td>
+</tr>
+<tr>
+<td><code>cat /proc/cpuinfo</code></td>
+<td>Display CPU information</td>
+<td><code>cat /proc/cpuinfo</code></td>
+</tr>
+<tr>
+<td><code>lscpu</code></td>
+<td>Show CPU architecture details</td>
+<td><code>lscpu</code></td>
+</tr>
+<tr>
+<td><code>uptime</code></td>
+<td>Show how long system has been running</td>
+<td><code>uptime</code></td>
+</tr>
+<tr>
+<td><code>who</code></td>
+<td>Show who is logged in</td>
+<td><code>who</code></td>
+</tr>
+<tr>
+<td><code>lsblk</code></td>
+<td>List block devices (disks and partitions)</td>
+<td><code>lsblk</code></td>
+</tr>
+<tr>
+<td><code>lsusb</code></td>
+<td>List USB devices</td>
+<td><code>lsusb</code></td>
+</tr>
+<tr>
+<td><code>lspci</code></td>
+<td>List PCI devices (Pi 5 only)</td>
+<td><code>lspci</code></td>
+</tr>
+<tr>
+<td><code>dmesg \| tail</code></td>
+<td>Show recent kernel messages</td>
+<td><code>dmesg \| tail -20</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Raspberry Pi-specific monitoring script:</strong></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"=== Raspberry Pi System Status ==="</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Temperature: </span><span class="k">$(</span>vcgencmd<span class="w"> </span>measure_temp<span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"CPU Frequency: </span><span class="k">$(</span>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span>-F<span class="o">=</span><span class="w"> </span><span class="s1">'{printf "%.0f MHz\n", $2/1000000}'</span><span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Memory: </span><span class="k">$(</span>free<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'/Mem:/ {print $3 "/" $2}'</span><span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Disk: </span><span class="k">$(</span>df<span class="w"> </span>-h<span class="w"> </span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'NR==2 {print $3 "/" $2 " (" $5 " used)"}'</span><span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Uptime: </span><span class="k">$(</span>uptime<span class="w"> </span>-p<span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Throttled: </span><span class="k">$(</span>vcgencmd<span class="w"> </span>get_throttled<span class="k">)</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>Save this as <code>~/status.sh</code>, make it executable with <code>chmod +x ~/status.sh</code>, and run it anytime with <code>./status.sh</code>.</p>
+<h2 id="package-management">Package Management<a class="headerlink" href="#package-management" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo apt update</code></td>
+<td>Update package lists</td>
+<td><code>sudo apt update</code></td>
+</tr>
+<tr>
+<td><code>sudo apt upgrade</code></td>
+<td>Upgrade all installed packages</td>
+<td><code>sudo apt upgrade</code></td>
+</tr>
+<tr>
+<td><code>sudo apt full-upgrade</code></td>
+<td>Upgrade with dependency changes</td>
+<td><code>sudo apt full-upgrade</code></td>
+</tr>
+<tr>
+<td><code>sudo apt install package</code></td>
+<td>Install a package</td>
+<td><code>sudo apt install python3-pip</code></td>
+</tr>
+<tr>
+<td><code>sudo apt remove package</code></td>
+<td>Remove a package</td>
+<td><code>sudo apt remove unwanted-pkg</code></td>
+</tr>
+<tr>
+<td><code>sudo apt purge package</code></td>
+<td>Remove package and its config files</td>
+<td><code>sudo apt purge unwanted-pkg</code></td>
+</tr>
+<tr>
+<td><code>sudo apt autoremove</code></td>
+<td>Remove unneeded dependencies</td>
+<td><code>sudo apt autoremove</code></td>
+</tr>
+<tr>
+<td><code>sudo apt clean</code></td>
+<td>Clear downloaded package cache</td>
+<td><code>sudo apt clean</code></td>
+</tr>
+<tr>
+<td><code>dpkg -l</code></td>
+<td>List all installed packages</td>
+<td><code>dpkg -l</code></td>
+</tr>
+<tr>
+<td><code>dpkg -l \| grep name</code></td>
+<td>Search installed packages</td>
+<td><code>dpkg -l \| grep python</code></td>
+</tr>
+<tr>
+<td><code>apt search keyword</code></td>
+<td>Search for packages</td>
+<td><code>apt search python</code></td>
+</tr>
+<tr>
+<td><code>apt show package</code></td>
+<td>Show package details</td>
+<td><code>apt show nginx</code></td>
+</tr>
+<tr>
+<td><code>apt list --upgradable</code></td>
+<td>Show available upgrades</td>
+<td><code>apt list --upgradable</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example update workflow:</strong></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Full system update (do this regularly!)</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>clean
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">Automatic Security Updates</p>
+<p>Install <code>unattended-upgrades</code> for automatic security patches:
+</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>unattended-upgrades
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>-plow<span class="w"> </span>unattended-upgrades
+</code></pre></div></td></tr></table></div>
+</div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="disk-and-storage-management">Disk and Storage Management<a class="headerlink" href="#disk-and-storage-management" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span>
+<span class="normal"><a href="#__codelineno-16-17">17</a></span>
+<span class="normal"><a href="#__codelineno-16-18">18</a></span>
+<span class="normal"><a href="#__codelineno-16-19">19</a></span>
+<span class="normal"><a href="#__codelineno-16-20">20</a></span>
+<span class="normal"><a href="#__codelineno-16-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># List all disks and partitions</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>lsblk
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="c1"># Show disk usage summary</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5"></a>df<span class="w"> </span>-h
+<a id="__codelineno-16-6" name="__codelineno-16-6"></a>
+<a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="c1"># Find large files in your home directory</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8"></a>du<span class="w"> </span>-ah<span class="w"> </span>~<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-rh<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+<a id="__codelineno-16-9" name="__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="c1"># Check SD card health (read errors)</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11"></a>sudo<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"error\|fail\|mmc"</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="c1"># Mount a USB drive</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/usb
+<a id="__codelineno-16-15" name="__codelineno-16-15"></a>sudo<span class="w"> </span>mount<span class="w"> </span>/dev/sda1<span class="w"> </span>/mnt/usb
+<a id="__codelineno-16-16" name="__codelineno-16-16"></a>
+<a id="__codelineno-16-17" name="__codelineno-16-17"></a><span class="c1"># Unmount safely</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18"></a>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/usb
+<a id="__codelineno-16-19" name="__codelineno-16-19"></a>
+<a id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="c1"># Auto-mount on boot — add to /etc/fstab:</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21"></a><span class="c1"># /dev/sda1  /mnt/usb  ext4  defaults,nofail  0  2</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="network-commands">Network Commands<a class="headerlink" href="#network-commands" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ip addr</code></td>
+<td>Show network interfaces and IP addresses</td>
+<td><code>ip addr</code></td>
+</tr>
+<tr>
+<td><code>ip route</code></td>
+<td>Show routing table</td>
+<td><code>ip route</code></td>
+</tr>
+<tr>
+<td><code>ping host</code></td>
+<td>Test connectivity to a host</td>
+<td><code>ping -c 4 google.com</code></td>
+</tr>
+<tr>
+<td><code>traceroute host</code></td>
+<td>Trace route to a host</td>
+<td><code>traceroute google.com</code></td>
+</tr>
+<tr>
+<td><code>nslookup domain</code></td>
+<td>DNS lookup</td>
+<td><code>nslookup google.com</code></td>
+</tr>
+<tr>
+<td><code>dig domain</code></td>
+<td>Detailed DNS lookup</td>
+<td><code>dig google.com</code></td>
+</tr>
+<tr>
+<td><code>ss -tuln</code></td>
+<td>Show listening ports (modern replacement for netstat)</td>
+<td><code>ss -tuln</code></td>
+</tr>
+<tr>
+<td><code>netstat -tuln</code></td>
+<td>Show listening ports</td>
+<td><code>netstat -tuln</code></td>
+</tr>
+<tr>
+<td><code>ssh user@host</code></td>
+<td>Connect to remote system via SSH</td>
+<td><code>ssh pi@192.168.1.5</code></td>
+</tr>
+<tr>
+<td><code>scp file user@host:path</code></td>
+<td>Securely copy files between systems</td>
+<td><code>scp data.txt pi@192.168.1.5:~/</code></td>
+</tr>
+<tr>
+<td><code>rsync -avz src dest</code></td>
+<td>Sync files efficiently</td>
+<td><code>rsync -avz ~/projects/ pi@backup:~/projects/</code></td>
+</tr>
+<tr>
+<td><code>wget URL</code></td>
+<td>Download files from the web</td>
+<td><code>wget https://example.com/file.zip</code></td>
+</tr>
+<tr>
+<td><code>curl URL</code></td>
+<td>Transfer data from/to servers</td>
+<td><code>curl -s https://api.ipify.org</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Useful networking one-liners:</strong></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Check your public IP address</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>https://api.ipify.org<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="c1"># Find all devices on your local network</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a>sudo<span class="w"> </span>nmap<span class="w"> </span>-sn<span class="w"> </span><span class="m">192</span>.168.1.0/24
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="c1"># Test network speed</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a>wget<span class="w"> </span>-O<span class="w"> </span>/dev/null<span class="w"> </span>http://speedtest.tele2.net/10MB.zip
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a>
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="c1"># Check which process is using a port</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:80
+</code></pre></div></td></tr></table></div>
+<h2 id="systemd-service-management">systemd Service Management<a class="headerlink" href="#systemd-service-management" title="Permanent link">¶</a></h2>
+<p><code>systemd</code> is the service manager on Raspberry Pi OS. Understanding it is essential for managing background services.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-18-10">10</a></span>
+<span class="normal"><a href="#__codelineno-18-11">11</a></span>
+<span class="normal"><a href="#__codelineno-18-12">12</a></span>
+<span class="normal"><a href="#__codelineno-18-13">13</a></span>
+<span class="normal"><a href="#__codelineno-18-14">14</a></span>
+<span class="normal"><a href="#__codelineno-18-15">15</a></span>
+<span class="normal"><a href="#__codelineno-18-16">16</a></span>
+<span class="normal"><a href="#__codelineno-18-17">17</a></span>
+<span class="normal"><a href="#__codelineno-18-18">18</a></span>
+<span class="normal"><a href="#__codelineno-18-19">19</a></span>
+<span class="normal"><a href="#__codelineno-18-20">20</a></span>
+<span class="normal"><a href="#__codelineno-18-21">21</a></span>
+<span class="normal"><a href="#__codelineno-18-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Check service status</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="c1"># Start / stop / restart a service</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>nginx
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>nginx
+<a id="__codelineno-18-7" name="__codelineno-18-7"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+<a id="__codelineno-18-8" name="__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="c1"># Enable / disable service at boot</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
+<a id="__codelineno-18-11" name="__codelineno-18-11"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>bluetooth
+<a id="__codelineno-18-12" name="__codelineno-18-12"></a>
+<a id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="c1"># View service logs</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>ssh<span class="w"> </span>-f<span class="w">         </span><span class="c1"># Follow logs in real-time</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>ssh<span class="w"> </span>--since<span class="w"> </span>today<span class="w">  </span><span class="c1"># Today's logs only</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>ssh<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w">      </span><span class="c1"># Last 50 lines</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17"></a>
+<a id="__codelineno-18-18" name="__codelineno-18-18"></a><span class="c1"># List all active services</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="o">=</span>service<span class="w"> </span>--state<span class="o">=</span>running
+<a id="__codelineno-18-20" name="__codelineno-18-20"></a>
+<a id="__codelineno-18-21" name="__codelineno-18-21"></a><span class="c1"># List failed services</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22"></a>systemctl<span class="w"> </span>--failed
+</code></pre></div></td></tr></table></div>
+<p>For creating your own services, see <a href="../../tips/managing_your_program_as_a_systemd_daemon/">Managing Your Program as a systemd Daemon</a>.</p>
+<h2 id="text-editing">Text Editing<a class="headerlink" href="#text-editing" title="Permanent link">¶</a></h2>
+<p>While not commands per se, knowing a text editor is essential:</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Description</th>
+<th>How to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nano</code></td>
+<td>Simple, beginner-friendly editor</td>
+<td><code>nano filename.txt</code></td>
+</tr>
+<tr>
+<td><code>vim</code></td>
+<td>Powerful, keyboard-driven editor</td>
+<td><code>vim filename.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Basic nano commands:</strong></p>
+<ul>
+<li><code>Ctrl+O</code>: Save file</li>
+<li><code>Ctrl+X</code>: Exit editor</li>
+<li><code>Ctrl+K</code>: Cut current line</li>
+<li><code>Ctrl+U</code>: Paste cut line</li>
+<li><code>Ctrl+W</code>: Search in file</li>
+<li><code>Ctrl+G</code>: Get help</li>
+</ul>
+<h2 id="useful-one-liner-collection">Useful One-Liner Collection<a class="headerlink" href="#useful-one-liner-collection" title="Permanent link">¶</a></h2>
+<p>Here are battle-tested one-liners that you'll use again and again on your Raspberry Pi:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-19-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-19-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-19-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-19-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-19-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-19-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-19-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-19-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-19-10">10</a></span>
+<span class="normal"><a href="#__codelineno-19-11">11</a></span>
+<span class="normal"><a href="#__codelineno-19-12">12</a></span>
+<span class="normal"><a href="#__codelineno-19-13">13</a></span>
+<span class="normal"><a href="#__codelineno-19-14">14</a></span>
+<span class="normal"><a href="#__codelineno-19-15">15</a></span>
+<span class="normal"><a href="#__codelineno-19-16">16</a></span>
+<span class="normal"><a href="#__codelineno-19-17">17</a></span>
+<span class="normal"><a href="#__codelineno-19-18">18</a></span>
+<span class="normal"><a href="#__codelineno-19-19">19</a></span>
+<span class="normal"><a href="#__codelineno-19-20">20</a></span>
+<span class="normal"><a href="#__codelineno-19-21">21</a></span>
+<span class="normal"><a href="#__codelineno-19-22">22</a></span>
+<span class="normal"><a href="#__codelineno-19-23">23</a></span>
+<span class="normal"><a href="#__codelineno-19-24">24</a></span>
+<span class="normal"><a href="#__codelineno-19-25">25</a></span>
+<span class="normal"><a href="#__codelineno-19-26">26</a></span>
+<span class="normal"><a href="#__codelineno-19-27">27</a></span>
+<span class="normal"><a href="#__codelineno-19-28">28</a></span>
+<span class="normal"><a href="#__codelineno-19-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Watch CPU temperature in real-time</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>vcgencmd<span class="w"> </span>measure_temp
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="c1"># Find which package provides a specific command</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a>dpkg<span class="w"> </span>-S<span class="w"> </span><span class="k">$(</span>which<span class="w"> </span>command_name<span class="k">)</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6"></a>
+<a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="c1"># Kill all processes matching a name</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8"></a>pkill<span class="w"> </span>-f<span class="w"> </span><span class="s2">"python3 server.py"</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9"></a>
+<a id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="c1"># Create a compressed backup of a directory</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11"></a>tar<span class="w"> </span>-czf<span class="w"> </span>backup-<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span>.tar.gz<span class="w"> </span>~/projects/
+<a id="__codelineno-19-12" name="__codelineno-19-12"></a>
+<a id="__codelineno-19-13" name="__codelineno-19-13"></a><span class="c1"># Extract a tar.gz archive</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>archive.tar.gz
+<a id="__codelineno-19-15" name="__codelineno-19-15"></a>
+<a id="__codelineno-19-16" name="__codelineno-19-16"></a><span class="c1"># Check which files were recently modified</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17"></a>find<span class="w"> </span>/etc<span class="w"> </span>-mtime<span class="w"> </span>-7<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+<a id="__codelineno-19-18" name="__codelineno-19-18"></a>
+<a id="__codelineno-19-19" name="__codelineno-19-19"></a><span class="c1"># Generate a random password</span>
+<a id="__codelineno-19-20" name="__codelineno-19-20"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-base64<span class="w"> </span><span class="m">16</span>
+<a id="__codelineno-19-21" name="__codelineno-19-21"></a>
+<a id="__codelineno-19-22" name="__codelineno-19-22"></a><span class="c1"># Quick HTTP server (share files over the network)</span>
+<a id="__codelineno-19-23" name="__codelineno-19-23"></a>python3<span class="w"> </span>-m<span class="w"> </span>http.server<span class="w"> </span><span class="m">8000</span>
+<a id="__codelineno-19-24" name="__codelineno-19-24"></a>
+<a id="__codelineno-19-25" name="__codelineno-19-25"></a><span class="c1"># Monitor network bandwidth in real-time</span>
+<a id="__codelineno-19-26" name="__codelineno-19-26"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nload<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>nload
+<a id="__codelineno-19-27" name="__codelineno-19-27"></a>
+<a id="__codelineno-19-28" name="__codelineno-19-28"></a><span class="c1"># Clean up systemd journal logs (free disk space)</span>
+<a id="__codelineno-19-29" name="__codelineno-19-29"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>--vacuum-size<span class="o">=</span>100M
+</code></pre></div></td></tr></table></div>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="shell-script-basics">Shell Script Basics<a class="headerlink" href="#shell-script-basics" title="Permanent link">¶</a></h2>
+<p>Once you're comfortable with individual commands, you can combine them into scripts for automation.</p>
+<h3 id="your-first-script">Your First Script<a class="headerlink" href="#your-first-script" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-20-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-20-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-20-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-20-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-20-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-20-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-20-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-20-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-20-10">10</a></span>
+<span class="normal"><a href="#__codelineno-20-11">11</a></span>
+<span class="normal"><a href="#__codelineno-20-12">12</a></span>
+<span class="normal"><a href="#__codelineno-20-13">13</a></span>
+<span class="normal"><a href="#__codelineno-20-14">14</a></span>
+<span class="normal"><a href="#__codelineno-20-15">15</a></span>
+<span class="normal"><a href="#__codelineno-20-16">16</a></span>
+<span class="normal"><a href="#__codelineno-20-17">17</a></span>
+<span class="normal"><a href="#__codelineno-20-18">18</a></span>
+<span class="normal"><a href="#__codelineno-20-19">19</a></span>
+<span class="normal"><a href="#__codelineno-20-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="c1"># my_first_script.sh — A simple Raspberry Pi maintenance script</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Starting maintenance..."</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="c1"># Update system</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>-y
+<a id="__codelineno-20-8" name="__codelineno-20-8"></a>
+<a id="__codelineno-20-9" name="__codelineno-20-9"></a><span class="c1"># Clean up</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10"></a>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>-y
+<a id="__codelineno-20-11" name="__codelineno-20-11"></a>sudo<span class="w"> </span>apt<span class="w"> </span>clean
+<a id="__codelineno-20-12" name="__codelineno-20-12"></a>
+<a id="__codelineno-20-13" name="__codelineno-20-13"></a><span class="c1"># Show status</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"=== System Status ==="</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Temperature: </span><span class="k">$(</span>vcgencmd<span class="w"> </span>measure_temp<span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Disk usage:"</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18"></a>df<span class="w"> </span>-h<span class="w"> </span>/
+<a id="__codelineno-20-19" name="__codelineno-20-19"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<a id="__codelineno-20-20" name="__codelineno-20-20"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Maintenance complete!"</span>
+</code></pre></div></td></tr></table></div>
+<p>Save as <code>~/maintenance.sh</code> and run:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>~/maintenance.sh
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>./maintenance.sh
+</code></pre></div></td></tr></table></div>
+<h3 id="key-scripting-concepts">Key Scripting Concepts<a class="headerlink" href="#key-scripting-concepts" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span>
+<span class="normal"><a href="#__codelineno-22-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="c1"># Variables</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="nv">NAME</span><span class="o">=</span><span class="s2">"Raspberry Pi"</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Hello from </span><span class="nv">$NAME</span><span class="s2">"</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="c1"># Conditionals</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span>/boot/firmware/config.txt<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Config file exists"</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a><span class="k">else</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Config file not found!"</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="k">fi</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11"></a>
+<a id="__codelineno-22-12" name="__codelineno-22-12"></a><span class="c1"># Loops</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.log<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Processing </span><span class="nv">$file</span><span class="s2">"</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15"></a><span class="w">    </span>wc<span class="w"> </span>-l<span class="w"> </span><span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="k">done</span>
+<a id="__codelineno-22-17" name="__codelineno-22-17"></a>
+<a id="__codelineno-22-18" name="__codelineno-22-18"></a><span class="c1"># Command substitution</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19"></a><span class="nv">TEMP</span><span class="o">=</span><span class="k">$(</span>vcgencmd<span class="w"> </span>measure_temp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">'\d+\.\d+'</span><span class="k">)</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20"></a><span class="k">if</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$TEMP</span><span class="s2"> &gt; 70"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l<span class="k">)</span><span class="w"> </span><span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"WARNING: High temperature! </span><span class="si">${</span><span class="nv">TEMP</span><span class="si">}</span><span class="s2">°C"</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="tips-for-command-line-efficiency">Tips for Command Line Efficiency<a class="headerlink" href="#tips-for-command-line-efficiency" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>Tab completion</strong>: Press Tab to autocomplete commands and filenames</li>
+<li><strong>Command history</strong>:<ul>
+<li>Press Up Arrow to cycle through previous commands</li>
+<li><code>history</code> to see all past commands</li>
+<li><code>Ctrl+R</code> to search command history interactively</li>
+<li><code>!!</code> to repeat the last command (great with <code>sudo !!</code>)</li>
+</ul>
+</li>
+<li><strong>Wildcards</strong>:<ul>
+<li><code>*</code> matches everything: <code>rm *.tmp</code></li>
+<li><code>?</code> matches single character: <code>file?.txt</code> matches <code>file1.txt</code></li>
+<li><code>[0-9]</code> matches a range: <code>log[0-9].txt</code></li>
+</ul>
+</li>
+<li><strong>Combining commands</strong>:<ul>
+<li><code>&amp;&amp;</code> — run next command only if previous succeeded: <code>make &amp;&amp; ./program</code></li>
+<li><code>||</code> — run next command only if previous failed: <code>ping -c1 8.8.8.8 || echo "No internet"</code></li>
+<li><code>;</code> — run next command regardless: <code>echo "start"; sleep 5; echo "done"</code></li>
+</ul>
+</li>
+<li><strong>Aliases</strong> — Create shortcuts for common commands:
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1"># Add to ~/.bashrc</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">ll</span><span class="o">=</span><span class="s1">'ls -la'</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">temp</span><span class="o">=</span><span class="s1">'vcgencmd measure_temp'</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="nb">alias</span><span class="w"> </span><span class="nv">update</span><span class="o">=</span><span class="s1">'sudo apt update &amp;&amp; sudo apt full-upgrade -y'</span>
+</code></pre></div></td></tr></table></div></li>
+<li><strong>Ctrl shortcuts</strong>:<ul>
+<li><code>Ctrl+C</code> — Cancel current command</li>
+<li><code>Ctrl+D</code> — Exit the terminal / end input</li>
+<li><code>Ctrl+L</code> — Clear the screen</li>
+<li><code>Ctrl+A</code> — Move cursor to beginning of line</li>
+<li><code>Ctrl+E</code> — Move cursor to end of line</li>
+<li><code>Ctrl+U</code> — Delete from cursor to start of line</li>
+</ul>
+</li>
+</ol>
+<h2 id="learning-more">Learning More<a class="headerlink" href="#learning-more" title="Permanent link">¶</a></h2>
+<ul>
+<li><code>man command</code> — View the manual for any command</li>
+<li><code>command --help</code> — Show brief help information</li>
+<li><code>tldr command</code> — Show simplified examples (install: <code>sudo apt install tldr</code>)</li>
+</ul>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong><a href="../networking_setup_and_management_for_raspberry_pi/">Networking Setup and Management</a></strong> — Configure Wi-Fi, static IPs, and remote access</li>
+<li><strong><a href="../system_settings_configuration_for_raspberry_pi/">System Settings Configuration</a></strong> — Optimize your Raspberry Pi's performance and settings</li>
+<li><strong><a href="../../tips/managing_your_program_as_a_systemd_daemon/">Managing Your Program as a systemd Daemon</a></strong> — Turn your scripts into services</li>
+<li><strong><a href="../../tips/raspberry_pi_security_hardening_complete_guide/">Security Hardening Guide</a></strong> — Secure your Raspberry Pi</li>
+</ul>
+<p>Most importantly, don't be afraid to experiment! The command line becomes more intuitive with practice, and it's the most powerful way to control your Raspberry Pi.</p></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

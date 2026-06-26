@@ -1,0 +1,52 @@
+@startuml
+!theme sunlust
+class VendingMachine {
+    -state: VendingMachineState
+    -coinCount: int
+    -productCount: int
+    +insertCoin(): void
+    +ejectCoin(): void
+    +selectProduct(): void
+    +dispense(): void
+    +hasEnoughCoins(): bool
+    +hasProducts(): bool
+}
+
+interface VendingMachineState {
+    +insertCoin(VendingMachine): void
+    +ejectCoin(VendingMachine): void
+    +selectProduct(VendingMachine): void
+    +dispense(VendingMachine): void
+}
+
+class NoCoinState {
+    +insertCoin(): void
+}
+
+class HasCoinState {
+    +insertCoin(): void
+    +ejectCoin(): void
+    +selectProduct(): void
+}
+
+class DispensingState {
+    +dispense(): void
+}
+
+class SoldOutState {
+    +insertCoin(): void
+    +selectProduct(): void
+}
+
+VendingMachine o--> VendingMachineState
+VendingMachineState <|.. NoCoinState
+VendingMachineState <|.. HasCoinState
+VendingMachineState <|.. DispensingState
+VendingMachineState <|.. SoldOutState
+
+NoCoinState --> HasCoinState : insertCoin()\n(enough coins)
+HasCoinState --> NoCoinState : ejectCoin()
+HasCoinState --> DispensingState : selectProduct()
+DispensingState --> NoCoinState : dispense()\n(has products)
+DispensingState --> SoldOutState : dispense()\n(no products)
+@enduml

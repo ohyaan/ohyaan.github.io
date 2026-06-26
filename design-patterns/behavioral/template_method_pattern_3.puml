@@ -1,0 +1,29 @@
+@startuml
+!theme sunlust
+abstract class WebScraper {
+    +scrape(url): void
+    #fetchPage(url): string
+    #extractData(html): string {abstract}
+    #cleanData(data): string {abstract}
+    #saveData(data): void {abstract}
+    #shouldAuthenticate(): bool
+    #authenticate(): void
+}
+
+class ProductPriceScraper {
+    #extractData(html): string
+    #cleanData(data): string
+    #saveData(data): void
+}
+
+class NewsArticleScraper {
+    #extractData(html): string
+    #cleanData(data): string
+    #saveData(data): void
+    #shouldAuthenticate(): bool
+    #authenticate(): void
+}
+
+WebScraper <|-- ProductPriceScraper
+WebScraper <|-- NewsArticleScraper
+@enduml
