@@ -734,7 +734,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -5695,13 +5695,13 @@
 <p><strong>Configure for Headless Setup (Optional)</strong></p>
 <blockquote>
 <p>[!WARNING]
-Starting with Raspberry Pi OS <strong>Bookworm (Debian 12)</strong>, the network backend has transitioned from <code>dhcpcd</code> to <strong>NetworkManager</strong>. Consequently, placing a <code>wpa_supplicant.conf</code> file in the boot partition is <strong>no longer supported</strong> on modern releases. </p>
+Raspberry Pi OS <strong>Trixie (Debian 13)</strong> uses <strong>NetworkManager</strong>. Placing a <code>wpa_supplicant.conf</code> file in the boot partition is not supported on current releases; configure Wi-Fi in Raspberry Pi Imager instead.</p>
 <p>We highly recommend using <strong>Method 1 (Raspberry Pi Imager)</strong> to pre-configure Wi-Fi and SSH via its OS Customisation settings. If you must set it up manually on a flashed card:</p>
 </blockquote>
 <ul>
 <li><strong>Enable SSH</strong>: Create an empty file named <code>ssh</code> (or <code>ssh.txt</code>) in the boot partition.</li>
 <li><strong>Configure Wi-Fi via NetworkManager</strong>:
-   Create a file named <code>system-connections/preconfigured.nmconnection</code> in the boot partition (often mounted as <code>/boot/firmware/</code> on Bookworm) and configure it as follows:
+   For repeatable fleet provisioning, use Raspberry Pi Imager customisation, cloud-init, or rpi-image-gen rather than manually creating a connection file on the boot partition.
    <div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>

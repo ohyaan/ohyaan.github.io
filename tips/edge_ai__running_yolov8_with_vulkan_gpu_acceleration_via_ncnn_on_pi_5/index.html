@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -3927,6 +3927,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#choosing-this-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing This Runtime
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5819,9 +5828,11 @@
 <ol>
 <li><strong>Enable FP16 (Half-Precision)</strong>: By setting <code>net.opt.use_bf16_storage = true</code> and <code>net.opt.use_fp16_arithmetic = true</code>, you reduce the memory bandwidth requirements of the model by 50%, which is critical since the Pi 5's RAM bandwidth is shared between CPU and GPU.</li>
 <li><strong>Increase GPU Memory Share</strong>: Ensure your Raspberry Pi allocates enough dynamic address space to Vulkan by adjusting memory allocation parameters if you run large models.</li>
-<li><strong>Model Quantization</strong>: Using <code>ncnn2table</code> and <code>ncnn2int8</code>, you can perform INT8 post-training quantization, compressing your model weights and accelerating calculations by an additional 30%.</li>
+<li><strong>Model Quantization</strong>: Using <code>ncnn2table</code> and <code>ncnn2int8</code>, you can perform INT8 post-training quantization. Measure end-to-end speed and accuracy on your own model; the gain depends on supported layers and the complete pipeline.</li>
 </ol>
-<p>By utilizing the Tencent ncnn library and Vulkan drivers, you can implement real-time 30FPS computer vision systems entirely local and free of external hardware costs on Raspberry Pi 5.</p></div>
+<p>NCNN and Vulkan can reduce CPU pressure without external hardware, but do not assume a fixed frame rate. Report the exact model, input size, capture path, runtime revision, temperature, and throttling state.</p>
+<h2 id="choosing-this-runtime">Choosing This Runtime<a class="headerlink" href="#choosing-this-runtime" title="Permanent link">¶</a></h2>
+<p>Compare this approach with <a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/">OpenVINO CPU inference</a>, Coral, AI Camera, and Hailo in the <a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI accelerator comparison</a>.</p></div>
 
 
 

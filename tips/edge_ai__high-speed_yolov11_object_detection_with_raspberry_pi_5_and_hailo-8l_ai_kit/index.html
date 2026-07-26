@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -6023,7 +6023,7 @@ You should see a output confirming the device model, firmware version, and uniqu
 </code></pre></div></td></tr></table></div>
 <hr>
 <h2 id="6-performance-benchmarks">6. Performance Benchmarks<a class="headerlink" href="#6-performance-benchmarks" title="Permanent link">¶</a></h2>
-<p>Below is a comparison of inferencing YOLOv11 models on the Raspberry Pi 5 CPU versus compiling them for the Hailo-8L NPU.</p>
+<p>Use the table below to publish measurements collected from the same camera input and model revision. Values are intentionally not pre-filled because driver, model compilation, cooling, and pre/post-processing change the result.</p>
 <table>
 <thead>
 <tr>
@@ -6038,38 +6038,39 @@ You should see a output confirming the device model, firmware version, and uniqu
 <tr>
 <td style="text-align: left;"><strong>YOLOv11n (Pi 5 CPU)</strong></td>
 <td style="text-align: center;">640x640</td>
-<td style="text-align: center;">~115 ms</td>
-<td style="text-align: center;">~8.7 FPS</td>
-<td style="text-align: center;">380% (All Cores Maxed)</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>YOLOv11s (Pi 5 CPU)</strong></td>
 <td style="text-align: center;">640x640</td>
-<td style="text-align: center;">~240 ms</td>
-<td style="text-align: center;">~4.1 FPS</td>
-<td style="text-align: center;">400% (All Cores Maxed)</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>YOLOv11n (Hailo-8L NPU - PCIe Gen 2)</strong></td>
 <td style="text-align: center;">640x640</td>
-<td style="text-align: center;">~18 ms</td>
-<td style="text-align: center;">~55.5 FPS</td>
-<td style="text-align: center;">&lt; 15% (Single Core Thread)</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>YOLOv11n (Hailo-8L NPU - PCIe Gen 3)</strong></td>
 <td style="text-align: center;">640x640</td>
-<td style="text-align: center;">~13 ms</td>
-<td style="text-align: center;">~76.9 FPS</td>
-<td style="text-align: center;">&lt; 10% (Single Core Thread)</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
+<td style="text-align: center;">Record</td>
 </tr>
 </tbody>
 </table>
-<p>By offloading matrix multiplications to the dedicated Hailo-8L hardware and leveraging PCIe Gen 3 bandwidth, we achieve up to a <strong>9x performance increase</strong> while freeing up the CPU to perform other system-critical tasks.</p>
+<p>Include time-to-first-result, ten-minute sustained throughput, maximum temperature, <code>vcgencmd get_throttled</code>, Hailo package version, and wall-power readings.</p>
 <hr>
 <h2 id="7-conclusion-next-steps">7. Conclusion &amp; Next Steps<a class="headerlink" href="#7-conclusion-next-steps" title="Permanent link">¶</a></h2>
 <p>Offloading heavy vision models to the Hailo-8L NPU turns the Raspberry Pi 5 into a low-latency, energy-efficient edge machine capable of high-frequency spatial tracking. </p>
-<p>For next steps, explore running multiple inference threads concurrently to process multiple camera streams, or implement tracking algorithms like <strong>ByteTrack</strong> on the freed CPU cores to monitor unique object movements.</p></div>
+<p>For next steps, explore running multiple inference threads concurrently to process multiple camera streams, or implement tracking algorithms like <strong>ByteTrack</strong> on the freed CPU cores to monitor unique object movements.</p>
+<p>Compare Hailo-8L with CPU, Vulkan, Coral, AI Camera, and AI HAT+ 2 in the <a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI accelerator comparison</a>.</p></div>
 
 
 

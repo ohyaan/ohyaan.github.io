@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -3861,6 +3861,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#related-ai-deployment-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related AI Deployment Options
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5734,15 +5743,22 @@ Verify the OS recognizes the device (look for <code>Global Unichip Corp.</code>)
 1. Navigate to <strong>System</strong> or <strong>Stats</strong> in the Frigate navigation menu.
 2. Locate the <strong>Detectors</strong> statistics panel.
 3. Observe the <strong>inference_speed</strong> metric.
-   - If the Coral is running correctly, your inference speed should be between <strong>5ms and 15ms</strong>.
-   - If object detection falls back to CPU (OpenCV/TensorFlow Lite CPU runtime), inference speed will spike to <strong>80ms - 200ms</strong>, accompanied by high CPU usage on the host.</p>
+   - Record the displayed inference time after the system reaches a steady state.
+   - Compare it with a controlled CPU-detector run using the same model, camera input, and Frigate version.</p>
 <hr>
 <h2 id="performance-tuning-and-troubleshooting">Performance Tuning and Troubleshooting<a class="headerlink" href="#performance-tuning-and-troubleshooting" title="Permanent link">¶</a></h2>
 <h3 id="1-coral-thermal-management">1. Coral Thermal Management<a class="headerlink" href="#1-coral-thermal-management" title="Permanent link">¶</a></h3>
 <p>The Google Coral USB Accelerator gets extremely hot during continuous 24/7 inference loops. Ensure it is placed in a well-ventilated area. If you run multiple cameras, taping a small passive heatsink to the Coral's casing will prevent thermal throttling and connection drops.</p>
 <h3 id="2-usb-hub-power-drops">2. USB Hub Power Drops<a class="headerlink" href="#2-usb-hub-power-drops" title="Permanent link">¶</a></h3>
 <p>The Coral USB TPU pulls significant current (up to 900mA) during heavy loads. If plugged directly into the Raspberry Pi 5 alongside other peripherals, it might cause USB power drops. If you experience unexpected disconnects (<code>USB Device Disconnected</code> in syslog), plug the Coral into a <strong>powered USB 3.0 Hub</strong>.</p>
-<p>By combining the low-latency hardware processing of the Google Coral TPU with Frigate, your Raspberry Pi 5 acts as a highly efficient, cloud-free, and intelligent home surveillance server.</p></div>
+<p>By combining the low-latency hardware processing of the Google Coral TPU with Frigate, your Raspberry Pi 5 acts as a highly efficient, cloud-free, and intelligent home surveillance server.</p>
+<h2 id="related-ai-deployment-options">Related AI Deployment Options<a class="headerlink" href="#related-ai-deployment-options" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI Accelerator Comparison</a></li>
+<li><a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/">OpenVINO YOLO on CPU</a></li>
+<li><a href="../edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/">Hailo-8L YOLOv11</a></li>
+<li><a href="../raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">AI HAT+ 2 Local LLMs and VLMs</a></li>
+</ul></div>
 
 
 

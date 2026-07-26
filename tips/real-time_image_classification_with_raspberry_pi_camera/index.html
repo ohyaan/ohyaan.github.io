@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -4984,6 +4984,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5618,25 +5627,17 @@
 - Active cooling solution (heatsink or fan)</p>
 <h2 id="camera-setup">Camera Setup<a class="headerlink" href="#camera-setup" title="Permanent link">¶</a></h2>
 <h3 id="enabling-raspberry-pi-camera">Enabling Raspberry Pi Camera<a class="headerlink" href="#enabling-raspberry-pi-camera" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Enable camera interface</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>raspi-config
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Navigate to: Interface Options → Camera → Enable → Reboot</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Install current camera software</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rpicam-apps<span class="w"> </span>python3-picamera2<span class="w"> </span>python3-opencv
 <a id="__codelineno-0-4" name="__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1"># Install camera software (Raspberry Pi OS Bullseye+)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-picamera2<span class="w"> </span>python3-opencv
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="c1"># Test camera</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>libcamera-hello<span class="w"> </span>--timeout<span class="w"> </span><span class="m">5000</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1"># Test camera</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>rpicam-hello<span class="w"> </span>-t<span class="w"> </span><span class="m">5000</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="camera-configuration-test">Camera Configuration Test<a class="headerlink" href="#camera-configuration-test" title="Permanent link">¶</a></h3>
 <p>Create <code>test_camera.py</code>:</p>
@@ -6563,25 +6564,23 @@
 <li>Adjust camera focus and positioning</li>
 </ul>
 <h3 id="camera-not-detected">Camera Not Detected<a class="headerlink" href="#camera-not-detected" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-19-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-19-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-19-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-19-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-19-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-19-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-19-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-19-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-19-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Verify camera</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span>
+<span class="normal"><a href="#__codelineno-19-6">6</a></span>
+<span class="normal"><a href="#__codelineno-19-7">7</a></span>
+<span class="normal"><a href="#__codelineno-19-8">8</a></span>
+<span class="normal"><a href="#__codelineno-19-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="c1"># Verify camera</span>
 <a id="__codelineno-19-2" name="__codelineno-19-2"></a>vcgencmd<span class="w"> </span>get_camera
 <a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="c1"># Should show: supported=1 detected=1</span>
 <a id="__codelineno-19-4" name="__codelineno-19-4"></a>
 <a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="c1"># Check camera connection</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6"></a>libcamera-hello<span class="w"> </span>--list-cameras
+<a id="__codelineno-19-6" name="__codelineno-19-6"></a>rpicam-hello<span class="w"> </span>--list-cameras
 <a id="__codelineno-19-7" name="__codelineno-19-7"></a>
-<a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="c1"># Enable legacy camera support if needed</span>
-<a id="__codelineno-19-9" name="__codelineno-19-9"></a>sudo<span class="w"> </span>raspi-config
-<a id="__codelineno-19-10" name="__codelineno-19-10"></a><span class="c1"># Interface Options → Legacy Camera → Enable</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="c1"># Inspect current camera and kernel messages</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9"></a>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'imx|camera|csi|unicam'</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
 <p>Real-time image classification on Raspberry Pi demonstrates the accessibility of modern AI technology for edge computing applications. While not matching cloud-based solutions in raw performance, edge AI provides privacy, low latency, and offline operation—crucial for many real-world applications.</p>
@@ -6594,12 +6593,22 @@
 <p>This image classification system serves as a foundation for countless applications, from smart home automation to industrial quality control, wildlife monitoring to assistive technology. Combined with Raspberry Pi's GPIO capabilities and extensive sensor ecosystem, the possibilities are virtually limitless.</p>
 <h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">¶</a></h2>
 <ul>
+<li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">AI Accelerator Comparison</a></li>
+<li><a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/">Current Camera Setup and Troubleshooting</a></li>
+<li><a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/">OpenVINO YOLO Deployment</a></li>
 <li><a href="https://www.tensorflow.org/lite/models">TensorFlow Lite Models</a></li>
 <li><a href="https://coral.ai/docs/accelerator/get-started/">Coral USB Accelerator Documentation</a></li>
 <li><a href="https://www.raspberrypi.com/documentation/accessories/camera.html">Raspberry Pi Camera Documentation</a></li>
 <li><a href="https://www.image-net.org/">ImageNet Dataset</a></li>
 <li><a href="https://www.tensorflow.org/tutorials/images/transfer_learning">Transfer Learning Guide</a></li>
-</ul></div>
+</ul>
+<h2 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">¶</a></h2>
+<h3 id="why-does-an-older-tutorial-use-libcamera-hello">Why does an older tutorial use <code>libcamera-hello</code>?<a class="headerlink" href="#why-does-an-older-tutorial-use-libcamera-hello" title="Permanent link">¶</a></h3>
+<p>Raspberry Pi OS renamed the applications to <code>rpicam-*</code>. Use <code>rpicam-hello</code>, <code>rpicam-jpeg</code>, and <code>rpicam-vid</code> on current releases.</p>
+<h3 id="should-i-use-the-cpu-ai-camera-coral-or-hailo">Should I use the CPU, AI Camera, Coral, or Hailo?<a class="headerlink" href="#should-i-use-the-cpu-ai-camera-coral-or-hailo" title="Permanent link">¶</a></h3>
+<p>Start with the CPU to validate accuracy. Choose AI Camera for compact sensor-side inference, Coral for compatible Edge TPU models, or Hailo for higher-rate and broader supported pipelines.</p>
+<h3 id="what-should-a-performance-result-include">What should a performance result include?<a class="headerlink" href="#what-should-a-performance-result-include" title="Permanent link">¶</a></h3>
+<p>Report model, input size, runtime version, end-to-end FPS, temperature, throttling, and cooling. Model-only inference time is not the same as camera-to-result latency.</p></div>
 
 
 

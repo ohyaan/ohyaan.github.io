@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -4297,6 +4297,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#common-failure-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Failure Scenarios
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5599,7 +5626,7 @@
 <ol>
 <li>Connect your Camera Module to the CSI port on the Pi (using the correct ribbon cable slot).</li>
 <li>Boot the Pi and run a quick test using the native <code>libcamera</code> suite:
-    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>libcamera-still<span class="w"> </span>-o<span class="w"> </span>test.jpg
+    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>rpicam-jpeg<span class="w"> </span>-o<span class="w"> </span>test.jpg
 </code></pre></div></td></tr></table></div></li>
 <li>Verify that <code>test.jpg</code> is successfully saved in your directory. If you are using a USB webcam, you can test it using the utility <code>fswebcam</code>:
     <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
@@ -5874,7 +5901,53 @@
 </ol>
 <hr>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>Your DIY AI Security Camera is now scanning local frame feeds and dispatching alerts directly to your Discord channel. Because YOLOv8 analyzes the content of the image locally on the Pi, you will not receive alerts for background noise, maintaining high security and absolute data privacy.</p></div>
+<p>Your DIY AI Security Camera is now scanning local frame feeds and dispatching alerts directly to your Discord channel. Because YOLOv8 analyzes the content of the image locally on the Pi, you will not receive alerts for background noise, maintaining high security and absolute data privacy.</p>
+<h2 id="common-failure-scenarios">Common Failure Scenarios<a class="headerlink" href="#common-failure-scenarios" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>First check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera opens but frames are black</td>
+<td>CSI cable, camera ownership, or format mismatch</td>
+<td>Test with <code>rpicam-jpeg -o test.jpg</code></td>
+</tr>
+<tr>
+<td>Alerts arrive continuously</td>
+<td>Confidence threshold is too low</td>
+<td>Save sample frames and tune against real scenes</td>
+</tr>
+<tr>
+<td>Service works manually but not at boot</td>
+<td>Wrong user, path, or working directory</td>
+<td>Inspect <code>journalctl -u smart-camera</code></td>
+</tr>
+<tr>
+<td>Detection becomes slower over time</td>
+<td>Thermal throttling or storage pressure</td>
+<td>Check <code>vcgencmd get_throttled</code> and free space</td>
+</tr>
+</tbody>
+</table>
+<h2 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">¶</a></h2>
+<h3 id="is-cpu-inference-enough">Is CPU inference enough?<a class="headerlink" href="#is-cpu-inference-enough" title="Permanent link">¶</a></h3>
+<p>It is suitable for initial validation and low-rate alerts. For sustained video, compare OpenVINO, Vulkan, Coral, and Hailo using the <a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">AI accelerator comparison</a>.</p>
+<h3 id="how-do-i-reduce-false-alerts">How do I reduce false alerts?<a class="headerlink" href="#how-do-i-reduce-false-alerts" title="Permanent link">¶</a></h3>
+<p>Collect representative day and night images, raise the confidence threshold, require the same class across multiple frames, and apply a region of interest before sending notifications.</p>
+<h3 id="should-the-camera-be-exposed-to-the-internet">Should the camera be exposed to the internet?<a class="headerlink" href="#should-the-camera-be-exposed-to-the-internet" title="Permanent link">¶</a></h3>
+<p>No. Keep the camera and inference service private. Use <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale</a> or another authenticated private-access layer for administration.</p>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/">OpenVINO YOLO on Raspberry Pi</a></li>
+<li><a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/">Camera Setup and Troubleshooting</a></li>
+<li><a href="../edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/">Coral and Frigate</a></li>
+<li><a href="../edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/">Hailo-8L YOLOv11</a></li>
+</ul></div>
 
 
 

@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -4536,6 +4536,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5796,7 +5805,7 @@
 <a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="c1"># Disable swap (if using SSD)</span>
 <a id="__codelineno-1-18" name="__codelineno-1-18"></a>sudo<span class="w"> </span>dmesg<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span>
 <a id="__codelineno-1-19" name="__codelineno-1-19"></a>sudo<span class="w"> </span>swapoff<span class="w"> </span>-a
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="c1"># Or configure ZRAM for better performance</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="c1"># Or inspect/configure ZRAM for better performance on current Raspberry Pi OS</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="optimize-memory">Optimize Memory<a class="headerlink" href="#optimize-memory" title="Permanent link">¶</a></h3>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
@@ -5813,7 +5822,7 @@
 <span class="normal"><a href="#__codelineno-2-12">12</a></span>
 <span class="normal"><a href="#__codelineno-2-13">13</a></span>
 <span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Verify active ZRAM swap space (active by default on Bookworm)</span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Verify active ZRAM swap space</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a>zramctl
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1"># If you need to increase ZRAM size to host larger models:</span>
@@ -7266,9 +7275,7 @@
 <span class="normal"><a href="#__codelineno-29-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-29-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-29-10">10</a></span>
-<span class="normal"><a href="#__codelineno-29-11">11</a></span>
-<span class="normal"><a href="#__codelineno-29-12">12</a></span>
-<span class="normal"><a href="#__codelineno-29-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="c1"># Test different quantization levels</span>
+<span class="normal"><a href="#__codelineno-29-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="c1"># Test different quantization levels</span>
 <a id="__codelineno-29-2" name="__codelineno-29-2"></a><span class="k">for</span><span class="w"> </span>quant<span class="w"> </span><span class="k">in</span><span class="w"> </span>Q2_K<span class="w"> </span>Q3_K_M<span class="w"> </span>Q4_K_M<span class="w"> </span>Q5_K_M<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <a id="__codelineno-29-3" name="__codelineno-29-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Testing </span><span class="nv">$quant</span><span class="s2">..."</span>
 <a id="__codelineno-29-4" name="__codelineno-29-4"></a><span class="w">    </span><span class="nb">time</span><span class="w"> </span>./main<span class="w"> </span>-m<span class="w"> </span>models/llama-2-7b-chat.<span class="nv">$quant</span>.gguf<span class="w"> </span><span class="se">\</span>
@@ -7276,11 +7283,9 @@
 <a id="__codelineno-29-6" name="__codelineno-29-6"></a><span class="w">        </span>-n<span class="w"> </span><span class="m">128</span><span class="w"> </span>-t<span class="w"> </span><span class="m">4</span>
 <a id="__codelineno-29-7" name="__codelineno-29-7"></a><span class="k">done</span>
 <a id="__codelineno-29-8" name="__codelineno-29-8"></a>
-<a id="__codelineno-29-9" name="__codelineno-29-9"></a><span class="c1"># Results (Raspberry Pi 5):</span>
-<a id="__codelineno-29-10" name="__codelineno-29-10"></a><span class="c1"># Q2_K: 7.8 t/s, poor quality</span>
-<a id="__codelineno-29-11" name="__codelineno-29-11"></a><span class="c1"># Q3_K_M: 6.2 t/s, acceptable quality</span>
-<a id="__codelineno-29-12" name="__codelineno-29-12"></a><span class="c1"># Q4_K_M: 5.2 t/s, good quality ✓</span>
-<a id="__codelineno-29-13" name="__codelineno-29-13"></a><span class="c1"># Q5_K_M: 4.1 t/s, excellent quality</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9"></a><span class="c1"># Record your measured results; do not reuse numbers from a different Pi,</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10"></a><span class="c1"># model build, context size, cooling solution, or llama.cpp revision.</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11"></a><span class="c1"># Quantization | Prompt t/s | Generation t/s | Max temp | Throttled</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <h3 id="issue-out-of-memory-oom">Issue: Out of Memory (OOM)<a class="headerlink" href="#issue-out-of-memory-oom" title="Permanent link">¶</a></h3>
@@ -7305,7 +7310,7 @@
 <a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="c1"># Use smaller quantization</span>
 <a id="__codelineno-30-5" name="__codelineno-30-5"></a><span class="c1"># Switch from Q5_K_M to Q4_K_M or Q3_K_M</span>
 <a id="__codelineno-30-6" name="__codelineno-30-6"></a>
-<a id="__codelineno-30-7" name="__codelineno-30-7"></a><span class="c1"># Optimize/Increase ZRAM Swap (Bookworm OS)</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7"></a><span class="c1"># Optimize or increase ZRAM on current Raspberry Pi OS</span>
 <a id="__codelineno-30-8" name="__codelineno-30-8"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/zram-generator.conf
 <a id="__codelineno-30-9" name="__codelineno-30-9"></a><span class="c1"># Configure: zram-size = 4096</span>
 <a id="__codelineno-30-10" name="__codelineno-30-10"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>systemd-zram-setup@zram0
@@ -7804,12 +7809,12 @@
 <li>Distributed inference across Pi cluster</li>
 <li>Complete AI assistant with speech</li>
 </ul>
-<h3 id="performance">✅ Performance<a class="headerlink" href="#performance" title="Permanent link">¶</a></h3>
+<h3 id="reproducible-performance-testing">✅ Reproducible performance testing<a class="headerlink" href="#reproducible-performance-testing" title="Permanent link">¶</a></h3>
 <ul>
-<li>Raspberry Pi 5: 4-6 tokens/sec (Llama 2 7B Q4_K_M)</li>
-<li>Raspberry Pi 4: 2-3 tokens/sec (Llama 2 7B Q4_K_M)</li>
-<li>TinyLlama: 8-12 tokens/sec on Pi 4</li>
-<li>Benchmarking and profiling tools</li>
+<li>Measure prompt processing and generation separately</li>
+<li>Record the exact model, quantisation, context, build revision, cooling, and power mode</li>
+<li>Publish temperature and throttling state with every result</li>
+<li>Compare results only when the full test configuration matches</li>
 </ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <p><strong>Further Optimization:</strong></p>
@@ -7822,12 +7827,21 @@
 </ol>
 <p><strong>Related Guides:</strong></p>
 <ul>
+<li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">AI Accelerator Comparison</a></li>
+<li><a href="../raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">AI HAT+ 2 Local LLM and VLM Guide</a></li>
 <li><a href="../cpu_isolation_and_task_affinity_for_multicore_optimization/">CPU Isolation and Task Affinity</a></li>
 <li><a href="../tensorflow_lite_setup_and_object_detection_on_raspberry_pi/">TensorFlow Lite Setup</a></li>
 <li><a href="../building_a_voice_assistant_with_raspberry_pi/">Voice Assistant</a></li>
 <li><a href="../power_saving_on_raspberry_pi_os__complete_optimization_guide/">Power Optimization</a></li>
 </ul>
-<p>With local LLM inference, your Raspberry Pi becomes a privacy-focused AI powerhouse—no cloud required!</p></div>
+<p>With local LLM inference, your Raspberry Pi becomes a privacy-focused AI powerhouse—no cloud required!</p>
+<h2 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">¶</a></h2>
+<h3 id="should-i-use-llamacpp-or-ai-hat-2">Should I use llama.cpp or AI HAT+ 2?<a class="headerlink" href="#should-i-use-llamacpp-or-ai-hat-2" title="Permanent link">¶</a></h3>
+<p>Use llama.cpp when model portability and CPU-only operation matter. Use AI HAT+ 2 when a supported Hailo model, lower host CPU load, or a combined LLM/VLM pipeline justifies dedicated hardware.</p>
+<h3 id="why-are-my-token-per-second-results-different-from-another-guide">Why are my token-per-second results different from another guide?<a class="headerlink" href="#why-are-my-token-per-second-results-different-from-another-guide" title="Permanent link">¶</a></h3>
+<p>Model revision, quantisation, context length, prompt length, thread count, llama.cpp build, cooling, and throttling all change performance. Compare only fully documented runs.</p>
+<h3 id="can-swap-make-a-model-faster">Can swap make a model faster?<a class="headerlink" href="#can-swap-make-a-model-faster" title="Permanent link">¶</a></h3>
+<p>No. Swap can prevent an out-of-memory failure, but storage is far slower than RAM. Choose a smaller model or context before relying on swap.</p></div>
 
 
 

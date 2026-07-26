@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
+        <meta name="description" content="Configure a static IP on Raspberry Pi OS Trixie with NetworkManager and nmcli. Covers Ethernet, Wi-Fi, IPv6, DHCP reservations, verification, and fixes.">
       
       
       
@@ -75,8 +75,8 @@
   
 
   
-    <meta property="og:description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
-    <meta name="twitter:description" content="Configure a static IP address on Raspberry Pi OS Bookworm using NetworkManager (nmcli). Covers Ethernet, Wi-Fi, IPv6, troubleshooting, and best practices.">
+    <meta property="og:description" content="Configure a static IP on Raspberry Pi OS Trixie with NetworkManager and nmcli. Covers Ethernet, Wi-Fi, IPv6, DHCP reservations, verification, and fixes.">
+    <meta name="twitter:description" content="Configure a static IP on Raspberry Pi OS Trixie with NetworkManager and nmcli. Covers Ethernet, Wi-Fi, IPv6, DHCP reservations, verification, and fixes.">
   
 
   <meta property="og:type" content="website">
@@ -607,7 +607,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2025
+    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
     
   </span>
   
@@ -5314,6 +5314,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frequently Asked Questions
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5613,7 +5622,7 @@
 
 
 <div><h1 id="static-ip-configuration-on-raspberry-pi-os">Static IP Configuration on Raspberry Pi OS<a class="headerlink" href="#static-ip-configuration-on-raspberry-pi-os" title="Permanent link">¶</a></h1>
-<p>Setting a static IP address ensures your Raspberry Pi always uses the same network address, which is essential for servers, remote access, and IoT deployments. This guide covers all methods for configuring static IPs on Raspberry Pi OS Bookworm and later.</p>
+<p>Setting a static IP address ensures your Raspberry Pi always uses the same network address, which is essential for servers, remote access, and IoT deployments. This guide covers current Raspberry Pi OS Trixie and retains a clearly labelled legacy method for older installations.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -5684,7 +5693,7 @@
 <p>Choose an IP address <strong>outside</strong> your router's DHCP range. Most routers use DHCP range 192.168.1.100–200, so picking an address like 192.168.1.10–50 is usually safe. Check your router's admin page to confirm.</p>
 </div>
 <h2 id="method-1-networkmanager-nmcli-recommended">Method 1: NetworkManager (nmcli) — Recommended<a class="headerlink" href="#method-1-networkmanager-nmcli-recommended" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi OS Bookworm (and later) uses <strong>NetworkManager</strong> as the default network manager. This is the recommended method.</p>
+<p>Raspberry Pi OS Trixie uses <strong>NetworkManager</strong> as the default network manager. This is the recommended method.</p>
 <h3 id="configuring-ethernet-wired">Configuring Ethernet (Wired)<a class="headerlink" href="#configuring-ethernet-wired" title="Permanent link">¶</a></h3>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Step 1: Check your connection name</span>
@@ -5784,7 +5793,7 @@
 <h2 id="method-3-dhcpcdconf-legacy-method">Method 3: dhcpcd.conf — Legacy Method<a class="headerlink" href="#method-3-dhcpcdconf-legacy-method" title="Permanent link">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">For older Raspberry Pi OS versions only</p>
-<p>This method works on Raspberry Pi OS <strong>Bullseye and earlier</strong>, which use <code>dhcpcd</code> instead of NetworkManager. If you're on Bookworm or later, use Method 1.</p>
+<p>This method is retained only for Raspberry Pi OS <strong>Bullseye and earlier</strong>. On Trixie or Bookworm, use NetworkManager in Method 1.</p>
 </div>
 <p>Edit <code>/etc/dhcpcd.conf</code>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dhcpcd.conf
@@ -5949,7 +5958,7 @@
 <a id="__codelineno-17-2" name="__codelineno-17-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>NetworkManager
 <a id="__codelineno-17-3" name="__codelineno-17-3"></a>systemctl<span class="w"> </span>status<span class="w"> </span>dhcpcd
 <a id="__codelineno-17-4" name="__codelineno-17-4"></a>
-<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="c1"># On Bookworm, ensure dhcpcd is disabled</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="c1"># On Trixie or Bookworm, ensure dhcpcd is disabled</span>
 <a id="__codelineno-17-6" name="__codelineno-17-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>dhcpcd
 <a id="__codelineno-17-7" name="__codelineno-17-7"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>dhcpcd
 </code></pre></div></td></tr></table></div>
@@ -5982,7 +5991,14 @@
 <li><strong><a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless Setup Guide</a></strong> — Set up your Pi without a monitor</li>
 <li><strong><a href="../raspberry_pi_security_hardening_complete_guide/">Security Hardening Guide</a></strong> — Secure your network-connected Pi</li>
 <li><strong><a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale Remote Access</a></strong> — Access your Pi from anywhere without port forwarding</li>
-</ul></div>
+</ul>
+<h2 id="frequently-asked-questions">Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">¶</a></h2>
+<h3 id="is-a-dhcp-reservation-better-than-a-static-address">Is a DHCP reservation better than a static address?<a class="headerlink" href="#is-a-dhcp-reservation-better-than-a-static-address" title="Permanent link">¶</a></h3>
+<p>For most home networks, yes. A reservation keeps address management on the router and avoids conflicts. Configure a device-side static address when the router cannot reserve addresses or the Pi must operate without it.</p>
+<h3 id="why-did-ssh-stop-working-after-applying-the-address">Why did SSH stop working after applying the address?<a class="headerlink" href="#why-did-ssh-stop-working-after-applying-the-address" title="Permanent link">¶</a></h3>
+<p>The address, prefix, gateway, or DNS value may be wrong. Keep the original SSH session open, verify <code>ip route</code>, and use local console access to restore the previous NetworkManager profile.</p>
+<h3 id="should-i-edit-etcdhcpcdconf-on-trixie">Should I edit <code>/etc/dhcpcd.conf</code> on Trixie?<a class="headerlink" href="#should-i-edit-etcdhcpcdconf-on-trixie" title="Permanent link">¶</a></h3>
+<p>No. Current Raspberry Pi OS uses NetworkManager. Use <code>nmcli</code>, <code>nmtui</code>, or a router-side DHCP reservation.</p></div>
 
 
 
