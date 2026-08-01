@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Environment Setup for Raspberry Pi OS Development. Explore bare-metal ARM64 concepts, code examples, debugging, and hardware behavior.">
+        <meta name="description" content="Set up a repeatable ARM64 bare-metal toolchain for Raspberry Pi 4 OS development. Build kernel8.img with CMake, inspect the ELF, deploy safely, and fix errors.">
       
       
       
@@ -63,66 +63,85 @@
     
     
   
+
   
-  <!-- SEO Meta Tags -->
-  <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
-  <meta name="author" content="Raspberry Pi Guide">
+  
+    
+  
+  
+    
+    
+  
+  
+    
+  
+
+  <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  
-  
-    <meta property="og:title" content="01. Environment Setup for Raspberry Pi OS Development - With Raspberry Pi">
-    <meta name="twitter:title" content="01. Environment Setup for Raspberry Pi OS Development - With Raspberry Pi">
-  
-
-  
-    <meta property="og:description" content="Environment Setup for Raspberry Pi OS Development. Explore bare-metal ARM64 concepts, code examples, debugging, and hardware behavior.">
-    <meta name="twitter:description" content="Environment Setup for Raspberry Pi OS Development. Explore bare-metal ARM64 concepts, code examples, debugging, and hardware behavior.">
-  
-
-  <meta property="og:type" content="website">
-
-  
-    <meta property="og:url" content="https://ohyaan.github.io/os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/">
-  
-
-  
-    <meta property="og:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-    <meta name="twitter:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-  
+  <meta property="og:title" content="01. Environment Setup for Raspberry Pi OS Development - With Raspberry Pi">
+  <meta property="og:description" content="Set up a repeatable ARM64 bare-metal toolchain for Raspberry Pi 4 OS development. Build kernel8.img with CMake, inspect the ELF, deploy safely, and fix errors.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ohyaan.github.io/os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/os-development__phase1-foundation__01._environment_setup_for_raspberry_pi_os_development.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="01. Environment Setup for Raspberry Pi OS Development">
   <meta property="og:site_name" content="With Raspberry Pi">
-  <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Additional SEO -->
+    <meta property="article:published_time" content="2025-11-29">
+  
+  
+    <meta property="article:modified_time" content="2026-08-01">
+  
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="01. Environment Setup for Raspberry Pi OS Development - With Raspberry Pi">
+  <meta name="twitter:description" content="Set up a repeatable ARM64 bare-metal toolchain for Raspberry Pi 4 OS development. Build kernel8.img with CMake, inspect the ELF, deploy safely, and fix errors.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/os-development__phase1-foundation__01._environment_setup_for_raspberry_pi_os_development.jpg">
+
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
-  
-  <!-- AdSense Script -->
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346"
      crossorigin="anonymous"></script>
-     
-  <!-- Enhanced AdSense Script -->
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({
       google_ad_client: "ca-pub-6051992210534346",
       enable_page_level_ads: true
     });
   </script>
+
   
-  <!-- Structured Data for Better SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Raspberry Pi Complete Guide",
-    "url": "https://ohyaan.github.io/",
-    "description": "Comprehensive Raspberry Pi tutorials and guides",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://ohyaan.github.io/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@type": "TechArticle",
+    "headline": "01. Environment Setup for Raspberry Pi OS Development",
+    "description": "Set up a repeatable ARM64 bare-metal toolchain for Raspberry Pi 4 OS development. Build kernel8.img with CMake, inspect the ELF, deploy safely, and fix errors.",
+    "url": "https://ohyaan.github.io/os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/os-development__phase1-foundation__01._environment_setup_for_raspberry_pi_os_development.jpg"],
+    "author": {"@type": "Organization", "name": "With Raspberry Pi"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "With Raspberry Pi",
+      "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
+    },
+    "datePublished": "2025-11-29",
+    "dateModified": "2026-08-01"
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "01. Environment Setup for Raspberry Pi OS Development", "item": "https://ohyaan.github.io/os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/"}
+    ]
+  }
+  </script>
+  
 
   </head>
   
@@ -2836,45 +2855,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installing-the-cross-compiler" class="md-nav__link">
+  <a href="#choose-a-bare-metal-compiler" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing the Cross-Compiler
+      Choose a Bare-Metal Compiler
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installing-build-tools" class="md-nav__link">
+  <a href="#create-the-project-layout" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing Build Tools
+      Create the Project Layout
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setting-up-the-project" class="md-nav__link">
+  <a href="#cmake-toolchain-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Setting Up the Project
+      CMake Toolchain File
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#building-the-kernel" class="md-nav__link">
+  <a href="#minimal-build-definition" class="md-nav__link">
     <span class="md-ellipsis">
-      Building the Kernel
+      Minimal Build Definition
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-toolchain" class="md-nav__link">
+  <a href="#validate-before-copying-to-the-sd-card" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Toolchain
+      Validate Before Copying to the SD Card
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-without-overwriting-your-main-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deploy Without Overwriting Your Main System
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducible-build-measurements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducible Build Measurements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Failures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
     </span>
   </a>
   
@@ -3544,6 +3599,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -3686,6 +3753,28 @@
   
   <span class="md-ellipsis">
     Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Module 5 Setup: eMMC, NVMe, and IO Board Guide
     
   </span>
   
@@ -3971,7 +4060,7 @@
         
   
   <span class="md-ellipsis">
-    Fix Issue of I2C on Old Raspberry Pi Models
+    Fix I2C Timeouts on Older Raspberry Pi Models
     
   </span>
   
@@ -4301,7 +4390,7 @@
         
   
   <span class="md-ellipsis">
-    How to Create Docker Image of Raspberry Pi OS
+    Convert a Raspberry Pi OS Image into a Docker Container
     
   </span>
   
@@ -4737,6 +4826,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Benchmark Methodology: Power, Temperature, Storage, Network, and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
@@ -4803,6 +4914,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Connect Remote Updates: Complete Trixie Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
@@ -4825,11 +4958,55 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build a Raspberry Pi LoRaWAN Gateway with ChirpStack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Raspberry Pi OS Trixie Migration Guide: Safe Upgrade from Bookworm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Pico 2 W and RP2350 Getting Started Guide
     
   </span>
   
@@ -4896,6 +5073,28 @@
   
   <span class="md-ellipsis">
     Raspberry Pi Temperature Monitoring and Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Touch Display 2: 5, 7, and 10-Inch Comparison and Setup
     
   </span>
   
@@ -5357,7 +5556,7 @@
         
   
   <span class="md-ellipsis">
-    USB Ethernet Gadget Setup
+    USB Ethernet Gadget Setup on Raspberry Pi OS
     
   </span>
   
@@ -5543,97 +5742,63 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
 
 <div><h1 id="01-environment-setup-for-raspberry-pi-os-development">01. Environment Setup for Raspberry Pi OS Development<a class="headerlink" href="#01-environment-setup-for-raspberry-pi-os-development" title="Permanent link">¶</a></h1>
+<p>This series builds a small <strong>bare-metal ARM64 operating system</strong>, not a modified Raspberry Pi OS Linux installation. The primary target is Raspberry Pi 4 Model B with BCM2711 and Cortex-A72. Raspberry Pi 5 uses a different SoC, interrupt controller, peripheral map, and default kernel filename, so do not assume Pi 4 code will run unchanged.</p>
 <div class="admonition info">
-<p class="admonition-title">Target Hardware</p>
-<p>This tutorial series targets the <strong>Raspberry Pi 4 Model B</strong> (BCM2711, Cortex-A72, ARMv8-A 64-bit).</p>
+<p class="admonition-title">What you need</p>
+<p>Use a development computer, a spare microSD card, a Raspberry Pi 4, a 3.3V USB-to-TTL serial adapter, and a reliable power supply. Keep your normal Raspberry Pi OS card separate from the experimental card.</p>
 </div>
-<p>Before we start writing code, let's set up the development environment.</p>
-<h2 id="installing-the-cross-compiler">Installing the Cross-Compiler<a class="headerlink" href="#installing-the-cross-compiler" title="Permanent link">¶</a></h2>
-<p>Since we're developing on a PC/Mac for the Raspberry Pi's ARM64 architecture, we need a cross-compiler.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Ubuntu/Debian</label><label for="__tabbed_1_2">macOS</label><label for="__tabbed_1_3">Arch Linux</label></div>
+<h2 id="choose-a-bare-metal-compiler">Choose a Bare-Metal Compiler<a class="headerlink" href="#choose-a-bare-metal-compiler" title="Permanent link">¶</a></h2>
+<p>The preferred compiler prefix is <code>aarch64-none-elf-</code>, which explicitly targets freestanding AArch64 firmware. Arm publishes current builds on its <a href="https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">GNU Toolchain downloads page</a>.</p>
+<p><code>aarch64-linux-gnu-gcc</code> can also compile the early examples when every hosted runtime dependency is disabled, but it targets a Linux ABI by default. The two toolchains must not be mixed in one build directory.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Ubuntu/Debian package toolchain</label><label for="__tabbed_1_2">Arm aarch64-none-elf toolchain</label><label for="__tabbed_1_3">macOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-aarch64-linux-gnu<span class="w"> </span>g++-aarch64-linux-gnu<span class="w"> </span>cmake<span class="w"> </span>git
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>ninja-build<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span>gcc-aarch64-linux-gnu<span class="w"> </span>binutils-aarch64-linux-gnu
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-linux-gnu-
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>brew<span class="w"> </span>install<span class="w"> </span>aarch64-elf-gcc<span class="w"> </span>cmake<span class="w"> </span>git
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># Extract the archive downloaded from Arm, then adjust this path.</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TOOLCHAIN_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/opt/arm-gnu-toolchain"</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$TOOLCHAIN_ROOT</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-none-elf-
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>aarch64-linux-gnu-gcc<span class="w"> </span>cmake<span class="w"> </span>git
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>brew<span class="w"> </span>install<span class="w"> </span>cmake<span class="w"> </span>ninja<span class="w"> </span>git
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1"># Install Arm GNU Toolchain and add its bin directory to PATH.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>aarch64-none-elf-
 </code></pre></div></td></tr></table></div>
 </div>
 </div>
 </div>
-<p>Verify the installation:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>aarch64-linux-gnu-gcc<span class="w"> </span>--version
+<p>Verify that all tools come from the expected prefix:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">gcc"</span><span class="w"> </span>--version
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">ld"</span><span class="w"> </span>--version
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">objcopy"</span><span class="w"> </span>--version
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>cmake<span class="w"> </span>--version
 </code></pre></div></td></tr></table></div>
-<h2 id="installing-build-tools">Installing Build Tools<a class="headerlink" href="#installing-build-tools" title="Permanent link">¶</a></h2>
-<p>We'll use CMake as our build system:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>cmake<span class="w"> </span>--version<span class="w">  </span><span class="c1"># Should be 3.10 or higher</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="setting-up-the-project">Setting Up the Project<a class="headerlink" href="#setting-up-the-project" title="Permanent link">¶</a></h2>
-<p>Clone the <code>os-rasp</code> repository (or create your own):</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;your-repo-url&gt;<span class="w"> </span>os-rasp
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nb">cd</span><span class="w"> </span>os-rasp
-</code></pre></div></td></tr></table></div>
-<h3 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">¶</a></h3>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span>
-<span class="normal"><a href="#__codelineno-6-7">7</a></span>
-<span class="normal"><a href="#__codelineno-6-8">8</a></span>
-<span class="normal"><a href="#__codelineno-6-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>os-rasp/
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>├── CMakeLists.txt          # Main build configuration
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>├── cmake/
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>│   └── aarch64-none-elf.cmake  # Toolchain file
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>├── kernel/
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>│   ├── boot.S              # Assembly entry point
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>│   ├── kernel.c            # C kernel code
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>│   └── linker.ld           # Linker script
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a>└── build/                  # Build output (generated)
-</code></pre></div></td></tr></table></div>
-<h2 id="building-the-kernel">Building the Kernel<a class="headerlink" href="#building-the-kernel" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>cmake<span class="w"> </span>..
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>make
-</code></pre></div></td></tr></table></div>
-<p>If successful, you'll see:
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>[100%] Built target kernel8.elf
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>Generating raw binary image kernel8.img
-</code></pre></div></td></tr></table></div>
-<p>The output file <code>kernel8.img</code> is what we'll deploy to the Raspberry Pi.</p>
-<h2 id="understanding-the-toolchain">Understanding the Toolchain<a class="headerlink" href="#understanding-the-toolchain" title="Permanent link">¶</a></h2>
-<h3 id="cmake-toolchain-file">CMake Toolchain File<a class="headerlink" href="#cmake-toolchain-file" title="Permanent link">¶</a></h3>
-<p>Located at <code>cmake/aarch64-none-elf.cmake</code>, this file tells CMake how to cross-compile:</p>
-<ul>
-<li><strong>Compiler</strong>: <code>aarch64-linux-gnu-gcc</code></li>
-<li><strong>Target</strong>: ARMv8-A (64-bit) Cortex-A72</li>
-<li><strong>Flags</strong>: <code>-ffreestanding</code> (no standard library), <code>-nostdlib</code> (no startup files)</li>
-</ul>
-<h3 id="key-compiler-flags">Key Compiler Flags<a class="headerlink" href="#key-compiler-flags" title="Permanent link">¶</a></h3>
-<ul>
-<li><code>-mcpu=cortex-a72+nosimd</code>: Target the Raspberry Pi 4's CPU</li>
-<li><code>-ffreestanding</code>: We're not using a hosted environment</li>
-<li><code>-nostdlib</code>: Don't link against the standard C library</li>
-</ul>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -5643,8 +5808,202 @@
   </script>
 </div>
 
+<h2 id="create-the-project-layout">Create the Project Layout<a class="headerlink" href="#create-the-project-layout" title="Permanent link">¶</a></h2>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>os-rasp/
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>├── CMakeLists.txt
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>├── cmake/
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>│   └── aarch64-bare-metal.cmake
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>├── kernel/
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>│   ├── boot.S
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>│   ├── kernel.c
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>│   └── linker.ld
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>└── build/
+</code></pre></div></td></tr></table></div>
+<p>Create a clean build directory whenever you change compilers:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;your-repository-url&gt;<span class="w"> </span>os-rasp
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>os-rasp
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>rm<span class="w"> </span>-rf<span class="w"> </span>build
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>cmake/aarch64-bare-metal.cmake
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--verbose
+</code></pre></div></td></tr></table></div>
+<h2 id="cmake-toolchain-file">CMake Toolchain File<a class="headerlink" href="#cmake-toolchain-file" title="Permanent link">¶</a></h2>
+<p>Use the environment variable so the same repository works with either compiler prefix:</p>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_NAME</span><span class="w"> </span><span class="s">Generic</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SYSTEM_PROCESSOR</span><span class="w"> </span><span class="s">aarch64</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_TRY_COMPILE_TARGET_TYPE</span><span class="w"> </span><span class="s">STATIC_LIBRARY</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="nb">if</span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">ENV{CROSS_COMPILE}</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span><span class="nb">set</span><span class="p">(</span><span class="s">ENV{CROSS_COMPILE}</span><span class="w"> </span><span class="s">aarch64-none-elf-</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="nb">endif</span><span class="p">()</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_COMPILER</span><span class="w">   </span><span class="s2">"$ENV{CROSS_COMPILE}gcc"</span><span class="p">)</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_ASM_COMPILER</span><span class="w"> </span><span class="s2">"$ENV{CROSS_COMPILE}gcc"</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_OBJCOPY</span><span class="w">      </span><span class="s2">"$ENV{CROSS_COMPILE}objcopy"</span><span class="p">)</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="nb">set</span><span class="p">(</span><span class="s">BARE_METAL_FLAGS</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">  </span><span class="s">-mcpu=cortex-a72</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">  </span><span class="s">-ffreestanding</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">  </span><span class="s">-fno-stack-protector</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">  </span><span class="s">-fno-pie</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">  </span><span class="s">-nostdlib</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">  </span><span class="s">-nostartfiles</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="p">)</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="nb">add_compile_options</span><span class="p">(</span><span class="o">${</span><span class="nv">BARE_METAL_FLAGS</span><span class="o">}</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p><code>CMAKE_TRY_COMPILE_TARGET_TYPE</code> prevents CMake from trying to execute an ARM test program on the development computer.</p>
+<h2 id="minimal-build-definition">Minimal Build Definition<a class="headerlink" href="#minimal-build-definition" title="Permanent link">¶</a></h2>
+<p>Your main <code>CMakeLists.txt</code> should enable C and assembly, link with the custom script, and convert the ELF into the raw image expected by Pi 4 firmware:</p>
+<div class="language-cmake highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.20</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">os_rasp</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">C</span><span class="w"> </span><span class="s">ASM</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">kernel8.elf</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span><span class="s">kernel/boot.S</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="s">kernel/kernel.c</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="nb">target_link_options</span><span class="p">(</span><span class="s">kernel8.elf</span><span class="w"> </span><span class="s">PRIVATE</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span><span class="s">-T</span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/kernel/linker.ld</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">  </span><span class="s">-nostdlib</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">  </span><span class="s">-Wl,--build-id=none</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">  </span><span class="s">-Wl,-Map=</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/kernel8.map</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="p">)</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span><span class="w"> </span><span class="s">kernel8.elf</span><span class="w"> </span><span class="s">POST_BUILD</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_OBJCOPY</span><span class="o">}</span><span class="w"> </span><span class="s">-O</span><span class="w"> </span><span class="s">binary</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">          </span><span class="o">$&lt;</span><span class="nv">TARGET_FILE:kernel8.elf</span><span class="o">&gt;</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">          </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/kernel8.img</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="validate-before-copying-to-the-sd-card">Validate Before Copying to the SD Card<a class="headerlink" href="#validate-before-copying-to-the-sd-card" title="Permanent link">¶</a></h2>
+<p>A successful compiler exit does not prove the image is usable. Inspect architecture, entry point, sections, unresolved symbols, and raw image size:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">readelf"</span><span class="w"> </span>-h<span class="w"> </span>build/kernel8.elf
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">readelf"</span><span class="w"> </span>-S<span class="w"> </span>build/kernel8.elf
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">nm"</span><span class="w"> </span>-u<span class="w"> </span>build/kernel8.elf
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">objdump"</span><span class="w"> </span>-d<span class="w"> </span>build/kernel8.elf<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-80
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>ls<span class="w"> </span>-lh<span class="w"> </span>build/kernel8.elf<span class="w"> </span>build/kernel8.img<span class="w"> </span>build/kernel8.map
+</code></pre></div></td></tr></table></div>
+<p>Expected checks:</p>
+<ul>
+<li>Machine is <code>AArch64</code>.</li>
+<li>The entry point matches the linker script and <code>_start</code> symbol.</li>
+<li><code>nm -u</code> prints no unexpected runtime symbols such as <code>memcpy</code>, <code>__stack_chk_fail</code>, or <code>__libc_start_main</code>.</li>
+<li><code>kernel8.img</code> is non-empty.</li>
+</ul>
+<h2 id="deploy-without-overwriting-your-main-system">Deploy Without Overwriting Your Main System<a class="headerlink" href="#deploy-without-overwriting-your-main-system" title="Permanent link">¶</a></h2>
+<p>Start with a Raspberry Pi OS boot partition because it already contains compatible firmware and device-tree files. Back it up, then replace only <code>kernel8.img</code> on the experimental card.</p>
+<p>Add these settings to that card's <code>config.txt</code>:</p>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="na">arm_64bit</span><span class="o">=</span><span class="s">1</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="na">enable_uart</span><span class="o">=</span><span class="s">1</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="na">kernel</span><span class="o">=</span><span class="s">kernel8.img</span>
+</code></pre></div></td></tr></table></div>
+<p>Copy the image and flush pending writes:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>cp<span class="w"> </span>build/kernel8.img<span class="w"> </span>/path/to/bootfs/kernel8.img
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sync
+</code></pre></div></td></tr></table></div>
+<p>Connect the serial adapter with <strong>GND to GND</strong>, adapter RX to Pi GPIO14/TXD, and adapter TX to Pi GPIO15/RXD. Never connect a 5V serial signal to Raspberry Pi GPIO.</p>
+<h2 id="reproducible-build-measurements">Reproducible Build Measurements<a class="headerlink" href="#reproducible-build-measurements" title="Permanent link">¶</a></h2>
+<p>Record tool versions and build time before comparing optimisations:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="s2">"</span><span class="si">${</span><span class="nv">CROSS_COMPILE</span><span class="si">}</span><span class="s2">gcc"</span><span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>cmake<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>git<span class="w"> </span>rev-parse<span class="w"> </span>--short<span class="w"> </span>HEAD
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>/usr/bin/time<span class="w"> </span>-f<span class="w"> </span><span class="s1">'elapsed=%e max_rss_kb=%M'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--clean-first
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>sha256sum<span class="w"> </span>build/kernel8.img
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a>stat<span class="w"> </span>--printf<span class="o">=</span><span class="s1">'bytes=%s\n'</span><span class="w"> </span>build/kernel8.img
+</code></pre></div></td></tr></table></div>
+<p>These are host build measurements, not Raspberry Pi runtime benchmarks. Later articles add UART timestamps and the system timer for on-device measurements.</p>
+<h2 id="common-failures">Common Failures<a class="headerlink" href="#common-failures" title="Permanent link">¶</a></h2>
+<h3 id="cmake-says-the-compiler-cannot-build-a-test-program">CMake says the compiler cannot build a test program<a class="headerlink" href="#cmake-says-the-compiler-cannot-build-a-test-program" title="Permanent link">¶</a></h3>
+<p>Confirm <code>CMAKE_SYSTEM_NAME Generic</code> and <code>CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY</code>, then delete the cached <code>build/</code> directory before configuring again.</p>
+<h3 id="linker-reports-__stack_chk_fail-or-pie-relocations">Linker reports <code>__stack_chk_fail</code> or PIE relocations<a class="headerlink" href="#linker-reports-__stack_chk_fail-or-pie-relocations" title="Permanent link">¶</a></h3>
+<p>Ensure <code>-fno-stack-protector</code>, <code>-fno-pie</code>, <code>-nostdlib</code>, and <code>-nostartfiles</code> are active in the verbose command. Some Linux-targeting distributions enable hardening flags by default.</p>
+<h3 id="the-pi-shows-no-uart-output">The Pi shows no UART output<a class="headerlink" href="#the-pi-shows-no-uart-output" title="Permanent link">¶</a></h3>
+<p>Check the serial adapter is 3.3V, RX and TX are crossed, the baud rate matches, <code>enable_uart=1</code> is present, and the boot code initialises the correct UART. Confirm that the activity LED pattern does not indicate a missing kernel file.</p>
+<h3 id="the-image-works-on-pi-4-but-not-pi-5">The image works on Pi 4 but not Pi 5<a class="headerlink" href="#the-image-works-on-pi-4-but-not-pi-5" title="Permanent link">¶</a></h3>
+<p>That is expected for this series. Pi 5 normally boots <code>kernel_2712.img</code> and has RP1-connected peripherals. Port the boot code and drivers deliberately instead of merely renaming the image.</p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
+<h3 id="why-not-use-the-normal-host-gcc">Why not use the normal host <code>gcc</code>?<a class="headerlink" href="#why-not-use-the-normal-host-gcc" title="Permanent link">¶</a></h3>
+<p>It emits code for the development computer, usually x86-64. A cross-compiler emits AArch64 instructions and provides matching assembler, linker, <code>objcopy</code>, and inspection tools.</p>
+<h3 id="is-mcpucortex-a72nosimd-required">Is <code>-mcpu=cortex-a72+nosimd</code> required?<a class="headerlink" href="#is-mcpucortex-a72nosimd-required" title="Permanent link">¶</a></h3>
+<p>No. Start with <code>-mcpu=cortex-a72</code>. Disable floating-point and SIMD usage only when the kernel has not yet saved the relevant processor state or your coding rules require it.</p>
+<h3 id="can-qemu-replace-physical-hardware">Can QEMU replace physical hardware?<a class="headerlink" href="#can-qemu-replace-physical-hardware" title="Permanent link">¶</a></h3>
+<p>QEMU is useful for CPU-level experiments, but it does not accurately reproduce all Raspberry Pi 4 firmware and peripherals. UART output on a real Pi remains the reference test for this series.</p>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
-<p>Now that your environment is ready, we'll dive into the <a href="../02._understanding_the_raspberry_pi_boot_process/">boot process</a> and write our first assembly code!</p></div>
+<ul>
+<li>Continue to <a href="../02._understanding_the_raspberry_pi_boot_process/">Understanding the Raspberry Pi Boot Process</a>.</li>
+<li>Then build <a href="../03._uart_%22hello_world%22_-_first_output_from_our_os/">UART Hello World</a>.</li>
+<li>Use the <a href="../../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/">ARM64 Assembly introduction</a> for instruction-level background.</li>
+</ul></div>
 
 
 
@@ -5653,14 +6012,62 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 1, 2026 09:46:28 JST">2026-08-01</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 29, 2025 20:23:40 JST">2025-11-29</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
 
 
                 
+  
+    
+    <aside class="related-guides" aria-labelledby="continue-learning-title">
+      <h2 id="continue-learning-title">Continue learning</h2>
+      <ul>
+        
+          <li><a href="https://ohyaan.github.io/os-development/">Browse the Os Development guide hub</a></li>
+        
+        
+          <li><a href="../../">Previous: Building a Raspberry Pi OS from Scratch</a></li>
+        
+        
+          <li><a href="../02._understanding_the_raspberry_pi_boot_process/">Next: 02. Understanding the Raspberry Pi Boot Process</a></li>
+        
+        <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
+      </ul>
+    </aside>
+  
+
               </article>
             </div>
           

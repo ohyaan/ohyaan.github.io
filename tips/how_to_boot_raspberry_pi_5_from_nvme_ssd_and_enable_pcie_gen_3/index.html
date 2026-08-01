@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="How to Boot Raspberry Pi 5 from NVMe SSD & Enable PCIe Gen 3. Follow Raspberry Pi setup, configuration, best practices, and troubleshooting steps.">
+        <meta name="description" content="Boot Raspberry Pi 5 from an NVMe SSD using an M.2 HAT. Configure EEPROM boot order, verify the PCIe link, test storage safely, and recover unstable Gen 3 links.">
       
       
       
@@ -63,66 +63,85 @@
     
     
   
+
   
-  <!-- SEO Meta Tags -->
-  <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
-  <meta name="author" content="Raspberry Pi Guide">
+  
+    
+  
+  
+    
+    
+  
+  
+    
+  
+
+  <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  
-  
-    <meta property="og:title" content="How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3 - With Raspberry Pi">
-    <meta name="twitter:title" content="How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3 - With Raspberry Pi">
-  
-
-  
-    <meta property="og:description" content="How to Boot Raspberry Pi 5 from NVMe SSD & Enable PCIe Gen 3. Follow Raspberry Pi setup, configuration, best practices, and troubleshooting steps.">
-    <meta name="twitter:description" content="How to Boot Raspberry Pi 5 from NVMe SSD & Enable PCIe Gen 3. Follow Raspberry Pi setup, configuration, best practices, and troubleshooting steps.">
-  
-
-  <meta property="og:type" content="website">
-
-  
-    <meta property="og:url" content="https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">
-  
-
-  
-    <meta property="og:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-    <meta name="twitter:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-  
+  <meta property="og:title" content="How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3 - With Raspberry Pi">
+  <meta property="og:description" content="Boot Raspberry Pi 5 from an NVMe SSD using an M.2 HAT. Configure EEPROM boot order, verify the PCIe link, test storage safely, and recover unstable Gen 3 links.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3">
   <meta property="og:site_name" content="With Raspberry Pi">
-  <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Additional SEO -->
+    <meta property="article:published_time" content="2026-06-03">
+  
+  
+    <meta property="article:modified_time" content="2026-08-01">
+  
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Boot Raspberry Pi 5 from NVMe SSD &amp; Enable PCIe Gen 3 - With Raspberry Pi">
+  <meta name="twitter:description" content="Boot Raspberry Pi 5 from an NVMe SSD using an M.2 HAT. Configure EEPROM boot order, verify the PCIe link, test storage safely, and recover unstable Gen 3 links.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg">
+
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
-  
-  <!-- AdSense Script -->
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346"
      crossorigin="anonymous"></script>
-     
-  <!-- Enhanced AdSense Script -->
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({
       google_ad_client: "ca-pub-6051992210534346",
       enable_page_level_ads: true
     });
   </script>
+
   
-  <!-- Structured Data for Better SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Raspberry Pi Complete Guide",
-    "url": "https://ohyaan.github.io/",
-    "description": "Comprehensive Raspberry Pi tutorials and guides",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://ohyaan.github.io/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@type": "TechArticle",
+    "headline": "How to Boot Raspberry Pi 5 from NVMe SSD \u0026amp; Enable PCIe Gen 3",
+    "description": "Boot Raspberry Pi 5 from an NVMe SSD using an M.2 HAT. Configure EEPROM boot order, verify the PCIe link, test storage safely, and recover unstable Gen 3 links.",
+    "url": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg"],
+    "author": {"@type": "Organization", "name": "With Raspberry Pi"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "With Raspberry Pi",
+      "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
+    },
+    "datePublished": "2026-06-03",
+    "dateModified": "2026-08-01"
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "How to Boot Raspberry Pi 5 from NVMe SSD \u0026amp; Enable PCIe Gen 3", "item": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/"}
+    ]
+  }
+  </script>
+  
 
   </head>
   
@@ -3444,6 +3463,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -3589,6 +3620,28 @@
   
   <span class="md-ellipsis">
     Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Module 5 Setup: eMMC, NVMe, and IO Board Guide
     
   </span>
   
@@ -3874,7 +3927,7 @@
         
   
   <span class="md-ellipsis">
-    Fix Issue of I2C on Old Raspberry Pi Models
+    Fix I2C Timeouts on Older Raspberry Pi Models
     
   </span>
   
@@ -4317,7 +4370,7 @@
         
   
   <span class="md-ellipsis">
-    How to Create Docker Image of Raspberry Pi OS
+    Convert a Raspberry Pi OS Image into a Docker Container
     
   </span>
   
@@ -4753,6 +4806,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Benchmark Methodology: Power, Temperature, Storage, Network, and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
@@ -4819,6 +4894,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Connect Remote Updates: Complete Trixie Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
@@ -4841,11 +4938,55 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build a Raspberry Pi LoRaWAN Gateway with ChirpStack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Raspberry Pi OS Trixie Migration Guide: Safe Upgrade from Bookworm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Pico 2 W and RP2350 Getting Started Guide
     
   </span>
   
@@ -4912,6 +5053,28 @@
   
   <span class="md-ellipsis">
     Raspberry Pi Temperature Monitoring and Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Touch Display 2: 5, 7, and 10-Inch Comparison and Setup
     
   </span>
   
@@ -5373,7 +5536,7 @@
         
   
   <span class="md-ellipsis">
-    USB Ethernet Gadget Setup
+    USB Ethernet Gadget Setup on Raspberry Pi OS
     
   </span>
   
@@ -5559,6 +5722,7 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
@@ -5567,7 +5731,7 @@
 <p>Supercharge your Raspberry Pi 5 by booting from a high-speed NVMe M.2 SSD! This guide covers hardware installation, configuring boot priority, and overriding PCIe settings to enable PCIe Gen 3 speeds for maximum storage performance.</p>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
 <p>One of the most exciting features of the Raspberry Pi 5 is its built-in PCI Express (PCIe) 2.0 x1 connector. By using an M.2 NVMe HAT (Hardware Attached on Top), you can bypass the slow MicroSD card slot and boot your system from a solid-state drive (SSD). </p>
-<p>This upgrade boosts read and write speeds from ~40-80 MB/s (on MicroSD) to <strong>over 800 MB/s</strong> (on NVMe SSD), while eliminating the risk of MicroSD card corruption.</p>
+<p>NVMe can improve random I/O, sustained throughput, capacity, and endurance, but the result depends on the drive, HAT, PCIe link, filesystem, cooling, and workload. Measure your device instead of treating a headline transfer rate as guaranteed performance.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -5624,7 +5788,7 @@
 <p>At this point, you can remove the MicroSD card and verify that the Raspberry Pi 5 boots directly from the SSD.</p>
 <hr>
 <h2 id="step-4-enable-pcie-gen-3-speed-override">Step 4: Enable PCIe Gen 3 (Speed Override)<a class="headerlink" href="#step-4-enable-pcie-gen-3-speed-override" title="Permanent link">¶</a></h2>
-<p>By default, the Raspberry Pi 5 PCIe connection is officially rated for <strong>PCIe Gen 2.0</strong> speeds (~400-450 MB/s). However, the hardware is capable of running at <strong>PCIe Gen 3.0</strong> speeds. While Gen 3 is not officially certified, most modern NVMe SSDs run perfectly fine and double the speed to <strong>800+ MB/s</strong>.</p>
+<p>Raspberry Pi 5 exposes a PCIe Gen 2.0 x1 connection. A Gen 3 override is available for experimentation, but it is not the default validated link mode. Signal integrity depends on the HAT, FPC cable, drive, layout, and power, so validate stability before storing important data.</p>
 <ol>
 <li>Open <code>/boot/firmware/config.txt</code>:
    <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
@@ -5641,20 +5805,21 @@
 </ol>
 <hr>
 <h2 id="step-5-test-the-ssd-performance">Step 5: Test the SSD Performance<a class="headerlink" href="#step-5-test-the-ssd-performance" title="Permanent link">¶</a></h2>
-<p>Once your Pi boots up, open the terminal and measure the read speeds of your SSD to verify PCIe Gen 3 is working.</p>
+<p>Once the Pi boots, verify the negotiated PCIe link before measuring storage:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>lspci<span class="w"> </span>-vv<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A20<span class="w"> </span>-i<span class="w"> </span><span class="s1">'non-volatile memory'</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>nvme<span class="w"> </span>list
+</code></pre></div></td></tr></table></div>
+<p><code>LnkSta</code> reports the active link speed and width. A storage result alone does not prove which generation negotiated.</p>
 <ol>
 <li>Install <code>hdparm</code>:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hdparm<span class="w"> </span>-y
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hdparm<span class="w"> </span>-y
 </code></pre></div></td></tr></table></div></li>
 <li>Test the disk read speed (replace <code>/dev/nvme0n1</code> with your drive identifier if different):
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>hdparm<span class="w"> </span>-tT<span class="w"> </span>/dev/nvme0n1
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>hdparm<span class="w"> </span>-tT<span class="w"> </span>/dev/nvme0n1
 </code></pre></div></td></tr></table></div></li>
 </ol>
-<h3 id="expected-results">Expected Results:<a class="headerlink" href="#expected-results" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>PCIe Gen 2 (Default)</strong>: Read speeds around <strong>410 - 450 MB/s</strong>.</li>
-<li><strong>PCIe Gen 3 (Enabled)</strong>: Read speeds around <strong>810 - 870 MB/s</strong>!</li>
-</ul>
+<p><code>hdparm</code> is a quick read check, not a complete benchmark. Use the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">reproducible Raspberry Pi benchmark methodology</a> for <code>fio</code>, raw JSON, temperature, power, throttling, and a disposable test file. Compare Gen 2 and Gen 3 with the same drive state and workload.</p>
 <hr>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <ul>
@@ -5676,14 +5841,62 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 1, 2026 09:46:28 JST">2026-08-01</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 3, 2026 22:02:56 JST">2026-06-03</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
 
 
                 
+  
+    
+    <aside class="related-guides" aria-labelledby="continue-learning-title">
+      <h2 id="continue-learning-title">Continue learning</h2>
+      <ul>
+        
+          <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
+        
+        
+          <li><a href="../home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/">Previous: Home Lab: Self-Hosted Monitoring Dashboard on Raspberry Pi 5</a></li>
+        
+        
+          <li><a href="../how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/">Next: How to Build a CI/CD Pipeline for Raspberry Pi with Docker and GitHub Actions</a></li>
+        
+        <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
+      </ul>
+    </aside>
+  
+
               </article>
             </div>
           

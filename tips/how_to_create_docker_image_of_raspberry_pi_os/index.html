@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Convert a Raspberry Pi OS disk image into a Docker image on Debian. Inspect and mount partitions, import the root filesystem, configure QEMU, and run it.">
+        <meta name="description" content="Convert a Raspberry Pi OS Bookworm disk image into a Docker container. Preserve ownership, enable ARM emulation, test architecture, and avoid common traps.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>How to Create Docker Image of Raspberry Pi OS - With Raspberry Pi</title>
+        <title>Convert a Raspberry Pi OS Image into a Docker Container - With Raspberry Pi</title>
       
     
     
@@ -63,66 +63,85 @@
     
     
   
+
   
-  <!-- SEO Meta Tags -->
-  <meta name="keywords" content="Raspberry Pi, tutorial, guide, setup, programming, C++, GPIO, Linux, IoT, projects, troubleshooting, tips, headless setup, power saving">
-  <meta name="author" content="Raspberry Pi Guide">
+  
+    
+  
+  
+    
+    
+  
+  
+    
+  
+
+  <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  
-  
-    <meta property="og:title" content="How to Create Docker Image of Raspberry Pi OS - With Raspberry Pi">
-    <meta name="twitter:title" content="How to Create Docker Image of Raspberry Pi OS - With Raspberry Pi">
-  
-
-  
-    <meta property="og:description" content="Convert a Raspberry Pi OS disk image into a Docker image on Debian. Inspect and mount partitions, import the root filesystem, configure QEMU, and run it.">
-    <meta name="twitter:description" content="Convert a Raspberry Pi OS disk image into a Docker image on Debian. Inspect and mount partitions, import the root filesystem, configure QEMU, and run it.">
-  
-
-  <meta property="og:type" content="website">
-
-  
-    <meta property="og:url" content="https://ohyaan.github.io/tips/how_to_create_docker_image_of_raspberry_pi_os/">
-  
-
-  
-    <meta property="og:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-    <meta name="twitter:image" content="https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
-  
+  <meta property="og:title" content="Convert a Raspberry Pi OS Image into a Docker Container - With Raspberry Pi">
+  <meta property="og:description" content="Convert a Raspberry Pi OS Bookworm disk image into a Docker container. Preserve ownership, enable ARM emulation, test architecture, and avoid common traps.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ohyaan.github.io/tips/how_to_create_docker_image_of_raspberry_pi_os/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_create_docker_image_of_raspberry_pi_os.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Convert a Raspberry Pi OS Image into a Docker Container">
   <meta property="og:site_name" content="With Raspberry Pi">
-  <meta name="twitter:card" content="summary_large_image">
   
-  <!-- Additional SEO -->
+    <meta property="article:published_time" content="2025-02-21">
+  
+  
+    <meta property="article:modified_time" content="2026-08-01">
+  
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convert a Raspberry Pi OS Image into a Docker Container - With Raspberry Pi">
+  <meta name="twitter:description" content="Convert a Raspberry Pi OS Bookworm disk image into a Docker container. Preserve ownership, enable ARM emulation, test architecture, and avoid common traps.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_create_docker_image_of_raspberry_pi_os.jpg">
+
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
-  
-  <!-- AdSense Script -->
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346"
      crossorigin="anonymous"></script>
-     
-  <!-- Enhanced AdSense Script -->
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({
       google_ad_client: "ca-pub-6051992210534346",
       enable_page_level_ads: true
     });
   </script>
+
   
-  <!-- Structured Data for Better SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Raspberry Pi Complete Guide",
-    "url": "https://ohyaan.github.io/",
-    "description": "Comprehensive Raspberry Pi tutorials and guides",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://ohyaan.github.io/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@type": "TechArticle",
+    "headline": "Convert a Raspberry Pi OS Image into a Docker Container",
+    "description": "Convert a Raspberry Pi OS Bookworm disk image into a Docker container. Preserve ownership, enable ARM emulation, test architecture, and avoid common traps.",
+    "url": "https://ohyaan.github.io/tips/how_to_create_docker_image_of_raspberry_pi_os/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/how_to_create_docker_image_of_raspberry_pi_os/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/tips__how_to_create_docker_image_of_raspberry_pi_os.jpg"],
+    "author": {"@type": "Organization", "name": "With Raspberry Pi"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "With Raspberry Pi",
+      "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
+    },
+    "datePublished": "2025-02-21",
+    "dateModified": "2026-08-01"
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
+      {"@type": "ListItem", "position": 2, "name": "Convert a Raspberry Pi OS Image into a Docker Container", "item": "https://ohyaan.github.io/tips/how_to_create_docker_image_of_raspberry_pi_os/"}
+    ]
+  }
+  </script>
+  
 
   </head>
   
@@ -143,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-create-docker-image-of-raspberry-pi-os" class="md-skip">
+        <a href="#convert-a-raspberry-pi-os-image-into-a-docker-container" class="md-skip">
           Skip to content
         </a>
       
@@ -179,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How to Create Docker Image of Raspberry Pi OS
+              Convert a Raspberry Pi OS Image into a Docker Container
             
           </span>
         </div>
@@ -3444,6 +3463,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
       
@@ -3589,6 +3620,28 @@
   
   <span class="md-ellipsis">
     Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Module 5 Setup: eMMC, NVMe, and IO Board Guide
     
   </span>
   
@@ -3874,7 +3927,7 @@
         
   
   <span class="md-ellipsis">
-    Fix Issue of I2C on Old Raspberry Pi Models
+    Fix I2C Timeouts on Older Raspberry Pi Models
     
   </span>
   
@@ -4213,7 +4266,7 @@
           
   
   <span class="md-ellipsis">
-    How to Create Docker Image of Raspberry Pi OS
+    Convert a Raspberry Pi OS Image into a Docker Container
     
   </span>
   
@@ -4225,7 +4278,7 @@
         
   
   <span class="md-ellipsis">
-    How to Create Docker Image of Raspberry Pi OS
+    Convert a Raspberry Pi OS Image into a Docker Container
     
   </span>
   
@@ -4248,54 +4301,81 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#preparation" class="md-nav__link">
+  <a href="#choose-the-correct-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Preparation
+      Choose the Correct Architecture
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#inspect-the-os-image" class="md-nav__link">
+  <a href="#inspect-and-mount-the-root-partition" class="md-nav__link">
     <span class="md-ellipsis">
-      Inspect the OS Image
+      Inspect and Mount the Root Partition
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mount-and-create-docker-image" class="md-nav__link">
+  <a href="#export-the-filesystem-correctly" class="md-nav__link">
     <span class="md-ellipsis">
-      Mount and Create Docker Image
+      Export the Filesystem Correctly
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-qemu" class="md-nav__link">
+  <a href="#run-on-a-raspberry-pi" class="md-nav__link">
     <span class="md-ellipsis">
-      Install qemu
+      Run on a Raspberry Pi
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#running-the-docker-image" class="md-nav__link">
+  <a href="#run-arm-images-on-an-x86-64-host" class="md-nav__link">
     <span class="md-ellipsis">
-      Running the Docker Image
+      Run ARM Images on an x86-64 Host
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#reproducible-checks" class="md-nav__link">
     <span class="md-ellipsis">
-      Summary
+      Reproducible Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Failures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Guides
     </span>
   </a>
   
@@ -4735,6 +4815,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Benchmark Methodology: Power, Temperature, Storage, Network, and AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
@@ -4801,6 +4903,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Connect Remote Updates: Complete Trixie Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
@@ -4823,11 +4947,55 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Build a Raspberry Pi LoRaWAN Gateway with ChirpStack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Raspberry Pi OS Trixie Migration Guide: Safe Upgrade from Bookworm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Pico 2 W and RP2350 Getting Started Guide
     
   </span>
   
@@ -4894,6 +5062,28 @@
   
   <span class="md-ellipsis">
     Raspberry Pi Temperature Monitoring and Alerts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Touch Display 2: 5, 7, and 10-Inch Comparison and Setup
     
   </span>
   
@@ -5355,7 +5545,7 @@
         
   
   <span class="md-ellipsis">
-    USB Ethernet Gadget Setup
+    USB Ethernet Gadget Setup on Raspberry Pi OS
     
   </span>
   
@@ -5541,6 +5731,7 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
   <nav class="md-tags" >
@@ -5557,12 +5748,28 @@
         <span class="md-tag">bookworm</span>
       
     
+      
+      
+      
+        <span class="md-tag">docker</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">trixie</span>
+      
+    
   </nav>
 
 
 
-<div><h1 id="how-to-create-docker-image-of-raspberry-pi-os">How to Create Docker Image of Raspberry Pi OS<a class="headerlink" href="#how-to-create-docker-image-of-raspberry-pi-os" title="Permanent link">¶</a></h1>
-<p>This guide explains how to create a Docker image for Raspberry Pi OS on Ubuntu/Debian.</p>
+<div><h1 id="convert-a-raspberry-pi-os-image-into-a-docker-container">Convert a Raspberry Pi OS Image into a Docker Container<a class="headerlink" href="#convert-a-raspberry-pi-os-image-into-a-docker-container" title="Permanent link">¶</a></h1>
+<p>This guide converts the root filesystem from a Raspberry Pi OS Lite disk image into a Docker image. It works on an ARM64 Raspberry Pi and on an x86-64 Debian or Ubuntu workstation with QEMU emulation.</p>
+<div class="admonition warning">
+<p class="admonition-title">A container is not a virtual Raspberry Pi</p>
+<p>Containers share the host kernel. Firmware, GPIO, <code>config.txt</code>, kernel modules, systemd boot, and Raspberry Pi-specific hardware are not reproduced by this method. Use it to inspect packages, test shell scripts, or prepare an ARM userspace—not to test boot or hardware access.</p>
+</div>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -5572,65 +5779,177 @@
   </script>
 </div>
 
-<h2 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">¶</a></h2>
-<p>First, download the Raspberry Pi OS OS image and unzip it:</p>
+<h2 id="choose-the-correct-architecture">Choose the Correct Architecture<a class="headerlink" href="#choose-the-correct-architecture" title="Permanent link">¶</a></h2>
+<p>Download the current Raspberry Pi OS Lite image from the <a href="https://downloads.raspberrypi.com/">official downloads directory</a>. Choose one architecture deliberately:</p>
+<table>
+<thead>
+<tr>
+<th>Raspberry Pi OS image</th>
+<th>Debian architecture</th>
+<th>Docker platform</th>
+<th>Typical target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64-bit Lite</td>
+<td><code>arm64</code></td>
+<td><code>linux/arm64</code></td>
+<td>Pi 3, 4, 5, Zero 2 W</td>
+</tr>
+<tr>
+<td>32-bit Lite</td>
+<td><code>armhf</code></td>
+<td><code>linux/arm/v7</code></td>
+<td>Older Pi models and compatibility testing</td>
+</tr>
+</tbody>
+</table>
+<p>The commands below use a downloaded <code>.img.xz</code> file without depending on a release-specific URL:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>wget<span class="w"> </span>https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2024-11-19/2024-11-19-raspios-bookworm-armhf-lite.img.xz
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>unzip<span class="w"> </span><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img.xz
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/raspios-container
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>~/raspios-container
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>cp<span class="w"> </span>~/Downloads/*raspios*.img.xz<span class="w"> </span>.
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nv">image_archive</span><span class="o">=</span><span class="k">$(</span>find<span class="w"> </span>.<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-name<span class="w"> </span><span class="s1">'*.img.xz'</span><span class="w"> </span>-print<span class="w"> </span>-quit<span class="k">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>xz<span class="w"> </span>-dk<span class="w"> </span><span class="s2">"</span><span class="nv">$image_archive</span><span class="s2">"</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="nv">image_file</span><span class="o">=</span><span class="si">${</span><span class="nv">image_archive</span><span class="p">%.xz</span><span class="si">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>ls<span class="w"> </span>-lh<span class="w"> </span><span class="s2">"</span><span class="nv">$image_file</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="inspect-the-os-image">Inspect the OS Image<a class="headerlink" href="#inspect-the-os-image" title="Permanent link">¶</a></h2>
-<p>Use <code>fdisk</code> to inspect the image and identify partitions. We need Sector size and Start Sector of second image for mount. 
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>fdisk<span class="w"> </span>--list<span class="w"> </span><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>Disk<span class="w"> </span><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img:<span class="w"> </span><span class="m">2</span>.38<span class="w"> </span>GiB,<span class="w"> </span><span class="m">2550136832</span><span class="w"> </span>bytes,<span class="w"> </span><span class="m">4980736</span><span class="w"> </span>sectors
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>Units:<span class="w"> </span>sectors<span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="w"> </span>*<span class="w"> </span><span class="nv">512</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>Sector<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>logical/physical<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>I/O<span class="w"> </span>size<span class="w"> </span><span class="o">(</span>minimum/optimal<span class="o">)</span>:<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes<span class="w"> </span>/<span class="w"> </span><span class="m">512</span><span class="w"> </span>bytes
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a>Disklabel<span class="w"> </span>type:<span class="w"> </span>dos
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>Disk<span class="w"> </span>identifier:<span class="w"> </span>0x57b902f5
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>Device<span class="w">                                      </span>Boot<span class="w">   </span>Start<span class="w">     </span>End<span class="w"> </span>Sectors<span class="w">  </span>Size<span class="w"> </span>Id<span class="w"> </span>Type
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img1<span class="w">         </span><span class="m">8192</span><span class="w"> </span><span class="m">1056767</span><span class="w"> </span><span class="m">1048576</span><span class="w">  </span>512M<span class="w">  </span>c<span class="w"> </span>W95<span class="w"> </span>FAT32<span class="w"> </span><span class="o">(</span>LBA<span class="o">)</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img2<span class="w">      </span><span class="m">1056768</span><span class="w"> </span><span class="m">4980735</span><span class="w"> </span><span class="m">3923968</span><span class="w">  </span><span class="m">1</span>.9G<span class="w"> </span><span class="m">83</span><span class="w"> </span>Linux
+<p>Use <code>xz</code>, not <code>unzip</code>: Raspberry Pi OS images are distributed as XZ-compressed files.</p>
+<h2 id="inspect-and-mount-the-root-partition">Inspect and Mount the Root Partition<a class="headerlink" href="#inspect-and-mount-the-root-partition" title="Permanent link">¶</a></h2>
+<p>Display the partition table first:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>fdisk<span class="w"> </span>--list<span class="w"> </span><span class="s2">"</span><span class="nv">$image_file</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="mount-and-create-docker-image">Mount and Create Docker Image<a class="headerlink" href="#mount-and-create-docker-image" title="Permanent link">¶</a></h2>
+<p>Partition 1 is normally the FAT boot partition, and partition 2 is the Linux root filesystem. Attach the image as a loop device and let Linux create partition devices automatically:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir<span class="w"> </span>image
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop,offset<span class="o">=</span><span class="k">$((</span><span class="m">512</span><span class="o">*</span><span class="m">1056768</span><span class="k">))</span><span class="w"> </span><span class="m">2024</span>-11-19-raspios-bookworm-armhf-lite.img<span class="w"> </span>image
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">cd</span><span class="w"> </span>image
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>sudo<span class="w"> </span>tar<span class="w"> </span>cf<span class="w"> </span>../docker-image-2024-11-19-raspios-bookworm-armhf-lite.tar<span class="w"> </span>.
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nv">loop_device</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>losetup<span class="w"> </span>--find<span class="w"> </span>--show<span class="w"> </span>--partscan<span class="w"> </span><span class="s2">"</span><span class="nv">$image_file</span><span class="s2">"</span><span class="k">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$loop_device</span><span class="s2">"</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>lsblk<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$loop_device</span><span class="s2">"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>rootfs
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>sudo<span class="w"> </span>mount<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">loop_device</span><span class="si">}</span><span class="s2">p2"</span><span class="w"> </span>rootfs
 </code></pre></div></td></tr></table></div>
-<p>Import the archive as a Docker image:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>docker<span class="w"> </span>import<span class="w"> </span>docker-image-2024-11-19-raspios-bookworm-armhf-lite.tar<span class="w"> </span>raspios-bookworm-armhf-lite:2024-11-19
+<p>Check the userspace architecture before importing it:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>file<span class="w"> </span>rootfs/bin/bash
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>cat<span class="w"> </span>rootfs/etc/os-release
 </code></pre></div></td></tr></table></div>
-<p>Check if the image is registered:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>docker<span class="w"> </span>image<span class="w"> </span>list
+<h2 id="export-the-filesystem-correctly">Export the Filesystem Correctly<a class="headerlink" href="#export-the-filesystem-correctly" title="Permanent link">¶</a></h2>
+<p>Preserve numeric user IDs, extended attributes, ACLs, device nodes, and symbolic links. These details are easily lost by a normal desktop archive operation.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>tar<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span>--numeric-owner<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span>--xattrs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span>--acls<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span>-C<span class="w"> </span>rootfs<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span>-cpf<span class="w"> </span>raspios-rootfs.tar<span class="w"> </span>.
 </code></pre></div></td></tr></table></div>
-<h2 id="install-qemu">Install qemu<a class="headerlink" href="#install-qemu" title="Permanent link">¶</a></h2>
-<p>If your host is x86_64, enable ARM emulation:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>qemu-user-static
+<p>Unmount and detach the loop device even if you only intend to keep the tar archive:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>umount<span class="w"> </span>rootfs
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>losetup<span class="w"> </span>--detach<span class="w"> </span><span class="s2">"</span><span class="nv">$loop_device</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="running-the-docker-image">Running the Docker Image<a class="headerlink" href="#running-the-docker-image" title="Permanent link">¶</a></h2>
-<p>Run the container:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<p>Import the root filesystem and set a useful default command:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
 <span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>raspios-bookworm-armhf-lite:2024-11-19<span class="w"> </span>/bin/bash
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>uname<span class="w"> </span>-a
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>Linux<span class="w"> </span>f5f38b46dc55<span class="w"> </span><span class="m">6</span>.1.0-31-amd64<span class="w"> </span><span class="c1">#1 SMP PREEMPT_DYNAMIC Debian 6.1.128-1 (2025-02-07) armv7l GNU/Linux</span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>docker<span class="w"> </span>import<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span>--change<span class="w"> </span><span class="s1">'CMD ["/bin/bash"]'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span>raspios-rootfs.tar<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span>local/raspios-rootfs:latest
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>docker<span class="w"> </span>image<span class="w"> </span>inspect<span class="w"> </span>local/raspios-rootfs:latest<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">  </span>--format<span class="w"> </span><span class="s1">'{{.Architecture}} {{.Os}} {{.Size}}'</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
-<p>This guide outlines creating a Docker image from a Raspberry Pi OS image, importing it into Docker, and running it with QEMU emulation on non-ARM hosts.</p></div>
+<h2 id="run-on-a-raspberry-pi">Run on a Raspberry Pi<a class="headerlink" href="#run-on-a-raspberry-pi" title="Permanent link">¶</a></h2>
+<p>On a host with the same architecture, no emulation is required:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>local/raspios-rootfs:latest
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>dpkg<span class="w"> </span>--print-architecture
+</code></pre></div></td></tr></table></div>
+<p>Use a read-only container for inspection when possible:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span>--read-only<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span>--tmpfs<span class="w"> </span>/tmp<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span>--tmpfs<span class="w"> </span>/run<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span>local/raspios-rootfs:latest
+</code></pre></div></td></tr></table></div>
+<h2 id="run-arm-images-on-an-x86-64-host">Run ARM Images on an x86-64 Host<a class="headerlink" href="#run-arm-images-on-an-x86-64-host" title="Permanent link">¶</a></h2>
+<p>Docker Desktop normally provides emulation automatically. On standalone Docker Engine, register QEMU with <code>binfmt_misc</code>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--privileged<span class="w"> </span>--rm<span class="w"> </span>tonistiigi/binfmt<span class="w"> </span>--install<span class="w"> </span>arm64,arm
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--privileged<span class="w"> </span>--rm<span class="w"> </span>tonistiigi/binfmt
+</code></pre></div></td></tr></table></div>
+<p>Then specify the image platform explicitly:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>--platform<span class="w"> </span>linux/arm64<span class="w"> </span>local/raspios-rootfs:latest
+</code></pre></div></td></tr></table></div>
+<p>For a 32-bit image, use <code>--platform linux/arm/v7</code>. QEMU is convenient but significantly slower for compilation and compression. Native ARM hardware or a multi-node Buildx builder is better for performance-sensitive work. See Docker's <a href="https://docs.docker.com/build/building/multi-platform/">multi-platform build guide</a>.</p>
+<h2 id="reproducible-checks">Reproducible Checks<a class="headerlink" href="#reproducible-checks" title="Permanent link">¶</a></h2>
+<p>Record these values whenever you compare images or publish results:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--platform<span class="w"> </span>linux/arm64<span class="w"> </span>local/raspios-rootfs:latest<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'dpkg --print-architecture; cat /etc/debian_version; getconf LONG_BIT'</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>/usr/bin/time<span class="w"> </span>-f<span class="w"> </span><span class="s1">'elapsed=%e max_rss_kb=%M'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--platform<span class="w"> </span>linux/arm64<span class="w"> </span>local/raspios-rootfs:latest<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a>docker<span class="w"> </span>image<span class="w"> </span>inspect<span class="w"> </span>local/raspios-rootfs:latest<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>--format<span class="w"> </span><span class="s1">'created={{.Created}} size={{.Size}} architecture={{.Architecture}}'</span>
+</code></pre></div></td></tr></table></div>
+<p>Do not label QEMU timings as Raspberry Pi performance. State the host CPU, Docker version, QEMU/binfmt version, source image release, and architecture alongside the result.</p>
+<h2 id="common-failures">Common Failures<a class="headerlink" href="#common-failures" title="Permanent link">¶</a></h2>
+<h3 id="exec-format-error"><code>exec format error</code><a class="headerlink" href="#exec-format-error" title="Permanent link">¶</a></h3>
+<p>The container architecture differs from the host and QEMU is not registered. Check <code>docker image inspect</code>, register <code>binfmt</code>, and pass the correct <code>--platform</code>.</p>
+<h3 id="loop_devicep2-does-not-exist"><code>${loop_device}p2</code> does not exist<a class="headerlink" href="#loop_devicep2-does-not-exist" title="Permanent link">¶</a></h3>
+<p>Confirm that <code>losetup</code> was called with <code>--partscan</code>. Run <code>sudo partprobe "$loop_device"</code> and inspect the result with <code>lsblk</code>. Some unusual images may use a different partition number.</p>
+<h3 id="systemctl-reports-that-systemd-is-not-running"><code>systemctl</code> reports that systemd is not running<a class="headerlink" href="#systemctl-reports-that-systemd-is-not-running" title="Permanent link">¶</a></h3>
+<p>This is expected. The imported image has no normal Raspberry Pi boot process. Run the required program directly, or create a purpose-built Dockerfile instead of trying to boot the disk image inside a container.</p>
+<h3 id="dns-or-package-installation-fails">DNS or package installation fails<a class="headerlink" href="#dns-or-package-installation-fails" title="Permanent link">¶</a></h3>
+<p>First verify the container clock and Docker DNS configuration. Archived Raspberry Pi OS releases may also reference repositories that have moved. Prefer a current Trixie or Bookworm image.</p>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
+<h3 id="should-this-image-be-used-as-a-production-base-image">Should this image be used as a production base image?<a class="headerlink" href="#should-this-image-be-used-as-a-production-base-image" title="Permanent link">¶</a></h3>
+<p>Usually no. A small Debian base image with an explicit Dockerfile is easier to reproduce, update, scan, and maintain. Importing Raspberry Pi OS is useful when you specifically need its package selection or userspace layout.</p>
+<h3 id="can-the-container-access-gpio-or-the-camera">Can the container access GPIO or the camera?<a class="headerlink" href="#can-the-container-access-gpio-or-the-camera" title="Permanent link">¶</a></h3>
+<p>The imported filesystem alone cannot emulate Raspberry Pi hardware. Device passthrough is possible only when the container runs on a real Raspberry Pi and is granted the appropriate <code>/dev</code> devices and permissions.</p>
+<h3 id="why-does-uname-not-prove-which-raspberry-pi-os-kernel-is-installed">Why does <code>uname</code> not prove which Raspberry Pi OS kernel is installed?<a class="headerlink" href="#why-does-uname-not-prove-which-raspberry-pi-os-kernel-is-installed" title="Permanent link">¶</a></h3>
+<p>Because the container uses the host kernel. Use <code>dpkg --print-architecture</code>, <code>/etc/os-release</code>, and package metadata to identify the imported userspace.</p>
+<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/">Secure Self-Hosting with Docker Compose and Nginx Proxy Manager</a></li>
+<li><a href="../how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/">Build a CI/CD Pipeline for Raspberry Pi with Docker</a></li>
+<li><a href="../devops__self-hosted_github_actions_runner_with_docker_on_pi_5/">Self-Hosted GitHub Actions Runner on Raspberry Pi 5</a></li>
+<li><a href="../how_to_move_rootfs_to_external_usb_storage/">Move Raspberry Pi rootfs to External USB Storage</a></li>
+</ul></div>
 
 
 
@@ -5639,14 +5958,62 @@
 
 
   
+    
+  
+  
+    
   
 
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 1, 2026 09:46:28 JST">2026-08-01</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="February 21, 2025 10:32:59 JST">2025-02-21</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
 
 
                 
+  
+    
+    <aside class="related-guides" aria-labelledby="continue-learning-title">
+      <h2 id="continue-learning-title">Continue learning</h2>
+      <ul>
+        
+          <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
+        
+        
+          <li><a href="../how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/">Previous: How to Build an AI Smart Security Camera with Raspberry Pi and YOLOv8</a></li>
+        
+        
+          <li><a href="../how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/">Next: How to Monitor Raspberry Pi Performance with Prometheus and Grafana</a></li>
+        
+        <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
+      </ul>
+    </aside>
+  
+
               </article>
             </div>
           
