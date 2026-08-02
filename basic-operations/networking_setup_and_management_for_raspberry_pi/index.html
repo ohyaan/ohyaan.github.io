@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Configure network connections on Raspberry Pi. Learn how to set up Wi-Fi via terminal, configure static IP addresses, and manage interfaces.">
+        <meta name="description" content="Configure Raspberry Pi networking on Trixie with NetworkManager and nmcli. Covers Wi-Fi, Ethernet, static IP, DNS, routes, diagnostics, and safe remote changes.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Networking Setup and Management for Raspberry Pi - With Raspberry Pi</title>
+        <title>Raspberry Pi NetworkManager and nmcli Guide - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Networking Setup and Management for Raspberry Pi - With Raspberry Pi">
-  <meta property="og:description" content="Configure network connections on Raspberry Pi. Learn how to set up Wi-Fi via terminal, configure static IP addresses, and manage interfaces.">
+  <meta property="og:title" content="Raspberry Pi NetworkManager and nmcli Guide - With Raspberry Pi">
+  <meta property="og:description" content="Configure Raspberry Pi networking on Trixie with NetworkManager and nmcli. Covers Wi-Fi, Ethernet, static IP, DNS, routes, diagnostics, and safe remote changes.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/basic-operations/networking_setup_and_management_for_raspberry_pi/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/basic-operations__networking_setup_and_management_for_raspberry_pi.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Networking Setup and Management for Raspberry Pi">
+  <meta property="og:image:alt" content="Raspberry Pi NetworkManager and nmcli Guide">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-06-25">
+    <meta property="article:modified_time" content="2026-08-02">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Networking Setup and Management for Raspberry Pi - With Raspberry Pi">
-  <meta name="twitter:description" content="Configure network connections on Raspberry Pi. Learn how to set up Wi-Fi via terminal, configure static IP addresses, and manage interfaces.">
+  <meta name="twitter:title" content="Raspberry Pi NetworkManager and nmcli Guide - With Raspberry Pi">
+  <meta name="twitter:description" content="Configure Raspberry Pi networking on Trixie with NetworkManager and nmcli. Covers Wi-Fi, Ethernet, static IP, DNS, routes, diagnostics, and safe remote changes.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/basic-operations__networking_setup_and_management_for_raspberry_pi.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Networking Setup and Management for Raspberry Pi",
-    "description": "Configure network connections on Raspberry Pi. Learn how to set up Wi-Fi via terminal, configure static IP addresses, and manage interfaces.",
+    "headline": "Raspberry Pi NetworkManager and nmcli Guide",
+    "description": "Configure Raspberry Pi networking on Trixie with NetworkManager and nmcli. Covers Wi-Fi, Ethernet, static IP, DNS, routes, diagnostics, and safe remote changes.",
     "url": "https://ohyaan.github.io/basic-operations/networking_setup_and_management_for_raspberry_pi/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/basic-operations/networking_setup_and_management_for_raspberry_pi/"},
     "image": ["https://ohyaan.github.io/images/og/pages/basic-operations__networking_setup_and_management_for_raspberry_pi.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-06-25"
+    "dateModified": "2026-08-02"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Networking Setup and Management for Raspberry Pi", "item": "https://ohyaan.github.io/basic-operations/networking_setup_and_management_for_raspberry_pi/"}
+      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi NetworkManager and nmcli Guide", "item": "https://ohyaan.github.io/basic-operations/networking_setup_and_management_for_raspberry_pi/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#networking-setup-and-management-for-raspberry-pi" class="md-skip">
+        <a href="#raspberry-pi-networkmanager-and-nmcli-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Networking Setup and Management for Raspberry Pi
+              Raspberry Pi NetworkManager and nmcli Guide
             
           </span>
         </div>
@@ -756,7 +756,7 @@
           
   
   <span class="md-ellipsis">
-    Networking Setup and Management for Raspberry Pi
+    Raspberry Pi NetworkManager and nmcli Guide
     
   </span>
   
@@ -768,7 +768,7 @@
         
   
   <span class="md-ellipsis">
-    Networking Setup and Management for Raspberry Pi
+    Raspberry Pi NetworkManager and nmcli Guide
     
   </span>
   
@@ -791,108 +791,171 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#understanding-raspberry-pi-network-interfaces" class="md-nav__link">
+  <a href="#command-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding Raspberry Pi Network Interfaces
+      Command quick reference
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#wi-fi-configuration" class="md-nav__link">
+  <a href="#identify-interfaces-and-profiles" class="md-nav__link">
     <span class="md-ellipsis">
-      Wi-Fi Configuration
+      Identify interfaces and profiles
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ethernet-configuration" class="md-nav__link">
+  <a href="#connect-to-wi-fi" class="md-nav__link">
     <span class="md-ellipsis">
-      Ethernet Configuration
+      Connect to Wi-Fi
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usb-networking-for-pi-zero" class="md-nav__link">
+  <a href="#manage-saved-wi-fi-profiles" class="md-nav__link">
     <span class="md-ellipsis">
-      USB Networking (For Pi Zero)
+      Manage saved Wi-Fi profiles
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-services" class="md-nav__link">
+  <a href="#ethernet-with-dhcp" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Services
+      Ethernet with DHCP
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#remote-access" class="md-nav__link">
+  <a href="#static-ipv4-with-networkmanager" class="md-nav__link">
     <span class="md-ellipsis">
-      Remote Access
+      Static IPv4 with NetworkManager
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-bridging-and-routing" class="md-nav__link">
+  <a href="#make-a-remote-change-safely" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Bridging and Routing
+      Make a remote change safely
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#iot-and-low-power-networking" class="md-nav__link">
+  <a href="#ipv6" class="md-nav__link">
     <span class="md-ellipsis">
-      IoT and Low-Power Networking
+      IPv6
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-diagnostics-and-troubleshooting" class="md-nav__link">
+  <a href="#dns-diagnostics" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Diagnostics and Troubleshooting
+      DNS diagnostics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#network-performance-optimization" class="md-nav__link">
+  <a href="#route-selection-and-metrics" class="md-nav__link">
     <span class="md-ellipsis">
-      Network Performance Optimization
+      Route selection and metrics
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#advanced-networking" class="md-nav__link">
+  <a href="#create-a-wi-fi-hotspot" class="md-nav__link">
     <span class="md-ellipsis">
-      Advanced Networking
+      Create a Wi-Fi hotspot
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#usb-networking" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      USB networking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostname-and-local-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hostname and local discovery
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-link-speed-and-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check link speed and errors
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firewall-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firewall inspection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-bundle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnostic bundle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting table
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related guides
     </span>
   </a>
   
@@ -2630,6 +2693,8 @@
       
         
       
+        
+      
     
     
       
@@ -2670,6 +2735,28 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AArch64 ADRP, ADD, ADR, and LDR Literal Explained
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -3449,6 +3536,8 @@
       
         
           
+        
+      
         
       
         
@@ -4824,7 +4913,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi as USB OTG Device Mass Storage Emulation
+    Raspberry Pi USB OTG Mass-Storage Gadget
     
   </span>
   
@@ -4952,11 +5041,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Headless and Networking Guide 2026
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Headless Setup Complete Guide: Remote Setup Made Easy
+    Raspberry Pi Headless Setup 2026 with Imager and SSH
     
   </span>
   
@@ -5066,7 +5177,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Security Hardening Complete Guide
+    Raspberry Pi OS Trixie Security Hardening
     
   </span>
   
@@ -5128,11 +5239,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi USB Gadget Mode 2026: SSH over USB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Raspberry Pi WiFi Access Point Setup: Complete Hotspot Configuration Guide
+    Raspberry Pi Wi-Fi Access Point with NetworkManager
     
   </span>
   
@@ -5546,33 +5679,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tips/top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Top 5 Essential Security Settings for Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    USB Ethernet Gadget Setup on Raspberry Pi OS
+    Manual USB Ethernet Gadget with dwc2 and g_ether
     
   </span>
   
@@ -5761,10 +5872,90 @@
   
                   
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">NetworkManager</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">Networking</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">Raspberry Pi OS Trixie</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">nmcli</span>
+      
+    
+  </nav>
 
 
-<div><h1 id="networking-setup-and-management-for-raspberry-pi">Networking Setup and Management for Raspberry Pi<a class="headerlink" href="#networking-setup-and-management-for-raspberry-pi" title="Permanent link">¶</a></h1>
-<p>This comprehensive guide covers all aspects of networking on your Raspberry Pi, from basic connectivity to advanced network configurations. Whether you're setting up a simple home project or building a complex IoT deployment, these instructions will help you establish and manage your network connections effectively.</p>
+
+<div><h1 id="raspberry-pi-networkmanager-and-nmcli-guide">Raspberry Pi NetworkManager and nmcli Guide<a class="headerlink" href="#raspberry-pi-networkmanager-and-nmcli-guide" title="Permanent link">¶</a></h1>
+<p>Raspberry Pi OS Trixie uses NetworkManager to manage normal Ethernet and Wi-Fi connections. Use <code>nmcli</code> for repeatable commands, <code>nmtui</code> for an interactive terminal interface, or Control Centre on the desktop. Avoid editing <code>dhcpcd.conf</code> or a global <code>wpa_supplicant.conf</code> by following instructions written for older releases.</p>
+<h2 id="command-quick-reference">Command quick reference<a class="headerlink" href="#command-quick-reference" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overall state</td>
+<td><code>nmcli general status</code></td>
+</tr>
+<tr>
+<td>Device state</td>
+<td><code>nmcli device status</code></td>
+</tr>
+<tr>
+<td>Active profiles</td>
+<td><code>nmcli connection show --active</code></td>
+</tr>
+<tr>
+<td>All profiles</td>
+<td><code>nmcli connection show</code></td>
+</tr>
+<tr>
+<td>IP addresses</td>
+<td><code>ip -brief address</code></td>
+</tr>
+<tr>
+<td>Routes</td>
+<td><code>ip route</code> and <code>ip -6 route</code></td>
+</tr>
+<tr>
+<td>DNS</td>
+<td><code>resolvectl status</code></td>
+</tr>
+<tr>
+<td>Wi-Fi scan</td>
+<td><code>nmcli device wifi list</code></td>
+</tr>
+<tr>
+<td>Interactive configuration</td>
+<td><code>sudo nmtui</code></td>
+</tr>
+<tr>
+<td>NetworkManager logs</td>
+<td><code>journalctl -b -u NetworkManager --no-pager</code></td>
+</tr>
+</tbody>
+</table>
+<p>For first boot and remote-access choices, start with the <a href="../../tips/raspberry_pi_headless_networking_2026_hub/">headless and networking hub</a>.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -5774,835 +5965,321 @@
   </script>
 </div>
 
-<h2 id="understanding-raspberry-pi-network-interfaces">Understanding Raspberry Pi Network Interfaces<a class="headerlink" href="#understanding-raspberry-pi-network-interfaces" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi models have different networking capabilities:</p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Ethernet</th>
-<th>Wi-Fi</th>
-<th>Bluetooth</th>
-<th>USB Networking</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Pi 5</td>
-<td>Gigabit</td>
-<td>802.11ac (5GHz/2.4GHz)</td>
-<td>5.0</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Pi 4</td>
-<td>Gigabit</td>
-<td>802.11ac (5GHz/2.4GHz)</td>
-<td>5.0</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Pi 3B+</td>
-<td>300Mbps</td>
-<td>802.11n (2.4GHz)</td>
-<td>4.2</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Pi Zero W</td>
-<td>None</td>
-<td>802.11n (2.4GHz)</td>
-<td>4.1</td>
-<td>Yes (via USB OTG)</td>
-</tr>
-<tr>
-<td>Pi Zero</td>
-<td>None</td>
-<td>None</td>
-<td>None</td>
-<td>Yes (via USB OTG)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="checking-network-interfaces">Checking Network Interfaces<a class="headerlink" href="#checking-network-interfaces" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># List all network interfaces</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>ip<span class="w"> </span>addr
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1"># Show wireless interfaces</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>iwconfig
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1"># Show network hardware</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>lshw<span class="w"> </span>-class<span class="w"> </span>network
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="c1"># Show USB network devices</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>lsusb
+<h2 id="identify-interfaces-and-profiles">Identify interfaces and profiles<a class="headerlink" href="#identify-interfaces-and-profiles" title="Permanent link">¶</a></h2>
+<p>Run these before changing anything:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>nmcli<span class="w"> </span>general<span class="w"> </span>status
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>ip<span class="w"> </span>route
 </code></pre></div></td></tr></table></div>
-<h2 id="wi-fi-configuration">Wi-Fi Configuration<a class="headerlink" href="#wi-fi-configuration" title="Permanent link">¶</a></h2>
-<h3 id="graphical-wi-fi-setup-desktop-environment">Graphical Wi-Fi Setup (Desktop Environment)<a class="headerlink" href="#graphical-wi-fi-setup-desktop-environment" title="Permanent link">¶</a></h3>
-<ol>
-<li>Click on the network icon in the taskbar</li>
-<li>Select your Wi-Fi network</li>
-<li>Enter password when prompted</li>
-<li>Save the network for automatic reconnection</li>
-</ol>
-<h3 id="command-line-wi-fi-setup-networkmanager">Command-Line Wi-Fi Setup (NetworkManager)<a class="headerlink" href="#command-line-wi-fi-setup-networkmanager" title="Permanent link">¶</a></h3>
-<p>Starting with Raspberry Pi OS <strong>Bookworm</strong>, NetworkManager is the default networking tool. You should use <code>nmtui</code> (a graphical terminal UI) or <code>nmcli</code> (command-line client) instead of editing <code>wpa_supplicant.conf</code> directly.</p>
-<h4 id="method-1-using-nmtui-recommended-for-beginners">Method 1: Using <code>nmtui</code> (Recommended for Beginners)<a class="headerlink" href="#method-1-using-nmtui-recommended-for-beginners" title="Permanent link">¶</a></h4>
-<p>The easiest way to connect to Wi-Fi from the command line is through the interactive text interface:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>nmtui
+<p>NetworkManager connection profiles have names such as <code>Wired connection 1</code>; devices have names such as <code>eth0</code> or <code>wlan0</code>. Commands that modify a connection usually require the profile name, not the device name.</p>
+<p>Show the profile attached to each active device:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>NAME,UUID,TYPE,DEVICE<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
 </code></pre></div></td></tr></table></div>
-<ol>
-<li>Select <strong>Activate a connection</strong>.</li>
-<li>Select your Wi-Fi network from the list.</li>
-<li>Enter the password and press Enter.</li>
-<li>Go back and select <strong>Quit</strong>.</li>
-</ol>
-<h4 id="method-2-using-nmcli-recommended-for-scripts-and-power-users">Method 2: Using <code>nmcli</code> (Recommended for Scripts and Power Users)<a class="headerlink" href="#method-2-using-nmcli-recommended-for-scripts-and-power-users" title="Permanent link">¶</a></h4>
-<p>For fully automated CLI control:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Ensure Wi-Fi is enabled</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi<span class="w"> </span>on
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1"># Scan for available Wi-Fi networks</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1"># Connect to a standard Wi-Fi network</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"YourNetworkSSID"</span><span class="w"> </span>password<span class="w"> </span><span class="s2">"YourWiFiPassword"</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="c1"># Connect to a hidden Wi-Fi network</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"HiddenSSID"</span><span class="w"> </span>password<span class="w"> </span><span class="s2">"YourPassword"</span><span class="w"> </span>hidden<span class="w"> </span>yes
+<p>Do not assume that every system uses <code>eth0</code> and <code>wlan0</code>. Predictable interface naming, USB adapters, and Compute Module hardware can produce other names.</p>
+<h2 id="connect-to-wi-fi">Connect to Wi-Fi<a class="headerlink" href="#connect-to-wi-fi" title="Permanent link">¶</a></h2>
+<p>Enable the radio and scan:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi<span class="w"> </span>on
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
 </code></pre></div></td></tr></table></div>
-<h3 id="wi-fi-command-line-management">Wi-Fi Command Line Management<a class="headerlink" href="#wi-fi-command-line-management" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Check current connection status and active profile</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Show details of the active wireless interface</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>nmcli<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1"># Check Wi-Fi signal strength (updated every second)</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>nmcli<span class="w"> </span>-f<span class="w"> </span>IN-USE,SIGNAL,SSID<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
+<p>Use <code>--ask</code> so the password is not placed directly in shell history:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>--ask<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"YOUR-SSID"</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="ethernet-configuration">Ethernet Configuration<a class="headerlink" href="#ethernet-configuration" title="Permanent link">¶</a></h2>
-<h3 id="auto-configuration-dhcp">Auto-Configuration (DHCP)<a class="headerlink" href="#auto-configuration-dhcp" title="Permanent link">¶</a></h3>
-<p>By default, Ethernet (eth0) is configured via DHCP. No additional setup is required.</p>
-<h3 id="static-ip-configuration-networkmanager">Static IP Configuration (NetworkManager)<a class="headerlink" href="#static-ip-configuration-networkmanager" title="Permanent link">¶</a></h3>
-<p>Since <code>dhcpcd</code> is no longer installed on Raspberry Pi OS Bookworm, you must configure static IP addresses using <code>nmcli</code>.</p>
-<h4 id="step-1-identify-your-network-connection-name">Step 1: Identify your network connection name<a class="headerlink" href="#step-1-identify-your-network-connection-name" title="Permanent link">¶</a></h4>
-<p></p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
+<p>Confirm the active profile:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL,IP4,IP6<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
 </code></pre></div></td></tr></table></div>
-You will see output showing your connection names (usually <code>preconfigured</code> or <code>Wired connection 1</code>).
-<h4 id="step-2-configure-static-ip-on-ethernet-eth0">Step 2: Configure Static IP on Ethernet (eth0)<a class="headerlink" href="#step-2-configure-static-ip-on-ethernet-eth0" title="Permanent link">¶</a></h4>
-<p>Run the following commands, replacing <code>Wired connection 1</code> with your actual connection name:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Modify connection to set static IP, gateway, and DNS servers</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">"192.168.1.100/24"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">"192.168.1.1"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"1.1.1.1,8.8.8.8"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="c1"># Apply the changes by bringing the connection down and up</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span><span class="s2">"Wired connection 1"</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<p>For a hidden network:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>--ask<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"YOUR-SSID"</span><span class="w"> </span>hidden<span class="w"> </span>yes
 </code></pre></div></td></tr></table></div>
-<h4 id="to-revert-back-to-dhcp-dynamic-ip">To revert back to DHCP (Dynamic IP):<a class="headerlink" href="#to-revert-back-to-dhcp-dynamic-ip" title="Permanent link">¶</a></h4>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.method<span class="w"> </span>auto
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span><span class="s2">"Wired connection 1"</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<p>Set the correct Wi-Fi country during Imager setup or through the supported Raspberry Pi configuration interface. The regulatory domain affects legal channels and radio behaviour.</p>
+<h2 id="manage-saved-wi-fi-profiles">Manage saved Wi-Fi profiles<a class="headerlink" href="#manage-saved-wi-fi-profiles" title="Permanent link">¶</a></h2>
+<p>List profiles:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>NAME,TYPE,DEVICE,AUTOCONNECT<span class="w"> </span>connection<span class="w"> </span>show
 </code></pre></div></td></tr></table></div>
-<h3 id="ethernet-speed-and-duplex-settings">Ethernet Speed and Duplex Settings<a class="headerlink" href="#ethernet-speed-and-duplex-settings" title="Permanent link">¶</a></h3>
+<p>Prefer one network over another with autoconnect priority:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="c1"># Check current speed/duplex settings</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>ethtool<span class="w"> </span>eth0
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="c1"># Set speed and duplex manually (example: force 100Mbps full duplex)</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a>sudo<span class="w"> </span>ethtool<span class="w"> </span>-s<span class="w"> </span>eth0<span class="w"> </span>speed<span class="w"> </span><span class="m">100</span><span class="w"> </span>duplex<span class="w"> </span>full<span class="w"> </span>autoneg<span class="w"> </span>off
+<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Preferred Wi-Fi"</span><span class="w"> </span>connection.autoconnect-priority<span class="w"> </span><span class="m">20</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Fallback Wi-Fi"</span><span class="w"> </span>connection.autoconnect-priority<span class="w"> </span><span class="m">10</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="jumbo-frames">Jumbo Frames<a class="headerlink" href="#jumbo-frames" title="Permanent link">¶</a></h3>
-<p>For high-performance networking:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span>
-<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Check maximum MTU supported</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>eth0
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># Set higher MTU (adjust based on your network support)</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5"></a>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>eth0<span class="w"> </span>mtu<span class="w"> </span><span class="m">9000</span>
+<p>Remove an obsolete profile only after confirming its exact name:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>delete<span class="w"> </span><span class="s2">"Old Wi-Fi"</span>
 </code></pre></div></td></tr></table></div>
-<p>To make MTU change persistent, edit <code>/etc/network/interfaces.d/eth0</code>:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>auto eth0
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>iface eth0 inet dhcp
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>    mtu 9000
+<p>View a profile without printing stored secrets:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>nmcli<span class="w"> </span>--show-secrets<span class="w"> </span>no<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Preferred Wi-Fi"</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="usb-networking-for-pi-zero">USB Networking (For Pi Zero)<a class="headerlink" href="#usb-networking-for-pi-zero" title="Permanent link">¶</a></h2>
-<p>The Raspberry Pi Zero can be connected via USB for both power and networking:</p>
+<h2 id="ethernet-with-dhcp">Ethernet with DHCP<a class="headerlink" href="#ethernet-with-dhcp" title="Permanent link">¶</a></h2>
+<p>Most networks supply an address, route, and DNS through DHCP. To return a profile to automatic IPv4:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span>ipv4.method<span class="w"> </span>auto<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">""</span>
+</code></pre></div></td></tr></table></div>
+<p>Apply it only when you have local or alternate access:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<p>Cycling the profile disconnects an SSH session using it.</p>
+<h2 id="static-ipv4-with-networkmanager">Static IPv4 with NetworkManager<a class="headerlink" href="#static-ipv4-with-networkmanager" title="Permanent link">¶</a></h2>
+<p>When you control the router, prefer a DHCP reservation. Use a device-side static address when the deployment requires it and the address has been reserved in the network plan.</p>
+<p>Example values:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>Address: 192.168.10.50/24
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>Gateway: 192.168.10.1
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>DNS: 192.168.10.1 and 1.1.1.1
+</code></pre></div></td></tr></table></div>
+<p>Apply them to the actual profile name:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">"192.168.10.50/24"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">"192.168.10.1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"192.168.10.1 1.1.1.1"</span>
+</code></pre></div></td></tr></table></div>
+<p>Inspect before activation:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>nmcli<span class="w"> </span>--show-secrets<span class="w"> </span>no<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+</code></pre></div></td></tr></table></div>
+<p>Verify that the address is not already in use and is not available to another DHCP client. Address-conflict checks are network-specific; coordinate with the administrator rather than relying on one ping result.</p>
+<h2 id="make-a-remote-change-safely">Make a remote change safely<a class="headerlink" href="#make-a-remote-change-safely" title="Permanent link">¶</a></h2>
+<p>Changing the active profile over SSH can lock you out. Before activation:</p>
 <ol>
-<li>
-<p>Edit <code>/boot/firmware/config.txt</code>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Add:
-   </p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>dtoverlay=dwc2
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Edit <code>/boot/firmware/cmdline.txt</code>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/cmdline.txt
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Add after <code>rootwait</code>:
-   </p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>modules-load=dwc2,g_ether
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Connect the Pi Zero to computer via USB (data port, not power)</p>
-</li>
-<li>On the computer, a new Ethernet device will appear</li>
+<li>Keep the current SSH session open.</li>
+<li>Prepare Ethernet, USB Gadget, serial, or local-console recovery.</li>
+<li>Record the original profile values.</li>
+<li>Schedule an automatic rollback.</li>
+<li>Apply one change.</li>
+<li>Test from a second client session.</li>
+<li>Cancel the rollback only after verification.</li>
 </ol>
-<p>For detailed setup instructions, see <a href="../../tips/usb_ethernet_gadget_setup/">USB Ethernet Gadget Setup</a>.</p>
-<h2 id="network-services">Network Services<a class="headerlink" href="#network-services" title="Permanent link">¶</a></h2>
-<h3 id="dynamic-dns-configuration">Dynamic DNS Configuration<a class="headerlink" href="#dynamic-dns-configuration" title="Permanent link">¶</a></h3>
-<p>For accessing your Pi from the internet with changing IP:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span>
-<span class="normal"><a href="#__codelineno-14-3">3</a></span>
-<span class="normal"><a href="#__codelineno-14-4">4</a></span>
-<span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># Install ddclient</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ddclient
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="c1"># Configure for your DDNS provider</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ddclient.conf
-</code></pre></div></td></tr></table></div>
-<p>Example configuration for No-IP:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<p>Create a profile clone for a reversible experiment:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
 <span class="normal"><a href="#__codelineno-15-2">2</a></span>
 <span class="normal"><a href="#__codelineno-15-3">3</a></span>
 <span class="normal"><a href="#__codelineno-15-4">4</a></span>
 <span class="normal"><a href="#__codelineno-15-5">5</a></span>
-<span class="normal"><a href="#__codelineno-15-6">6</a></span>
-<span class="normal"><a href="#__codelineno-15-7">7</a></span>
-<span class="normal"><a href="#__codelineno-15-8">8</a></span>
-<span class="normal"><a href="#__codelineno-15-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>daemon=600
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a>protocol=noip
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>use=web
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a>web=checkip.dyndns.org/
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a>web-skip='Current IP Address: '
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a>server=dynupdate.no-ip.com
-<a id="__codelineno-15-7" name="__codelineno-15-7"></a>login=yourusername
-<a id="__codelineno-15-8" name="__codelineno-15-8"></a>password=yourpassword
-<a id="__codelineno-15-9" name="__codelineno-15-9"></a>yourhostname.no-ip.org
+<span class="normal"><a href="#__codelineno-15-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>clone<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="s2">"Wired test static"</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired test static"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">"192.168.10.50/24"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">"192.168.10.1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"192.168.10.1"</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="local-dns-with-avahi">Local DNS with Avahi<a class="headerlink" href="#local-dns-with-avahi" title="Permanent link">¶</a></h3>
-<p>For local network name resolution:</p>
+<p>A clone reduces accidental damage to the known-good profile, but activating it can still disconnect you.</p>
+<h2 id="ipv6">IPv6<a class="headerlink" href="#ipv6" title="Permanent link">¶</a></h2>
+<p>Do not disable IPv6 as a generic troubleshooting step. Inspect it independently:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
 <span class="normal"><a href="#__codelineno-16-2">2</a></span>
-<span class="normal"><a href="#__codelineno-16-3">3</a></span>
-<span class="normal"><a href="#__codelineno-16-4">4</a></span>
-<span class="normal"><a href="#__codelineno-16-5">5</a></span>
-<span class="normal"><a href="#__codelineno-16-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Install Avahi (if not already installed)</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>avahi-daemon
-<a id="__codelineno-16-3" name="__codelineno-16-3"></a>
-<a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="c1"># Start and enable service</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>avahi-daemon
-<a id="__codelineno-16-6" name="__codelineno-16-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>avahi-daemon
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>ip<span class="w"> </span>-6<span class="w"> </span>address
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>ip<span class="w"> </span>-6<span class="w"> </span>route
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>IP6<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>eth0
 </code></pre></div></td></tr></table></div>
-<p>Now your Pi is accessible as <code>raspberrypi.local</code> on your network.</p>
-<p>To change the hostname:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>mypi
+<p>If a deployment intentionally uses no IPv6, document that policy and test the applications before disabling it on a profile.</p>
+<h2 id="dns-diagnostics">DNS diagnostics<a class="headerlink" href="#dns-diagnostics" title="Permanent link">¶</a></h2>
+<p>Check configured resolvers and per-interface domains:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>resolvectl<span class="w"> </span>status
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>resolvectl<span class="w"> </span>query<span class="w"> </span>raspberrypi.com
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>getent<span class="w"> </span>ahosts<span class="w"> </span>raspberrypi.com
 </code></pre></div></td></tr></table></div>
-<p>Edit <code>/etc/hosts</code> to match:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>127.0.1.1 mypi
+<p>Test layers separately:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span>
+<span class="normal"><a href="#__codelineno-18-5">5</a></span>
+<span class="normal"><a href="#__codelineno-18-6">6</a></span>
+<span class="normal"><a href="#__codelineno-18-7">7</a></span>
+<span class="normal"><a href="#__codelineno-18-8">8</a></span>
+<span class="normal"><a href="#__codelineno-18-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="c1"># Gateway reachability; replace with the actual default route</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>ip<span class="w"> </span>route
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">192</span>.168.10.1
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="c1"># Internet routing without relying on DNS</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span>.1.1.1
+<a id="__codelineno-18-7" name="__codelineno-18-7"></a>
+<a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="c1"># DNS resolution</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9"></a>getent<span class="w"> </span>hosts<span class="w"> </span>raspberrypi.com
 </code></pre></div></td></tr></table></div>
-<p>Restart Avahi:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>avahi-daemon
+<p>If an IP works but a hostname does not, investigate DNS. If the gateway cannot be reached, changing public DNS will not fix the link or route.</p>
+<h2 id="route-selection-and-metrics">Route selection and metrics<a class="headerlink" href="#route-selection-and-metrics" title="Permanent link">¶</a></h2>
+<p>Show routes:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>ip<span class="w"> </span>route
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>ip<span class="w"> </span>route<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>.1.1.1
 </code></pre></div></td></tr></table></div>
-<h3 id="network-time-protocol-ntp">Network Time Protocol (NTP)<a class="headerlink" href="#network-time-protocol-ntp" title="Permanent link">¶</a></h3>
-<p>Ensure your Raspberry Pi has accurate time:</p>
+<p>When Ethernet and Wi-Fi are both active, route metrics determine preference. Set a lower metric on the preferred profile:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
-<span class="normal"><a href="#__codelineno-20-2">2</a></span>
-<span class="normal"><a href="#__codelineno-20-3">3</a></span>
-<span class="normal"><a href="#__codelineno-20-4">4</a></span>
-<span class="normal"><a href="#__codelineno-20-5">5</a></span>
-<span class="normal"><a href="#__codelineno-20-6">6</a></span>
-<span class="normal"><a href="#__codelineno-20-7">7</a></span>
-<span class="normal"><a href="#__codelineno-20-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="c1"># Check current time configuration</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2"></a>timedatectl
-<a id="__codelineno-20-3" name="__codelineno-20-3"></a>
-<a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="c1"># Enable NTP synchronization</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5"></a>sudo<span class="w"> </span>timedatectl<span class="w"> </span>set-ntp<span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6"></a>
-<a id="__codelineno-20-7" name="__codelineno-20-7"></a><span class="c1"># Configure custom NTP servers</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/timesyncd.conf
+<span class="normal"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.route-metric<span class="w"> </span><span class="m">100</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Preferred Wi-Fi"</span><span class="w"> </span>ipv4.route-metric<span class="w"> </span><span class="m">600</span>
 </code></pre></div></td></tr></table></div>
-<p>Example configuration:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<p>Reconnect during a maintenance window, then confirm with <code>ip route get</code>.</p>
+<h2 id="create-a-wi-fi-hotspot">Create a Wi-Fi hotspot<a class="headerlink" href="#create-a-wi-fi-hotspot" title="Permanent link">¶</a></h2>
+<p>For a quick routed hotspot:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
 <span class="normal"><a href="#__codelineno-21-2">2</a></span>
-<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>[Time]
-<a id="__codelineno-21-2" name="__codelineno-21-2"></a>NTP=pool.ntp.org time.nist.gov
-<a id="__codelineno-21-3" name="__codelineno-21-3"></a>FallbackNTP=0.debian.pool.ntp.org 1.debian.pool.ntp.org
+<span class="normal"><a href="#__codelineno-21-3">3</a></span>
+<span class="normal"><a href="#__codelineno-21-4">4</a></span>
+<span class="normal"><a href="#__codelineno-21-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>hotspot<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a><span class="w">  </span>ifname<span class="w"> </span>wlan0<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a><span class="w">  </span>con-name<span class="w"> </span><span class="s2">"Pi Hotspot"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="w">  </span>ssid<span class="w"> </span><span class="s2">"Pi-Lab"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a><span class="w">  </span>password<span class="w"> </span><span class="s2">"replace-with-a-unique-passphrase"</span>
 </code></pre></div></td></tr></table></div>
-<p>Restart the service:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>systemd-timesyncd
+<p>This command places a credential in shell history. Prefer an interactive or protected provisioning workflow on shared systems. For routing models, client isolation, bridge mode, and recovery, see <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/">Raspberry Pi Wi-Fi access point</a>.</p>
+<h2 id="usb-networking">USB networking<a class="headerlink" href="#usb-networking" title="Permanent link">¶</a></h2>
+<p>Current Trixie images support an official USB Gadget workflow on compatible boards. It presents the Pi as a USB Ethernet device and is useful when no LAN is available.</p>
+<p>See <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">SSH over USB with <code>rpi-usb-gadget</code></a>. Do not confuse USB Ethernet with <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/">USB mass-storage emulation</a>.</p>
+<h2 id="hostname-and-local-discovery">Hostname and local discovery<a class="headerlink" href="#hostname-and-local-discovery" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>hostnamectl<span class="w"> </span>hostname
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>hostname<span class="w"> </span>pi-lab-01
 </code></pre></div></td></tr></table></div>
-<h2 id="remote-access">Remote Access<a class="headerlink" href="#remote-access" title="Permanent link">¶</a></h2>
-<h3 id="ssh-configuration">SSH Configuration<a class="headerlink" href="#ssh-configuration" title="Permanent link">¶</a></h3>
-<p>Enable SSH for secure remote access:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
-<span class="normal"><a href="#__codelineno-23-2">2</a></span>
-<span class="normal"><a href="#__codelineno-23-3">3</a></span>
-<span class="normal"><a href="#__codelineno-23-4">4</a></span>
-<span class="normal"><a href="#__codelineno-23-5">5</a></span>
-<span class="normal"><a href="#__codelineno-23-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="c1"># Enable SSH service</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
-<a id="__codelineno-23-3" name="__codelineno-23-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ssh
-<a id="__codelineno-23-4" name="__codelineno-23-4"></a>
-<a id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="c1"># Check SSH status</span>
-<a id="__codelineno-23-6" name="__codelineno-23-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
+<p>On networks with mDNS support:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>ssh<span class="w"> </span>your-user@pi-lab-01.local
 </code></pre></div></td></tr></table></div>
-<h4 id="ssh-security-hardening">SSH Security Hardening<a class="headerlink" href="#ssh-security-hardening" title="Permanent link">¶</a></h4>
-<p>Edit SSH configuration:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ssh/sshd_config
+<p>Managed networks can block multicast discovery. Use DHCP/DNS inventory rather than assuming <code>.local</code> works everywhere.</p>
+<h2 id="check-link-speed-and-errors">Check link speed and errors<a class="headerlink" href="#check-link-speed-and-errors" title="Permanent link">¶</a></h2>
+<p>Ethernet:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ethtool
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>ethtool<span class="w"> </span>eth0
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a>ip<span class="w"> </span>-s<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>eth0
 </code></pre></div></td></tr></table></div>
-<p>Recommended security settings:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-25-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-25-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-25-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-25-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-25-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-25-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-25-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-25-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-25-10">10</a></span>
-<span class="normal"><a href="#__codelineno-25-11">11</a></span>
-<span class="normal"><a href="#__codelineno-25-12">12</a></span>
-<span class="normal"><a href="#__codelineno-25-13">13</a></span>
-<span class="normal"><a href="#__codelineno-25-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a># Disable password authentication
-<a id="__codelineno-25-2" name="__codelineno-25-2"></a>PasswordAuthentication no
-<a id="__codelineno-25-3" name="__codelineno-25-3"></a>
-<a id="__codelineno-25-4" name="__codelineno-25-4"></a># Only allow specific users
-<a id="__codelineno-25-5" name="__codelineno-25-5"></a>AllowUsers username
-<a id="__codelineno-25-6" name="__codelineno-25-6"></a>
-<a id="__codelineno-25-7" name="__codelineno-25-7"></a># Change default port (adds security by obscurity)
-<a id="__codelineno-25-8" name="__codelineno-25-8"></a>Port 2222
-<a id="__codelineno-25-9" name="__codelineno-25-9"></a>
-<a id="__codelineno-25-10" name="__codelineno-25-10"></a># Disable root login
-<a id="__codelineno-25-11" name="__codelineno-25-11"></a>PermitRootLogin no
-<a id="__codelineno-25-12" name="__codelineno-25-12"></a>
-<a id="__codelineno-25-13" name="__codelineno-25-13"></a># Use strong encryption
-<a id="__codelineno-25-14" name="__codelineno-25-14"></a>Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+<p>Wi-Fi:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>iw<span class="w"> </span>dev<span class="w"> </span>wlan0<span class="w"> </span>link
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>IN-USE,SSID,SIGNAL,RATE,SECURITY<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>ip<span class="w"> </span>-s<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>wlan0
 </code></pre></div></td></tr></table></div>
-<p>After changes:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ssh
+<p>Packet loss, retries, duplex negotiation, low signal, interference, cable quality, and power can all affect throughput. Measure before changing MTU, offload, or radio settings.</p>
+<h2 id="firewall-inspection">Firewall inspection<a class="headerlink" href="#firewall-inspection" title="Permanent link">¶</a></h2>
+<p>Raspberry Pi OS networking and firewall policy are separate layers. Inspect the active ruleset:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>sudo<span class="w"> </span>nft<span class="w"> </span>list<span class="w"> </span>ruleset
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
 </code></pre></div></td></tr></table></div>
-<h4 id="ssh-key-based-authentication">SSH Key-Based Authentication<a class="headerlink" href="#ssh-key-based-authentication" title="Permanent link">¶</a></h4>
-<p>On your local machine:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
-<span class="normal"><a href="#__codelineno-27-2">2</a></span>
-<span class="normal"><a href="#__codelineno-27-3">3</a></span>
-<span class="normal"><a href="#__codelineno-27-4">4</a></span>
-<span class="normal"><a href="#__codelineno-27-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="c1"># Generate key pair</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">"your_comment"</span>
-<a id="__codelineno-27-3" name="__codelineno-27-3"></a>
-<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="c1"># Copy public key to Raspberry Pi</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5"></a>ssh-copy-id<span class="w"> </span>username@raspberrypi.local
+<p>If using UFW:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>verbose
 </code></pre></div></td></tr></table></div>
-<h3 id="vnc-setup">VNC Setup<a class="headerlink" href="#vnc-setup" title="Permanent link">¶</a></h3>
-<p>For graphical remote access:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
-<span class="normal"><a href="#__codelineno-28-2">2</a></span>
-<span class="normal"><a href="#__codelineno-28-3">3</a></span>
-<span class="normal"><a href="#__codelineno-28-4">4</a></span>
-<span class="normal"><a href="#__codelineno-28-5">5</a></span>
-<span class="normal"><a href="#__codelineno-28-6">6</a></span>
-<span class="normal"><a href="#__codelineno-28-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="c1"># Enable VNC via raspi-config</span>
-<a id="__codelineno-28-2" name="__codelineno-28-2"></a>sudo<span class="w"> </span>raspi-config
-<a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="c1"># Navigate to Interface Options &gt; VNC &gt; Enable</span>
-<a id="__codelineno-28-4" name="__codelineno-28-4"></a>
-<a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="c1"># OR via command line</span>
-<a id="__codelineno-28-6" name="__codelineno-28-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>vncserver-x11-serviced
-<a id="__codelineno-28-7" name="__codelineno-28-7"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>vncserver-x11-serviced
+<p>Allow administration from a trusted network before enabling a deny-by-default policy. Keep the current SSH session open while testing a new session.</p>
+<h2 id="diagnostic-bundle">Diagnostic bundle<a class="headerlink" href="#diagnostic-bundle" title="Permanent link">¶</a></h2>
+<p>The following command collection avoids printing Wi-Fi passwords:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-28-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-28-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-28-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-28-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-28-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-28-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-28-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-28-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-28-10">10</a></span>
+<span class="normal"><a href="#__codelineno-28-11">11</a></span>
+<span class="normal"><a href="#__codelineno-28-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="o">{</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="w">  </span>date<span class="w"> </span>--iso-8601<span class="o">=</span>seconds
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="w">  </span>hostnamectl
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a><span class="w">  </span>nmcli<span class="w"> </span>general<span class="w"> </span>status
+<a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="w">  </span>nmcli<span class="w"> </span>device<span class="w"> </span>status
+<a id="__codelineno-28-6" name="__codelineno-28-6"></a><span class="w">  </span>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+<a id="__codelineno-28-7" name="__codelineno-28-7"></a><span class="w">  </span>ip<span class="w"> </span>-brief<span class="w"> </span>address
+<a id="__codelineno-28-8" name="__codelineno-28-8"></a><span class="w">  </span>ip<span class="w"> </span>route
+<a id="__codelineno-28-9" name="__codelineno-28-9"></a><span class="w">  </span>ip<span class="w"> </span>-6<span class="w"> </span>route
+<a id="__codelineno-28-10" name="__codelineno-28-10"></a><span class="w">  </span>resolvectl<span class="w"> </span>status
+<a id="__codelineno-28-11" name="__codelineno-28-11"></a><span class="w">  </span>systemctl<span class="w"> </span>--failed
+<a id="__codelineno-28-12" name="__codelineno-28-12"></a><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>network-diagnostics.txt
 </code></pre></div></td></tr></table></div>
-<p>For headless systems (no monitor attached), add to <code>/boot/firmware/config.txt</code>:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
-<span class="normal"><a href="#__codelineno-29-2">2</a></span>
-<span class="normal"><a href="#__codelineno-29-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>hdmi_force_hotplug=1
-<a id="__codelineno-29-2" name="__codelineno-29-2"></a>hdmi_group=2
-<a id="__codelineno-29-3" name="__codelineno-29-3"></a>hdmi_mode=16  # 1024x768 resolution
-</code></pre></div></td></tr></table></div>
-<p>Connect using VNC Viewer from another device.</p>
-<h3 id="remote-web-access">Remote Web Access<a class="headerlink" href="#remote-web-access" title="Permanent link">¶</a></h3>
-<p>For browser-based administration:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
-<span class="normal"><a href="#__codelineno-30-2">2</a></span>
-<span class="normal"><a href="#__codelineno-30-3">3</a></span>
-<span class="normal"><a href="#__codelineno-30-4">4</a></span>
-<span class="normal"><a href="#__codelineno-30-5">5</a></span>
-<span class="normal"><a href="#__codelineno-30-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="c1"># Install Webmin</span>
-<a id="__codelineno-30-2" name="__codelineno-30-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-30-3" name="__codelineno-30-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>perl<span class="w"> </span>libnet-ssleay-perl<span class="w"> </span>openssl<span class="w"> </span>libauthen-pam-perl<span class="w"> </span>libpam-runtime<span class="w"> </span>libio-pty-perl
-<a id="__codelineno-30-4" name="__codelineno-30-4"></a>wget<span class="w"> </span>http://prdownloads.sourceforge.net/webadmin/webmin_1.981_all.deb
-<a id="__codelineno-30-5" name="__codelineno-30-5"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>webmin_1.981_all.deb
-<a id="__codelineno-30-6" name="__codelineno-30-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>-f<span class="w"> </span>install
-</code></pre></div></td></tr></table></div>
-<p>Access via web browser at <code>https://raspberrypi.local:10000</code></p>
-<h2 id="network-bridging-and-routing">Network Bridging and Routing<a class="headerlink" href="#network-bridging-and-routing" title="Permanent link">¶</a></h2>
-<h3 id="setting-up-a-network-bridge">Setting Up a Network Bridge<a class="headerlink" href="#setting-up-a-network-bridge" title="Permanent link">¶</a></h3>
-<p>To bridge multiple network interfaces (e.g., create a wireless access point):</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-31-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-31-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-31-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-31-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-31-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-31-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-31-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-31-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-31-10">10</a></span>
-<span class="normal"><a href="#__codelineno-31-11">11</a></span>
-<span class="normal"><a href="#__codelineno-31-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="c1"># Install bridge utilities</span>
-<a id="__codelineno-31-2" name="__codelineno-31-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>bridge-utils
-<a id="__codelineno-31-3" name="__codelineno-31-3"></a>
-<a id="__codelineno-31-4" name="__codelineno-31-4"></a><span class="c1"># Create a bridge</span>
-<a id="__codelineno-31-5" name="__codelineno-31-5"></a>sudo<span class="w"> </span>brctl<span class="w"> </span>addbr<span class="w"> </span>br0
-<a id="__codelineno-31-6" name="__codelineno-31-6"></a>
-<a id="__codelineno-31-7" name="__codelineno-31-7"></a><span class="c1"># Add interfaces to the bridge</span>
-<a id="__codelineno-31-8" name="__codelineno-31-8"></a>sudo<span class="w"> </span>brctl<span class="w"> </span>addif<span class="w"> </span>br0<span class="w"> </span>eth0
-<a id="__codelineno-31-9" name="__codelineno-31-9"></a>sudo<span class="w"> </span>brctl<span class="w"> </span>addif<span class="w"> </span>br0<span class="w"> </span>wlan0
-<a id="__codelineno-31-10" name="__codelineno-31-10"></a>
-<a id="__codelineno-31-11" name="__codelineno-31-11"></a><span class="c1"># Make bridge persistent by editing /etc/network/interfaces</span>
-<a id="__codelineno-31-12" name="__codelineno-31-12"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/network/interfaces
-</code></pre></div></td></tr></table></div>
-<p>Add:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
-<span class="normal"><a href="#__codelineno-32-2">2</a></span>
-<span class="normal"><a href="#__codelineno-32-3">3</a></span>
-<span class="normal"><a href="#__codelineno-32-4">4</a></span>
-<span class="normal"><a href="#__codelineno-32-5">5</a></span>
-<span class="normal"><a href="#__codelineno-32-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a>auto br0
-<a id="__codelineno-32-2" name="__codelineno-32-2"></a>iface br0 inet dhcp
-<a id="__codelineno-32-3" name="__codelineno-32-3"></a>bridge_ports eth0 wlan0
-<a id="__codelineno-32-4" name="__codelineno-32-4"></a>bridge_stp off
-<a id="__codelineno-32-5" name="__codelineno-32-5"></a>bridge_waitport 0
-<a id="__codelineno-32-6" name="__codelineno-32-6"></a>bridge_fd 0
-</code></pre></div></td></tr></table></div>
-<h3 id="network-routingnat">Network Routing/NAT<a class="headerlink" href="#network-routingnat" title="Permanent link">¶</a></h3>
-<p>Configure your Pi as a router between networks:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
-<span class="normal"><a href="#__codelineno-33-2">2</a></span>
-<span class="normal"><a href="#__codelineno-33-3">3</a></span>
-<span class="normal"><a href="#__codelineno-33-4">4</a></span>
-<span class="normal"><a href="#__codelineno-33-5">5</a></span>
-<span class="normal"><a href="#__codelineno-33-6">6</a></span>
-<span class="normal"><a href="#__codelineno-33-7">7</a></span>
-<span class="normal"><a href="#__codelineno-33-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="c1"># Enable IP forwarding</span>
-<a id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"net.ipv4.ip_forward=1"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
-<a id="__codelineno-33-3" name="__codelineno-33-3"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
-<a id="__codelineno-33-4" name="__codelineno-33-4"></a>
-<a id="__codelineno-33-5" name="__codelineno-33-5"></a><span class="c1"># Setup NAT</span>
-<a id="__codelineno-33-6" name="__codelineno-33-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>iptables-persistent
-<a id="__codelineno-33-7" name="__codelineno-33-7"></a>sudo<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-o<span class="w"> </span>eth0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
-<a id="__codelineno-33-8" name="__codelineno-33-8"></a>sudo<span class="w"> </span>netfilter-persistent<span class="w"> </span>save
-</code></pre></div></td></tr></table></div>
-<h3 id="simple-firewall-configuration">Simple Firewall Configuration<a class="headerlink" href="#simple-firewall-configuration" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-34-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-34-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-34-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-34-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-34-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-34-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-34-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-34-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-34-10">10</a></span>
-<span class="normal"><a href="#__codelineno-34-11">11</a></span>
-<span class="normal"><a href="#__codelineno-34-12">12</a></span>
-<span class="normal"><a href="#__codelineno-34-13">13</a></span>
-<span class="normal"><a href="#__codelineno-34-14">14</a></span>
-<span class="normal"><a href="#__codelineno-34-15">15</a></span>
-<span class="normal"><a href="#__codelineno-34-16">16</a></span>
-<span class="normal"><a href="#__codelineno-34-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><span class="c1"># Install ufw</span>
-<a id="__codelineno-34-2" name="__codelineno-34-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw
-<a id="__codelineno-34-3" name="__codelineno-34-3"></a>
-<a id="__codelineno-34-4" name="__codelineno-34-4"></a><span class="c1"># Set default policies</span>
-<a id="__codelineno-34-5" name="__codelineno-34-5"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
-<a id="__codelineno-34-6" name="__codelineno-34-6"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
-<a id="__codelineno-34-7" name="__codelineno-34-7"></a>
-<a id="__codelineno-34-8" name="__codelineno-34-8"></a><span class="c1"># Allow specific services</span>
-<a id="__codelineno-34-9" name="__codelineno-34-9"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>ssh
-<a id="__codelineno-34-10" name="__codelineno-34-10"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>/tcp<span class="w">  </span><span class="c1"># HTTP</span>
-<a id="__codelineno-34-11" name="__codelineno-34-11"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>/tcp<span class="w">  </span><span class="c1"># HTTPS</span>
-<a id="__codelineno-34-12" name="__codelineno-34-12"></a>
-<a id="__codelineno-34-13" name="__codelineno-34-13"></a><span class="c1"># Enable firewall</span>
-<a id="__codelineno-34-14" name="__codelineno-34-14"></a>sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
-<a id="__codelineno-34-15" name="__codelineno-34-15"></a>
-<a id="__codelineno-34-16" name="__codelineno-34-16"></a><span class="c1"># Check status</span>
-<a id="__codelineno-34-17" name="__codelineno-34-17"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>verbose
-</code></pre></div></td></tr></table></div>
-<h2 id="iot-and-low-power-networking">IoT and Low-Power Networking<a class="headerlink" href="#iot-and-low-power-networking" title="Permanent link">¶</a></h2>
-<h3 id="bluetooth-networking">Bluetooth Networking<a class="headerlink" href="#bluetooth-networking" title="Permanent link">¶</a></h3>
-<p>Enable Bluetooth PAN (Personal Area Network):</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span>
-<span class="normal"><a href="#__codelineno-35-2">2</a></span>
-<span class="normal"><a href="#__codelineno-35-3">3</a></span>
-<span class="normal"><a href="#__codelineno-35-4">4</a></span>
-<span class="normal"><a href="#__codelineno-35-5">5</a></span>
-<span class="normal"><a href="#__codelineno-35-6">6</a></span>
-<span class="normal"><a href="#__codelineno-35-7">7</a></span>
-<span class="normal"><a href="#__codelineno-35-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="c1"># Install required packages</span>
-<a id="__codelineno-35-2" name="__codelineno-35-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>bluez-tools
-<a id="__codelineno-35-3" name="__codelineno-35-3"></a>
-<a id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="c1"># Make Raspberry Pi discoverable</span>
-<a id="__codelineno-35-5" name="__codelineno-35-5"></a>sudo<span class="w"> </span>bluetoothctl
-<a id="__codelineno-35-6" name="__codelineno-35-6"></a><span class="o">[</span>bluetooth<span class="o">]</span><span class="c1"># discoverable on</span>
-<a id="__codelineno-35-7" name="__codelineno-35-7"></a><span class="o">[</span>bluetooth<span class="o">]</span><span class="c1"># pairable on</span>
-<a id="__codelineno-35-8" name="__codelineno-35-8"></a><span class="o">[</span>bluetooth<span class="o">]</span><span class="c1"># exit</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="setting-up-mqtt-broker">Setting Up MQTT Broker<a class="headerlink" href="#setting-up-mqtt-broker" title="Permanent link">¶</a></h3>
-<p>For IoT device communications:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span>
-<span class="normal"><a href="#__codelineno-36-2">2</a></span>
-<span class="normal"><a href="#__codelineno-36-3">3</a></span>
-<span class="normal"><a href="#__codelineno-36-4">4</a></span>
-<span class="normal"><a href="#__codelineno-36-5">5</a></span>
-<span class="normal"><a href="#__codelineno-36-6">6</a></span>
-<span class="normal"><a href="#__codelineno-36-7">7</a></span>
-<span class="normal"><a href="#__codelineno-36-8">8</a></span>
-<span class="normal"><a href="#__codelineno-36-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a><span class="c1"># Install Mosquitto MQTT broker</span>
-<a id="__codelineno-36-2" name="__codelineno-36-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>mosquitto<span class="w"> </span>mosquitto-clients
-<a id="__codelineno-36-3" name="__codelineno-36-3"></a>
-<a id="__codelineno-36-4" name="__codelineno-36-4"></a><span class="c1"># Enable and start service</span>
-<a id="__codelineno-36-5" name="__codelineno-36-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mosquitto
-<a id="__codelineno-36-6" name="__codelineno-36-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mosquitto
-<a id="__codelineno-36-7" name="__codelineno-36-7"></a>
-<a id="__codelineno-36-8" name="__codelineno-36-8"></a><span class="c1"># Configure authentication</span>
-<a id="__codelineno-36-9" name="__codelineno-36-9"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/mosquitto/mosquitto.conf
-</code></pre></div></td></tr></table></div>
-<p>Add to configuration:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span>
-<span class="normal"><a href="#__codelineno-37-2">2</a></span>
-<span class="normal"><a href="#__codelineno-37-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a>listener 1883
-<a id="__codelineno-37-2" name="__codelineno-37-2"></a>allow_anonymous false
-<a id="__codelineno-37-3" name="__codelineno-37-3"></a>password_file /etc/mosquitto/pwfile
-</code></pre></div></td></tr></table></div>
-<p>Create user:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a>sudo<span class="w"> </span>mosquitto_passwd<span class="w"> </span>-c<span class="w"> </span>/etc/mosquitto/pwfile<span class="w"> </span>username
-</code></pre></div></td></tr></table></div>
-<p>Restart service:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mosquitto
-</code></pre></div></td></tr></table></div>
-<h3 id="low-power-wi-fi-settings">Low-Power Wi-Fi Settings<a class="headerlink" href="#low-power-wi-fi-settings" title="Permanent link">¶</a></h3>
-<p>For battery-powered applications:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span>
-<span class="normal"><a href="#__codelineno-40-2">2</a></span>
-<span class="normal"><a href="#__codelineno-40-3">3</a></span>
-<span class="normal"><a href="#__codelineno-40-4">4</a></span>
-<span class="normal"><a href="#__codelineno-40-5">5</a></span>
-<span class="normal"><a href="#__codelineno-40-6">6</a></span>
-<span class="normal"><a href="#__codelineno-40-7">7</a></span>
-<span class="normal"><a href="#__codelineno-40-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a><span class="c1"># Reduce TX power (values 0-31, lower = less power)</span>
-<a id="__codelineno-40-2" name="__codelineno-40-2"></a>sudo<span class="w"> </span>iwconfig<span class="w"> </span>wlan0<span class="w"> </span>txpower<span class="w"> </span><span class="m">5</span>
-<a id="__codelineno-40-3" name="__codelineno-40-3"></a>
-<a id="__codelineno-40-4" name="__codelineno-40-4"></a><span class="c1"># Disable power management for reliable connections</span>
-<a id="__codelineno-40-5" name="__codelineno-40-5"></a>sudo<span class="w"> </span>iwconfig<span class="w"> </span>wlan0<span class="w"> </span>power<span class="w"> </span>off
-<a id="__codelineno-40-6" name="__codelineno-40-6"></a>
-<a id="__codelineno-40-7" name="__codelineno-40-7"></a><span class="c1"># OR enable aggressive power saving</span>
-<a id="__codelineno-40-8" name="__codelineno-40-8"></a>sudo<span class="w"> </span>iwconfig<span class="w"> </span>wlan0<span class="w"> </span>power<span class="w"> </span>on
-</code></pre></div></td></tr></table></div>
-<h2 id="network-diagnostics-and-troubleshooting">Network Diagnostics and Troubleshooting<a class="headerlink" href="#network-diagnostics-and-troubleshooting" title="Permanent link">¶</a></h2>
-<h3 id="basic-network-diagnostics">Basic Network Diagnostics<a class="headerlink" href="#basic-network-diagnostics" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-41-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-41-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-41-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-41-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-41-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-41-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-41-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-41-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-41-10">10</a></span>
-<span class="normal"><a href="#__codelineno-41-11">11</a></span>
-<span class="normal"><a href="#__codelineno-41-12">12</a></span>
-<span class="normal"><a href="#__codelineno-41-13">13</a></span>
-<span class="normal"><a href="#__codelineno-41-14">14</a></span>
-<span class="normal"><a href="#__codelineno-41-15">15</a></span>
-<span class="normal"><a href="#__codelineno-41-16">16</a></span>
-<span class="normal"><a href="#__codelineno-41-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a><span class="c1"># Check IP addressing</span>
-<a id="__codelineno-41-2" name="__codelineno-41-2"></a>ip<span class="w"> </span>addr<span class="w"> </span>show
-<a id="__codelineno-41-3" name="__codelineno-41-3"></a>
-<a id="__codelineno-41-4" name="__codelineno-41-4"></a><span class="c1"># Test internet connectivity</span>
-<a id="__codelineno-41-5" name="__codelineno-41-5"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">8</span>.8.8.8
-<a id="__codelineno-41-6" name="__codelineno-41-6"></a>
-<a id="__codelineno-41-7" name="__codelineno-41-7"></a><span class="c1"># DNS resolution test</span>
-<a id="__codelineno-41-8" name="__codelineno-41-8"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">4</span><span class="w"> </span>google.com
-<a id="__codelineno-41-9" name="__codelineno-41-9"></a>
-<a id="__codelineno-41-10" name="__codelineno-41-10"></a><span class="c1"># Route tracing</span>
-<a id="__codelineno-41-11" name="__codelineno-41-11"></a>traceroute<span class="w"> </span>google.com
-<a id="__codelineno-41-12" name="__codelineno-41-12"></a>
-<a id="__codelineno-41-13" name="__codelineno-41-13"></a><span class="c1"># Check current connections</span>
-<a id="__codelineno-41-14" name="__codelineno-41-14"></a>netstat<span class="w"> </span>-tuln
-<a id="__codelineno-41-15" name="__codelineno-41-15"></a>
-<a id="__codelineno-41-16" name="__codelineno-41-16"></a><span class="c1"># Check wireless link quality</span>
-<a id="__codelineno-41-17" name="__codelineno-41-17"></a>iwconfig<span class="w"> </span>wlan0
-</code></pre></div></td></tr></table></div>
-<h3 id="network-traffic-analysis">Network Traffic Analysis<a class="headerlink" href="#network-traffic-analysis" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-42-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-42-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-42-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-42-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-42-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-42-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-42-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-42-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-42-10">10</a></span>
-<span class="normal"><a href="#__codelineno-42-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span class="c1"># Install tools</span>
-<a id="__codelineno-42-2" name="__codelineno-42-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tcpdump<span class="w"> </span>iftop<span class="w"> </span>nmap
-<a id="__codelineno-42-3" name="__codelineno-42-3"></a>
-<a id="__codelineno-42-4" name="__codelineno-42-4"></a><span class="c1"># Monitor network interface traffic</span>
-<a id="__codelineno-42-5" name="__codelineno-42-5"></a>sudo<span class="w"> </span>tcpdump<span class="w"> </span>-i<span class="w"> </span>eth0
-<a id="__codelineno-42-6" name="__codelineno-42-6"></a>
-<a id="__codelineno-42-7" name="__codelineno-42-7"></a><span class="c1"># Monitor bandwidth usage</span>
-<a id="__codelineno-42-8" name="__codelineno-42-8"></a>sudo<span class="w"> </span>iftop<span class="w"> </span>-i<span class="w"> </span>wlan0
-<a id="__codelineno-42-9" name="__codelineno-42-9"></a>
-<a id="__codelineno-42-10" name="__codelineno-42-10"></a><span class="c1"># Scan network</span>
-<a id="__codelineno-42-11" name="__codelineno-42-11"></a>sudo<span class="w"> </span>nmap<span class="w"> </span>-sn<span class="w"> </span><span class="m">192</span>.168.1.0/24
-</code></pre></div></td></tr></table></div>
-<h3 id="wi-fi-signal-strength-monitoring">Wi-Fi Signal Strength Monitoring<a class="headerlink" href="#wi-fi-signal-strength-monitoring" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1">1</a></span>
-<span class="normal"><a href="#__codelineno-43-2">2</a></span>
-<span class="normal"><a href="#__codelineno-43-3">3</a></span>
-<span class="normal"><a href="#__codelineno-43-4">4</a></span>
-<span class="normal"><a href="#__codelineno-43-5">5</a></span>
-<span class="normal"><a href="#__codelineno-43-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1"></a><span class="c1"># Real-time signal monitoring</span>
-<a id="__codelineno-43-2" name="__codelineno-43-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>cat<span class="w"> </span>/proc/net/wireless
-<a id="__codelineno-43-3" name="__codelineno-43-3"></a>
-<a id="__codelineno-43-4" name="__codelineno-43-4"></a><span class="c1"># Or install wavemon for a better interface</span>
-<a id="__codelineno-43-5" name="__codelineno-43-5"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>wavemon
-<a id="__codelineno-43-6" name="__codelineno-43-6"></a>wavemon
-</code></pre></div></td></tr></table></div>
-<h3 id="common-network-problems-and-solutions">Common Network Problems and Solutions<a class="headerlink" href="#common-network-problems-and-solutions" title="Permanent link">¶</a></h3>
-<h4 id="no-wi-fi-connection">No Wi-Fi Connection<a class="headerlink" href="#no-wi-fi-connection" title="Permanent link">¶</a></h4>
-<p>Check the following:</p>
-<ol>
-<li>
-<p><strong>Wi-Fi country code</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1">1</a></span>
-<span class="normal"><a href="#__codelineno-44-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1"></a>sudo<span class="w"> </span>raspi-config
-<a id="__codelineno-44-2" name="__codelineno-44-2"></a><span class="c1"># Navigate to Localisation Options &gt; WLAN Country</span>
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p><strong>Network interface status</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span>
-<span class="normal"><a href="#__codelineno-45-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1"></a>sudo<span class="w"> </span>ifconfig<span class="w"> </span>wlan0<span class="w"> </span>up
-<a id="__codelineno-45-2" name="__codelineno-45-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dhcpcd
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p><strong>Scanning for networks</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a>sudo<span class="w"> </span>iwlist<span class="w"> </span>wlan0<span class="w"> </span>scan<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ESSID
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p><strong>WPA supplicant configuration</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a>sudo<span class="w"> </span>wpa_cli<span class="w"> </span>-i<span class="w"> </span>wlan0<span class="w"> </span>reconfigure
-</code></pre></div></td></tr></table></div>
-</li>
-</ol>
-<h4 id="wi-fi-keeps-disconnecting">Wi-Fi Keeps Disconnecting<a class="headerlink" href="#wi-fi-keeps-disconnecting" title="Permanent link">¶</a></h4>
-<ol>
-<li>
-<p><strong>Disable power management</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1"></a>sudo<span class="w"> </span>iwconfig<span class="w"> </span>wlan0<span class="w"> </span>power<span class="w"> </span>off
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p><strong>Check for interference</strong>:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span>
-<span class="normal"><a href="#__codelineno-49-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1"></a>sudo<span class="w"> </span>iwlist<span class="w"> </span>wlan0<span class="w"> </span>scan<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Channel
-<a id="__codelineno-49-2" name="__codelineno-49-2"></a><span class="c1"># Change channel in your router settings</span>
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p><strong>Improve signal strength</strong>:</p>
+<p>Review logs for secrets, public addresses, hostnames, and organisation details before sharing them.</p>
+<h2 id="troubleshooting-table">Troubleshooting table<a class="headerlink" href="#troubleshooting-table" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>First checks</th>
+<th>Likely layer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interface <code>DOWN</code></td>
+<td>Cable, radio, <code>rfkill</code>, <code>ip -brief link</code></td>
+<td>Physical/link</td>
+</tr>
+<tr>
+<td>No IP address</td>
+<td>Active profile, DHCP logs, address plan</td>
+<td>Network configuration</td>
+</tr>
+<tr>
+<td>Gateway unreachable</td>
+<td>Prefix, route, VLAN, Wi-Fi association</td>
+<td>Local network</td>
+</tr>
+<tr>
+<td>IP works, names fail</td>
+<td><code>resolvectl status</code>, DNS query</td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>SSH refused</td>
+<td><code>systemctl status ssh</code>, listening sockets</td>
+<td>Service</td>
+</tr>
+<tr>
+<td>SSH times out</td>
+<td>Route, firewall, wrong address</td>
+<td>Path/firewall</td>
+</tr>
+<tr>
+<td>Intermittent disconnects</td>
+<td>Power, signal, cable, kernel log</td>
+<td>Physical/power</td>
+</tr>
+<tr>
+<td>Wrong interface used</td>
+<td><code>ip route get</code>, route metrics</td>
+<td>Routing policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
+<h3 id="does-raspberry-pi-os-trixie-use-networkmanager">Does Raspberry Pi OS Trixie use NetworkManager?<a class="headerlink" href="#does-raspberry-pi-os-trixie-use-networkmanager" title="Permanent link">¶</a></h3>
+<p>Yes for normal desktop, Ethernet, and Wi-Fi profile management. Use <code>nmcli</code>, <code>nmtui</code>, or Control Centre rather than old <code>dhcpcd.conf</code> instructions.</p>
+<h3 id="is-a-static-ip-required-for-a-server">Is a static IP required for a server?<a class="headerlink" href="#is-a-static-ip-required-for-a-server" title="Permanent link">¶</a></h3>
+<p>No. A DHCP reservation often provides stability with less risk of conflicts. A device-side static profile is useful when the network plan requires it.</p>
+<h3 id="why-does-editing-etcresolvconf-not-persist">Why does editing <code>/etc/resolv.conf</code> not persist?<a class="headerlink" href="#why-does-editing-etcresolvconf-not-persist" title="Permanent link">¶</a></h3>
+<p>It is normally managed by the active networking and resolver stack. Configure DNS on the NetworkManager profile instead of overwriting generated state.</p>
+<h3 id="should-i-turn-off-wi-fi-when-ethernet-connects">Should I turn off Wi-Fi when Ethernet connects?<a class="headerlink" href="#should-i-turn-off-wi-fi-when-ethernet-connects" title="Permanent link">¶</a></h3>
+<p>Not necessarily. Route metrics can prefer Ethernet while retaining Wi-Fi as a fallback. Test failure behaviour before relying on automatic failover.</p>
+<h3 id="how-can-i-avoid-losing-ssh-during-a-change">How can I avoid losing SSH during a change?<a class="headerlink" href="#how-can-i-avoid-losing-ssh-during-a-change" title="Permanent link">¶</a></h3>
+<p>Use an alternate connection such as USB Gadget, clone the profile, schedule rollback, keep the old session open, and verify from a second terminal.</p>
+<h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
 <ul>
-<li>Position Pi closer to router</li>
-<li>Use a USB Wi-Fi adapter with antenna</li>
-<li>Consider 5GHz if supported</li>
-</ul>
-</li>
-</ol>
-<h4 id="static-ip-not-working">Static IP Not Working<a class="headerlink" href="#static-ip-not-working" title="Permanent link">¶</a></h4>
-<ol>
-<li>Check configuration format in <code>/etc/dhcpcd.conf</code></li>
-<li>Verify that the static IP doesn't conflict with DHCP range</li>
-<li>Restart DHCP client:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>dhcpcd
-</code></pre></div></td></tr></table></div></li>
-</ol>
-<h4 id="network-services-not-starting">Network Services Not Starting<a class="headerlink" href="#network-services-not-starting" title="Permanent link">¶</a></h4>
-<ol>
-<li>
-<p>Check service status:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>service_name
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Check logs for errors:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>service_name
-</code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Check firewall settings:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status
-</code></pre></div></td></tr></table></div>
-</li>
-</ol>
-<h2 id="network-performance-optimization">Network Performance Optimization<a class="headerlink" href="#network-performance-optimization" title="Permanent link">¶</a></h2>
-<h3 id="reducing-latency">Reducing Latency<a class="headerlink" href="#reducing-latency" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span>
-<span class="normal"><a href="#__codelineno-54-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1"></a><span class="c1"># Disable network power management</span>
-<a id="__codelineno-54-2" name="__codelineno-54-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/network/interfaces
-</code></pre></div></td></tr></table></div>
-<p>Add to your interface configuration:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1"></a>wireless-power off
-</code></pre></div></td></tr></table></div>
-<h3 id="improving-throughput">Improving Throughput<a class="headerlink" href="#improving-throughput" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span>
-<span class="normal"><a href="#__codelineno-56-2">2</a></span>
-<span class="normal"><a href="#__codelineno-56-3">3</a></span>
-<span class="normal"><a href="#__codelineno-56-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1"></a><span class="c1"># Adjust TCP buffers</span>
-<a id="__codelineno-56-2" name="__codelineno-56-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"net.core.wmem_max=16777216"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
-<a id="__codelineno-56-3" name="__codelineno-56-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"net.core.rmem_max=16777216"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
-<a id="__codelineno-56-4" name="__codelineno-56-4"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
-</code></pre></div></td></tr></table></div>
-<h3 id="quality-of-service-qos">Quality of Service (QoS)<a class="headerlink" href="#quality-of-service-qos" title="Permanent link">¶</a></h3>
-<p>For prioritizing certain traffic types:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span>
-<span class="normal"><a href="#__codelineno-57-2">2</a></span>
-<span class="normal"><a href="#__codelineno-57-3">3</a></span>
-<span class="normal"><a href="#__codelineno-57-4">4</a></span>
-<span class="normal"><a href="#__codelineno-57-5">5</a></span>
-<span class="normal"><a href="#__codelineno-57-6">6</a></span>
-<span class="normal"><a href="#__codelineno-57-7">7</a></span>
-<span class="normal"><a href="#__codelineno-57-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1"></a><span class="c1"># Install traffic control utilities</span>
-<a id="__codelineno-57-2" name="__codelineno-57-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tc
-<a id="__codelineno-57-3" name="__codelineno-57-3"></a>
-<a id="__codelineno-57-4" name="__codelineno-57-4"></a><span class="c1"># Example script for prioritizing SSH traffic</span>
-<a id="__codelineno-57-5" name="__codelineno-57-5"></a>sudo<span class="w"> </span>tc<span class="w"> </span>qdisc<span class="w"> </span>add<span class="w"> </span>dev<span class="w"> </span>eth0<span class="w"> </span>root<span class="w"> </span>handle<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>htb<span class="w"> </span>default<span class="w"> </span><span class="m">12</span>
-<a id="__codelineno-57-6" name="__codelineno-57-6"></a>sudo<span class="w"> </span>tc<span class="w"> </span>class<span class="w"> </span>add<span class="w"> </span>dev<span class="w"> </span>eth0<span class="w"> </span>parent<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>classid<span class="w"> </span><span class="m">1</span>:1<span class="w"> </span>htb<span class="w"> </span>rate<span class="w"> </span>100mbit
-<a id="__codelineno-57-7" name="__codelineno-57-7"></a>sudo<span class="w"> </span>tc<span class="w"> </span>class<span class="w"> </span>add<span class="w"> </span>dev<span class="w"> </span>eth0<span class="w"> </span>parent<span class="w"> </span><span class="m">1</span>:1<span class="w"> </span>classid<span class="w"> </span><span class="m">1</span>:10<span class="w"> </span>htb<span class="w"> </span>rate<span class="w"> </span>10mbit
-<a id="__codelineno-57-8" name="__codelineno-57-8"></a>sudo<span class="w"> </span>tc<span class="w"> </span>filter<span class="w"> </span>add<span class="w"> </span>dev<span class="w"> </span>eth0<span class="w"> </span>protocol<span class="w"> </span>ip<span class="w"> </span>parent<span class="w"> </span><span class="m">1</span>:0<span class="w"> </span>prio<span class="w"> </span><span class="m">1</span><span class="w"> </span>u32<span class="w"> </span>match<span class="w"> </span>ip<span class="w"> </span>dport<span class="w"> </span><span class="m">22</span><span class="w"> </span>0xffff<span class="w"> </span>flowid<span class="w"> </span><span class="m">1</span>:10
-</code></pre></div></td></tr></table></div>
-<h2 id="advanced-networking">Advanced Networking<a class="headerlink" href="#advanced-networking" title="Permanent link">¶</a></h2>
-<h3 id="ipv6-configuration">IPv6 Configuration<a class="headerlink" href="#ipv6-configuration" title="Permanent link">¶</a></h3>
-<p>Enable or disable IPv6:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span>
-<span class="normal"><a href="#__codelineno-58-2">2</a></span>
-<span class="normal"><a href="#__codelineno-58-3">3</a></span>
-<span class="normal"><a href="#__codelineno-58-4">4</a></span>
-<span class="normal"><a href="#__codelineno-58-5">5</a></span>
-<span class="normal"><a href="#__codelineno-58-6">6</a></span>
-<span class="normal"><a href="#__codelineno-58-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1"></a><span class="c1"># Disable IPv6</span>
-<a id="__codelineno-58-2" name="__codelineno-58-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"ipv6.disable=1"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/boot/firmware/cmdline.txt
-<a id="__codelineno-58-3" name="__codelineno-58-3"></a>
-<a id="__codelineno-58-4" name="__codelineno-58-4"></a><span class="c1"># OR configure static IPv6 in /etc/dhcpcd.conf</span>
-<a id="__codelineno-58-5" name="__codelineno-58-5"></a>interface<span class="w"> </span>eth0
-<a id="__codelineno-58-6" name="__codelineno-58-6"></a>static<span class="w"> </span><span class="nv">ip6_address</span><span class="o">=</span><span class="m">2001</span>:db8::1/64
-<a id="__codelineno-58-7" name="__codelineno-58-7"></a>static<span class="w"> </span><span class="nv">ip6_gateway</span><span class="o">=</span><span class="m">2001</span>:db8::1
-</code></pre></div></td></tr></table></div>
-<h3 id="vpn-setup">VPN Setup<a class="headerlink" href="#vpn-setup" title="Permanent link">¶</a></h3>
-<p>For secure remote access:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span>
-<span class="normal"><a href="#__codelineno-59-2">2</a></span>
-<span class="normal"><a href="#__codelineno-59-3">3</a></span>
-<span class="normal"><a href="#__codelineno-59-4">4</a></span>
-<span class="normal"><a href="#__codelineno-59-5">5</a></span>
-<span class="normal"><a href="#__codelineno-59-6">6</a></span>
-<span class="normal"><a href="#__codelineno-59-7">7</a></span>
-<span class="normal"><a href="#__codelineno-59-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1"></a><span class="c1"># Install OpenVPN</span>
-<a id="__codelineno-59-2" name="__codelineno-59-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openvpn
-<a id="__codelineno-59-3" name="__codelineno-59-3"></a>
-<a id="__codelineno-59-4" name="__codelineno-59-4"></a><span class="c1"># Create client configuration directory</span>
-<a id="__codelineno-59-5" name="__codelineno-59-5"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/openvpn/client
-<a id="__codelineno-59-6" name="__codelineno-59-6"></a>
-<a id="__codelineno-59-7" name="__codelineno-59-7"></a><span class="c1"># Place your client configuration file</span>
-<a id="__codelineno-59-8" name="__codelineno-59-8"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/openvpn/client/my-vpn.conf
-</code></pre></div></td></tr></table></div>
-<p>Start the VPN:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-60-1">1</a></span>
-<span class="normal"><a href="#__codelineno-60-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>openvpn@client
-<a id="__codelineno-60-2" name="__codelineno-60-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>openvpn@client
-</code></pre></div></td></tr></table></div>
-<h3 id="creating-a-wireless-access-point-networkmanager-hotspot">Creating a Wireless Access Point (NetworkManager Hotspot)<a class="headerlink" href="#creating-a-wireless-access-point-networkmanager-hotspot" title="Permanent link">¶</a></h3>
-<p>Under NetworkManager, turning your Raspberry Pi into a local Wi-Fi Hotspot does not require manually configuring <code>hostapd</code> or <code>dnsmasq</code>. It can be initiated instantly with a single command:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-61-1">1</a></span>
-<span class="normal"><a href="#__codelineno-61-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1"></a><span class="c1"># Start a hotspot with custom SSID and Password</span>
-<a id="__codelineno-61-2" name="__codelineno-61-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>hotspot<span class="w"> </span>ssid<span class="w"> </span><span class="s2">"RaspberryPiAP"</span><span class="w"> </span>password<span class="w"> </span><span class="s2">"YourSecretPassphrase"</span>
-</code></pre></div></td></tr></table></div>
-<p>This single command automatically:
-1. Configures the wireless card (<code>wlan0</code>) into AP (Access Point) mode.
-2. Starts an internal DHCP server providing local client IP addresses.
-3. Configures basic IP routing and firewall NAT rules to share internet from the Ethernet (<code>eth0</code>) interface if connected.</p>
-<h4 id="checking-hotspot-status">Checking Hotspot Status<a class="headerlink" href="#checking-hotspot-status" title="Permanent link">¶</a></h4>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-62-1">1</a></span>
-<span class="normal"><a href="#__codelineno-62-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1"></a><span class="c1"># View active hotspot connection details</span>
-<a id="__codelineno-62-2" name="__codelineno-62-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>Hotspot
-</code></pre></div></td></tr></table></div>
-<h4 id="stopping-the-hotspot">Stopping the Hotspot<a class="headerlink" href="#stopping-the-hotspot" title="Permanent link">¶</a></h4>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-63-1">1</a></span>
-<span class="normal"><a href="#__codelineno-63-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1"></a><span class="c1"># Stop the AP and revert wlan0 back to client mode</span>
-<a id="__codelineno-63-2" name="__codelineno-63-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>down<span class="w"> </span>Hotspot
-</code></pre></div></td></tr></table></div>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>With these networking techniques, you can configure your Raspberry Pi for almost any networking scenario, from simple home projects to complex IoT deployments or network administration tools. Remember that network configuration impacts security, power consumption, and performance, so always tailor your settings to your specific requirements.</p>
-<p>For more advanced networking projects, see the <a href="https://github.com/raspberrypi/documentation/tree/master/hardware/raspberrypi/networking">Raspberry Pi networking projects repository</a>.</p></div>
+<li><a href="../../tips/raspberry_pi_headless_networking_2026_hub/">Headless and networking guide 2026</a></li>
+<li><a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless setup with Imager and SSH</a></li>
+<li><a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/">Wi-Fi access point</a></li>
+<li><a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode</a></li>
+<li><a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Secure access with Tailscale</a></li>
+</ul></div>
 
 
 
@@ -6625,7 +6302,7 @@ You will see output showing your connection names (usually <code>preconfigured</
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 25, 2026 07:08:16 JST">2026-06-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 2, 2026 20:55:09 JST">2026-08-02</span>
   </span>
 
     

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../aarch64_adrp_add_ldr_literal_address_loading/">
       
       
         <link rel="next" href="../control_flow_and_branching_in_arm64_assembly/">
@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-11-16">
   
   
-    <meta property="article:modified_time" content="2026-07-25">
+    <meta property="article:modified_time" content="2026-08-02">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-16",
-    "dateModified": "2026-07-25"
+    "dateModified": "2026-08-02"
   }
   </script>
   <script type="application/ld+json">
@@ -742,7 +742,7 @@
         
   
   <span class="md-ellipsis">
-    Networking Setup and Management for Raspberry Pi
+    Raspberry Pi NetworkManager and nmcli Guide
     
   </span>
   
@@ -2478,6 +2478,8 @@
       
         
       
+        
+      
     
     
       
@@ -2521,6 +2523,28 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AArch64 ADRP, ADD, ADR, and LDR Literal Explained
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -3440,6 +3464,8 @@
       
         
           
+        
+      
         
       
         
@@ -4815,7 +4841,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi as USB OTG Device Mass Storage Emulation
+    Raspberry Pi USB OTG Mass-Storage Gadget
     
   </span>
   
@@ -4943,11 +4969,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Headless and Networking Guide 2026
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Headless Setup Complete Guide: Remote Setup Made Easy
+    Raspberry Pi Headless Setup 2026 with Imager and SSH
     
   </span>
   
@@ -5057,7 +5105,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Security Hardening Complete Guide
+    Raspberry Pi OS Trixie Security Hardening
     
   </span>
   
@@ -5119,11 +5167,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi USB Gadget Mode 2026: SSH over USB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Raspberry Pi WiFi Access Point Setup: Complete Hotspot Configuration Guide
+    Raspberry Pi Wi-Fi Access Point with NetworkManager
     
   </span>
   
@@ -5537,33 +5607,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tips/top_5_essential_security_settings_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Top 5 Essential Security Settings for Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    USB Ethernet Gadget Setup on Raspberry Pi OS
+    Manual USB Ethernet Gadget with dwc2 and g_ether
     
   </span>
   
@@ -6108,6 +6156,7 @@
 <a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="nf">adr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">label</span><span class="w">       </span><span class="c1">// x0 = address of label (PC-relative)</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">label</span><span class="w">       </span><span class="c1">// x0 = page address of label</span>
 </code></pre></div></td></tr></table></div>
+<p><code>ADRP</code> returns only the target page. It normally needs <code>ADD :lo12:</code> for an address or <code>LDR [base, :lo12:]</code> for a value. See <a href="../aarch64_adrp_add_ldr_literal_address_loading/">AArch64 ADRP, ADD, ADR, and LDR Literal</a> for relocation and disassembly examples.</p>
 <h3 id="zero-register-xzr-wzr">Zero Register (XZR / WZR)<a class="headerlink" href="#zero-register-xzr-wzr" title="Permanent link">¶</a></h3>
 <p>A special register that always reads as zero and discards writes:</p>
 <div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
@@ -7104,7 +7153,7 @@
 <li>✅ Addressing modes: base, offset, pre-index, post-index</li>
 </ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
-<p>In the next tutorial, we'll cover:</p>
+<p>Before control flow, learn how position-independent addresses are formed in <a href="../aarch64_adrp_add_ldr_literal_address_loading/">AArch64 ADRP, ADD, ADR, and LDR Literal</a>. Then continue with:</p>
 <ul>
 <li><strong>Conditional Execution</strong>: Condition flags (N, Z, C, V)</li>
 <li><strong>Comparison Instructions</strong>: CMP, CMN, TST</li>
@@ -7137,7 +7186,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 25, 2026 22:07:30 JST">2026-07-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 2, 2026 20:55:09 JST">2026-08-02</span>
   </span>
 
     
@@ -7169,7 +7218,7 @@
           <li><a href="https://ohyaan.github.io/assembly/">Browse the Assembly guide hub</a></li>
         
         
-          <li><a href="../">Previous: Arm64 Assembly Programming</a></li>
+          <li><a href="../aarch64_adrp_add_ldr_literal_address_loading/">Previous: AArch64 ADRP, ADD, ADR, and LDR Literal Explained</a></li>
         
         
           <li><a href="../control_flow_and_branching_in_arm64_assembly/">Next: Control Flow and Branching in Arm64 Assembly</a></li>
