@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Understand AArch64 ADRP plus ADD, ADR, LDR literal, and the LDR equals pseudo-instruction. Includes ranges, relocations, disassembly, and Raspberry Pi examples.">
+        <meta name="description" content="Understand AArch64 ADRP, ADD, LDR literal, GOT, and PC-relative address loading on Raspberry Pi. Includes GNU assembly, relocations, objdump, and GDB checks.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>AArch64 ADRP, ADD, ADR, and LDR Literal Explained - With Raspberry Pi</title>
+        <title>AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="AArch64 ADRP, ADD, ADR, and LDR Literal Explained - With Raspberry Pi">
-  <meta property="og:description" content="Understand AArch64 ADRP plus ADD, ADR, LDR literal, and the LDR equals pseudo-instruction. Includes ranges, relocations, disassembly, and Raspberry Pi examples.">
+  <meta property="og:title" content="AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi - With Raspberry Pi">
+  <meta property="og:description" content="Understand AArch64 ADRP, ADD, LDR literal, GOT, and PC-relative address loading on Raspberry Pi. Includes GNU assembly, relocations, objdump, and GDB checks.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/assembly/aarch64_adrp_add_ldr_literal_address_loading/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__aarch64_adrp_add_ldr_literal_address_loading.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="AArch64 ADRP, ADD, ADR, and LDR Literal Explained">
+  <meta property="og:image:alt" content="AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-08-02">
   
   
-    <meta property="article:modified_time" content="2026-08-02">
+    <meta property="article:modified_time" content="2026-08-06">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AArch64 ADRP, ADD, ADR, and LDR Literal Explained - With Raspberry Pi">
-  <meta name="twitter:description" content="Understand AArch64 ADRP plus ADD, ADR, LDR literal, and the LDR equals pseudo-instruction. Includes ranges, relocations, disassembly, and Raspberry Pi examples.">
+  <meta name="twitter:title" content="AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi - With Raspberry Pi">
+  <meta name="twitter:description" content="Understand AArch64 ADRP, ADD, LDR literal, GOT, and PC-relative address loading on Raspberry Pi. Includes GNU assembly, relocations, objdump, and GDB checks.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__aarch64_adrp_add_ldr_literal_address_loading.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "AArch64 ADRP, ADD, ADR, and LDR Literal Explained",
-    "description": "Understand AArch64 ADRP plus ADD, ADR, LDR literal, and the LDR equals pseudo-instruction. Includes ranges, relocations, disassembly, and Raspberry Pi examples.",
+    "headline": "AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi",
+    "description": "Understand AArch64 ADRP, ADD, LDR literal, GOT, and PC-relative address loading on Raspberry Pi. Includes GNU assembly, relocations, objdump, and GDB checks.",
     "url": "https://ohyaan.github.io/assembly/aarch64_adrp_add_ldr_literal_address_loading/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/aarch64_adrp_add_ldr_literal_address_loading/"},
     "image": ["https://ohyaan.github.io/images/og/pages/assembly__aarch64_adrp_add_ldr_literal_address_loading.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-08-02",
-    "dateModified": "2026-08-02"
+    "dateModified": "2026-08-06"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "AArch64 ADRP, ADD, ADR, and LDR Literal Explained", "item": "https://ohyaan.github.io/assembly/aarch64_adrp_add_ldr_literal_address_loading/"}
+      {"@type": "ListItem", "position": 2, "name": "AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi", "item": "https://ohyaan.github.io/assembly/aarch64_adrp_add_ldr_literal_address_loading/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#aarch64-adrp-add-adr-and-ldr-literal-explained" class="md-skip">
+        <a href="#aarch64-adrp-add-and-ldr-address-loading-on-raspberry-pi" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AArch64 ADRP, ADD, ADR, and LDR Literal Explained
+              AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
             
           </span>
         </div>
@@ -604,7 +604,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Setup Guide 2026: Imager and SSH
+    How to Set Up a Raspberry Pi in 2026: Imager, Wi-Fi, and SSH
     
   </span>
   
@@ -786,7 +786,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi raspi-config Command Guide 2026
+    raspi-config Commands for Raspberry Pi OS Trixie (2026)
     
   </span>
   
@@ -2545,7 +2545,7 @@
           
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, ADR, and LDR Literal Explained
+    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
     
   </span>
   
@@ -2557,7 +2557,7 @@
         
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, ADR, and LDR Literal Explained
+    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
     
   </span>
   
@@ -2589,90 +2589,72 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#address-versus-value" class="md-nav__link">
+  <a href="#the-page-and-offset-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Address versus value
+      The page-and-offset model
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-adr-works" class="md-nav__link">
+  <a href="#load-an-address-with-adrp-and-add" class="md-nav__link">
     <span class="md-ellipsis">
-      How ADR works
+      Load an address with ADRP and ADD
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-adrp-works" class="md-nav__link">
+  <a href="#load-the-value-with-adrp-and-ldr" class="md-nav__link">
     <span class="md-ellipsis">
-      How ADRP works
+      Load the value with ADRP and LDR
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adrp-add-for-an-address" class="md-nav__link">
+  <a href="#literal-ldr-is-different" class="md-nav__link">
     <span class="md-ellipsis">
-      ADRP + ADD for an address
+      Literal LDR is different
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#adrp-ldr-for-a-value" class="md-nav__link">
+  <a href="#adr-versus-adrp" class="md-nav__link">
     <span class="md-ellipsis">
-      ADRP + LDR for a value
+      ADR versus ADRP
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ldr-literal-is-different" class="md-nav__link">
+  <a href="#position-independent-access-through-the-got" class="md-nav__link">
     <span class="md-ellipsis">
-      LDR literal is different
+      Position-independent access through the GOT
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#ldr-x0-expression-is-a-pseudo-instruction" class="md-nav__link">
+  <a href="#see-what-c-generates" class="md-nav__link">
     <span class="md-ellipsis">
-      LDR x0, =expression is a pseudo-instruction
+      See what C generates
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#position-independent-code-and-the-got" class="md-nav__link">
+  <a href="#verify-the-final-address-in-gdb" class="md-nav__link">
     <span class="md-ellipsis">
-      Position-independent code and the GOT
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-what-gcc-generates" class="md-nav__link">
-    <span class="md-ellipsis">
-      See what GCC generates
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inspect-relocations-before-and-after-linking" class="md-nav__link">
-    <span class="md-ellipsis">
-      Inspect relocations before and after linking
+      Verify the final address in GDB
     </span>
   </a>
   
@@ -2688,9 +2670,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#range-summary" class="md-nav__link">
+  <a href="#reproducible-inspection-checklist" class="md-nav__link">
     <span class="md-ellipsis">
-      Range summary
+      Reproducible inspection checklist
     </span>
   </a>
   
@@ -2706,9 +2688,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#related-guides" class="md-nav__link">
+  <a href="#references-and-next-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      Related guides
+      References and next steps
     </span>
   </a>
   
@@ -2734,7 +2716,7 @@
         
   
   <span class="md-ellipsis">
-    Arm64 Registers and Basic Instructions
+    ARM64 Registers and Instructions on Raspberry Pi
     
   </span>
   
@@ -3696,6 +3678,8 @@
       
         
       
+        
+      
     
     
       
@@ -3771,7 +3755,7 @@
         
   
   <span class="md-ellipsis">
-    Building a Voice Assistant with Raspberry Pi
+    Offline Voice Assistant on Raspberry Pi OS Trixie
     
   </span>
   
@@ -4123,7 +4107,7 @@
         
   
   <span class="md-ellipsis">
-    Google Chrome ARM64 on Raspberry Pi: Install and Sync
+    Google Chrome ARM64 .deb for Raspberry Pi: Install and Sync
     
   </span>
   
@@ -5109,6 +5093,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Headless Setup Troubleshooter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
         
   
@@ -6039,7 +6045,13 @@
       
       
       
-        <span class="md-tag">Arm64 Assembly</span>
+        <span class="md-tag">ADRP</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">ARM64 assembly</span>
       
     
       
@@ -6048,61 +6060,57 @@
         <span class="md-tag">Raspberry Pi</span>
       
     
+      
+      
+      
+        <span class="md-tag">relocations</span>
+      
+    
   </nav>
 
 
 
-<div><h1 id="aarch64-adrp-add-adr-and-ldr-literal-explained">AArch64 ADRP, ADD, ADR, and LDR Literal Explained<a class="headerlink" href="#aarch64-adrp-add-adr-and-ldr-literal-explained" title="Permanent link">¶</a></h1>
-<p>On 64-bit Raspberry Pi, <code>ADR</code>, <code>ADRP</code>, <code>ADD</code>, and <code>LDR</code> often appear together because A64 instructions are fixed at 32 bits and cannot embed an arbitrary 64-bit address directly. The correct sequence depends on whether you need an address, the value stored at that address, or an entry from the Global Offset Table.</p>
+<div><h1 id="aarch64-adrp-add-and-ldr-address-loading-on-raspberry-pi">AArch64 <code>ADRP</code>, <code>ADD</code>, and <code>LDR</code>: Address Loading on Raspberry Pi<a class="headerlink" href="#aarch64-adrp-add-and-ldr-address-loading-on-raspberry-pi" title="Permanent link">¶</a></h1>
+<p>An AArch64 instruction cannot contain an arbitrary 64-bit address. Compilers and assemblers therefore build addresses from PC-relative pages, small offsets, literal pools, or Global Offset Table entries. On Raspberry Pi, the recurring sequences are <code>ADRP</code> plus <code>ADD</code>, <code>ADRP</code> plus <code>LDR</code>, and literal <code>LDR</code>.</p>
+<p>This guide shows what each sequence calculates, which relocation the linker applies, and how to verify the result rather than guessing from disassembly.</p>
 <h2 id="quick-comparison">Quick comparison<a class="headerlink" href="#quick-comparison" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Form</th>
+<th>Sequence</th>
 <th>Result</th>
-<th style="text-align: right;">Approximate PC-relative range</th>
 <th>Typical use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>adr x0, symbol</code></td>
-<td>Address of <code>symbol</code></td>
-<td style="text-align: right;">±1 MiB</td>
-<td>Nearby code or data</td>
+<td><code>adr x0, label</code></td>
+<td>Address of a nearby label</td>
+<td>Local code or data within about ±1 MiB</td>
 </tr>
 <tr>
-<td><code>adrp x0, symbol</code></td>
-<td>4 KiB page address containing <code>symbol</code></td>
-<td style="text-align: right;">±4 GiB</td>
-<td>First half of a page-relative address</td>
+<td><code>adrp</code> + <code>add</code></td>
+<td>Address of a symbol</td>
+<td>Position-independent address within about ±4 GiB</td>
 </tr>
 <tr>
-<td><code>add x0, x0, :lo12:symbol</code></td>
-<td>Adds offset within the 4 KiB page</td>
-<td style="text-align: right;">0–4095</td>
-<td>Completes <code>ADRP</code> address calculation</td>
+<td><code>adrp</code> + <code>ldr</code></td>
+<td>Value stored at a symbol</td>
+<td>Global data in the same linkage unit</td>
 </tr>
 <tr>
-<td><code>ldr x0, symbol</code></td>
-<td>64-bit value stored near <code>symbol</code></td>
-<td style="text-align: right;">±1 MiB</td>
-<td>Literal load from nearby data</td>
+<td>literal <code>ldr x0, label</code></td>
+<td>Value at a nearby PC-relative location</td>
+<td>Constants and literal pools within about ±1 MiB</td>
 </tr>
 <tr>
-<td><code>ldr x0, =symbol</code></td>
-<td>Address/value selected by assembler pseudo-instruction</td>
-<td style="text-align: right;">Depends on expansion</td>
-<td>Convenient literal-pool syntax</td>
+<td><code>adrp :got:</code> + <code>ldr :got_lo12:</code></td>
+<td>Address loaded through the GOT</td>
+<td>Preemptible or external symbols in PIC/PIE code</td>
 </tr>
 </tbody>
 </table>
-<p>The most common address sequence is:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">message</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nf">add</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">message</span>
-</code></pre></div></td></tr></table></div>
-<p>The first instruction computes the page base. The second adds the symbol's low 12-bit offset.</p>
+<p>The ranges are architectural addressing ranges, not promises that a final link will always place sections within them. The assembler emits relocations when a symbol's final address is not yet known, and the linker either resolves the pair or reports an overflow.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6112,320 +6120,284 @@
   </script>
 </div>
 
-<h2 id="address-versus-value">Address versus value<a class="headerlink" href="#address-versus-value" title="Permanent link">¶</a></h2>
-<p>This distinction prevents most mistakes.</p>
-<p>Given:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="na">.data</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="na">.align</span><span class="w"> </span><span class="mi">3</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nl">counter:</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="na">.quad</span><span class="w"> </span><span class="mi">42</span>
+<h2 id="the-page-and-offset-model">The page-and-offset model<a class="headerlink" href="#the-page-and-offset-model" title="Permanent link">¶</a></h2>
+<p><code>ADRP</code> computes a 4 KiB-aligned page address relative to the page containing the instruction. Its immediate represents a signed page delta. The following <code>ADD</code> supplies the symbol's low 12 address bits:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">object</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:object</span>
 </code></pre></div></td></tr></table></div>
-<p>Load the address of <code>counter</code>:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nf">add</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">counter</span>
+<p>Conceptually:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>x0 = page(PC) + page_delta(object)
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>x0 = x0 + offset_within_page(object)
 </code></pre></div></td></tr></table></div>
-<p>Load the 64-bit value stored at <code>counter</code>:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nf">ldr</span><span class="w">  </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">counter</span><span class="p">]</span>
+<p>After both instructions, <code>x0</code> contains <code>&amp;object</code>, not the value stored in <code>object</code>.</p>
+<p>The GNU assembler documents <code>:pg_hi21:</code> for the <code>ADRP</code> relocation and <code>#:lo12:</code> for the following <code>ADD</code>, <code>LDR</code>, or <code>STR</code>. The <code>:pg_hi21:</code> prefix is optional in common GNU syntax, so <code>adrp x0, object</code> is sufficient.</p>
+<h2 id="load-an-address-with-adrp-and-add">Load an address with <code>ADRP</code> and <code>ADD</code><a class="headerlink" href="#load-an-address-with-adrp-and-add" title="Permanent link">¶</a></h2>
+<p>Create <code>addressing.s</code> on a 64-bit Raspberry Pi OS system:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="na">.section</span><span class="w"> </span><span class="no">.data</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="na">.balign</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nl">counter:</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="na">.quad</span><span class="w"> </span><span class="mi">42</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="na">.global</span><span class="w"> </span><span class="no">counter_address</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="na">.type</span><span class="w"> </span><span class="no">counter_address</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="nl">counter_address:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:counter</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="na">.size</span><span class="w"> </span><span class="no">counter_address</span><span class="p">,</span><span class="w"> </span><span class="no">.-counter_address</span>
 </code></pre></div></td></tr></table></div>
-<p>After the first sequence, <code>x0 == &amp;counter</code>. After the second, <code>x1 == counter</code>, which is 42.</p>
-<h2 id="how-adr-works">How <code>ADR</code> works<a class="headerlink" href="#how-adr-works" title="Permanent link">¶</a></h2>
-<p><code>ADR</code> adds a signed PC-relative immediate to the address of the instruction and writes the result to a general-purpose register:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nf">adr</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">nearby_label</span>
+<p>Assemble it without linking:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>build-essential<span class="w"> </span>binutils<span class="w"> </span>gdb
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>gcc<span class="w"> </span>-c<span class="w"> </span>addressing.s<span class="w"> </span>-o<span class="w"> </span>addressing.o
 </code></pre></div></td></tr></table></div>
-<p>Use it when the linker can place the target within approximately ±1 MiB. It produces the address; it does not dereference memory.</p>
+<p>Inspect both instructions and unresolved relocations:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>addressing.o
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>readelf<span class="w"> </span>-rW<span class="w"> </span>addressing.o
+</code></pre></div></td></tr></table></div>
+<p>The exact formatting depends on the installed binutils version. Look for an <code>ADRP</code> page relocation such as <code>R_AARCH64_ADR_PREL_PG_HI21</code> and an <code>ADD</code> low-12 relocation such as <code>R_AARCH64_ADD_ABS_LO12_NC</code>. The pair tells the linker that both instructions refer to the same symbol.</p>
+<h2 id="load-the-value-with-adrp-and-ldr">Load the value with <code>ADRP</code> and <code>LDR</code><a class="headerlink" href="#load-the-value-with-adrp-and-ldr" title="Permanent link">¶</a></h2>
+<p>If you need the 64-bit value <code>42</code>, not its address, combine the page address with an unsigned load offset:</p>
 <div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
 <span class="normal"><a href="#__codelineno-5-2">2</a></span>
 <span class="normal"><a href="#__codelineno-5-3">3</a></span>
 <span class="normal"><a href="#__codelineno-5-4">4</a></span>
 <span class="normal"><a href="#__codelineno-5-5">5</a></span>
 <span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="na">.text</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="na">.global</span><span class="w"> </span><span class="no">get_message</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nl">get_message:</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="nf">adr</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">message</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="na">.section</span><span class="w"> </span><span class="no">.rodata</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="nl">message:</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="na">.asciz</span><span class="w"> </span><span class="s">"hello"</span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="na">.global</span><span class="w"> </span><span class="no">read_counter</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="na">.type</span><span class="w"> </span><span class="no">read_counter</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nl">read_counter:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:counter]</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="na">.size</span><span class="w"> </span><span class="no">read_counter</span><span class="p">,</span><span class="w"> </span><span class="no">.-read_counter</span>
 </code></pre></div></td></tr></table></div>
-<p>Whether this links depends on final section placement. A small source file does not guarantee that <code>.text</code> and <code>.rodata</code> remain within range in the final executable.</p>
-<h2 id="how-adrp-works">How <code>ADRP</code> works<a class="headerlink" href="#how-adrp-works" title="Permanent link">¶</a></h2>
-<p><code>ADRP</code> is page-relative. Conceptually:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>result = page(PC) + signed_page_offset
+<p>Here the first instruction produces the page base. The second instruction reads memory at the symbol's scaled low-12 offset. For a 64-bit <code>LDR</code>, the object must have suitable alignment; <code>.balign 8</code> makes that requirement explicit.</p>
+<p>These forms answer different questions:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1">// x0 = &amp;counter</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:counter</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="c1">// x0 = counter</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:counter]</span>
 </code></pre></div></td></tr></table></div>
-<p>Both the current address and target are considered at 4 KiB page granularity. This provides an approximate ±4 GiB range.</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">message</span>
+<h2 id="literal-ldr-is-different">Literal <code>LDR</code> is different<a class="headerlink" href="#literal-ldr-is-different" title="Permanent link">¶</a></h2>
+<p>In this instruction, <code>label</code> identifies the nearby memory containing the value:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="na">.section</span><span class="w"> </span><span class="no">.rodata</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="na">.balign</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nl">constant_value:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="na">.quad</span><span class="w"> </span><span class="mi">0x1122334455667788</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="na">.global</span><span class="w"> </span><span class="no">read_literal</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="na">.type</span><span class="w"> </span><span class="no">read_literal</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="nl">read_literal:</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">constant_value</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="na">.size</span><span class="w"> </span><span class="no">read_literal</span><span class="p">,</span><span class="w"> </span><span class="no">.-read_literal</span>
 </code></pre></div></td></tr></table></div>
-<p>At this point, <code>x0</code> contains the base of the 4 KiB page holding <code>message</code>, not the exact address of <code>message</code>.</p>
-<p>Complete the address with:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">message</span>
+<p>This is a literal load with a signed PC-relative offset. It does not use a base register and does not mean “load the address of <code>constant_value</code>.”</p>
+<p>Do not confuse the real instruction with the assembler pseudo-instruction:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="mi">0x1122334455667788</span>
 </code></pre></div></td></tr></table></div>
-<p>The assembler emits relocations that allow the linker to fill in the page delta and low 12-bit offset.</p>
-<h2 id="adrp-add-for-an-address"><code>ADRP + ADD</code> for an address<a class="headerlink" href="#adrp-add-for-an-address" title="Permanent link">¶</a></h2>
-<p>Complete example callable from C:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-9-10">10</a></span>
-<span class="normal"><a href="#__codelineno-9-11">11</a></span>
-<span class="normal"><a href="#__codelineno-9-12">12</a></span>
-<span class="normal"><a href="#__codelineno-9-13">13</a></span>
-<span class="normal"><a href="#__codelineno-9-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="na">.section</span><span class="w"> </span><span class="no">.rodata</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="na">.align</span><span class="w"> </span><span class="mi">3</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="nl">message:</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">    </span><span class="na">.asciz</span><span class="w"> </span><span class="s">"ADRP plus ADD"</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a>
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="na">.text</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="na">.align</span><span class="w"> </span><span class="mi">2</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="na">.global</span><span class="w"> </span><span class="no">get_message</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="na">.type</span><span class="w"> </span><span class="no">get_message</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="nl">get_message:</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">    </span><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">message</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">    </span><span class="nf">add</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">message</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="na">.size</span><span class="w"> </span><span class="no">get_message</span><span class="p">,</span><span class="w"> </span><span class="no">.-get_message</span>
+<p>The <code>=expression</code> form asks the assembler to choose an implementation. It may use a literal pool or synthesize the value with other instructions. Check the object code when the exact sequence matters.</p>
+<h2 id="adr-versus-adrp"><code>ADR</code> versus <code>ADRP</code><a class="headerlink" href="#adr-versus-adrp" title="Permanent link">¶</a></h2>
+<p><code>ADR</code> adds a signed byte displacement to the current PC and can directly produce the address of a nearby label. <code>ADRP</code> uses page granularity and normally needs a second instruction:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nf">adr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">local_label</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">distant_object</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:distant_object</span>
 </code></pre></div></td></tr></table></div>
-<p><code>x0</code> is the AAPCS64 integer/pointer return register, so C can declare:</p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">6</a></span>
-<span class="normal"><a href="#__codelineno-10-7">7</a></span>
-<span class="normal"><a href="#__codelineno-10-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="nf">get_message</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">    </span><span class="n">puts</span><span class="p">(</span><span class="n">get_message</span><span class="p">());</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="p">}</span>
+<p>Use the relocation chosen by the compiler or the ABI-compatible sequence required by your linkage model. Replacing a pair manually because the current test binary happens to place a label nearby can create a range failure in a later build.</p>
+<h2 id="position-independent-access-through-the-got">Position-independent access through the GOT<a class="headerlink" href="#position-independent-access-through-the-got" title="Permanent link">¶</a></h2>
+<p>An external or preemptible symbol may be addressed through the Global Offset Table:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got</span><span class="p">:</span><span class="no">external_object</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got_lo12</span><span class="p">:</span><span class="no">external_object</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-<p>Build on a 64-bit Raspberry Pi:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>gcc<span class="w"> </span>-c<span class="w"> </span>address.S<span class="w"> </span>-o<span class="w"> </span>address.o
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>gcc<span class="w"> </span>-c<span class="w"> </span>main.c<span class="w"> </span>-o<span class="w"> </span>main.o
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>gcc<span class="w"> </span>address.o<span class="w"> </span>main.o<span class="w"> </span>-o<span class="w"> </span>address-demo
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a>./address-demo
+<p>After the load, <code>x16</code> contains the address recorded in the GOT entry. A further load is required to read the object itself:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x16</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="adrp-ldr-for-a-value"><code>ADRP + LDR</code> for a value<a class="headerlink" href="#adrp-ldr-for-a-value" title="Permanent link">¶</a></h2>
-<p>When the target is data and you want its contents:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-12-10">10</a></span>
-<span class="normal"><a href="#__codelineno-12-11">11</a></span>
-<span class="normal"><a href="#__codelineno-12-12">12</a></span>
-<span class="normal"><a href="#__codelineno-12-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="na">.data</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="na">.align</span><span class="w"> </span><span class="mi">3</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="nl">counter:</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">    </span><span class="na">.quad</span><span class="w"> </span><span class="mi">42</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5"></a>
-<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="na">.text</span>
-<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="na">.global</span><span class="w"> </span><span class="no">read_counter</span>
-<a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="na">.type</span><span class="w"> </span><span class="no">read_counter</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="nl">read_counter:</span>
-<a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="w">    </span><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
-<a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">counter</span><span class="p">]</span>
-<a id="__codelineno-12-12" name="__codelineno-12-12"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="na">.size</span><span class="w"> </span><span class="no">read_counter</span><span class="p">,</span><span class="w"> </span><span class="no">.-read_counter</span>
+<p>For a function call through a GOT-resolved address:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got</span><span class="p">:</span><span class="no">external_function</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x16</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got_lo12</span><span class="p">:</span><span class="no">external_function</span><span class="p">]</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="nf">blr</span><span class="w">     </span><span class="no">x16</span>
 </code></pre></div></td></tr></table></div>
-<p>The <code>LDR</code> addressing mode adds the relocated low offset to the page base and loads memory. It does not leave the address in <code>x0</code>; it replaces <code>x0</code> with the 64-bit value.</p>
-<p>Store a new value with the same address construction:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<p>Registers <code>x16</code> and <code>x17</code> are intra-procedure-call temporaries under AAPCS64 and are commonly used by linkers and veneers. Do not expect their values to survive a call.</p>
+<h2 id="see-what-c-generates">See what C generates<a class="headerlink" href="#see-what-c-generates" title="Permanent link">¶</a></h2>
+<p>Create <code>inspect.c</code>:</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
 <span class="normal"><a href="#__codelineno-13-2">2</a></span>
 <span class="normal"><a href="#__codelineno-13-3">3</a></span>
-<span class="normal"><a href="#__codelineno-13-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1">// x0 contains the new uint64_t value</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">counter</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="nf">str</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">lo12</span><span class="p">:</span><span class="no">counter</span><span class="p">]</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="nf">ret</span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span>
+<span class="normal"><a href="#__codelineno-13-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kt">long</span><span class="w"> </span><span class="n">global_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="nf">counter_address_c</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">global_counter</span><span class="p">;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="p">}</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="kt">long</span><span class="w"> </span><span class="nf">read_counter_c</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">global_counter</span><span class="p">;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="ldr-literal-is-different"><code>LDR</code> literal is different<a class="headerlink" href="#ldr-literal-is-different" title="Permanent link">¶</a></h2>
-<p>This syntax:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nf">ldr</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">nearby_constant</span>
+<p>Build several variants:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>gcc<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>inspect.c<span class="w"> </span>-o<span class="w"> </span>inspect.o
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>gcc<span class="w"> </span>-O2<span class="w"> </span>-fPIC<span class="w"> </span>-c<span class="w"> </span>inspect.c<span class="w"> </span>-o<span class="w"> </span>inspect-pic.o
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>inspect.o
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>inspect-pic.o
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>readelf<span class="w"> </span>-rW<span class="w"> </span>inspect-pic.o
 </code></pre></div></td></tr></table></div>
-<p>is an A64 literal load. It uses a PC-relative address and loads the 64-bit contents at the label. Its signed scaled immediate provides approximately ±1 MiB of range.</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span>
-<span class="normal"><a href="#__codelineno-15-4">4</a></span>
-<span class="normal"><a href="#__codelineno-15-5">5</a></span>
-<span class="normal"><a href="#__codelineno-15-6">6</a></span>
-<span class="normal"><a href="#__codelineno-15-7">7</a></span>
-<span class="normal"><a href="#__codelineno-15-8">8</a></span>
-<span class="normal"><a href="#__codelineno-15-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="na">.text</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="na">.global</span><span class="w"> </span><span class="no">read_literal</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="nl">read_literal:</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="w">    </span><span class="nf">ldr</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">constant_42</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a>
-<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="na">.align</span><span class="w"> </span><span class="mi">3</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="nl">constant_42:</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">    </span><span class="na">.quad</span><span class="w"> </span><span class="mi">42</span>
+<p>Compare the relocation names as well as the mnemonics. PIC code may use the GOT because symbol interposition and shared-library linkage change how the final address is obtained.</p>
+<h2 id="verify-the-final-address-in-gdb">Verify the final address in GDB<a class="headerlink" href="#verify-the-final-address-in-gdb" title="Permanent link">¶</a></h2>
+<p>Link the assembly with a minimal C harness:</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="k">extern</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="nf">counter_address</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="k">extern</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">read_counter</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counter_address</span><span class="p">();</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"address=%p value=%ld read=%ld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">           </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">read_counter</span><span class="p">());</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>This returns 42, not the address of <code>constant_42</code>.</p>
-<h2 id="ldr-x0-expression-is-a-pseudo-instruction"><code>LDR x0, =expression</code> is a pseudo-instruction<a class="headerlink" href="#ldr-x0-expression-is-a-pseudo-instruction" title="Permanent link">¶</a></h2>
-<p>An equals sign changes the meaning:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
-<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="nf">ldr</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="mi">0x123456789abcdef0</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="nf">ldr</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">message</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>gcc<span class="w"> </span>-g<span class="w"> </span>-O0<span class="w"> </span>harness.c<span class="w"> </span>addressing.o<span class="w"> </span>-o<span class="w"> </span>addressing-demo
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>gdb<span class="w"> </span>./addressing-demo
 </code></pre></div></td></tr></table></div>
-<p>GNU <code>as</code> treats these as pseudo-instructions. It may place a value in a literal pool and emit a PC-relative load, or choose another valid expansion. The exact machine instructions are not guaranteed by the source spelling.</p>
-<p>Inspect the result:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<p>Useful GDB commands are:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
 <span class="normal"><a href="#__codelineno-17-2">2</a></span>
-<span class="normal"><a href="#__codelineno-17-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>gcc<span class="w"> </span>-c<span class="w"> </span>pseudo.S<span class="w"> </span>-o<span class="w"> </span>pseudo.o
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>pseudo.o
-<a id="__codelineno-17-3" name="__codelineno-17-3"></a>readelf<span class="w"> </span>-rW<span class="w"> </span>pseudo.o
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span>
+<span class="normal"><a href="#__codelineno-17-7">7</a></span>
+<span class="normal"><a href="#__codelineno-17-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>break counter_address
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>run
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>display/i $pc
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>stepi
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a>info registers pc x0
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>stepi
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a>info registers pc x0
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a>x/gx $x0
 </code></pre></div></td></tr></table></div>
-<p>Use <code>.ltorg</code> only when you understand literal-pool placement. A literal pool placed outside the instruction's range causes an assembly or link failure.</p>
-<h2 id="position-independent-code-and-the-got">Position-independent code and the GOT<a class="headerlink" href="#position-independent-code-and-the-got" title="Permanent link">¶</a></h2>
-<p>For a symbol that can be interposed or whose address must come through the Global Offset Table, compilers commonly use a GOT sequence:</p>
+<p>Before the <code>ADRP</code>, record the PC. After it, <code>x0</code> should be page-aligned. After the <code>ADD</code>, <code>x0</code> should equal the symbol address shown by <code>p &amp;counter</code> when the symbol is visible to GDB.</p>
+<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">¶</a></h2>
+<h3 id="treating-adrp-as-a-complete-address">Treating <code>ADRP</code> as a complete address<a class="headerlink" href="#treating-adrp-as-a-complete-address" title="Permanent link">¶</a></h3>
+<p><code>ADRP</code> discards the symbol's offset within its 4 KiB page. Use the matching low-12 relocation in the next instruction.</p>
+<h3 id="pairing-relocations-from-different-symbols">Pairing relocations from different symbols<a class="headerlink" href="#pairing-relocations-from-different-symbols" title="Permanent link">¶</a></h3>
+<p>This is not a general way to combine arbitrary labels:</p>
 <div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
-<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got</span><span class="p">:</span><span class="no">external_symbol</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="nf">ldr</span><span class="w">  </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">:</span><span class="no">got_lo12</span><span class="p">:</span><span class="no">external_symbol</span><span class="p">]</span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="nf">adrp</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">object_a</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="c1">#:lo12:object_b</span>
 </code></pre></div></td></tr></table></div>
-<p>This loads the address stored in the GOT entry. A further <code>LDR</code> is needed if you want the value at that external address.</p>
-<p>Do not replace a compiler-generated GOT sequence with direct <code>ADRP + ADD</code> unless symbol visibility and the linking model make that transformation valid.</p>
-<h2 id="see-what-gcc-generates">See what GCC generates<a class="headerlink" href="#see-what-gcc-generates" title="Permanent link">¶</a></h2>
-<p>Create a small C file:</p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<p>It works only by accident when both symbols have a compatible page relationship. Keep the high and low relocations paired to the same expression.</p>
+<h3 id="reading-an-address-when-you-wanted-a-value">Reading an address when you wanted a value<a class="headerlink" href="#reading-an-address-when-you-wanted-a-value" title="Permanent link">¶</a></h3>
+<p><code>ADRP</code> plus <code>ADD</code> returns an address. Add <code>LDR</code> or use the <code>ADRP</code> plus <code>LDR</code> form to read memory.</p>
+<h3 id="ignoring-scaled-load-offsets">Ignoring scaled load offsets<a class="headerlink" href="#ignoring-scaled-load-offsets" title="Permanent link">¶</a></h3>
+<p>Unsigned <code>LDR</code>/<code>STR</code> immediate offsets are scaled by access size. Use the assembler relocation and correct alignment instead of calculating an unverified encoded immediate by hand.</p>
+<h3 id="looking-only-at-a-linked-disassembly">Looking only at a linked disassembly<a class="headerlink" href="#looking-only-at-a-linked-disassembly" title="Permanent link">¶</a></h3>
+<p>The final executable may hide the relocation that explained the original intent. Inspect both the relocatable object (<code>objdump -dr</code>, <code>readelf -rW</code>) and the linked file.</p>
+<h3 id="assuming-every-compiler-emits-the-same-sequence">Assuming every compiler emits the same sequence<a class="headerlink" href="#assuming-every-compiler-emits-the-same-sequence" title="Permanent link">¶</a></h3>
+<p>Optimization, visibility, PIE/PIC flags, code model, linker relaxation, and symbol preemption all affect address formation. Describe the sequence you actually observed and include the build command.</p>
+<h2 id="reproducible-inspection-checklist">Reproducible inspection checklist<a class="headerlink" href="#reproducible-inspection-checklist" title="Permanent link">¶</a></h2>
+<p>Record these details when reporting an address-loading problem:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
 <span class="normal"><a href="#__codelineno-19-2">2</a></span>
 <span class="normal"><a href="#__codelineno-19-3">3</a></span>
 <span class="normal"><a href="#__codelineno-19-4">4</a></span>
 <span class="normal"><a href="#__codelineno-19-5">5</a></span>
 <span class="normal"><a href="#__codelineno-19-6">6</a></span>
 <span class="normal"><a href="#__codelineno-19-7">7</a></span>
-<span class="normal"><a href="#__codelineno-19-8">8</a></span>
-<span class="normal"><a href="#__codelineno-19-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">extern</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">external_value</span><span class="p">;</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a>
-<a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="kt">long</span><span class="w"> </span><span class="o">*</span><span class="nf">address_of_external</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">external_value</span><span class="p">;</span>
-<a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="p">}</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6"></a>
-<a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="kt">long</span><span class="w"> </span><span class="nf">read_external</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">external_value</span><span class="p">;</span>
-<a id="__codelineno-19-9" name="__codelineno-19-9"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-19-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>uname<span class="w"> </span>-m
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>gcc<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>as<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a>ld<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a>file<span class="w"> </span>addressing.o
+<a id="__codelineno-19-6" name="__codelineno-19-6"></a>readelf<span class="w"> </span>-h<span class="w"> </span>addressing.o
+<a id="__codelineno-19-7" name="__codelineno-19-7"></a>readelf<span class="w"> </span>-rW<span class="w"> </span>addressing.o
+<a id="__codelineno-19-8" name="__codelineno-19-8"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>addressing.o
 </code></pre></div></td></tr></table></div>
-<p>Compile position-independent assembly:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
-<span class="normal"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>gcc<span class="w"> </span>-O2<span class="w"> </span>-fPIC<span class="w"> </span>-S<span class="w"> </span>example.c<span class="w"> </span>-o<span class="w"> </span>example.s
-<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'1,160p'</span><span class="w"> </span>example.s
-</code></pre></div></td></tr></table></div>
-<p>Then compare with non-PIC output:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>gcc<span class="w"> </span>-O2<span class="w"> </span>-fno-pic<span class="w"> </span>-S<span class="w"> </span>example.c<span class="w"> </span>-o<span class="w"> </span>example-no-pic.s
-</code></pre></div></td></tr></table></div>
-<p>Compiler output varies by GCC version, optimisation, code model, visibility, and linker relaxation. Record those conditions when explaining a sequence.</p>
-<h2 id="inspect-relocations-before-and-after-linking">Inspect relocations before and after linking<a class="headerlink" href="#inspect-relocations-before-and-after-linking" title="Permanent link">¶</a></h2>
-<p>Object-file disassembly alone can show zero or placeholder immediates because the linker has not applied relocations.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
-<span class="normal"><a href="#__codelineno-22-2">2</a></span>
-<span class="normal"><a href="#__codelineno-22-3">3</a></span>
-<span class="normal"><a href="#__codelineno-22-4">4</a></span>
-<span class="normal"><a href="#__codelineno-22-5">5</a></span>
-<span class="normal"><a href="#__codelineno-22-6">6</a></span>
-<span class="normal"><a href="#__codelineno-22-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>gcc<span class="w"> </span>-c<span class="w"> </span>address.S<span class="w"> </span>-o<span class="w"> </span>address.o
-<a id="__codelineno-22-2" name="__codelineno-22-2"></a>readelf<span class="w"> </span>-rW<span class="w"> </span>address.o
-<a id="__codelineno-22-3" name="__codelineno-22-3"></a>objdump<span class="w"> </span>-dr<span class="w"> </span>address.o
-<a id="__codelineno-22-4" name="__codelineno-22-4"></a>
-<a id="__codelineno-22-5" name="__codelineno-22-5"></a>gcc<span class="w"> </span>address.o<span class="w"> </span>main.o<span class="w"> </span>-o<span class="w"> </span>address-demo
-<a id="__codelineno-22-6" name="__codelineno-22-6"></a>objdump<span class="w"> </span>-d<span class="w"> </span>address-demo
-<a id="__codelineno-22-7" name="__codelineno-22-7"></a>readelf<span class="w"> </span>-sW<span class="w"> </span>address-demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>message
-</code></pre></div></td></tr></table></div>
-<p>Typical relocation names include page-high and low-12 forms. Exact names depend on the assembler syntax and whether the access is direct or through the GOT.</p>
-<p>The linker may relax an <code>ADRP + ADD</code> sequence when the final target is close enough. Judge the linked executable, not only the relocatable object.</p>
-<h2 id="common-mistakes">Common mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">¶</a></h2>
-<h3 id="using-adrp-as-though-it-returned-the-exact-address">Using <code>ADRP</code> as though it returned the exact address<a class="headerlink" href="#using-adrp-as-though-it-returned-the-exact-address" title="Permanent link">¶</a></h3>
-<p>Wrong:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
-<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nf">adrp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">message</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="nf">bl</span><span class="w"> </span><span class="no">puts</span>
-</code></pre></div></td></tr></table></div>
-<p><code>x0</code> points to the page base. Add <code>:lo12:message</code> before passing it to <code>puts</code>.</p>
-<h3 id="confusing-ldr-x0-label-with-ldr-x0-label">Confusing <code>ldr x0, label</code> with <code>ldr x0, =label</code><a class="headerlink" href="#confusing-ldr-x0-label-with-ldr-x0-label" title="Permanent link">¶</a></h3>
-<ul>
-<li>Without <code>=</code>, literal <code>LDR</code> loads memory at the label.</li>
-<li>With <code>=</code>, the assembler pseudo-instruction materialises the expression, commonly through a literal pool.</li>
-</ul>
-<p>Always inspect disassembly when teaching or optimising the distinction.</p>
-<h3 id="loading-32-bits-when-the-data-is-64-bits">Loading 32 bits when the data is 64 bits<a class="headerlink" href="#loading-32-bits-when-the-data-is-64-bits" title="Permanent link">¶</a></h3>
-<p><code>ldr w0, [...]</code> loads 32 bits and zero-extends into <code>x0</code>. Use <code>ldr x0, [...]</code> for a 64-bit object.</p>
-<h3 id="ignoring-symbol-visibility">Ignoring symbol visibility<a class="headerlink" href="#ignoring-symbol-visibility" title="Permanent link">¶</a></h3>
-<p>Direct access may be invalid for an interposable external symbol in position-independent code. Use the compiler's GOT sequence or constrain visibility deliberately.</p>
-<h3 id="copying-macos-syntax-into-gnulinux">Copying macOS syntax into GNU/Linux<a class="headerlink" href="#copying-macos-syntax-into-gnulinux" title="Permanent link">¶</a></h3>
-<p>Mach-O, ELF, GNU <code>as</code>, and Clang integrated assembler use related but not identical relocation spellings. This guide targets GNU/Linux ELF on 64-bit Raspberry Pi OS.</p>
-<h2 id="range-summary">Range summary<a class="headerlink" href="#range-summary" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Instruction</th>
-<th>Immediate model</th>
-<th style="text-align: right;">Effective range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ADR</code></td>
-<td>Signed 21-bit byte offset</td>
-<td style="text-align: right;">approximately ±1 MiB</td>
-</tr>
-<tr>
-<td><code>ADRP</code></td>
-<td>Signed 21-bit page offset, scaled by 4096</td>
-<td style="text-align: right;">approximately ±4 GiB</td>
-</tr>
-<tr>
-<td><code>LDR</code> literal</td>
-<td>Signed 19-bit offset, scaled by 4</td>
-<td style="text-align: right;">approximately ±1 MiB</td>
-</tr>
-<tr>
-<td><code>ADD :lo12:</code></td>
-<td>Unsigned offset within page</td>
-<td style="text-align: right;">0–4095 bytes</td>
-</tr>
-</tbody>
-</table>
-<p>Arm's A64 overview documents the PC-relative forms and their ranges. For calling convention details, use the current <a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst">AAPCS64 specification</a>.</p>
+<p>Include the compiler flags and whether the failing file is an object, PIE executable, static executable, or shared library. An instruction without its relocation and linkage context is often ambiguous.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="why-does-aarch64-use-adrp-followed-by-add">Why does AArch64 use <code>ADRP</code> followed by <code>ADD</code>?<a class="headerlink" href="#why-does-aarch64-use-adrp-followed-by-add" title="Permanent link">¶</a></h3>
-<p>Together they construct a PC-relative address across a wide range while keeping each instruction 32 bits. <code>ADRP</code> finds the target page and <code>ADD</code> supplies the offset within it.</p>
-<h3 id="when-should-i-use-adr-instead">When should I use <code>ADR</code> instead?<a class="headerlink" href="#when-should-i-use-adr-instead" title="Permanent link">¶</a></h3>
-<p>Use <code>ADR</code> when the target is guaranteed to remain within its smaller range and the linking model permits direct access. The linker may also relax a longer sequence automatically.</p>
-<h3 id="does-ldr-literal-load-an-address">Does <code>LDR literal</code> load an address?<a class="headerlink" href="#does-ldr-literal-load-an-address" title="Permanent link">¶</a></h3>
-<p>It loads data stored at a PC-relative location. The pseudo-instruction <code>LDR x0, =symbol</code> is different and may arrange for the symbol address to be stored in a literal pool.</p>
-<h3 id="why-does-objdump-show-different-instructions-after-linking">Why does <code>objdump</code> show different instructions after linking?<a class="headerlink" href="#why-does-objdump-show-different-instructions-after-linking" title="Permanent link">¶</a></h3>
-<p>Relocations are resolved and linker relaxation can replace a sequence with a shorter equivalent. Compare both <code>objdump -dr file.o</code> and <code>objdump -d executable</code>.</p>
-<h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<h3 id="does-adrp-use-the-current-instruction-address">Does <code>ADRP</code> use the current instruction address?<a class="headerlink" href="#does-adrp-use-the-current-instruction-address" title="Permanent link">¶</a></h3>
+<p>It uses the 4 KiB page containing the instruction as the PC-relative base, then applies a signed page delta.</p>
+<h3 id="why-is-the-low-offset-12-bits">Why is the low offset 12 bits?<a class="headerlink" href="#why-is-the-low-offset-12-bits" title="Permanent link">¶</a></h3>
+<p>A 4 KiB page contains 4096 bytes, so bits 0–11 select a byte position within that page.</p>
+<h3 id="does-ldr-x0-label-load-the-label-address">Does <code>LDR x0, label</code> load the label address?<a class="headerlink" href="#does-ldr-x0-label-load-the-label-address" title="Permanent link">¶</a></h3>
+<p>No. The literal form loads the value stored at a PC-relative memory location. Use <code>ADR</code> or <code>ADRP</code> plus <code>ADD</code> when you need an address.</p>
+<h3 id="why-does-pic-code-use-the-got">Why does PIC code use the GOT?<a class="headerlink" href="#why-does-pic-code-use-the-got" title="Permanent link">¶</a></h3>
+<p>The GOT provides runtime-resolved addresses for symbols whose final location or interposition cannot be represented as a simple local link-time address.</p>
+<h3 id="can-i-hard-code-the-address-shown-by-gdb">Can I hard-code the address shown by GDB?<a class="headerlink" href="#can-i-hard-code-the-address-shown-by-gdb" title="Permanent link">¶</a></h3>
+<p>Do not do so in normal Linux user-space code. ASLR, PIE, shared libraries, and link layout can change addresses between builds or executions.</p>
+<h2 id="references-and-next-steps">References and next steps<a class="headerlink" href="#references-and-next-steps" title="Permanent link">¶</a></h2>
 <ul>
-<li><a href="../arm64_registers_and_basic_instructions/">Arm64 registers and basic instructions</a></li>
-<li><a href="../introduction_to_arm64_assembly_on_raspberry_pi/">Introduction to Arm64 assembly</a></li>
+<li><a href="https://sourceware.org/binutils/docs/as/AArch64_002dRelocations.html">GNU assembler: AArch64 relocations</a></li>
+<li><a href="https://sourceware.org/binutils/docs/binutils/objdump.html">GNU <code>objdump</code> documentation</a></li>
+<li><a href="../arm64_registers_and_basic_instructions/">ARM64 registers and basic instructions</a></li>
 <li><a href="../functions_and_stack_management_in_arm64_assembly/">Functions and stack management</a></li>
-<li><a href="../interfacing_with_c%2B%2B_and_gpio_control/">Interfacing Arm64 assembly with C++ and GPIO</a></li>
+<li><a href="../interfacing_with_c%2B%2B_and_gpio_control/">Interfacing assembly with C++ and GPIO</a></li>
 </ul></div>
 
 
@@ -6449,7 +6421,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 2, 2026 20:55:09 JST">2026-08-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 6, 2026 21:10:00 JST">2026-08-06</span>
   </span>
 
     
@@ -6484,7 +6456,7 @@
           <li><a href="../">Previous: Arm64 Assembly Programming</a></li>
         
         
-          <li><a href="../arm64_registers_and_basic_instructions/">Next: Arm64 Registers and Basic Instructions</a></li>
+          <li><a href="../arm64_registers_and_basic_instructions/">Next: ARM64 Registers and Instructions on Raspberry Pi</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
@@ -6538,6 +6510,8 @@
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="/javascripts/headless-troubleshooter.js"></script>
       
         <script src="/javascripts/power-cost-calculator.js"></script>
       
