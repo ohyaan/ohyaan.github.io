@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Configure ZRAM on Raspberry Pi OS Trixie safely with zram-tools or systemd-zram-generator. Measure compression, swap priority, PSI, latency, and OOM events.">
+        <meta name="description" content="Configure and benchmark ZRAM on Raspberry Pi OS Trixie or Armbian. Compare zram-tools, systemd-zram-generator, compression, PSI, latency, and OOM events.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Raspberry Pi ZRAM Setup and Benchmark Guide - With Raspberry Pi</title>
+        <title>Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Raspberry Pi ZRAM Setup and Benchmark Guide - With Raspberry Pi">
-  <meta property="og:description" content="Configure ZRAM on Raspberry Pi OS Trixie safely with zram-tools or systemd-zram-generator. Measure compression, swap priority, PSI, latency, and OOM events.">
+  <meta property="og:title" content="Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting - With Raspberry Pi">
+  <meta property="og:description" content="Configure and benchmark ZRAM on Raspberry Pi OS Trixie or Armbian. Compare zram-tools, systemd-zram-generator, compression, PSI, latency, and OOM events.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/optimizing_swap_with_zram_on_raspberry_pi_os/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__optimizing_swap_with_zram_on_raspberry_pi_os.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Raspberry Pi ZRAM Setup and Benchmark Guide">
+  <meta property="og:image:alt" content="Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-08-09">
+    <meta property="article:modified_time" content="2026-08-27">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Raspberry Pi ZRAM Setup and Benchmark Guide - With Raspberry Pi">
-  <meta name="twitter:description" content="Configure ZRAM on Raspberry Pi OS Trixie safely with zram-tools or systemd-zram-generator. Measure compression, swap priority, PSI, latency, and OOM events.">
+  <meta name="twitter:title" content="Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting - With Raspberry Pi">
+  <meta name="twitter:description" content="Configure and benchmark ZRAM on Raspberry Pi OS Trixie or Armbian. Compare zram-tools, systemd-zram-generator, compression, PSI, latency, and OOM events.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__optimizing_swap_with_zram_on_raspberry_pi_os.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Raspberry Pi ZRAM Setup and Benchmark Guide",
-    "description": "Configure ZRAM on Raspberry Pi OS Trixie safely with zram-tools or systemd-zram-generator. Measure compression, swap priority, PSI, latency, and OOM events.",
+    "headline": "Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting",
+    "description": "Configure and benchmark ZRAM on Raspberry Pi OS Trixie or Armbian. Compare zram-tools, systemd-zram-generator, compression, PSI, latency, and OOM events.",
     "url": "https://ohyaan.github.io/tips/optimizing_swap_with_zram_on_raspberry_pi_os/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/optimizing_swap_with_zram_on_raspberry_pi_os/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__optimizing_swap_with_zram_on_raspberry_pi_os.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-08-09"
+    "dateModified": "2026-08-27"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi ZRAM Setup and Benchmark Guide", "item": "https://ohyaan.github.io/tips/optimizing_swap_with_zram_on_raspberry_pi_os/"}
+      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting", "item": "https://ohyaan.github.io/tips/optimizing_swap_with_zram_on_raspberry_pi_os/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-zram-setup-and-benchmark-guide" class="md-skip">
+        <a href="#raspberry-pi-and-armbian-zram-setup-benchmark-and-troubleshooting" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Raspberry Pi ZRAM Setup and Benchmark Guide
+              Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting
             
           </span>
         </div>
@@ -762,7 +762,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi NetworkManager and nmcli Guide
+    Raspberry Pi NetworkManager and nmcli: Setup and Troubleshooting
     
   </span>
   
@@ -3697,6 +3697,8 @@
       
         
       
+        
+      
     
     
       
@@ -4194,6 +4196,28 @@
   
   <span class="md-ellipsis">
     Fix Google Chrome ARM64 Errors on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Update or Uninstall Google Chrome ARM64 on Raspberry Pi
     
   </span>
   
@@ -4818,7 +4842,7 @@
           
   
   <span class="md-ellipsis">
-    Raspberry Pi ZRAM Setup and Benchmark Guide
+    Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting
     
   </span>
   
@@ -4830,7 +4854,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi ZRAM Setup and Benchmark Guide
+    Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting
     
   </span>
   
@@ -4856,6 +4880,15 @@
   <a href="#quick-setup-decision" class="md-nav__link">
     <span class="md-ellipsis">
       Quick setup decision
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#raspberry-pi-os-or-armbian-identify-the-owner-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raspberry Pi OS or Armbian: identify the owner first
     </span>
   </a>
   
@@ -5456,7 +5489,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Remote Access and VNC Optimization: Complete Remote Desktop Guide
+    Raspberry Pi Remote Desktop on Trixie: Connect, VNC, RDP, and SSH
     
   </span>
   
@@ -5522,7 +5555,7 @@
         
   
   <span class="md-ellipsis">
-    Check Raspberry Pi Temperature and Throttling
+    Raspberry Pi Temperature Command: Check CPU Heat and Throttling
     
   </span>
   
@@ -6269,7 +6302,7 @@
 
 
 
-<div><h1 id="raspberry-pi-zram-setup-and-benchmark-guide">Raspberry Pi ZRAM Setup and Benchmark Guide<a class="headerlink" href="#raspberry-pi-zram-setup-and-benchmark-guide" title="Permanent link">¶</a></h1>
+<div><h1 id="raspberry-pi-and-armbian-zram-setup-benchmark-and-troubleshooting">Raspberry Pi and Armbian ZRAM Setup, Benchmark, and Troubleshooting<a class="headerlink" href="#raspberry-pi-and-armbian-zram-setup-benchmark-and-troubleshooting" title="Permanent link">¶</a></h1>
 <p>ZRAM provides a compressed block device in RAM that Linux can use as swap. It can reduce flash-backed swap I/O and prevent some out-of-memory failures, but it consumes CPU and physical RAM. Do not assume ZRAM is enabled by default or that one size fits every Raspberry Pi OS image: inspect the running system first.</p>
 <div class="admonition abstract">
 <p class="admonition-title">Quick answer: ZRAM on Raspberry Pi OS and Armbian</p>
@@ -6307,6 +6340,43 @@
 </tbody>
 </table>
 <p>Debian Trixie provides both <a href="https://packages.debian.org/trixie/zram-tools"><code>zram-tools</code></a> and <a href="https://packages.debian.org/trixie/systemd-zram-generator"><code>systemd-zram-generator</code></a>. Choose one implementation, not both.</p>
+<h2 id="raspberry-pi-os-or-armbian-identify-the-owner-first">Raspberry Pi OS or Armbian: identify the owner first<a class="headerlink" href="#raspberry-pi-os-or-armbian-identify-the-owner-first" title="Permanent link">¶</a></h2>
+<p>Do not install <code>zram-tools</code> over an Armbian-managed ZRAM device. Identify the operating system, active swap, service, and configuration owner before changing anything:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>zramctl
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'zram|swap'</span>
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Typical owner</th>
+<th>First configuration to inspect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raspberry Pi OS Trixie with <code>zram-tools</code></td>
+<td><code>zramswap.service</code></td>
+<td><code>/etc/default/zramswap</code></td>
+</tr>
+<tr>
+<td>Raspberry Pi OS with systemd generator</td>
+<td><code>systemd-zram-setup@zram0.service</code></td>
+<td><code>/etc/systemd/zram-generator.conf</code></td>
+</tr>
+<tr>
+<td>Armbian</td>
+<td><code>armbian-zram-config.service</code></td>
+<td><code>/etc/default/armbian-zram-config</code></td>
+</tr>
+</tbody>
+</table>
+<p>Current Armbian images can manage ZRAM through <code>armbian-config</code>; use the <a href="https://docs.armbian.com/armbian-config/storage/#memory">official Armbian memory-management documentation</a> rather than replacing its service with a Raspberry Pi OS package. ZRAM changes memory compression and swap behaviour—it does not overclock the CPU or GPU.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6317,29 +6387,29 @@
 </div>
 
 <h2 id="inspect-the-current-swap-configuration">Inspect the current swap configuration<a class="headerlink" href="#inspect-the-current-swap-configuration" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>zramctl
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>zram
-</code></pre></div></td></tr></table></div>
-<p>Find installed packages and active units:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>-f<span class="o">=</span><span class="s1">'${Package}\t${Status}\t${Version}\n'</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span>zram-tools<span class="w"> </span>systemd-zram-generator<span class="w"> </span><span class="m">2</span>&gt;/dev/null
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'zram|swap'</span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>free<span class="w"> </span>-h
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>zramctl
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>zram
+</code></pre></div></td></tr></table></div>
+<p>Find installed packages and active units:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>-f<span class="o">=</span><span class="s1">'${Package}\t${Status}\t${Version}\n'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">  </span>zram-tools<span class="w"> </span>systemd-zram-generator<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'zram|swap'</span>
 </code></pre></div></td></tr></table></div>
 <p>If <code>/dev/zram0</code> already exists, do not install another manager over it. Save its current configuration and measure the workload first.</p>
 <h2 id="confirm-that-memory-is-the-bottleneck">Confirm that memory is the bottleneck<a class="headerlink" href="#confirm-that-memory-is-the-bottleneck" title="Permanent link">¶</a></h2>
 <p>Reproduce the slow task while observing:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>vmstat<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'cat /proc/pressure/memory'</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom-kill|killed process'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>vmstat<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'cat /proc/pressure/memory'</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom-kill|killed process'</span>
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>Continuous <code>si</code> and <code>so</code> in <code>vmstat</code> indicate swap traffic.</li>
@@ -6350,68 +6420,68 @@
 <p>Use the <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">memory pressure and OOM diagnosis</a> before choosing a size.</p>
 <h2 id="method-1-zram-tools">Method 1: <code>zram-tools</code><a class="headerlink" href="#method-1-zram-tools" title="Permanent link">¶</a></h2>
 <p>This is the simplest Debian package for a single compressed swap device:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>zram-tools
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>zram-tools
 </code></pre></div></td></tr></table></div>
 <p>Edit its configuration:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/zramswap
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/zramswap
 </code></pre></div></td></tr></table></div>
 <p>Start conservatively:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="na">ALGO</span><span class="o">=</span><span class="s">lz4</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="na">PERCENT</span><span class="o">=</span><span class="s">50</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="na">PRIORITY</span><span class="o">=</span><span class="s">100</span>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="na">ALGO</span><span class="o">=</span><span class="s">lz4</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="na">PERCENT</span><span class="o">=</span><span class="s">50</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="na">PRIORITY</span><span class="o">=</span><span class="s">100</span>
 </code></pre></div></td></tr></table></div>
 <p><code>PERCENT=50</code> sets the maximum ZRAM device capacity to half of physical RAM; it does not reserve half of RAM immediately. <code>lz4</code> favors speed. Test <code>zstd</code> only as a separate experiment when compression ratio matters more than CPU cost and the installed kernel supports it.</p>
 <p>Apply and verify:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>zramswap
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>zramswap<span class="w"> </span>--no-pager
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>zramctl
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>zramswap
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>systemctl<span class="w"> </span>status<span class="w"> </span>zramswap<span class="w"> </span>--no-pager
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>zramctl
 </code></pre></div></td></tr></table></div>
 <p>If the service fails, inspect:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>zramswap<span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>zramswap<span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <h2 id="method-2-systemd-zram-generator">Method 2: <code>systemd-zram-generator</code><a class="headerlink" href="#method-2-systemd-zram-generator" title="Permanent link">¶</a></h2>
 <p>Use this method when you deliberately want generator-managed devices:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>systemd-zram-generator
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/zram-generator.conf
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>systemd-zram-generator
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/zram-generator.conf
 </code></pre></div></td></tr></table></div>
 <p>Example bounded configuration:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">[zram0]</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="na">zram-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">min(ram / 2, 2048)</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="na">compression-algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">lz4</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="na">swap-priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">[zram0]</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="na">zram-size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">min(ram / 2, 2048)</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="na">compression-algorithm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">lz4</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="na">swap-priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">100</span>
 </code></pre></div></td></tr></table></div>
 <p>The size expression is in MiB where a bare number is used. This example caps the device at 2 GiB. Confirm syntax against the installed manual because generator versions can differ:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>man<span class="w"> </span>zram-generator.conf
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>man<span class="w"> </span>zram-generator.conf
 </code></pre></div></td></tr></table></div>
 <p>Reboot to apply it cleanly:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>reboot
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <p>Then verify:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>systemd-zram-setup@zram0.service<span class="w"> </span>--no-pager
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a>zramctl
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>systemd-zram-setup@zram0.service<span class="w"> </span>--no-pager
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>zramctl
 </code></pre></div></td></tr></table></div>
 <h2 id="do-not-run-both-managers">Do not run both managers<a class="headerlink" href="#do-not-run-both-managers" title="Permanent link">¶</a></h2>
 <p>Check again after configuration:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
-<span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>dpkg<span class="w"> </span>-l<span class="w"> </span>zram-tools<span class="w"> </span>systemd-zram-generator<span class="w"> </span><span class="m">2</span>&gt;/dev/null
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'zram|swap'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>dpkg<span class="w"> </span>-l<span class="w"> </span>zram-tools<span class="w"> </span>systemd-zram-generator<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'zram|swap'</span>
 </code></pre></div></td></tr></table></div>
 <p>Two tools can compete for <code>/dev/zram0</code>, create unexpected devices, or apply different priorities. Select one, record its configuration, and remove the unused package only after confirming which service owns the active device.</p>
 <h2 id="choose-a-starting-size">Choose a starting size<a class="headerlink" href="#choose-a-starting-size" title="Permanent link">¶</a></h2>
@@ -6449,9 +6519,9 @@
 </table>
 <p>A ZRAM device can advertise more logical capacity than the physical memory it eventually consumes. If the workload fills it with poorly compressible pages, the system can still run out of RAM.</p>
 <h2 id="read-zram-statistics">Read ZRAM statistics<a class="headerlink" href="#read-zram-statistics" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>zramctl<span class="w"> </span>--output<span class="w"> </span>NAME,ALGORITHM,DISKSIZE,DATA,COMPR,TOTAL,STREAMS,MOUNTPOINT
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>cat<span class="w"> </span>/sys/block/zram0/mm_stat
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>zramctl<span class="w"> </span>--output<span class="w"> </span>NAME,ALGORITHM,DISKSIZE,DATA,COMPR,TOTAL,STREAMS,MOUNTPOINT
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>cat<span class="w"> </span>/sys/block/zram0/mm_stat
 </code></pre></div></td></tr></table></div>
 <p>Important fields:</p>
 <ul>
@@ -6463,13 +6533,13 @@
 <p>Use <code>TOTAL</code>, not only <code>COMPR</code>, when judging memory cost. Compare the figures at the same point in the workload.</p>
 <h2 id="swap-priority-and-disk-fallback">Swap priority and disk fallback<a class="headerlink" href="#swap-priority-and-disk-fallback" title="Permanent link">¶</a></h2>
 <p>Display priorities:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
 </code></pre></div></td></tr></table></div>
 <p>Linux normally selects higher-priority swap first. If a disk swap remains as an emergency fallback, ZRAM should usually have the higher priority. A disk fallback can prevent an immediate OOM but may create severe latency and additional writes; test it under the real service-level objective.</p>
 <p>Do not disable an existing swap file until you have console access and a controlled memory test. On a remote-only device, an OOM during reconfiguration can end the session.</p>
 <h2 id="test-compression-algorithms">Test compression algorithms<a class="headerlink" href="#test-compression-algorithms" title="Permanent link">¶</a></h2>
 <p>Show algorithms supported by the running kernel:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>cat<span class="w"> </span>/sys/block/zram0/comp_algorithm
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>cat<span class="w"> </span>/sys/block/zram0/comp_algorithm
 </code></pre></div></td></tr></table></div>
 <p>The active algorithm appears in brackets. Common trade-offs are:</p>
 <table>
@@ -6496,7 +6566,7 @@
 <p>Do not switch an active device's algorithm while it holds swap. Change the manager configuration and reboot or recreate the device through that manager's documented procedure.</p>
 <h2 id="treat-vmswappiness-as-a-separate-experiment">Treat <code>vm.swappiness</code> as a separate experiment<a class="headerlink" href="#treat-vmswappiness-as-a-separate-experiment" title="Permanent link">¶</a></h2>
 <p>Inspect the current value:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sysctl<span class="w"> </span>vm.swappiness
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>sysctl<span class="w"> </span>vm.swappiness
 </code></pre></div></td></tr></table></div>
 <p>Do not automatically set it to <code>10</code>, <code>20</code>, or <code>100</code>. Its effect depends on workload and kernel behaviour. Keep the current value for the first ZRAM comparison. If testing it later, change only that variable, record it, and compare application latency, PSI, swap traffic, and OOM events.</p>
 <h2 id="repeatable-benchmark">Repeatable benchmark<a class="headerlink" href="#repeatable-benchmark" title="Permanent link">¶</a></h2>
@@ -6555,40 +6625,40 @@
 <p>Keep board, OS, workload, cooling, storage, services, and starting temperature constant. Publish raw data rather than a single best run. See the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">benchmark methodology</a>.</p>
 <h2 id="remove-zram-safely">Remove ZRAM safely<a class="headerlink" href="#remove-zram-safely" title="Permanent link">¶</a></h2>
 <p>Do this only with sufficient free memory and recovery access. Stop the manager you selected, remove its configuration, and uninstall that package. For <code>zram-tools</code>:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
-<span class="normal"><a href="#__codelineno-18-2">2</a></span>
-<span class="normal"><a href="#__codelineno-18-3">3</a></span>
-<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-18-2" name="__codelineno-18-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>zramswap
-<a id="__codelineno-18-3" name="__codelineno-18-3"></a>swapon<span class="w"> </span>--show
-<a id="__codelineno-18-4" name="__codelineno-18-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>zram-tools
-</code></pre></div></td></tr></table></div>
-<p>For the generator, first confirm no critical pages depend on its swap, then:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
 <span class="normal"><a href="#__codelineno-19-2">2</a></span>
 <span class="normal"><a href="#__codelineno-19-3">3</a></span>
 <span class="normal"><a href="#__codelineno-19-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>swapoff<span class="w"> </span>/dev/zram0
-<a id="__codelineno-19-3" name="__codelineno-19-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>systemd-zram-generator
-<a id="__codelineno-19-4" name="__codelineno-19-4"></a>sudo<span class="w"> </span>reboot
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>zramswap
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>swapon<span class="w"> </span>--show
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>zram-tools
+</code></pre></div></td></tr></table></div>
+<p>For the generator, first confirm no critical pages depend on its swap, then:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>free<span class="w"> </span>-h
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sudo<span class="w"> </span>swapoff<span class="w"> </span>/dev/zram0
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>remove<span class="w"> </span>systemd-zram-generator
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <p><code>swapoff</code> can fail or trigger OOM when RAM is insufficient. Stop memory-heavy applications first and do not force it on a remote production system.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <h3 id="devzram0-does-not-appear"><code>/dev/zram0</code> does not appear<a class="headerlink" href="#devzram0-does-not-appear" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
-<span class="normal"><a href="#__codelineno-20-2">2</a></span>
-<span class="normal"><a href="#__codelineno-20-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>zramswap<span class="w"> </span>systemd-zram-setup@zram0.service<span class="w"> </span>--no-pager
-<a id="__codelineno-20-2" name="__codelineno-20-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>zram
-<a id="__codelineno-20-3" name="__codelineno-20-3"></a>modinfo<span class="w"> </span>zram
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>zramswap<span class="w"> </span>systemd-zram-setup@zram0.service<span class="w"> </span>--no-pager
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>zram
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>modinfo<span class="w"> </span>zram
 </code></pre></div></td></tr></table></div>
 <p>Confirm that only one manager is installed and its configuration syntax matches the installed version.</p>
 <h3 id="device-or-resource-busy"><code>Device or resource busy</code><a class="headerlink" href="#device-or-resource-busy" title="Permanent link">¶</a></h3>
 <p>Another service may already own the device. Inspect units, mounts, swap, and packages instead of resetting it manually:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
-<span class="normal"><a href="#__codelineno-21-2">2</a></span>
-<span class="normal"><a href="#__codelineno-21-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>zramctl
-<a id="__codelineno-21-2" name="__codelineno-21-2"></a>swapon<span class="w"> </span>--show
-<a id="__codelineno-21-3" name="__codelineno-21-3"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>zram
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>zramctl
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>swapon<span class="w"> </span>--show
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a>systemctl<span class="w"> </span>list-units<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>zram
 </code></pre></div></td></tr></table></div>
 <h3 id="performance-became-worse">Performance became worse<a class="headerlink" href="#performance-became-worse" title="Permanent link">¶</a></h3>
 <p>Check CPU saturation, temperature, throttling, compression efficiency, and PSI. Reduce the device size or return to the baseline if compression overhead exceeds the avoided storage latency.</p>
@@ -6633,7 +6703,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 9, 2026 09:15:37 JST">2026-08-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 27, 2026 22:17:52 JST">2026-08-27</span>
   </span>
 
     
