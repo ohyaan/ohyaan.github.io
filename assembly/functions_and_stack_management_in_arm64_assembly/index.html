@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Functions and Stack Management in Arm64 Assembly. Explore ARM64 instructions, code examples, debugging, and Raspberry Pi performance.">
+        <meta name="description" content="Learn AArch64 functions and stack frames on Raspberry Pi. Apply AAPCS64 arguments, return values, callee-saved registers, alignment, GDB, and C interop.">
       
       
       
@@ -79,7 +79,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Functions and Stack Management in Arm64 Assembly - With Raspberry Pi">
-  <meta property="og:description" content="Functions and Stack Management in Arm64 Assembly. Explore ARM64 instructions, code examples, debugging, and Raspberry Pi performance.">
+  <meta property="og:description" content="Learn AArch64 functions and stack frames on Raspberry Pi. Apply AAPCS64 arguments, return values, callee-saved registers, alignment, GDB, and C interop.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/assembly/functions_and_stack_management_in_arm64_assembly/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__functions_and_stack_management_in_arm64_assembly.jpg">
@@ -91,12 +91,12 @@
     <meta property="article:published_time" content="2025-11-16">
   
   
-    <meta property="article:modified_time" content="2026-07-25">
+    <meta property="article:modified_time" content="2026-09-05">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Functions and Stack Management in Arm64 Assembly - With Raspberry Pi">
-  <meta name="twitter:description" content="Functions and Stack Management in Arm64 Assembly. Explore ARM64 instructions, code examples, debugging, and Raspberry Pi performance.">
+  <meta name="twitter:description" content="Learn AArch64 functions and stack frames on Raspberry Pi. Apply AAPCS64 arguments, return values, callee-saved registers, alignment, GDB, and C interop.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__functions_and_stack_management_in_arm64_assembly.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -117,7 +117,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Functions and Stack Management in Arm64 Assembly",
-    "description": "Functions and Stack Management in Arm64 Assembly. Explore ARM64 instructions, code examples, debugging, and Raspberry Pi performance.",
+    "description": "Learn AArch64 functions and stack frames on Raspberry Pi. Apply AAPCS64 arguments, return values, callee-saved registers, alignment, GDB, and C interop.",
     "url": "https://ohyaan.github.io/assembly/functions_and_stack_management_in_arm64_assembly/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/functions_and_stack_management_in_arm64_assembly/"},
     "image": ["https://ohyaan.github.io/images/og/pages/assembly__functions_and_stack_management_in_arm64_assembly.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-16",
-    "dateModified": "2026-07-25"
+    "dateModified": "2026-09-05"
   }
   </script>
   <script type="application/ld+json">
@@ -2774,6 +2774,42 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#call-assembly-from-c-and-verify-the-abi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Call assembly from C and verify the ABI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-a-broken-call-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug a broken call boundary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-cassembly-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common C/assembly failures
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
@@ -2786,6 +2822,15 @@
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related guides
     </span>
   </a>
   
@@ -6273,7 +6318,11 @@
 
 <div><h1 id="functions-and-stack-management-in-arm64-assembly">Functions and Stack Management in Arm64 Assembly<a class="headerlink" href="#functions-and-stack-management-in-arm64-assembly" title="Permanent link">¶</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>Functions are the cornerstone of modular programming, allowing code reuse, abstraction, and maintainability. In the previous tutorials, we learned about registers, basic instructions, and control flow. Now we'll explore how to properly implement functions in Arm64 assembly, following the ARM Architecture Procedure Call Standard (AAPCS64).</p>
+<p>This guide shows how an AArch64 function safely accepts arguments, preserves state, calls another function, and returns on 64-bit Raspberry Pi OS. Its rules come from AAPCS64, so the examples also apply when C or C++ calls your assembly routine.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Quick answer</p>
+<p>Arguments normally arrive in <code>x0</code>–<code>x7</code> or <code>v0</code>–<code>v7</code>; the result returns in <code>x0</code>, <code>x0</code>/<code>x1</code>, or <code>v0</code>. Preserve <code>x19</code>–<code>x29</code> if you use them, save the incoming <code>x30</code> before a nested <code>bl</code>, and keep <code>sp</code> 16-byte aligned at every call boundary.</p>
+</div>
 <p>Understanding function calling conventions is essential for:</p>
 <ul>
 <li><strong>Interoperability</strong>: Calling C/C++ functions from assembly and vice versa</li>
@@ -6357,8 +6406,8 @@
 <tr>
 <td><code>x30</code> (LR)</td>
 <td>Link register</td>
-<td><strong>Yes</strong></td>
-<td>Callee-saved</td>
+<td>Special</td>
+<td>Save its incoming value before a nested <code>bl</code></td>
 </tr>
 <tr>
 <td><code>SP</code></td>
@@ -6409,6 +6458,7 @@
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x9</span><span class="p">,</span><span class="w"> </span><span class="mi">#777</span><span class="w">        </span><span class="c1">// No need to preserve</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">    </span><span class="nf">ret</span>
 </code></pre></div></td></tr></table></div>
+<p>The <a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst">AAPCS64 procedure-call standard</a> specifies that <code>x19</code>–<code>x29</code> and <code>sp</code> are callee-saved. <code>x30</code> contains the return address on entry; a <code>bl</code> overwrites it, which is why non-leaf functions save it in their own frame.</p>
 <h2 id="stack-frame-structure">Stack Frame Structure<a class="headerlink" href="#stack-frame-structure" title="Permanent link">¶</a></h2>
 <p>A typical stack frame contains:</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
@@ -7584,6 +7634,143 @@
 <a id="__codelineno-25-15" name="__codelineno-25-15"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#16</span>
 <a id="__codelineno-25-16" name="__codelineno-25-16"></a><span class="w">    </span><span class="nf">ret</span>
 </code></pre></div></td></tr></table></div>
+<h2 id="call-assembly-from-c-and-verify-the-abi">Call assembly from C and verify the ABI<a class="headerlink" href="#call-assembly-from-c-and-verify-the-abi" title="Permanent link">¶</a></h2>
+<p>Use a small C harness before integrating an assembly routine into a larger GPIO, graphics, or performance project. This example proves arguments, a nested call, a callee-saved register, and the return value.</p>
+<p>Save this as <code>weighted_sum.S</code>:</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-26-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-26-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-26-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-26-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-26-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-26-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-26-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-26-10">10</a></span>
+<span class="normal"><a href="#__codelineno-26-11">11</a></span>
+<span class="normal"><a href="#__codelineno-26-12">12</a></span>
+<span class="normal"><a href="#__codelineno-26-13">13</a></span>
+<span class="normal"><a href="#__codelineno-26-14">14</a></span>
+<span class="normal"><a href="#__codelineno-26-15">15</a></span>
+<span class="normal"><a href="#__codelineno-26-16">16</a></span>
+<span class="normal"><a href="#__codelineno-26-17">17</a></span>
+<span class="normal"><a href="#__codelineno-26-18">18</a></span>
+<span class="normal"><a href="#__codelineno-26-19">19</a></span>
+<span class="normal"><a href="#__codelineno-26-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="na">.text</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="na">.global</span><span class="w"> </span><span class="no">weighted_sum</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="na">.type</span><span class="w"> </span><span class="no">weighted_sum</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a>
+<a id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="c1">// long weighted_sum(long a, long b, long c);</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6"></a><span class="c1">// Returns a * square(b) + c.  square is supplied by C.</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7"></a><span class="nl">weighted_sum:</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="w">    </span><span class="nf">stp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#-32</span><span class="p">]!</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10"></a><span class="w">    </span><span class="nf">str</span><span class="w">     </span><span class="no">x19</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#16</span><span class="p">]</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11"></a>
+<a id="__codelineno-26-12" name="__codelineno-26-12"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x19</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">          </span><span class="c1">// preserve a across the C call</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="w">            </span><span class="c1">// square's first argument: b</span>
+<a id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="w">    </span><span class="nf">bl</span><span class="w">      </span><span class="no">square</span>
+<a id="__codelineno-26-15" name="__codelineno-26-15"></a><span class="w">    </span><span class="nf">madd</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x19</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="w">  </span><span class="c1">// a * square(b) + c</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16"></a>
+<a id="__codelineno-26-17" name="__codelineno-26-17"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x19</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#16</span><span class="p">]</span>
+<a id="__codelineno-26-18" name="__codelineno-26-18"></a><span class="w">    </span><span class="nf">ldp</span><span class="w">     </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">],</span><span class="w"> </span><span class="mi">#32</span>
+<a id="__codelineno-26-19" name="__codelineno-26-19"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-26-20" name="__codelineno-26-20"></a><span class="na">.size</span><span class="w"> </span><span class="no">weighted_sum</span><span class="p">,</span><span class="w"> </span><span class="no">.-weighted_sum</span>
+</code></pre></div></td></tr></table></div>
+<p>Save this as <code>harness.c</code>:</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-27-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-27-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-27-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-27-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-27-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-27-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-27-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-27-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-27-10">10</a></span>
+<span class="normal"><a href="#__codelineno-27-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;assert.h&gt;</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="kt">long</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="kt">long</span><span class="w"> </span><span class="nf">weighted_sum</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6"></a>
+<a id="__codelineno-27-7" name="__codelineno-27-7"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8"></a><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weighted_sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9"></a><span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">22</span><span class="p">);</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%ld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<a id="__codelineno-27-11" name="__codelineno-27-11"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Build, run, and inspect the generated symbols:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>gcc<span class="w"> </span>-g<span class="w"> </span>-O0<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>harness.c<span class="w"> </span>weighted_sum.S<span class="w"> </span>-o<span class="w"> </span>abi-demo
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a>./abi-demo
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a>readelf<span class="w"> </span>-sW<span class="w"> </span>abi-demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>weighted_sum
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a>objdump<span class="w"> </span>-d<span class="w"> </span>--disassemble<span class="o">=</span>weighted_sum<span class="w"> </span>abi-demo
+</code></pre></div></td></tr></table></div>
+<p>The output is <code>22</code>. The <code>str x19</code>/<code>ldr x19</code> pair is necessary because the assembly function uses a callee-saved register. The 32-byte frame retains 16-byte <code>sp</code> alignment while holding the frame record and <code>x19</code>.</p>
+<h2 id="debug-a-broken-call-boundary">Debug a broken call boundary<a class="headerlink" href="#debug-a-broken-call-boundary" title="Permanent link">¶</a></h2>
+<p>Set breakpoints around the call when a C/assembly boundary gives the wrong value or an invalid return:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
+<span class="normal"><a href="#__codelineno-29-2">2</a></span>
+<span class="normal"><a href="#__codelineno-29-3">3</a></span>
+<span class="normal"><a href="#__codelineno-29-4">4</a></span>
+<span class="normal"><a href="#__codelineno-29-5">5</a></span>
+<span class="normal"><a href="#__codelineno-29-6">6</a></span>
+<span class="normal"><a href="#__codelineno-29-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>gdb<span class="w"> </span>./abi-demo
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">break</span><span class="w"> </span>weighted_sum
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>run
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>info<span class="w"> </span>registers<span class="w"> </span>x0<span class="w"> </span>x1<span class="w"> </span>x2<span class="w"> </span>x19<span class="w"> </span>x29<span class="w"> </span>x30<span class="w"> </span>sp<span class="w"> </span>pc
+<a id="__codelineno-29-5" name="__codelineno-29-5"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>disassemble<span class="w"> </span>/m<span class="w"> </span>weighted_sum
+<a id="__codelineno-29-6" name="__codelineno-29-6"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>stepi
+<a id="__codelineno-29-7" name="__codelineno-29-7"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>finish
+</code></pre></div></td></tr></table></div>
+<p>On entry, the three arguments should be visible in <code>x0</code>, <code>x1</code>, and <code>x2</code>. Step over <code>bl square</code> and confirm that <code>x19</code> still contains <code>a</code>, while <code>x0</code> now contains the result from <code>square</code>. <code>finish</code> verifies that execution returns to the C caller rather than a corrupted link-register address.</p>
+<h2 id="common-cassembly-failures">Common C/assembly failures<a class="headerlink" href="#common-cassembly-failures" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Typical cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Correct in a leaf function, wrong after <code>bl</code></td>
+<td>A live value was kept in caller-saved <code>x0</code>–<code>x18</code></td>
+<td>Save it around the call or use and preserve <code>x19</code>–<code>x28</code></td>
+</tr>
+<tr>
+<td>Crash in a library call</td>
+<td><code>sp</code> is misaligned</td>
+<td>Allocate/deallocate stack storage in multiples of 16</td>
+</tr>
+<tr>
+<td>Returns to an unexpected instruction</td>
+<td><code>x30</code> was overwritten by a nested <code>bl</code></td>
+<td>Save/restore the incoming <code>x30</code> in the frame</td>
+</tr>
+<tr>
+<td>Linker cannot find the function</td>
+<td>Symbol was not global or C changed its name</td>
+<td>Use <code>.global name</code>, match the C declaration, and inspect <code>readelf -sW</code></td>
+</tr>
+<tr>
+<td>GDB backtrace stops in assembly</td>
+<td>Frame/unwind information is absent or frame is damaged</td>
+<td>Start with the standard <code>x29</code>/<code>x30</code> frame pattern and compile the harness with <code>-g</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
+<h3 id="do-arguments-beyond-eight-always-use-sp-0">Do arguments beyond eight always use <code>[sp, #0]</code>?<a class="headerlink" href="#do-arguments-beyond-eight-always-use-sp-0" title="Permanent link">¶</a></h3>
+<p>They are passed in the caller's stack argument area, but their offsets in the callee change after that callee creates its own frame. Derive offsets from the entry <code>sp</code> and your exact prologue; do not copy an offset from a different frame size.</p>
+<h3 id="should-every-non-leaf-function-save-x29">Should every non-leaf function save <code>x29</code>?<a class="headerlink" href="#should-every-non-leaf-function-save-x29" title="Permanent link">¶</a></h3>
+<p>The ABI permits platform-specific frame-pointer policies. The standard <code>x29</code>/<code>x30</code> frame is a practical choice for learning and debugger-friendly code. Small production routines may omit a frame pointer when their platform's unwinding and tooling requirements permit it.</p>
+<h3 id="can-i-call-c-directly">Can I call C++ directly?<a class="headerlink" href="#can-i-call-c-directly" title="Permanent link">¶</a></h3>
+<p>Yes, but C++ symbol mangling and exceptions add requirements. Start with an <code>extern "C"</code> wrapper that exposes a C-compatible function signature, then verify it with a small harness like the example above.</p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
 <p>In this tutorial, we covered:</p>
 <h3 id="aapcs64-calling-convention">AAPCS64 Calling Convention<a class="headerlink" href="#aapcs64-calling-convention" title="Permanent link">¶</a></h3>
@@ -7637,7 +7824,14 @@
 <li><strong>SIMD/NEON</strong>: Vector instructions for parallel processing</li>
 <li><strong>Debugging Mixed Code</strong>: GDB with C++ and assembly</li>
 </ul>
-<p>This will tie together everything we've learned and show how to use assembly for real-world Raspberry Pi projects.</p></div>
+<p>This will tie together everything we've learned and show how to use assembly for real-world Raspberry Pi projects.</p>
+<h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../arm64_registers_and_basic_instructions/">ARM64 registers and instructions</a></li>
+<li><a href="../aarch64_adrp_add_ldr_literal_address_loading/">AArch64 address loading: ADRP, ADD, ADR, and LDR</a></li>
+<li><a href="../interfacing_with_c%2B%2B_and_gpio_control/">Interfacing with C++ and GPIO control</a></li>
+<li><a href="../">AArch64 and Arm64 Assembly learning path</a></li>
+</ul></div>
 
 
 
@@ -7660,7 +7854,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 25, 2026 22:07:30 JST">2026-07-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 5, 2026 12:59:59 JST">2026-09-05</span>
   </span>
 
     
