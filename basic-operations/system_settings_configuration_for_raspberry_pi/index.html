@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-09-29">
+    <meta property="article:modified_time" content="2026-10-02">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-09-29"
+    "dateModified": "2026-10-02"
   }
   </script>
   <script type="application/ld+json">
@@ -3919,6 +3919,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -5354,6 +5358,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi get_throttled: Decode 0x50000 and Undervoltage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
         
   
@@ -5821,6 +5847,28 @@
   
   <span class="md-ellipsis">
     Raspberry Pi Wi-Fi Access Point with NetworkManager
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    raspi-config Not Working: Command Not Found and nonint Errors
     
   </span>
   
@@ -6471,12 +6519,12 @@
 <td><code>sudo raspi-config</code></td>
 </tr>
 <tr>
-<td>Update the tool</td>
-<td><code>sudo raspi-config nonint do_update</code></td>
+<td>Update the installed tool</td>
+<td><code>sudo apt update</code> then <code>sudo apt install --only-upgrade raspi-config</code></td>
 </tr>
 <tr>
-<td>Show non-interactive command help</td>
-<td><code>sudo raspi-config nonint</code></td>
+<td>Inspect the installed tool version</td>
+<td><code>dpkg-query -W raspi-config</code></td>
 </tr>
 <tr>
 <td>Enable SSH</td>
@@ -6520,11 +6568,18 @@
 </tr>
 </tbody>
 </table>
-<p>For many <code>raspi-config</code> interface options, <code>0</code> means enable and <code>1</code> means disable. This convention is not universal. Check the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html#non-interactive-raspi-config">official non-interactive raspi-config reference</a> before automating an unfamiliar option.</p>
+<p>For many <code>raspi-config</code> interface options, <code>0</code> means enable and <code>1</code> means disable. This convention is not universal. Check the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html">official configuration instructions</a> and the installed implementation before automating an unfamiliar option.</p>
 <h2 id="find-the-current-command-for-any-setting">Find the current command for any setting<a class="headerlink" href="#find-the-current-command-for-any-setting" title="Permanent link">¶</a></h2>
-<p>Use the built-in command list on the Raspberry Pi you are configuring. This avoids copied menu numbers and commands removed or renamed by a later Raspberry Pi OS release:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint
+<p>Inspect the version and installed script on the Raspberry Pi you are configuring. Bare <code>sudo raspi-config nonint</code> does not display help or a command list in the current Trixie implementation:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>raspi-config
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>raspi-config
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1"># Inspect function names at the normal package path; use the verified path if different.</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>grep<span class="w"> </span>-nE<span class="w"> </span><span class="s1">'^(get_|do_)[[:alnum:]_]+\(\)'</span><span class="w"> </span>/usr/bin/raspi-config
 </code></pre></div></td></tr></table></div>
+<p>The function list is an inspection aid, not an argument reference. Read the relevant function or use the interactive menu for unfamiliar settings. See the <a href="../../tips/raspi_config_command_not_found_nonint_errors/">raspi-config error diagnosis guide</a> for package, terminal, and syntax failures.</p>
 <p>For a setting that has a <code>get_</code> command, read its current value before changing it. For example, check SSH first, enable it, then confirm the service is actually running:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
@@ -6798,12 +6853,14 @@
 </code></pre></div></td></tr></table></div>
 <p>If the system is Debian or Ubuntu rather than Raspberry Pi OS, <code>raspi-config</code> may not be the appropriate configuration layer.</p>
 <h3 id="a-non-interactive-option-returns-an-error">A non-interactive option returns an error<a class="headerlink" href="#a-non-interactive-option-returns-an-error" title="Permanent link">¶</a></h3>
-<p>Update the package and show its current command list:</p>
+<p>Check the installed package and update it separately from setting changes:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
-<span class="normal"><a href="#__codelineno-27-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>do_update
-<a id="__codelineno-27-2" name="__codelineno-27-2"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>raspi-config
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>--only-upgrade<span class="w"> </span>raspi-config
 </code></pre></div></td></tr></table></div>
-<p>Options can differ by board and OS version. Do not fall back to an old menu number or undocumented command without checking the current official reference.</p>
+<p>Options can differ by board and OS version. Bare <code>nonint</code> is not help, and <code>nonint do_update</code> can relaunch the interactive tool. Inspect the installed implementation or use the menu, then verify the resulting service or device. Follow the <a href="../../tips/raspi_config_command_not_found_nonint_errors/">nonint error checklist</a> for detailed diagnosis.</p>
 <h3 id="wi-fi-stopped-after-an-old-tutorial">Wi-Fi stopped after an old tutorial<a class="headerlink" href="#wi-fi-stopped-after-an-old-tutorial" title="Permanent link">¶</a></h3>
 <p>Undo manual edits to legacy <code>dhcpcd</code> or <code>wpa_supplicant</code> configuration if they conflict with NetworkManager, then inspect:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
@@ -6831,6 +6888,7 @@
 <p>No, but firmware, boot, Device Tree, interface, and OverlayFS changes commonly do. Reboot when the tool requests it, then verify the resulting state.</p>
 <h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
 <ul>
+<li><a href="../../tips/raspi_config_command_not_found_nonint_errors/">raspi-config command not found and nonint errors</a></li>
 <li><a href="../../tips/raspberry_pi_os_performance_optimization_2026/">Raspberry Pi OS performance optimization</a></li>
 <li><a href="../networking_setup_and_management_for_raspberry_pi/">NetworkManager setup</a></li>
 <li><a href="../../tips/raspberry_pi_headless_networking_2026_hub/">Headless and networking hub</a></li>
@@ -6859,7 +6917,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 29, 2026 05:30:34 JST">2026-09-29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 2, 2026 19:48:49 JST">2026-10-02</span>
   </span>
 
     
