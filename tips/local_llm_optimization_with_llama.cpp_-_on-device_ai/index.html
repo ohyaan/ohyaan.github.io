@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Run llama.cpp on Raspberry Pi with current CMake commands. Choose GGUF models, tune threads and context, use --mlock, benchmark tokens/s, and serve a local API.">
+        <meta name="description" content="Build llama.cpp on Raspberry Pi with CMake. Choose GGUF models, tune context and load modes, diagnose memory locking, benchmark tokens/s, and serve a local API.">
       
       
       
         <link rel="canonical" href="https://ohyaan.github.io/tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/">
       
       
-        <link rel="prev" href="../introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/">
+        <link rel="prev" href="../llama_cpp_mlock_failed_raspberry_pi/">
       
       
         <link rel="next" href="../managing_your_program_as_a_systemd_daemon/">
@@ -79,7 +79,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="llama.cpp on Raspberry Pi: Mlock, Build & Benchmark - With Raspberry Pi">
-  <meta property="og:description" content="Run llama.cpp on Raspberry Pi with current CMake commands. Choose GGUF models, tune threads and context, use --mlock, benchmark tokens/s, and serve a local API.">
+  <meta property="og:description" content="Build llama.cpp on Raspberry Pi with CMake. Choose GGUF models, tune context and load modes, diagnose memory locking, benchmark tokens/s, and serve a local API.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__local_llm_optimization_with_llama.cpp_-_on-device_ai.jpg">
@@ -91,12 +91,12 @@
     <meta property="article:published_time" content="2025-11-22">
   
   
-    <meta property="article:modified_time" content="2026-09-27">
+    <meta property="article:modified_time" content="2026-10-02">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="llama.cpp on Raspberry Pi: Mlock, Build & Benchmark - With Raspberry Pi">
-  <meta name="twitter:description" content="Run llama.cpp on Raspberry Pi with current CMake commands. Choose GGUF models, tune threads and context, use --mlock, benchmark tokens/s, and serve a local API.">
+  <meta name="twitter:description" content="Build llama.cpp on Raspberry Pi with CMake. Choose GGUF models, tune context and load modes, diagnose memory locking, benchmark tokens/s, and serve a local API.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__local_llm_optimization_with_llama.cpp_-_on-device_ai.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -117,7 +117,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "llama.cpp on Raspberry Pi: Mlock, Build \u0026 Benchmark",
-    "description": "Run llama.cpp on Raspberry Pi with current CMake commands. Choose GGUF models, tune threads and context, use --mlock, benchmark tokens/s, and serve a local API.",
+    "description": "Build llama.cpp on Raspberry Pi with CMake. Choose GGUF models, tune context and load modes, diagnose memory locking, benchmark tokens/s, and serve a local API.",
     "url": "https://ohyaan.github.io/tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__local_llm_optimization_with_llama.cpp_-_on-device_ai.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-22",
-    "dateModified": "2026-09-27"
+    "dateModified": "2026-10-02"
   }
   </script>
   <script type="application/ld+json">
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#llamacpp-on-raspberry-pi-build-mlock-and-benchmark" class="md-skip">
+        <a href="#llamacpp-on-raspberry-pi-build-memory-locking-and-benchmark" class="md-skip">
           Skip to content
         </a>
       
@@ -3711,6 +3711,8 @@
       
         
       
+        
+      
     
     
       
@@ -4670,6 +4672,28 @@
   
   <span class="md-ellipsis">
     Introduction to Embedded Systems Development with Rust on Raspberry Pi
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    llama.cpp Mlock Failed on Raspberry Pi: Limits and Load Modes
     
   </span>
   
@@ -6373,11 +6397,11 @@
 
 
 
-<div><h1 id="llamacpp-on-raspberry-pi-build-mlock-and-benchmark">llama.cpp on Raspberry Pi: Build, <code>--mlock</code>, and Benchmark<a class="headerlink" href="#llamacpp-on-raspberry-pi-build-mlock-and-benchmark" title="Permanent link">¶</a></h1>
+<div><h1 id="llamacpp-on-raspberry-pi-build-memory-locking-and-benchmark">llama.cpp on Raspberry Pi: Build, Memory Locking, and Benchmark<a class="headerlink" href="#llamacpp-on-raspberry-pi-build-memory-locking-and-benchmark" title="Permanent link">¶</a></h1>
 <p><code>llama.cpp</code> runs quantised GGUF language models locally on Raspberry Pi. A useful setup starts with a model that fits comfortably in RAM, builds the current project with CMake, measures prompt processing and text generation separately, and changes only one parameter per benchmark.</p>
 <div class="admonition abstract">
-<p class="admonition-title">Quick answer: should you use llama.cpp --mlock?</p>
-<p><code>--mlock</code> keeps eligible model pages out of swap, which can prevent latency spikes under memory pressure. It does not make inference computation faster. Use it only when the complete model and runtime buffers fit comfortably in physical RAM and the process has an adequate locked-memory limit.</p>
+<p class="admonition-title">Quick answer: should you lock llama.cpp model memory?</p>
+<p>Current builds expose <code>--load-mode</code>; <code>mmap+mlock</code> requests mapped model memory remain resident. Older builds used <code>--mlock</code>. Locking can help with memory-pressure stalls, but does not accelerate inference computation. Check local <code>--help</code>, physical RAM, and process limits first. Use the <a href="../llama_cpp_mlock_failed_raspberry_pi/">memory-lock failure guide</a> for option migration and systemd checks.</p>
 </div>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
@@ -6550,13 +6574,13 @@
 <td>128 for a quick test</td>
 </tr>
 <tr>
-<td><code>--mlock</code></td>
-<td>Prevent eligible model pages from being swapped</td>
-<td>Only when the model fits RAM comfortably</td>
+<td><code>--load-mode mmap+mlock</code></td>
+<td>Map and lock model memory</td>
+<td>Only when the full workload fits RAM comfortably</td>
 </tr>
 <tr>
-<td><code>--no-mmap</code></td>
-<td>Load without memory mapping</td>
+<td><code>--load-mode none</code></td>
+<td>Load without memory mapping or locking</td>
 <td>Test only for a measured reason</td>
 </tr>
 </tbody>
@@ -6574,7 +6598,7 @@
 </code></pre></div></td></tr></table></div>
 <p>Look at <code>Maximum resident set size</code> and repeat with only <code>-c</code> changed.</p>
 <h2 id="what-mlock-does">What <code>--mlock</code> does<a class="headerlink" href="#what-mlock-does" title="Permanent link">¶</a></h2>
-<p><code>--mlock</code> asks the operating system to lock model memory so it cannot be swapped. It can reduce latency spikes after memory pressure, but it does not make matrix multiplication faster.</p>
+<p>Memory locking asks the operating system to keep model memory resident. Current llama.cpp builds use <code>--load-mode mmap+mlock</code> for the mapped-and-locked path; older versions used <code>--mlock</code>. Check <code>--help</code> on your executable before selecting a mode. Read the <a href="../llama_cpp_mlock_failed_raspberry_pi/">dedicated mlock troubleshooting guide</a> for limits, service overrides, and OOM diagnosis.</p>
 <p>Check the current locked-memory limit:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nb">ulimit</span><span class="w"> </span>-l
 </code></pre></div></td></tr></table></div>
@@ -6585,7 +6609,7 @@
 <li>The process has permission to lock the required memory.</li>
 <li>A repeated benchmark shows that swap-related latency is a real problem.</li>
 </ul>
-<p>Do not combine an oversized model with <code>--mlock</code>. The result may be a startup failure or an out-of-memory kill instead of slower swapping.</p>
+<p>Do not lock an oversized model. The result may be a lock failure or an out-of-memory kill instead of slower paging.</p>
 <p>For a systemd service, set a deliberate limit in its unit rather than silently granting every process unlimited locked memory:</p>
 <div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
 <span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">[Service]</span>
@@ -6749,7 +6773,7 @@
 </code></pre></div></td></tr></table></div>
 <p>Use a smaller quantisation or model, reduce context size and concurrency, and stop unrelated processes. Do not hide an OOM problem by adding large amounts of slow swap.</p>
 <h3 id="mlock-fails"><code>mlock</code> fails<a class="headerlink" href="#mlock-fails" title="Permanent link">¶</a></h3>
-<p>Check <code>ulimit -l</code>, the process user, systemd <code>LimitMEMLOCK</code>, and available physical RAM. Run without <code>--mlock</code> unless a benchmark demonstrates a need.</p>
+<p>Check the running process's locked-memory limit, user, systemd <code>LimitMEMLOCK</code>, and available physical RAM. For current builds, inspect <code>--load-mode</code> in local help. Follow the <a href="../llama_cpp_mlock_failed_raspberry_pi/">mlock failure checklist</a> and keep locking only when a benchmark demonstrates a need.</p>
 <h3 id="performance-drops-during-a-long-run">Performance drops during a long run<a class="headerlink" href="#performance-drops-during-a-long-run" title="Permanent link">¶</a></h3>
 <p>Monitor temperature, frequency, and throttling:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd measure_clock arm; vcgencmd get_throttled'</span>
@@ -6798,7 +6822,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 27, 2026 10:10:25 JST">2026-09-27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 2, 2026 09:09:26 JST">2026-10-02</span>
   </span>
 
     
@@ -6830,7 +6854,7 @@
           <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
         
         
-          <li><a href="../introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/">Previous: Introduction to Embedded Systems Development with Rust on Raspberry Pi</a></li>
+          <li><a href="../llama_cpp_mlock_failed_raspberry_pi/">Previous: llama.cpp Mlock Failed on Raspberry Pi: Limits and Load Modes</a></li>
         
         
           <li><a href="../managing_your_program_as_a_systemd_daemon/">Next: Managing Your Program as a Systemd Daemon</a></li>
