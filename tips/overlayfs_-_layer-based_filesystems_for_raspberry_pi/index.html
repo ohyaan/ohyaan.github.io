@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-11-24">
   
   
-    <meta property="article:modified_time" content="2026-08-03">
+    <meta property="article:modified_time" content="2026-10-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-24",
-    "dateModified": "2026-08-03"
+    "dateModified": "2026-10-03"
   }
   </script>
   <script type="application/ld+json">
@@ -3717,6 +3717,10 @@
       
         
       
+        
+      
+        
+      
     
     
       
@@ -5494,6 +5498,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi Slow Boot: NetworkManager Wait Online Diagnosis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
         
   
@@ -5543,6 +5569,28 @@
   
   <span class="md-ellipsis">
     Fix sudo Password Prompts on Raspberry Pi OS Trixie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Raspberry Pi OverlayFS: Changes Lost and Update Problems
     
   </span>
   
@@ -6689,11 +6737,12 @@
 <p>If the upper layer grows without bound, identify the writer with <code>iotop</code> and application logs. Do not solve it by assigning all RAM to the overlay; fix or relocate the write source.</p>
 <p>Use the <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">memory pressure and OOM guide</a> for a repeatable load test.</p>
 <h2 id="maintenance-and-os-updates">Maintenance and OS updates<a class="headerlink" href="#maintenance-and-os-updates" title="Permanent link">¶</a></h2>
+<p>If writes disappear or maintenance fails, use the <a href="../raspberry_pi_overlayfs_changes_lost_updates/">OverlayFS changes-lost and update diagnosis guide</a> to distinguish current mounts, pending settings, boot protection, and storage faults.</p>
 <p>Changes made while the root overlay is active disappear after reboot, including package installations and configuration edits. Use this maintenance sequence:</p>
 <ol>
 <li>Schedule downtime and confirm recent backups.</li>
 <li>Disable OverlayFS using the same <code>raspi-config</code> menu.</li>
-<li>Reboot and verify that <code>/</code> is writable without the temporary overlay.</li>
+<li>Reboot and verify that <code>/</code> is writable without the temporary overlay. If boot protection must also be disabled, return to the menu after this reboot, change that separate setting, and reboot when requested.</li>
 <li>Apply updates and required configuration.</li>
 <li>Reboot once and test the application with OverlayFS still disabled.</li>
 <li>Re-enable OverlayFS.</li>
@@ -6715,7 +6764,7 @@
 <p>Open:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>raspi-config
 </code></pre></div></td></tr></table></div>
-<p>Return to <strong>Performance Options → Overlay File System</strong>, disable the root overlay, and remove boot write protection if maintenance requires it. Reboot and verify:</p>
+<p>Return to <strong>Performance Options → Overlay File System</strong>, disable the root overlay, and reboot. If maintenance requires removing boot write protection, return to the menu with the root overlay no longer active, change boot protection, and reboot when requested. Current Trixie refuses a permanent <code>fstab</code> change while the root overlay is active. Verify:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
 <span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>findmnt<span class="w"> </span>/
 <a id="__codelineno-12-2" name="__codelineno-12-2"></a>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'touch /etc/write-test &amp;&amp; rm /etc/write-test'</span>
@@ -6863,7 +6912,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 3, 2026 22:16:28 JST">2026-08-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 14:42:28 JST">2026-10-03</span>
   </span>
 
     
