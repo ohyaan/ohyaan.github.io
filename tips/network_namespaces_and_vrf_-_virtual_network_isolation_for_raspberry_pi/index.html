@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-11-23">
   
   
-    <meta property="article:modified_time" content="2026-07-25">
+    <meta property="article:modified_time" content="2026-10-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-23",
-    "dateModified": "2026-07-25"
+    "dateModified": "2026-10-03"
   }
   </script>
   <script type="application/ld+json">
@@ -1656,7 +1656,7 @@
         
   
   <span class="md-ellipsis">
-    The C++20 Revolution
+    2.cpp20
     
   </span>
   
@@ -3865,7 +3865,7 @@
         
   
   <span class="md-ellipsis">
-    Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    Cluster mastery  multi node k3s cluster on raspberry pi 5
     
   </span>
   
@@ -4789,7 +4789,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: Private DNS Server with AdGuard Home and Unbound over TLS
+    Network mastery  private dns server with adguard home and unbound over tls
     
   </span>
   
@@ -4811,7 +4811,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: WireGuard VPN Server with a Sleek Web UI via Docker
+    Network mastery  wireguard vpn server with a sleek web ui via docker
     
   </span>
   
@@ -6540,7 +6540,7 @@
 
 <div><h1 id="network-namespaces-vrf-virtual-network-isolation-for-raspberry-pi">Network Namespaces &amp; VRF - Virtual Network Isolation for Raspberry Pi<a class="headerlink" href="#network-namespaces-vrf-virtual-network-isolation-for-raspberry-pi" title="Permanent link">¶</a></h1>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>Network namespaces and VRF (Virtual Routing and Forwarding) are powerful Linux kernel features that enable complete network isolation on a single device. They allow you to run multiple independent network stacks, each with its own routing tables, firewall rules, and network interfaces - all on one Raspberry Pi.</p>
+<p>Network namespaces provide separate network stacks, while VRF separates routing domains. This guide covers their use on one Raspberry Pi, including interfaces, routes, and packet flow.</p>
 <p>This technology enables sophisticated networking scenarios that were previously impossible without multiple physical devices:</p>
 <ul>
 <li><strong>Multiple VPN Connections</strong>: Connect to different VPNs simultaneously without conflicts</li>
@@ -6551,7 +6551,7 @@
 <li><strong>Security Isolation</strong>: Prevent network-based attacks from spreading between services</li>
 <li><strong>Traffic Engineering</strong>: Route different applications through different network paths</li>
 </ul>
-<p>This comprehensive guide covers:</p>
+<p>This guide covers the following topics:</p>
 <ul>
 <li><strong>Network Namespaces</strong>: Create isolated network environments with separate interfaces and routing</li>
 <li><strong>VRF (Virtual Routing and Forwarding)</strong>: Multiple routing tables for traffic separation</li>
@@ -7920,26 +7920,26 @@
 <a id="__codelineno-21-27" name="__codelineno-21-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="nv">$GW</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <a id="__codelineno-21-28" name="__codelineno-21-28"></a><span class="w">        </span>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="nv">$NS</span><span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-W<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="nv">$GW</span><span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 <a id="__codelineno-21-29" name="__codelineno-21-29"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-21-30" name="__codelineno-21-30"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ Gateway (</span><span class="nv">$GW</span><span class="s2">) reachable"</span>
+<a id="__codelineno-21-30" name="__codelineno-21-30"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   Gateway (</span><span class="nv">$GW</span><span class="s2">) reachable"</span>
 <a id="__codelineno-21-31" name="__codelineno-21-31"></a><span class="w">        </span><span class="k">else</span>
-<a id="__codelineno-21-32" name="__codelineno-21-32"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✗ Gateway (</span><span class="nv">$GW</span><span class="s2">) unreachable"</span>
+<a id="__codelineno-21-32" name="__codelineno-21-32"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   Gateway (</span><span class="nv">$GW</span><span class="s2">) unreachable"</span>
 <a id="__codelineno-21-33" name="__codelineno-21-33"></a><span class="w">        </span><span class="k">fi</span>
 <a id="__codelineno-21-34" name="__codelineno-21-34"></a><span class="w">    </span><span class="k">fi</span>
 <a id="__codelineno-21-35" name="__codelineno-21-35"></a>
 <a id="__codelineno-21-36" name="__codelineno-21-36"></a><span class="w">    </span><span class="c1"># Internet</span>
 <a id="__codelineno-21-37" name="__codelineno-21-37"></a><span class="w">    </span>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="nv">$NS</span><span class="w"> </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-W<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">8</span>.8.8.8<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 <a id="__codelineno-21-38" name="__codelineno-21-38"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-21-39" name="__codelineno-21-39"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ Internet (8.8.8.8) reachable"</span>
+<a id="__codelineno-21-39" name="__codelineno-21-39"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   Internet (8.8.8.8) reachable"</span>
 <a id="__codelineno-21-40" name="__codelineno-21-40"></a><span class="w">    </span><span class="k">else</span>
-<a id="__codelineno-21-41" name="__codelineno-21-41"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✗ Internet unreachable"</span>
+<a id="__codelineno-21-41" name="__codelineno-21-41"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   Internet unreachable"</span>
 <a id="__codelineno-21-42" name="__codelineno-21-42"></a><span class="w">    </span><span class="k">fi</span>
 <a id="__codelineno-21-43" name="__codelineno-21-43"></a>
 <a id="__codelineno-21-44" name="__codelineno-21-44"></a><span class="w">    </span><span class="c1"># DNS</span>
 <a id="__codelineno-21-45" name="__codelineno-21-45"></a><span class="w">    </span>sudo<span class="w"> </span>ip<span class="w"> </span>netns<span class="w"> </span><span class="nb">exec</span><span class="w"> </span><span class="nv">$NS</span><span class="w"> </span>nslookup<span class="w"> </span>google.com<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 <a id="__codelineno-21-46" name="__codelineno-21-46"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$?</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-21-47" name="__codelineno-21-47"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ DNS resolution working"</span>
+<a id="__codelineno-21-47" name="__codelineno-21-47"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   DNS resolution working"</span>
 <a id="__codelineno-21-48" name="__codelineno-21-48"></a><span class="w">    </span><span class="k">else</span>
-<a id="__codelineno-21-49" name="__codelineno-21-49"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✗ DNS resolution failed"</span>
+<a id="__codelineno-21-49" name="__codelineno-21-49"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"   DNS resolution failed"</span>
 <a id="__codelineno-21-50" name="__codelineno-21-50"></a><span class="w">    </span><span class="k">fi</span>
 <a id="__codelineno-21-51" name="__codelineno-21-51"></a>
 <a id="__codelineno-21-52" name="__codelineno-21-52"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
@@ -8469,50 +8469,50 @@
 <a id="__codelineno-36-23" name="__codelineno-36-23"></a><span class="k">done</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
-<p>This comprehensive guide covered network namespaces and VRF on Raspberry Pi:</p>
-<h3 id="core-concepts">✅ Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">¶</a></h3>
+<p>The examples above cover network namespaces and VRF on Raspberry Pi:</p>
+<h3 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">¶</a></h3>
 <ul>
 <li>Network namespace isolation and architecture</li>
 <li>VRF for routing table separation</li>
 <li>veth pairs for virtual connectivity</li>
 <li>Network bridges for complex topologies</li>
 </ul>
-<h3 id="practical-applications">✅ Practical Applications<a class="headerlink" href="#practical-applications" title="Permanent link">¶</a></h3>
+<h3 id="practical-applications">Practical Applications<a class="headerlink" href="#practical-applications" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Multi-VPN setup</strong>: Simultaneous VPN connections with traffic routing</li>
 <li><strong>IoT segmentation</strong>: Isolated networks for untrusted devices</li>
 <li><strong>Container networking</strong>: Docker-like network simulation</li>
 <li><strong>Policy routing</strong>: VRF-based traffic engineering</li>
 </ul>
-<h3 id="advanced-features">✅ Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">¶</a></h3>
+<h3 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">¶</a></h3>
 <ul>
 <li>DNS configuration per namespace</li>
 <li>GUI application support in namespaces</li>
 <li>Port forwarding and NAT</li>
 <li>Load balancing across multiple connections</li>
 </ul>
-<h3 id="production-deployment">✅ Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h3>
+<h3 id="production-deployment">Production Deployment<a class="headerlink" href="#production-deployment" title="Permanent link">¶</a></h3>
 <ul>
 <li>Systemd service integration</li>
 <li>Persistent namespace configuration</li>
 <li>Monitoring and debugging tools</li>
 <li>Performance optimization</li>
 </ul>
-<h3 id="security">✅ Security<a class="headerlink" href="#security" title="Permanent link">¶</a></h3>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">¶</a></h3>
 <ul>
 <li>Network isolation enforcement</li>
 <li>Firewall rules per namespace</li>
 <li>AppArmor/SELinux integration</li>
 <li>Rate limiting and logging</li>
 </ul>
-<h3 id="troubleshooting_1">✅ Troubleshooting<a class="headerlink" href="#troubleshooting_1" title="Permanent link">¶</a></h3>
+<h3 id="troubleshooting_1">Troubleshooting<a class="headerlink" href="#troubleshooting_1" title="Permanent link">¶</a></h3>
 <ul>
 <li>Connectivity debugging</li>
 <li>DNS resolution issues</li>
 <li>Performance analysis</li>
 <li>Resource cleanup</li>
 </ul>
-<h3 id="performance">✅ Performance<a class="headerlink" href="#performance" title="Permanent link">¶</a></h3>
+<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">¶</a></h3>
 <ul>
 <li>Raspberry Pi specific tuning</li>
 <li>Buffer optimization</li>
@@ -8558,7 +8558,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 25, 2026 22:07:30 JST">2026-07-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
   </span>
 
     
@@ -8590,7 +8590,7 @@
           <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
         
         
-          <li><a href="../network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/">Previous: Network Mastery: WireGuard VPN Server with a Sleek Web UI via Docker</a></li>
+          <li><a href="../network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/">Previous: Network mastery  wireguard vpn server with a sleek web ui via docker</a></li>
         
         
           <li><a href="../next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/">Next: Next-Gen IoT: Building a Matter Smart Home Sensor Node with Raspberry Pi Pico W</a></li>

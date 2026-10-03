@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Supercharge web performance on Raspberry Pi 5 with Nginx FastCGI caching. Learn to cache dynamic requests in RAM (tmpfs) for near-instant load times.">
+        <meta name="description" content="Configure Nginx FastCGI caching on Raspberry Pi 5, compare disk and tmpfs cache storage, check cache responses, and measure latency with ApacheBench.">
       
       
       
@@ -79,7 +79,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Web Performance: High-Speed Nginx FastCGI Caching Optimization on Raspberry Pi 5 - With Raspberry Pi">
-  <meta property="og:description" content="Supercharge web performance on Raspberry Pi 5 with Nginx FastCGI caching. Learn to cache dynamic requests in RAM (tmpfs) for near-instant load times.">
+  <meta property="og:description" content="Configure Nginx FastCGI caching on Raspberry Pi 5, compare disk and tmpfs cache storage, check cache responses, and measure latency with ApacheBench.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5.jpg">
@@ -91,12 +91,12 @@
     <meta property="article:published_time" content="2026-06-22">
   
   
-    <meta property="article:modified_time" content="2026-06-22">
+    <meta property="article:modified_time" content="2026-10-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Web Performance: High-Speed Nginx FastCGI Caching Optimization on Raspberry Pi 5 - With Raspberry Pi">
-  <meta name="twitter:description" content="Supercharge web performance on Raspberry Pi 5 with Nginx FastCGI caching. Learn to cache dynamic requests in RAM (tmpfs) for near-instant load times.">
+  <meta name="twitter:description" content="Configure Nginx FastCGI caching on Raspberry Pi 5, compare disk and tmpfs cache storage, check cache responses, and measure latency with ApacheBench.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -117,7 +117,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Web Performance: High-Speed Nginx FastCGI Caching Optimization on Raspberry Pi 5",
-    "description": "Supercharge web performance on Raspberry Pi 5 with Nginx FastCGI caching. Learn to cache dynamic requests in RAM (tmpfs) for near-instant load times.",
+    "description": "Configure Nginx FastCGI caching on Raspberry Pi 5, compare disk and tmpfs cache storage, check cache responses, and measure latency with ApacheBench.",
     "url": "https://ohyaan.github.io/tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-06-22",
-    "dateModified": "2026-06-22"
+    "dateModified": "2026-10-03"
   }
   </script>
   <script type="application/ld+json">
@@ -1656,7 +1656,7 @@
         
   
   <span class="md-ellipsis">
-    The C++20 Revolution
+    2.cpp20
     
   </span>
   
@@ -3865,7 +3865,7 @@
         
   
   <span class="md-ellipsis">
-    Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    Cluster mastery  multi node k3s cluster on raspberry pi 5
     
   </span>
   
@@ -4789,7 +4789,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: Private DNS Server with AdGuard Home and Unbound over TLS
+    Network mastery  private dns server with adguard home and unbound over tls
     
   </span>
   
@@ -4811,7 +4811,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: WireGuard VPN Server with a Sleek Web UI via Docker
+    Network mastery  wireguard vpn server with a sleek web ui via docker
     
   </span>
   
@@ -6451,7 +6451,7 @@
 <div><h1 id="web-performance-high-speed-nginx-fastcgi-caching-optimization-on-raspberry-pi-5">Web Performance: High-Speed Nginx FastCGI Caching Optimization on Raspberry Pi 5<a class="headerlink" href="#web-performance-high-speed-nginx-fastcgi-caching-optimization-on-raspberry-pi-5" title="Permanent link">¶</a></h1>
 <p>Hosting dynamic websites, blogs, or web portals (such as WordPress, Ghost, or PHP-based applications) directly on a Raspberry Pi 5 is an appealing way to run private cloud services. However, dynamic requests require processing code interpreter scripts (like PHP-FPM) and querying databases (like MariaDB/MySQL). This CPU processing delay, combined with slow random disk I/O on microSD cards, limits concurrent user request limits and introduces latency.</p>
 <p>By configuring <strong>Nginx FastCGI Caching</strong>, you can intercept requests at the reverse proxy layer. Instead of asking PHP-FPM and MariaDB to render the exact same page for every visitor, Nginx caches the compiled HTML output and serves it instantly to subsequent visitors.</p>
-<p>This guide provides a comprehensive tutorial for setting up FastCGI caching, configuring a <strong>tmpfs RAM disk</strong> to store cache files (saving all SD card disk writes), optimizing Nginx caches, and benchmarking the configuration using <code>ab</code> (ApacheBench) to demonstrate near-instant server response times.</p>
+<p>This guide configures Nginx FastCGI caching and measures responses with ApacheBench. It also covers a tmpfs cache and the memory and persistence trade-offs of that choice.</p>
 <hr>
 <h2 id="1-fastcgi-caching-architecture">1. FastCGI Caching Architecture<a class="headerlink" href="#1-fastcgi-caching-architecture" title="Permanent link">¶</a></h2>
 <p>When a client requests a page, Nginx checks if a cached version of the HTML exists in its directory.</p>
@@ -6717,7 +6717,7 @@ With FastCGI caching, performance increases from 29 to <strong>3,225 requests pe
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 22, 2026 22:36:39 JST">2026-06-22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
   </span>
 
     

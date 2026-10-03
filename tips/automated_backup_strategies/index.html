@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-06-04">
   
   
-    <meta property="article:modified_time" content="2026-07-25">
+    <meta property="article:modified_time" content="2026-10-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-06-04",
-    "dateModified": "2026-07-25"
+    "dateModified": "2026-10-03"
   }
   </script>
   <script type="application/ld+json">
@@ -1656,7 +1656,7 @@
         
   
   <span class="md-ellipsis">
-    The C++20 Revolution
+    2.cpp20
     
   </span>
   
@@ -4032,7 +4032,7 @@
         
   
   <span class="md-ellipsis">
-    Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    Cluster mastery  multi node k3s cluster on raspberry pi 5
     
   </span>
   
@@ -4956,7 +4956,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: Private DNS Server with AdGuard Home and Unbound over TLS
+    Network mastery  private dns server with adguard home and unbound over tls
     
   </span>
   
@@ -4978,7 +4978,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: WireGuard VPN Server with a Sleek Web UI via Docker
+    Network mastery  wireguard vpn server with a sleek web ui via docker
     
   </span>
   
@@ -6512,9 +6512,9 @@
 
 
 <div><h1 id="automated-backup-strategies">Automated Backup Strategies<a class="headerlink" href="#automated-backup-strategies" title="Permanent link">¶</a></h1>
-<p>Master the art of automated backups for your Raspberry Pi! This comprehensive guide covers everything from simple file backups to complete system imaging, ensuring your data and configurations are always protected with minimal manual intervention.</p>
+<p>This guide covers scheduled file backups and system images for Raspberry Pi. Choose a method based on what you need to restore, where the backup will be stored, and how much downtime is acceptable.</p>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>Data loss is one of the most devastating problems that can affect any computing system, and Raspberry Pi projects are no exception. Whether it's SD card corruption, hardware failure, or accidental deletion, having a robust backup strategy is essential for maintaining project continuity and protecting valuable data.</p>
+<p>SD-card failure, accidental deletion, and interrupted writes can leave a Raspberry Pi project without its data or configuration. A useful backup includes a tested restore procedure.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7518,19 +7518,19 @@
 <a id="__codelineno-36-8" name="__codelineno-36-8"></a>
 <a id="__codelineno-36-9" name="__codelineno-36-9"></a><span class="k">for</span><span class="w"> </span>FILE<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">$TEST_FILES</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <a id="__codelineno-36-10" name="__codelineno-36-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR$FILE</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-36-11" name="__codelineno-36-11"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ </span><span class="nv">$FILE</span><span class="s2"> exists in backup"</span>
+<a id="__codelineno-36-11" name="__codelineno-36-11"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FILE</span><span class="s2"> exists in backup"</span>
 <a id="__codelineno-36-12" name="__codelineno-36-12"></a>
 <a id="__codelineno-36-13" name="__codelineno-36-13"></a><span class="w">        </span><span class="c1"># Compare checksums</span>
 <a id="__codelineno-36-14" name="__codelineno-36-14"></a><span class="w">        </span><span class="nv">ORIG_SUM</span><span class="o">=</span><span class="k">$(</span>md5sum<span class="w"> </span><span class="s2">"</span><span class="nv">$FILE</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f1<span class="k">)</span>
 <a id="__codelineno-36-15" name="__codelineno-36-15"></a><span class="w">        </span><span class="nv">BACKUP_SUM</span><span class="o">=</span><span class="k">$(</span>md5sum<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR$FILE</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f1<span class="k">)</span>
 <a id="__codelineno-36-16" name="__codelineno-36-16"></a>
 <a id="__codelineno-36-17" name="__codelineno-36-17"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ORIG_SUM</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_SUM</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-36-18" name="__codelineno-36-18"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✓ </span><span class="nv">$FILE</span><span class="s2"> checksum matches"</span>
+<a id="__codelineno-36-18" name="__codelineno-36-18"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FILE</span><span class="s2"> checksum matches"</span>
 <a id="__codelineno-36-19" name="__codelineno-36-19"></a><span class="w">        </span><span class="k">else</span>
-<a id="__codelineno-36-20" name="__codelineno-36-20"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ </span><span class="nv">$FILE</span><span class="s2"> checksum mismatch"</span>
+<a id="__codelineno-36-20" name="__codelineno-36-20"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FILE</span><span class="s2"> checksum mismatch"</span>
 <a id="__codelineno-36-21" name="__codelineno-36-21"></a><span class="w">        </span><span class="k">fi</span>
 <a id="__codelineno-36-22" name="__codelineno-36-22"></a><span class="w">    </span><span class="k">else</span>
-<a id="__codelineno-36-23" name="__codelineno-36-23"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"✗ </span><span class="nv">$FILE</span><span class="s2"> missing from backup"</span>
+<a id="__codelineno-36-23" name="__codelineno-36-23"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FILE</span><span class="s2"> missing from backup"</span>
 <a id="__codelineno-36-24" name="__codelineno-36-24"></a><span class="w">    </span><span class="k">fi</span>
 <a id="__codelineno-36-25" name="__codelineno-36-25"></a><span class="k">done</span>
 </code></pre></div></td></tr></table></div>
@@ -7918,7 +7918,7 @@
 <a id="__codelineno-50-9" name="__codelineno-50-9"></a>sudo<span class="w"> </span>nethogs
 </code></pre></div></td></tr></table></div>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>A well-planned and automated backup strategy is essential for protecting your Raspberry Pi projects and data. This comprehensive guide provides multiple approaches to backup automation, from simple file-level backups to complete system imaging.</p>
+<p>Use file backups for data that changes frequently and system images when you need to restore a complete installation. The examples above show how to schedule both.</p>
 <p>Key takeaways:</p>
 <ol>
 <li><strong>Implement Multiple Backup Types</strong>: Combine file-level, database, and system image backups</li>
@@ -7928,7 +7928,7 @@
 <li><strong>Follow Best Practices</strong>: Implement the 3-2-1 rule and encrypt sensitive data</li>
 </ol>
 <p>Remember that backup strategies should be tailored to your specific needs, considering factors like data importance, recovery time objectives, and available storage resources. Start with basic automated backups and gradually implement more sophisticated solutions as your requirements grow.</p>
-<p>The investment in a robust backup strategy will pay dividends when you need to recover from hardware failures, data corruption, or other disasters. Your future self will thank you for implementing these automated backup solutions!</p></div>
+<p>Test a restore on spare storage and record the steps. Repeat the test after changing the backup format or application data layout.</p></div>
 
 
 
@@ -7951,7 +7951,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 25, 2026 22:07:30 JST">2026-07-25</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
   </span>
 
     

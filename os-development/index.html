@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-11-29">
   
   
-    <meta property="article:modified_time" content="2026-08-01">
+    <meta property="article:modified_time" content="2026-10-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-29",
-    "dateModified": "2026-08-01"
+    "dateModified": "2026-10-03"
   }
   </script>
   <script type="application/ld+json">
@@ -1656,7 +1656,7 @@
         
   
   <span class="md-ellipsis">
-    The C++20 Revolution
+    2.cpp20
     
   </span>
   
@@ -3865,7 +3865,7 @@
         
   
   <span class="md-ellipsis">
-    Cluster Mastery: Multi-Node K3s Cluster on Raspberry Pi 5
+    Cluster mastery  multi node k3s cluster on raspberry pi 5
     
   </span>
   
@@ -4789,7 +4789,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: Private DNS Server with AdGuard Home and Unbound over TLS
+    Network mastery  private dns server with adguard home and unbound over tls
     
   </span>
   
@@ -4811,7 +4811,7 @@
         
   
   <span class="md-ellipsis">
-    Network Mastery: WireGuard VPN Server with a Sleek Web UI via Docker
+    Network mastery  wireguard vpn server with a sleek web ui via docker
     
   </span>
   
@@ -6345,11 +6345,12 @@
 
 
 <div><h1 id="building-a-raspberry-pi-os-from-scratch">Building a Raspberry Pi OS from Scratch<a class="headerlink" href="#building-a-raspberry-pi-os-from-scratch" title="Permanent link">¶</a></h1>
-<p>Welcome to the OS Development series! In this comprehensive tutorial, we'll build a bare-metal operating system for the Raspberry Pi 4B from the ground up.</p>
-<h2 id="disclaimer">⚠️ Disclaimer<a class="headerlink" href="#disclaimer" title="Permanent link">¶</a></h2>
+<p>This series builds a bare-metal operating system for the Raspberry Pi 4B, starting with boot code and UART output, then adding memory management, interrupts, and processes.</p>
+<h2 id="disclaimer">Disclaimer<a class="headerlink" href="#disclaimer" title="Permanent link">¶</a></h2>
 <p><strong>Proceed at your own risk.</strong>
 This tutorial involves low-level hardware programming. While every effort has been made to ensure the correctness of the code, writing directly to hardware registers carries inherent risks. The author is not responsible for any damage to your Raspberry Pi, SD card, or other peripherals that may occur while following this guide.</p>
-<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">¶</a></h2>
+<p><a id="what-youll-learn"></a></p>
+<h2 id="browse-by-topic">Browse by topic<a class="headerlink" href="#browse-by-topic" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Bare-metal programming</strong>: Writing code that runs directly on hardware without an existing OS</li>
 <li><strong>ARM64 assembly</strong>: Understanding the low-level architecture of the Raspberry Pi</li>
@@ -6381,43 +6382,43 @@ This tutorial involves low-level hardware programming. While every effort has be
 </ul>
 <h2 id="course-roadmap">Course Roadmap<a class="headerlink" href="#course-roadmap" title="Permanent link">¶</a></h2>
 <p>This series is organized into phases, building from basic hardware initialization to advanced OS features.</p>
-<h3 id="phase-1-foundation">✅ Phase 1: Foundation<a class="headerlink" href="#phase-1-foundation" title="Permanent link">¶</a></h3>
+<h3 id="phase-1-foundation">Phase 1: Foundation<a class="headerlink" href="#phase-1-foundation" title="Permanent link">¶</a></h3>
 <ol>
 <li><a href="phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/">Environment Setup</a> - Setting up your development environment</li>
 <li><a href="phase1-foundation/02._understanding_the_raspberry_pi_boot_process/">Boot Process</a> - Understanding how the Raspberry Pi boots</li>
 <li><a href="phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/">UART Hello World</a> - Implementing serial communication</li>
 <li><a href="phase1-foundation/04._system_timer_-_precise_timing_for_your_os/">System Timer</a> - Precise timing and delays</li>
 </ol>
-<h3 id="phase-2-hardware-control">✅ Phase 2: Hardware Control<a class="headerlink" href="#phase-2-hardware-control" title="Permanent link">¶</a></h3>
+<h3 id="phase-2-hardware-control">Phase 2: Hardware Control<a class="headerlink" href="#phase-2-hardware-control" title="Permanent link">¶</a></h3>
 <ol>
 <li><a href="phase2-hardware/05._gpio_control_-_controlling_hardware_pins/">GPIO Control</a> - Controlling LEDs and reading buttons</li>
 <li><a href="phase2-hardware/06._interrupts_and_exception_handling/">Interrupts</a> - Handling hardware interrupts and exceptions</li>
 </ol>
-<h3 id="phase-3-display-and-graphics">✅ Phase 3: Display and Graphics<a class="headerlink" href="#phase-3-display-and-graphics" title="Permanent link">¶</a></h3>
+<h3 id="phase-3-display-and-graphics">Phase 3: Display and Graphics<a class="headerlink" href="#phase-3-display-and-graphics" title="Permanent link">¶</a></h3>
 <ol>
 <li><a href="phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/">Framebuffer</a> - Drawing graphics to the screen</li>
 <li><a href="phase3-display/08._text_rendering_-_writing_to_the_screen/">Text Rendering</a> - Rendering text on the framebuffer</li>
 </ol>
-<h3 id="phase-4-memory-management">✅ Phase 4: Memory Management<a class="headerlink" href="#phase-4-memory-management" title="Permanent link">¶</a></h3>
+<h3 id="phase-4-memory-management">Phase 4: Memory Management<a class="headerlink" href="#phase-4-memory-management" title="Permanent link">¶</a></h3>
 <ol>
 <li><a href="phase4-memory/09._memory_allocation_-_managing_the_heap/">Memory Allocation</a> - Dynamic memory management (malloc/free)</li>
 <li><a href="phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/">Virtual Memory (MMU)</a> - Enabling caching and memory protection</li>
 </ol>
-<h3 id="phase-5-process-management">✅ Phase 5: Process Management<a class="headerlink" href="#phase-5-process-management" title="Permanent link">¶</a></h3>
+<h3 id="phase-5-process-management">Phase 5: Process Management<a class="headerlink" href="#phase-5-process-management" title="Permanent link">¶</a></h3>
 <ol>
 <li><a href="phase5-process/11._context_switching_-_the_heart_of_multitasking/">Context Switching</a> - The foundation of multitasking</li>
 <li><a href="phase5-process/12._scheduler_-_preemptive_multitasking/">Scheduler</a> - Preemptive multitasking with time slicing</li>
 </ol>
-<h3 id="phase-6-synchronization-primitives">📋 Phase 6: Synchronization Primitives<a class="headerlink" href="#phase-6-synchronization-primitives" title="Permanent link">¶</a></h3>
+<h3 id="phase-6-synchronization-primitives">Phase 6: Synchronization Primitives<a class="headerlink" href="#phase-6-synchronization-primitives" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>Synchronization Primitives</strong> - Mutexes, semaphores, and spinlocks (Race conditions, ARM64 atomic instructions)</li>
 </ol>
-<h3 id="phase-7-file-systems">📋 Phase 7: File Systems<a class="headerlink" href="#phase-7-file-systems" title="Permanent link">¶</a></h3>
+<h3 id="phase-7-file-systems">Phase 7: File Systems<a class="headerlink" href="#phase-7-file-systems" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>SD Card Driver</strong> - EMMC controller and block device abstraction</li>
 <li><strong>FAT32 File System</strong> - Reading and writing files</li>
 </ol>
-<h3 id="phase-8-user-space">📋 Phase 8: User Space<a class="headerlink" href="#phase-8-user-space" title="Permanent link">¶</a></h3>
+<h3 id="phase-8-user-space">Phase 8: User Space<a class="headerlink" href="#phase-8-user-space" title="Permanent link">¶</a></h3>
 <ol>
 <li><strong>User Space &amp; System Calls</strong> - EL0/EL1 switching, System Calls, loading programs</li>
 </ol>
@@ -6453,7 +6454,7 @@ This tutorial involves low-level hardware programming. While every effort has be
 3. Review the example code in the <code>examples/</code> directory
 4. Ensure your toolchain is correctly installed</p>
 <hr>
-<p>Let's begin the journey of OS development!</p></div>
+<p>Start with the development environment and keep the build commands and serial output from each stage.</p></div>
 
 
 
@@ -6476,7 +6477,7 @@ This tutorial involves low-level hardware programming. While every effort has be
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 1, 2026 08:57:06 JST">2026-08-01</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
   </span>
 
     
