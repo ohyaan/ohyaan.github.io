@@ -6,57 +6,64 @@ nav .twemoji {
     vertical-align: text-top;
 }
 
-.site-support-link {
+.site-support-fab {
     align-items: center;
-    border: 1px solid currentColor;
     border-radius: 999px;
     color: var(--md-primary-bg-color);
     display: inline-flex;
-    flex-shrink: 0;
-    font-size: 0.7rem;
-    font-weight: 700;
-    gap: 0.35rem;
-    height: 2rem;
-    margin-left: 0.5rem;
-    padding: 0 0.7rem;
+    background: var(--md-primary-fg-color);
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    box-shadow: var(--md-shadow-z2);
+    font-size: 0.6rem;
+    font-weight: 600;
+    gap: 0.25rem;
+    height: 1.75rem;
+    padding: 0 0.55rem;
+    position: fixed;
+    right: max(0.75rem, env(safe-area-inset-right));
     text-decoration: none;
     white-space: nowrap;
+    z-index: 3;
 }
 
-.site-support-link:hover,
-.site-support-link:focus-visible {
-    background: rgba(255, 255, 255, 0.16);
+.site-support-fab:hover,
+.site-support-fab:focus-visible {
+    background: var(--md-accent-fg-color);
     color: var(--md-primary-bg-color);
 }
 
-.site-support-link:focus-visible {
+.site-support-fab:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
 }
 
-.site-support-link svg {
+.site-support-fab svg {
     fill: currentColor;
-    height: 1rem;
-    width: 1rem;
-}
-
-.site-support-link__mobile {
-    display: none;
+    height: 0.8rem;
+    width: 0.8rem;
 }
 
 @media screen and (max-width: 600px) {
-    .site-support-link {
-        gap: 0.25rem;
-        margin-left: 0.25rem;
-        padding: 0 0.45rem;
+    .site-support-fab {
+        height: 2rem;
+        justify-content: center;
+        padding: 0;
+        width: 2rem;
     }
 
-    .site-support-link__desktop {
+    .site-support-fab svg {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .site-support-fab span {
         display: none;
     }
+}
 
-    .site-support-link__mobile {
-        display: inline;
+@media print {
+    .site-support-fab {
+        display: none;
     }
 }
 
