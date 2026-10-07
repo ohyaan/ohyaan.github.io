@@ -2846,9 +2846,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limits-and-what-to-measure-next" class="md-nav__link">
+  <a href="#limits-and-design-responsibilities" class="md-nav__link">
     <span class="md-ellipsis">
-      Limits and What to Measure Next
+      Limits and Design Responsibilities
     </span>
   </a>
   
@@ -6741,7 +6741,7 @@
 
 
 <div><h1 id="ecs-storage-in-c-maps-sparse-sets-and-archetypes">ECS Storage in C++: Maps, Sparse Sets, and Archetypes<a class="headerlink" href="#ecs-storage-in-c-maps-sparse-sets-and-archetypes" title="Permanent link">¶</a></h1>
-<p>Choose component storage from the work you need to perform, not from an assumption that every ECS layout is faster. This chapter builds a bounded sparse set, tests its mapping and deletion rules, and explains what a storage change must preserve before Raspberry Pi measurements can be meaningful.</p>
+<p>Choose component storage by its access and lifetime rules, not from an assumption that every ECS layout is faster. This chapter builds a bounded sparse set and tests its mapping and deletion rules, showing how a layout change affects debugging, correctness, and the mechanisms you must maintain.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6948,7 +6948,8 @@ full simulation, generation, and deferred-command suites still run unchanged.
 Release checks throw instead of relying on <code>assert</code>.</p>
 <p>Debug and Release host verification uses GNU C++ 15.2.0. No Raspberry Pi hardware
 measurement, cache-miss count, memory reduction, or performance ranking is claimed.</p>
-<h2 id="limits-and-what-to-measure-next">Limits and What to Measure Next<a class="headerlink" href="#limits-and-what-to-measure-next" title="Permanent link">¶</a></h2>
+<p><a id="limits-and-what-to-measure-next"></a></p>
+<h2 id="limits-and-design-responsibilities">Limits and Design Responsibilities<a class="headerlink" href="#limits-and-design-responsibilities" title="Permanent link">¶</a></h2>
 <p>This template deliberately supports trivially copyable, nonthrowing-copy value
 components only. It is not a generic container for arbitrary owning types.
 Store copying and moving are disabled; cloning and transfer policies are not implemented.
@@ -6959,11 +6960,22 @@ growth allocates and moves entries. Erase and lookup have constant mapping work.
 indices or another map may fit such workloads better. The configured bound
 is not automatic growth, and this implementation does not handle unbounded
 external identifiers.</p>
-<p>Before replacing the existing stores, compare equivalent queries and include
-join costs, creation/deletion churn, sparse-index memory, allocation, and
-creation-order observations. Use realistic occupancy and component combinations.
-Keep correctness tests separate from timed regions. Chapter 9 will address a
-reproducible measurement procedure; host results must not be labelled Pi results.</p>
+<p>Before replacing the existing stores, explain the change in responsibilities:</p>
+<ul>
+<li>Which creation, deletion, lookup, and observation paths must change together?</li>
+<li>How will a developer trace a component after swap-and-pop moves it?</li>
+<li>Who guarantees handle validation, complete cleanup, and creation-order output?</li>
+<li>Is maintaining mapping repair, bounds, and borrowing rules worth the new layout?</li>
+</ul>
+<p>The map version can be easier to inspect by key; the dense version makes
+iteration explicit but adds mapping and relocation obligations. Neither
+eliminates the World's identity or ordering policy. Chapter 9 will compare
+these kinds of edit scope, execution traces, invariant tests, and maintenance
+costs for a concrete design change, without requiring timing results.</p>
+<p>If a real resource limit later motivates measurement, include equivalent queries,
+joins, churn, occupancy, allocation, and order-preservation work. Keep correctness
+checks outside timed regions, and do not label host results as Pi results.
+That is optional evidence for a specific constraint, not the course's next gate.</p>
 <p>Keep maps when their simplicity meets your requirements. Consider independent
 packed pools when component scans and joins justify them; consider table-based
 grouping when recurring combinations and matched-column iteration justify
@@ -6996,7 +7008,7 @@ Return to the <a href="../">course overview</a>; Chapter 9 is planned, not publi
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 08:35:54 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 21:57:33 JST">2026-10-07</span>
   </span>
 
     

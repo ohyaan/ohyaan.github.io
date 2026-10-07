@@ -6859,6 +6859,26 @@ It is not a proof of all possible inputs, a concurrency test, or a benchmark.</p
 </table>
 <p>These are investigation prompts, not automatic rules.
 Do not rewrite a working system simply to match the last row.</p>
+<h3 id="compare-the-work-of-changing-and-understanding-the-design">Compare the Work of Changing and Understanding the Design<a class="headerlink" href="#compare-the-work-of-changing-and-understanding-the-design" title="Permanent link">¶</a></h3>
+<p>Before choosing a representation, collect four kinds of evidence for the same
+new requirement:</p>
+<ol>
+<li><strong>Edit scope:</strong> list the factory, record, loop, store, cleanup, and API changes
+   it would require. Separate stores do not automatically make every new
+   capability a one-file change.</li>
+<li><strong>Execution trace:</strong> follow one body through movement and expiration. Explain
+   where a debugger stops and how to find every operation that writes its state.
+   Distributed systems can clarify a pass while obscuring a body's whole story.</li>
+<li><strong>Invariant tests:</strong> specify expected ordering, ownership, and invalid-state
+   handling before editing. Passing equivalence tests is necessary evidence for
+   behaviour, not evidence of superior maintainability.</li>
+<li><strong>Maintenance obligations:</strong> identify the policies and infrastructure that
+   must remain consistent. An ID registry or deferred queue is useful only when
+   its requirement justifies that responsibility.</li>
+</ol>
+<p>Keep these comparisons qualitative and specific. Counting files alone is not
+a reliable complexity metric, and a short implementation can hide a difficult
+policy. No performance result is required to discuss these trade-offs.</p>
 <h3 id="exercise-a-fourth-independent-capability">Exercise: A Fourth Independent Capability<a class="headerlink" href="#exercise-a-fourth-independent-capability" title="Permanent link">¶</a></h3>
 <p>Sketch “acceleration” in each representation without implementing it first.
 Identify the files and functions that would change. Specify whether acceleration
@@ -6890,7 +6910,7 @@ Return to the <a href="../#roadmap-after-entity-identity">course overview and pl
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 06:53:47 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 21:57:33 JST">2026-10-07</span>
   </span>
 
     

@@ -6619,7 +6619,7 @@
 
 
 <div><h1 id="data-oriented-design-ecs">Data-Oriented Design &amp; ECS<a class="headerlink" href="#data-oriented-design-ecs" title="Permanent link">¶</a></h1>
-<p>This course teaches how to choose data ownership and processing boundaries in C++, with Entity Component System (ECS) development as a later application. Start with a small simulation, compare designs under changing requirements, and test the results before discussing speed.</p>
+<p>This course teaches how to choose data ownership and processing boundaries in C++. Compare plain records, composition, and ECS by the changes they make easier, the behaviour you can trace, the invariants they protect, and the machinery you must maintain. Performance is an additional constraint when needed, not the reason every design must become ECS.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6648,6 +6648,43 @@ Chapter 7 defines a fixed frame order and a recoverable deferred command queue.
 Chapter 8 isolates a sparse-store experiment without replacing the earlier Worlds.
 The earlier chapters explain why we might introduce those boundaries.</p>
 <h2 id="what-you-will-learn-to-decide">What You Will Learn to Decide<a class="headerlink" href="#what-you-will-learn-to-decide" title="Permanent link">¶</a></h2>
+<p>The course uses four design questions throughout:</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Evidence to examine in the shared simulation</th>
+<th>Trade-off to explain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Changeability</td>
+<td>Trace the edits needed for a new independent capability or rule</td>
+<td>Separate systems can localise a pass, but a new capability can still require store, cleanup, and API changes</td>
+</tr>
+<tr>
+<td>Understandability and debugging</td>
+<td>Follow one body's state through a frame and locate every writer</td>
+<td>Per-body logic can be easy to follow; distributed systems require explicit execution and visibility boundaries</td>
+</tr>
+<tr>
+<td>Correctness</td>
+<td>State and test ownership, lifetime, stale-handle, and ordering rules</td>
+<td>Handles and queues solve particular problems while adding invariants of their own</td>
+</tr>
+<tr>
+<td>Maintenance cost</td>
+<td>Identify factories, stores, registries, queues, and tests the team must own</td>
+<td>Keep the direct loop if extra mechanisms do not solve a concrete requirement</td>
+</tr>
+</tbody>
+</table>
+<p>This is not a scorecard with an automatic winner. Tests establish behaviour
+for their fixtures; they do not prove that a design is easier to maintain.
+Modification sketches, execution traces, and explicit policies support that
+judgement. ECS can make capability-oriented processing clearer while making
+an individual entity's complete behaviour harder to follow.</p>
 <ul>
 <li>Should a capability be a field, an owned value, a virtual operation, or data in a separate store?</li>
 <li>Which subsystem owns a piece of state, and which operations may change it?</li>
@@ -6666,7 +6703,8 @@ library is required.</p>
 <p>Raspberry Pi OS Desktop and Lite can both build the examples with a suitable
 C++17 compiler. The code does not depend on a particular Pi model or ARM
 instruction set. Local compiler tests are not a claim of Raspberry Pi hardware
-testing; hardware measurements belong to a later chapter.</p>
+testing. Raspberry Pi hardware is not required for the course's architectural
+comparisons. Performance measurements, if needed, are a separate follow-up.</p>
 <p>For language preparation, use the <a href="../cpp-learning/">Modern C++ course</a>.
 For individual design techniques, use <a href="../design-patterns/">Design Patterns</a>.</p>
 <h2 id="one-shared-simulation-not-unrelated-examples">One Shared Simulation, Not Unrelated Examples<a class="headerlink" href="#one-shared-simulation-not-unrelated-examples" title="Permanent link">¶</a></h2>
@@ -6697,19 +6735,27 @@ before modifying the examples.</p>
 </thead>
 <tbody>
 <tr>
-<td>9. Raspberry Pi measurements</td>
-<td>How do we measure equivalent work without hiding costs?</td>
+<td>9. Evaluating a design change</td>
+<td>How do we compare edit scope, execution traces, invariant tests, and maintenance burden for the same new requirement?</td>
 </tr>
 <tr>
 <td>10. Choosing an approach</td>
-<td>When should we use a library, our own code, or no ECS at all?</td>
+<td>When do plain records, composition, a library, or our own ECS fit those requirements and the team's responsibilities?</td>
 </tr>
 </tbody>
 </table>
+<p>Neither lesson depends on a benchmark. Hardware timing and memory measurements
+are optional follow-up work when an actual resource requirement needs evidence;
+they are not a prerequisite for deciding ownership or processing boundaries.</p>
 <h2 id="how-to-read-the-course">How to Read the Course<a class="headerlink" href="#how-to-read-the-course" title="Permanent link">¶</a></h2>
 <p>Each lesson follows requirements, a straightforward implementation, change
 pressure, alternatives, tests, and trade-offs. Keep a simple implementation if
 it still meets your requirements.</p>
+<p>Read Chapters 1–3 as design alternatives, not inferior stages to discard.
+Chapters 4–7 introduce mechanisms for specific identity and visibility needs.
+Chapter 8 shows how a layout choice changes correctness and access obligations,
+not a mandatory optimisation step. Chapters 9–10 will bring those obligations
+back to a concrete design decision.</p>
 <p>The <a href="https://gist.github.com/senderista/f75a655ff558fd70d9009384766c02b4">Big OOPs transcript</a>
 is a discussion starting point. It is not our implementation specification or a
 benchmark. The course's concrete decisions are explained and tested separately.</p>
@@ -6736,7 +6782,7 @@ benchmark. The course's concrete decisions are explained and tested separately.<
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 08:35:54 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 21:57:33 JST">2026-10-07</span>
   </span>
 
     
