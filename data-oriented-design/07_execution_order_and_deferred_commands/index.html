@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Build a C++ ECS command queue with explicit frame order and flush boundaries. Test deferred creation, deletion, stale handles, and partial-failure recovery.">
+        <meta name="description" content="Define C++ ECS frame order and deferred change visibility without generational handles. Test stable decisions, next-frame updates, and queue recovery.">
       
       
       
         <link rel="canonical" href="https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/">
       
       
-        <link rel="prev" href="../06_generational_handles_and_slot_reuse/">
+        <link rel="prev" href="../06_components_and_systems/">
       
       
-        <link rel="next" href="../08_component_storage_sparse_sets_and_archetypes/">
+        <link rel="next" href="../08_debugging_state_and_execution/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>ECS Deferred Commands in C++: Execution Order and Flush Boundaries - With Raspberry Pi</title>
+        <title>C++ ECS Execution Order and Deferred Changes - With Raspberry Pi</title>
       
     
     
@@ -78,14 +78,14 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="ECS Deferred Commands in C++: Execution Order and Flush Boundaries - With Raspberry Pi">
-  <meta property="og:description" content="Build a C++ ECS command queue with explicit frame order and flush boundaries. Test deferred creation, deletion, stale handles, and partial-failure recovery.">
+  <meta property="og:title" content="C++ ECS Execution Order and Deferred Changes - With Raspberry Pi">
+  <meta property="og:description" content="Define C++ ECS frame order and deferred change visibility without generational handles. Test stable decisions, next-frame updates, and queue recovery.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__07_execution_order_and_deferred_commands.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="ECS Deferred Commands in C++: Execution Order and Flush Boundaries">
+  <meta property="og:image:alt" content="C++ ECS Execution Order and Deferred Changes">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-10-07">
@@ -95,8 +95,8 @@
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ECS Deferred Commands in C++: Execution Order and Flush Boundaries - With Raspberry Pi">
-  <meta name="twitter:description" content="Build a C++ ECS command queue with explicit frame order and flush boundaries. Test deferred creation, deletion, stale handles, and partial-failure recovery.">
+  <meta name="twitter:title" content="C++ ECS Execution Order and Deferred Changes - With Raspberry Pi">
+  <meta name="twitter:description" content="Define C++ ECS frame order and deferred change visibility without generational handles. Test stable decisions, next-frame updates, and queue recovery.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__07_execution_order_and_deferred_commands.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "ECS Deferred Commands in C++: Execution Order and Flush Boundaries",
-    "description": "Build a C++ ECS command queue with explicit frame order and flush boundaries. Test deferred creation, deletion, stale handles, and partial-failure recovery.",
+    "headline": "C++ ECS Execution Order and Deferred Changes",
+    "description": "Define C++ ECS frame order and deferred change visibility without generational handles. Test stable decisions, next-frame updates, and queue recovery.",
     "url": "https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/"},
     "image": ["https://ohyaan.github.io/images/og/pages/data-oriented-design__07_execution_order_and_deferred_commands.jpg"],
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "ECS Deferred Commands in C++: Execution Order and Flush Boundaries", "item": "https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/"}
+      {"@type": "ListItem", "position": 2, "name": "C++ ECS Execution Order and Deferred Changes", "item": "https://ohyaan.github.io/data-oriented-design/07_execution_order_and_deferred_commands/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ecs-deferred-commands-in-c-execution-order-and-flush-boundaries" class="md-skip">
+        <a href="#c-ecs-execution-order-and-deferred-changes" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ECS Deferred Commands in C++: Execution Order and Flush Boundaries
+              C++ ECS Execution Order and Deferred Changes
             
           </span>
         </div>
@@ -2508,18 +2508,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -2569,6 +2557,69 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Main course
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Main course
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -2576,7 +2627,7 @@
         
   
   <span class="md-ellipsis">
-    C++ Design Boundaries: From Big OOPs to ECS
+    C++ Design Boundaries: Start with Requirements
     
   </span>
   
@@ -2598,7 +2649,7 @@
         
   
   <span class="md-ellipsis">
-    Plain C++ Structs and Loops: A Simulation Before ECS
+    Plain C++ Structs and Loops: Build the Baseline
     
   </span>
   
@@ -2616,11 +2667,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../03_inheritance_and_composition/" class="md-nav__link">
+      <a href="../03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    C++ Inheritance vs Composition Before Building an ECS
+    Add Acceleration to a C++ Simulation Before Refactoring
     
   </span>
   
@@ -2638,11 +2689,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../04_entity_identity_and_ids/" class="md-nav__link">
+      <a href="../04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    C++ Entity IDs: Stable Identity Before Building an ECS
+    C++ Records vs Composition vs Inheritance: One Change
     
   </span>
   
@@ -2660,11 +2711,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../05_components_and_systems/" class="md-nav__link">
+      <a href="../05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Minimal ECS in C++: Component Stores and Matching Systems
+    C++ Entity Identity and Ownership Without ECS
     
   </span>
   
@@ -2682,11 +2733,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../06_generational_handles_and_slot_reuse/" class="md-nav__link">
+      <a href="../06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ECS Generational Handles in C++: Safe Entity Slot Reuse
+    C++ ECS Components and Systems: Benefits and Costs
     
   </span>
   
@@ -2717,7 +2768,7 @@
           
   
   <span class="md-ellipsis">
-    ECS Deferred Commands in C++: Execution Order and Flush Boundaries
+    C++ ECS Execution Order and Deferred Changes
     
   </span>
   
@@ -2729,7 +2780,7 @@
         
   
   <span class="md-ellipsis">
-    ECS Deferred Commands in C++: Execution Order and Flush Boundaries
+    C++ ECS Execution Order and Deferred Changes
     
   </span>
   
@@ -2752,72 +2803,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-requirement-decide-without-changing-membership" class="md-nav__link">
+  <a href="#frame-contract" class="md-nav__link">
     <span class="md-ellipsis">
-      The Requirement: Decide Without Changing Membership
+      Frame Contract
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#c-ecs-execution-order-and-dependencies" class="md-nav__link">
+  <a href="#run-a-replacement" class="md-nav__link">
     <span class="md-ellipsis">
-      C++ ECS Execution Order and Dependencies
+      Run a Replacement
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#readview-and-writer-have-different-jobs" class="md-nav__link">
+  <a href="#restrict-mutation-authority" class="md-nav__link">
     <span class="md-ellipsis">
-      ReadView and Writer Have Different Jobs
+      Restrict Mutation Authority
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#fifo-playback-and-creation-receipts" class="md-nav__link">
+  <a href="#failure-is-not-a-transaction" class="md-nav__link">
     <span class="md-ellipsis">
-      FIFO Playback and Creation Receipts
+      Failure Is Not a Transaction
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#failure-policy-committed-prefix-retained-suffix" class="md-nav__link">
+  <a href="#tests-specify-timing" class="md-nav__link">
     <span class="md-ellipsis">
-      Failure Policy: Committed Prefix, Retained Suffix
+      Tests Specify Timing
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-and-run-the-deferred-example" class="md-nav__link">
+  <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
-      Build and Run the Deferred Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-the-tests-establish" class="md-nav__link">
-    <span class="md-ellipsis">
-      What the Tests Establish
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#costs-and-next-boundaries" class="md-nav__link">
-    <span class="md-ellipsis">
-      Costs and Next Boundaries
+      Exercise
     </span>
   </a>
   
@@ -2839,16 +2872,179 @@
   
   
     <li class="md-nav__item">
-      <a href="../08_component_storage_sparse_sets_and_archetypes/" class="md-nav__link">
+      <a href="../08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ECS Storage in C++: Maps, Sparse Sets, and Archetypes
+    Debug C++ ECS State: Trace Writers and Execution Order
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_maintenance_and_invariants/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintain C++ ECS: Invariants, Change Impact, and Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_choosing_a_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Choose Records, Composition, or ECS for C++ Projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../advanced/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Optional extensions
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Optional extensions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Generational Handles: Add Slot Reuse Only When Needed
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/02_component_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Component Storage: Bounded Sparse Sets and Invariants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -6731,8 +6927,8 @@
 
 
 
-<div><h1 id="ecs-deferred-commands-in-c-execution-order-and-flush-boundaries">ECS Deferred Commands in C++: Execution Order and Flush Boundaries<a class="headerlink" href="#ecs-deferred-commands-in-c-execution-order-and-flush-boundaries" title="Permanent link">¶</a></h1>
-<p>Record structural changes during a decision phase, then apply them at an explicit boundary. This chapter adds a small FIFO command queue around the previous generational ECS, defines when changes become visible, and tests recovery without replaying already-applied commands.</p>
+<div><h1 id="c-ecs-execution-order-and-deferred-changes">C++ ECS Execution Order and Deferred Changes<a class="headerlink" href="#c-ecs-execution-order-and-deferred-changes" title="Permanent link">¶</a></h1>
+<p>A queue solves a timing problem: decisions observe stable membership and requested changes become visible at a defined boundary. It does not require slot reuse.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6742,302 +6938,49 @@
   </script>
 </div>
 
-<h2 id="the-requirement-decide-without-changing-membership">The Requirement: Decide Without Changing Membership<a class="headerlink" href="#the-requirement-decide-without-changing-membership" title="Permanent link">¶</a></h2>
-<p><a href="../06_generational_handles_and_slot_reuse/">Chapter 6</a> protects reused slots
-with generations, but it does not define an application callback boundary.
-Suppose a rule scans surviving entities, removes selected bodies, and creates
-replacements. We want the scan to observe one stable membership set, rather
-than seeing its own creations partway through iteration.</p>
-<p>Copied handle lists avoid borrowing iterators, but immediate deletion still
-changes what later lookups observe. Stable handles alone do not define when
-changes become visible. We need an execution and visibility policy.</p>
-<p>This example adds only queued <strong>spawn</strong> and <strong>destroy</strong> operations. It does
-not implement dynamic component attachment, a dependency graph, worker threads,
-or a generic game engine scheduler.</p>
-<h2 id="c-ecs-execution-order-and-dependencies">C++ ECS Execution Order and Dependencies<a class="headerlink" href="#c-ecs-execution-order-and-dependencies" title="Permanent link">¶</a></h2>
-<p>The frame order is fixed, not inferred from registrations:</p>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Reads</th>
-<th>Changes</th>
-<th>Visible to the next phase</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Movement</td>
-<td>Position, Velocity</td>
-<td>Position values</td>
-<td>Updated positions</td>
-</tr>
-<tr>
-<td>Lifetime</td>
-<td>Lifetime</td>
-<td>Remaining values; collected expiry IDs</td>
-<td>Expiration decisions</td>
-</tr>
-<tr>
-<td>Intrinsic cleanup</td>
-<td>Collected expiry IDs</td>
-<td>All components, slot generation, live order</td>
-<td>Surviving entities only</td>
-</tr>
-<tr>
-<td>Application decisions</td>
-<td>Copied survivor observations</td>
-<td>Pending command queue only</td>
-<td>World membership is unchanged</td>
-</tr>
-<tr>
-<td>Flush</td>
-<td>FIFO commands and current handles</td>
-<td>Entity membership and receipts</td>
-<td>Applied structural changes</td>
-</tr>
-<tr>
-<td>Observation after return</td>
-<td>Committed state</td>
-<td>No changes</td>
-<td>Final snapshot/render data</td>
-</tr>
-</tbody>
-</table>
-<p>The first three phases are the unchanged <code>generational::World::step</code>.
-The decisions callback therefore sees post-movement, post-expiration survivors.
-An entity that expires in this frame cannot be inspected there as a live body.</p>
-<p>These dependencies are part of our simulation contract. Cleanup must not run
-before movement, decisions must not scan already-expired bodies, and final
-rendering must see queued deletions. Moving the flush changes semantics even
-if no iterator becomes invalid.</p>
-<p>The wrapper expresses that sequence directly:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Decisions</span><span class="o">&amp;</span><span class="w"> </span><span class="n">decisions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="n">ready</span><span class="p">();</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="n">validate_dt</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">    </span><span class="n">ActiveGuard</span><span class="w"> </span><span class="n">guard</span><span class="p">(</span><span class="n">active_</span><span class="p">);</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="n">world_</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span><span class="w"> </span><span class="c1">// Movement -&gt; lifetime -&gt; intrinsic expiration cleanup.</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">decisions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">ReadView</span><span class="w"> </span><span class="n">view</span><span class="p">(</span><span class="n">world_</span><span class="p">);</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">        </span><span class="n">Writer</span><span class="w"> </span><span class="n">writer</span><span class="p">(</span><span class="n">buffer_</span><span class="p">);</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">        </span><span class="n">decisions</span><span class="p">(</span><span class="n">view</span><span class="p">,</span><span class="w"> </span><span class="n">writer</span><span class="p">);</span><span class="w"> </span><span class="c1">// Reads and recording only; no structural playback.</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="n">buffer_</span><span class="p">.</span><span class="n">flush</span><span class="p">(</span><span class="n">world_</span><span class="p">);</span><span class="w"> </span><span class="c1">// FIFO structural changes at the explicit boundary.</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="p">}</span>
+<h2 id="frame-contract">Frame Contract<a class="headerlink" href="#frame-contract" title="Permanent link">¶</a></h2>
+<p>DeferredWorld wraps chapter 6:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>validate dt
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>acceleration -&gt; movement -&gt; lifetime -&gt; cleanup
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>read-only decision callback records commands
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>flush in FIFO order
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>return
 </code></pre></div></td></tr></table></div>
-<p><code>ready()</code> rejects reentrant frames and unresolved pending commands. Invalid
-<code>dt</code> rejects before simulation or callback execution. The guard restores the
-idle state even if a callback or playback throws; it does not roll back time.</p>
-<p>For a library comparison, <a href="https://www.flecs.dev/flecs/Systems.html#sync-points">Flecs documents sync points</a>
-that merge queued operations before later systems need to observe them. Our
-single fixed boundary demonstrates visibility, not Flecs' pipeline analysis
-or its automatically inserted sync points.</p>
-<h2 id="readview-and-writer-have-different-jobs">ReadView and Writer Have Different Jobs<a class="headerlink" href="#readview-and-writer-have-different-jobs" title="Permanent link">¶</a></h2>
-<p><code>ReadView</code> offers copied handles, snapshots, and state lists, plus handle
-validity checks. It cannot spawn or destroy. <code>Writer</code> records commands and
-cannot directly access mutable component stores or flush the queue.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">spawn</span><span class="p">(</span><span class="n">Seed</span><span class="w"> </span><span class="n">seed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">buffer_</span><span class="p">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="n">Entity</span><span class="w"> </span><span class="n">entity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">buffer_</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">entity</span><span class="p">));</span><span class="w"> </span><span class="p">}</span>
+<p>Decisions see post-simulation state, after natural expiration. Recorded commands do not change membership during the callback. Newly created bodies first move next frame.</p>
+<p>This is our chosen policy, not a universal ECS rule.</p>
+<h2 id="run-a-replacement">Run a Replacement<a class="headerlink" href="#run-a-replacement" title="Permanent link">¶</a></h2>
+<p>Advance A to x=1, request deletion, then spawn from its snapshot. During decisions A resolves; after flush the new handle resolves at x=1.</p>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>/tmp/pi-design-main/design_demo<span class="w"> </span>deferred
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>/tmp/pi-design-main/design_tests<span class="w"> </span>deferred
 </code></pre></div></td></tr></table></div>
-<p>The inputs are copied into the queue. A destruction command retains the full
-World/slot/generation handle, not just a diagnostic slot number. A creation
-command retains its seed, not a reference to a callback's local variable.</p>
-<p>Writer is noncopyable, and both callback objects are scoped to that call.
-Do not retain pointers or references to them. Returned handles and snapshots
-are values that can be kept; they still do not own their entities.</p>
-<p>Capturing the outer wrapper does not provide an immediate mutation shortcut:
-its <code>spawn</code>, <code>destroy</code>, <code>step</code>, retry, discard, and receipt-reset operations
-reject while a frame is active. Const observations remain available. This is
-a single-threaded API discipline, not authentication or a concurrency guard.</p>
-<h2 id="fifo-playback-and-creation-receipts">FIFO Playback and Creation Receipts<a class="headerlink" href="#fifo-playback-and-creation-receipts" title="Permanent link">¶</a></h2>
-<p>Commands execute in recording order, without coalescing or reordering:</p>
-<table>
-<thead>
-<tr>
-<th>Command sequence</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Destroy A, then spawn B</td>
-<td>B may reuse A's slot with a new generation</td>
-</tr>
-<tr>
-<td>Spawn B, then destroy A</td>
-<td>B cannot reuse A's still-live slot</td>
-</tr>
-<tr>
-<td>Destroy A twice</td>
-<td>First succeeds; second is ignored</td>
-</tr>
-<tr>
-<td>Destroy stale A after a replacement</td>
-<td>Replacement is protected by generation validation</td>
-</tr>
-<tr>
-<td>Destroy foreign or empty handle</td>
-<td>Ignored; local entities are unchanged</td>
-</tr>
-<tr>
-<td>Spawn an initially expired seed</td>
-<td>No entity and no creation receipt</td>
-</tr>
-</tbody>
-</table>
-<p>The World does not issue a handle at recording time. Successful creations
-appear in <code>results().created</code> in command order after playback. There is no
-pending-entity placeholder or ability to target an uncreated entity within
-the same queue.</p>
-<p>Results also count successful destruction, ignored destruction, and ignored
-creation. They accumulate until <code>take_results()</code> moves them to the caller and
-resets the report. Taking results requires no pending commands, so receipts
-for a partially applied batch are not silently forgotten.</p>
-<p>A freshly created entity becomes visible after flush but does <strong>not</strong> move
-in the frame that created it: movement has already run. Its first step occurs
-in the next frame. Surviving creation order is retained by Chapter 6's live
-order list, including when a small-numbered slot is reused.</p>
-<h2 id="failure-policy-committed-prefix-retained-suffix">Failure Policy: Committed Prefix, Retained Suffix<a class="headerlink" href="#failure-policy-committed-prefix-retained-suffix" title="Permanent link">¶</a></h2>
-<p>Deferral does not imply a transaction. This queue applies one command at a
-time and removes it only after application and result recording succeed:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// Pop only after application and receipt recording succeed.</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="n">commands_</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>during decisions: old alive=1 x=1
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>after flush: old alive=0 new x=1
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>next frame: new x=2.5
 </code></pre></div></td></tr></table></div>
-<p>Creation-receipt capacity is reserved before playback. Entity handle copying
-is checked as nonthrowing, so recording a successful creation does not allocate
-after that creation commits. The target's operations must fail before mutation;
-the supplied generational World's spawn rollback policy provides that contract.
-The templated target path exists for a controlled failure fixture, not a
-promise to support arbitrary side-effectful executors or reentrant targets.</p>
-<table>
-<thead>
-<tr>
-<th>Failure point</th>
-<th>State retained</th>
-<th>Recovery</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Invalid time step</td>
-<td>No simulation or callback change</td>
-<td>Correct the input</td>
-</tr>
-<tr>
-<td>Decision callback throws</td>
-<td>Simulation is advanced; already recorded commands remain unapplied</td>
-<td>Inspect, then retry flush or discard pending commands</td>
-</tr>
-<tr>
-<td>Receipt reservation fails</td>
-<td>No queued command applied; simulation may already be advanced</td>
-<td>Retry flush or discard</td>
-</tr>
-<tr>
-<td>Command application throws before mutation</td>
-<td>Successful prefix and its receipts remain; failed front and unattempted suffix stay queued</td>
-<td>Retry only the pending queue or discard it</td>
-</tr>
-</tbody>
-</table>
-<p><code>retry_flush()</code> does not run movement, decrement lifetimes, or call decisions
-again. A new frame and immediate mutation are blocked while pending commands
-remain. <code>discard_pending()</code> abandons only unapplied work; it does not undo the
-simulation or successful prefix. After either resolution, consume receipts
-with <code>take_results()</code> as needed.</p>
-<p>If a callback fails before recording any command, the queue can be empty even
-though simulation advanced. An exception still means the frame did not finish;
-inspect state rather than blindly repeating the same time step.</p>
-<p>No allocation-failure injection is claimed. The playback test uses a target
-that throws deliberately before mutation, exercising prefix removal, retained
-receipts, and retry bookkeeping. External side effects inside callbacks are
-outside this recovery policy.</p>
-<h2 id="build-and-run-the-deferred-example">Build and Run the Deferred Example<a class="headerlink" href="#build-and-run-the-deferred-example" title="Permanent link">¶</a></h2>
-<p>Use the <a href="../02_plain_structs_and_loops/#build-the-plain-c-simulation">Chapter 2 setup and complete download list</a>,
-then build the current project:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>docs/data-oriented-design/examples<span class="w"> </span>-B<span class="w"> </span>/tmp/pi-deferred-debug<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>/tmp/pi-deferred-debug
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>/tmp/pi-deferred-debug<span class="w"> </span>--output-on-failure
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>/tmp/pi-deferred-debug/deferred_demo
-</code></pre></div></td></tr></table></div>
-<p>Use a different build directory if that path belongs to another project.
-For downloaded files, point <code>cmake -S</code> at their local folder. New files are
-<a href="../examples/deferred_ecs.hpp">deferred_ecs.hpp</a>,
-<a href="../examples/deferred_demo.cpp">deferred_demo.cpp</a>, and
-<a href="../examples/deferred_tests.cpp">deferred_tests.cpp</a>. They use the unchanged
-Chapter 4–6 headers and updated <a href="../examples/CMakeLists.txt">CMakeLists.txt</a>.</p>
-<p>Expected demo output:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>during decisions: old alive=1 position=1
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>after flush: old alive=0 replacement position=1
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>same slot=1 new generation=2
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>next frame: replacement position=2
-</code></pre></div></td></tr></table></div>
-<p>Debug and Release verification uses GNU C++ 15.2.0 on the development host.
-No Raspberry Pi hardware run, parallel speedup, or performance measurement is
-claimed. Record your environment and results when reproducing the tests on a Pi.</p>
-<h2 id="what-the-tests-establish">What the Tests Establish<a class="headerlink" href="#what-the-tests-establish" title="Permanent link">¶</a></h2>
-<ul>
-<li>Without recorded changes, all eight capability combinations match the plain
-  and Chapter 6 implementations across multiple frames and rendering outputs.</li>
-<li>Invalid time steps reject before callback execution or state changes.</li>
-<li>Decisions see movement results and intrinsic expiration cleanup.</li>
-<li>Recorded deletion leaves the entity readable until flush; creation starts
-  moving only in the next frame.</li>
-<li>FIFO order controls whether a deleted slot is available for a creation.</li>
-<li>Duplicate, stale, foreign, empty, and already-expired targets are ignored;
-  a queued stale deletion cannot delete a replacement generation.</li>
-<li>Queued deletion clears all component stores.</li>
-<li>Reentrant mutation, flush, and frame calls are rejected during decisions.</li>
-<li>Callback failure retains recording without playback, blocks another frame,
-  and supports flush-only retry or explicit discard.</li>
-<li>A controlled playback failure retains the failed command and suffix,
-  preserves successful-prefix receipts, and does not replay the prefix on retry.</li>
-<li>Receipt reset and empty playback have defined behaviour.</li>
-</ul>
-<p>Release checks throw on failure instead of using <code>assert</code>. Earlier examples
-and their tests remain unchanged.</p>
-<h2 id="costs-and-next-boundaries">Costs and Next Boundaries<a class="headerlink" href="#costs-and-next-boundaries" title="Permanent link">¶</a></h2>
-<p>The queue stores copies and can allocate while recording. Receipts retain
-handles until consumed, including their namespace markers. ReadView list
-operations allocate copied observations; this is a correctness-oriented
-teaching boundary, not a zero-allocation hot-loop API.</p>
-<p>Processing remains single-threaded. Read/write columns explain our dependency
-choices, but they are not a proof that arbitrary callbacks or systems can run
-in parallel. There is no automatic ordering, dynamic component-edit command,
-cross-queue merge policy, command cancellation by ID, or rollback transaction.</p>
-<p>Keep Chapter 6's direct calls when all membership changes already occur at a
-clear safe boundary. Add deferral when observation stability and the timing
-of structural changes justify the extra semantics and memory.</p>
-<h3 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">¶</a></h3>
-<p>Queue two replacements while iterating <code>view.entities()</code>. Predict which bodies
-the callback can inspect, the order of creation receipts, and which frame first
-moves each replacement. Then make the callback throw after recording one
-replacement: explain the difference between retrying flush and running another
-simulation step.</p>
-<p>Previous: <a href="../06_generational_handles_and_slot_reuse/">Generational handles and safe slot reuse</a>.
-Next: <a href="../08_component_storage_sparse_sets_and_archetypes/">Component storage, sparse sets, and archetypes</a>.
-Return to the <a href="../">course overview</a>.</p></div>
+<p>The replacement receives a new monotonic ID. No generations are involved.</p>
+<h2 id="restrict-mutation-authority">Restrict Mutation Authority<a class="headerlink" href="#restrict-mutation-authority" title="Permanent link">¶</a></h2>
+<p>The callback receives a const world view and Decisions writer. The writer exposes spawn/destroy, not immediate mutation or flush.</p>
+<p>Mutation through a captured wrapper reference during a frame is rejected. Do not retain callback views or writer references beyond the callback.</p>
+<p>Spawn input is validated when recorded. Destroy records the full handle, including owner, not merely its number.</p>
+<h2 id="failure-is-not-a-transaction">Failure Is Not a Transaction<a class="headerlink" href="#failure-is-not-a-transaction" title="Permanent link">¶</a></h2>
+<p>A decision exception happens after simulation advanced. Recorded commands remain pending; another step is blocked until retry or discard.</p>
+<p>A flush failure may leave a successful prefix applied and a failed command plus suffix pending. Receipts retain successes. Retry flushes pending work without replaying the prefix or simulation.</p>
+<p>Discard removes pending work, not previously applied changes. Commands::flush expects a trusted target with the spawn/destroy guarantees used here, not arbitrary side-effecting code.</p>
+<h2 id="tests-specify-timing">Tests Specify Timing<a class="headerlink" href="#tests-specify-timing" title="Permanent link">¶</a></h2>
+<p>The deferred group checks stable observations, repeated-delete handling, next-frame movement, reentrancy rejection, callback failure, retry, and discard.</p>
+<p>The maintenance group injects a controlled pre-mutation failure on the second spawn and checks that retry yields exactly two bodies. This does not emulate every possible allocation failure.</p>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">¶</a></h2>
+<p>Record delete(A), spawn(snapshot(A)), delete(A). Expect one deletion, one creation, and one ignored deletion. Explain recording order separately from visibility.</p>
+<p>Next: diagnose a wrong result with writer traces.</p>
+<hr>
+<p><a href="../06_components_and_systems/">Previous: Chapter 6</a> · <a href="../">Course overview</a> · <a href="../08_debugging_state_and_execution/">Next: Chapter 8</a></p></div>
 
 
 
@@ -7060,7 +7003,7 @@ Return to the <a href="../">course overview</a>.</p></div>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 08:35:54 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
   </span>
 
     
@@ -7092,10 +7035,10 @@ Return to the <a href="../">course overview</a>.</p></div>
           <li><a href="https://ohyaan.github.io/data-oriented-design/">Browse the Data Oriented Design guide hub</a></li>
         
         
-          <li><a href="../06_generational_handles_and_slot_reuse/">Previous: ECS Generational Handles in C++: Safe Entity Slot Reuse</a></li>
+          <li><a href="../06_components_and_systems/">Previous: C++ ECS Components and Systems: Benefits and Costs</a></li>
         
         
-          <li><a href="../08_component_storage_sparse_sets_and_archetypes/">Next: ECS Storage in C++: Maps, Sparse Sets, and Archetypes</a></li>
+          <li><a href="../08_debugging_state_and_execution/">Next: Debug C++ ECS State: Trace Writers and Execution Order</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>

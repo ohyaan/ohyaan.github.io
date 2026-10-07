@@ -1,9 +1,9 @@
 #pragma once
-#include "simulation.hpp"
+#include "../../examples/model.hpp"
 #include <limits>
 #include <type_traits>
 
-namespace lesson::storage {
+namespace course::storage {
 using Slot = std::size_t;
 template<class T>
 class SparseStore {
@@ -67,4 +67,4 @@ inline void movement(SparseStore<Vec2>& positions, const SparseStore<Vec2>& velo
     for (const auto& entry : velocities.entries())
         if (auto* position = positions.find(entry.slot)) move(*position, entry.value, dt);
 }
-} // namespace lesson::storage
+} // namespace course::storage

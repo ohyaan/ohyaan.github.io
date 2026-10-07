@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Build a headless C++17 simulation before ECS. Use plain structs, explicit update order, CMake, and tests for movement, visibility, and expiration.">
+        <meta name="description" content="Build a plain C++17 simulation with structs and loops. Establish movement, lifetime, snapshot, and validation contracts before adding architecture.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../01_design_boundaries/">
       
       
-        <link rel="next" href="../03_inheritance_and_composition/">
+        <link rel="next" href="../03_adding_acceleration/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Plain C++ Structs and Loops: A Simulation Before ECS - With Raspberry Pi</title>
+        <title>Plain C++ Structs and Loops: Build the Baseline - With Raspberry Pi</title>
       
     
     
@@ -78,14 +78,14 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Plain C++ Structs and Loops: A Simulation Before ECS - With Raspberry Pi">
-  <meta property="og:description" content="Build a headless C++17 simulation before ECS. Use plain structs, explicit update order, CMake, and tests for movement, visibility, and expiration.">
+  <meta property="og:title" content="Plain C++ Structs and Loops: Build the Baseline - With Raspberry Pi">
+  <meta property="og:description" content="Build a plain C++17 simulation with structs and loops. Establish movement, lifetime, snapshot, and validation contracts before adding architecture.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/data-oriented-design/02_plain_structs_and_loops/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__02_plain_structs_and_loops.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Plain C++ Structs and Loops: A Simulation Before ECS">
+  <meta property="og:image:alt" content="Plain C++ Structs and Loops: Build the Baseline">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-10-06">
@@ -95,8 +95,8 @@
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Plain C++ Structs and Loops: A Simulation Before ECS - With Raspberry Pi">
-  <meta name="twitter:description" content="Build a headless C++17 simulation before ECS. Use plain structs, explicit update order, CMake, and tests for movement, visibility, and expiration.">
+  <meta name="twitter:title" content="Plain C++ Structs and Loops: Build the Baseline - With Raspberry Pi">
+  <meta name="twitter:description" content="Build a plain C++17 simulation with structs and loops. Establish movement, lifetime, snapshot, and validation contracts before adding architecture.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__02_plain_structs_and_loops.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Plain C++ Structs and Loops: A Simulation Before ECS",
-    "description": "Build a headless C++17 simulation before ECS. Use plain structs, explicit update order, CMake, and tests for movement, visibility, and expiration.",
+    "headline": "Plain C++ Structs and Loops: Build the Baseline",
+    "description": "Build a plain C++17 simulation with structs and loops. Establish movement, lifetime, snapshot, and validation contracts before adding architecture.",
     "url": "https://ohyaan.github.io/data-oriented-design/02_plain_structs_and_loops/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/data-oriented-design/02_plain_structs_and_loops/"},
     "image": ["https://ohyaan.github.io/images/og/pages/data-oriented-design__02_plain_structs_and_loops.jpg"],
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Plain C++ Structs and Loops: A Simulation Before ECS", "item": "https://ohyaan.github.io/data-oriented-design/02_plain_structs_and_loops/"}
+      {"@type": "ListItem", "position": 2, "name": "Plain C++ Structs and Loops: Build the Baseline", "item": "https://ohyaan.github.io/data-oriented-design/02_plain_structs_and_loops/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#plain-c-structs-and-loops-a-simulation-before-ecs" class="md-skip">
+        <a href="#plain-c-structs-and-loops-build-the-baseline" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plain C++ Structs and Loops: A Simulation Before ECS
+              Plain C++ Structs and Loops: Build the Baseline
             
           </span>
         </div>
@@ -2508,18 +2508,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -2569,6 +2557,69 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Main course
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Main course
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -2576,7 +2627,7 @@
         
   
   <span class="md-ellipsis">
-    C++ Design Boundaries: From Big OOPs to ECS
+    C++ Design Boundaries: Start with Requirements
     
   </span>
   
@@ -2607,7 +2658,7 @@
           
   
   <span class="md-ellipsis">
-    Plain C++ Structs and Loops: A Simulation Before ECS
+    Plain C++ Structs and Loops: Build the Baseline
     
   </span>
   
@@ -2619,7 +2670,7 @@
         
   
   <span class="md-ellipsis">
-    Plain C++ Structs and Loops: A Simulation Before ECS
+    Plain C++ Structs and Loops: Build the Baseline
     
   </span>
   
@@ -2651,36 +2702,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#build-the-plain-c-simulation" class="md-nav__link">
+  <a href="#build-the-downloadable-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Build the Plain C++ Simulation
+      Build the Downloadable Project
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#one-record-per-body" class="md-nav__link">
+  <a href="#read-only-the-baseline-first" class="md-nav__link">
     <span class="md-ellipsis">
-      One Record per Body
+      Read Only the Baseline First
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#check-behaviour-independently" class="md-nav__link">
+  <a href="#test-before-refactoring" class="md-nav__link">
     <span class="md-ellipsis">
-      Check Behaviour Independently
+      Test Before Refactoring
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#costs-and-limits" class="md-nav__link">
+  <a href="#what-this-design-makes-easy" class="md-nav__link">
     <span class="md-ellipsis">
-      Costs and Limits
+      What This Design Makes Easy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercise
     </span>
   </a>
   
@@ -2702,11 +2762,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../03_inheritance_and_composition/" class="md-nav__link">
+      <a href="../03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    C++ Inheritance vs Composition Before Building an ECS
+    Add Acceleration to a C++ Simulation Before Refactoring
     
   </span>
   
@@ -2724,11 +2784,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../04_entity_identity_and_ids/" class="md-nav__link">
+      <a href="../04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    C++ Entity IDs: Stable Identity Before Building an ECS
+    C++ Records vs Composition vs Inheritance: One Change
     
   </span>
   
@@ -2746,11 +2806,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../05_components_and_systems/" class="md-nav__link">
+      <a href="../05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Minimal ECS in C++: Component Stores and Matching Systems
+    C++ Entity Identity and Ownership Without ECS
     
   </span>
   
@@ -2768,11 +2828,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../06_generational_handles_and_slot_reuse/" class="md-nav__link">
+      <a href="../06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ECS Generational Handles in C++: Safe Entity Slot Reuse
+    C++ ECS Components and Systems: Benefits and Costs
     
   </span>
   
@@ -2794,7 +2854,7 @@
         
   
   <span class="md-ellipsis">
-    ECS Deferred Commands in C++: Execution Order and Flush Boundaries
+    C++ ECS Execution Order and Deferred Changes
     
   </span>
   
@@ -2812,16 +2872,179 @@
   
   
     <li class="md-nav__item">
-      <a href="../08_component_storage_sparse_sets_and_archetypes/" class="md-nav__link">
+      <a href="../08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ECS Storage in C++: Maps, Sparse Sets, and Archetypes
+    Debug C++ ECS State: Trace Writers and Execution Order
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_maintenance_and_invariants/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintain C++ ECS: Invariants, Change Impact, and Tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_choosing_a_design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Choose Records, Composition, or ECS for C++ Projects
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../advanced/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Optional extensions
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            Optional extensions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Generational Handles: Add Slot Reuse Only When Needed
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced/02_component_storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C++ Component Storage: Bounded Sparse Sets and Invariants
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -6704,8 +6927,8 @@
 
 
 
-<div><h1 id="plain-c-structs-and-loops-a-simulation-before-ecs">Plain C++ Structs and Loops: A Simulation Before ECS<a class="headerlink" href="#plain-c-structs-and-loops-a-simulation-before-ecs" title="Permanent link">¶</a></h1>
-<p>Start with one struct per body and a loop over the world. This gives us a readable C++ baseline, an explicit simulation contract, and tests that later designs must preserve.</p>
+<div><h1 id="plain-c-structs-and-loops-build-the-baseline">Plain C++ Structs and Loops: Build the Baseline<a class="headerlink" href="#plain-c-structs-and-loops-build-the-baseline" title="Permanent link">¶</a></h1>
+<p>Begin with a vector of records and a direct loop. This is a complete solution to the initial requirements, not a deliberately broken design waiting for ECS.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6716,161 +6939,73 @@
 </div>
 
 <h2 id="simulation-contract">Simulation Contract<a class="headerlink" href="#simulation-contract" title="Permanent link">¶</a></h2>
-<p>Input is a list of finite positions and velocities, three independent boolean
-properties, and finite remaining lifetimes. The supplied fixture uses small
-values; handling overflow or validating arbitrary external input is outside
-this first example.</p>
+<p>A positive finite dt moves live moving bodies, ages expiring bodies, then removes expired bodies. Rendering selects visible survivors. Visibility never gates movement.</p>
+<p>Position and velocity must be finite at construction; remaining lifetime must be finite when enabled. Initially expired bodies are omitted. Inactive velocity and lifetime are normalised in observations so irrelevant stored values do not affect comparisons.</p>
+<p>Snapshots own their values. Do not infer identity from snapshot order or keep pointers into internal vectors.</p>
+<h2 id="build-the-downloadable-project">Build the Downloadable Project<a class="headerlink" href="#build-the-downloadable-project" title="Permanent link">¶</a></h2>
+<p>Use a C++17 compiler and CMake. The examples use only the standard library and do not require Raspberry Pi hardware.</p>
+<p>Download these files into one directory:</p>
 <ul>
-<li>Each step requires a finite, positive <code>dt</code>.</li>
-<li>Move each live moving body by <code>velocity * dt</code>.</li>
-<li>Decrease an expiring body's lifetime by <code>dt</code>.</li>
-<li>Remove bodies whose remaining lifetime is zero or negative.</li>
-<li>A body with an expired lifetime starts absent.</li>
-<li>Rendering returns visible survivors in their existing order.</li>
-<li>Reject invalid <code>dt</code> before changing any state.</li>
+<li><a href="../examples/baseline.hpp">baseline.hpp</a></li>
+<li><a href="../examples/model.hpp">model.hpp</a></li>
+<li><a href="../examples/identity.hpp">identity.hpp</a></li>
+<li><a href="../examples/ecs.hpp">ecs.hpp</a></li>
+<li><a href="../examples/deferred.hpp">deferred.hpp</a></li>
+<li><a href="../examples/demo.cpp">demo.cpp</a></li>
+<li><a href="../examples/tests.cpp">tests.cpp</a></li>
+<li><a href="../examples/CMakeLists.txt">CMakeLists.txt</a></li>
 </ul>
-<p>A body that expires during a step still participates in that step's movement.
-There is no sub-step collision handling or interpolation at its exact death
-time. That is a specification choice, not a physical simulation guarantee.</p>
-<h2 id="build-the-plain-c-simulation">Build the Plain C++ Simulation<a class="headerlink" href="#build-the-plain-c-simulation" title="Permanent link">¶</a></h2>
-<p>On Raspberry Pi OS, install build tools if needed:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git
+<p>Later scenarios are in the same project; optional experiments are off by default. From the source repository:</p>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>docs/data-oriented-design/examples<span class="w"> </span>-B<span class="w"> </span>/tmp/pi-design-main<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>/tmp/pi-design-main
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>/tmp/pi-design-main<span class="w"> </span>--output-on-failure
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>/tmp/pi-design-main/design_demo<span class="w"> </span>baseline
 </code></pre></div></td></tr></table></div>
-<p>Clone the source repository into a new directory:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span>
-<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ohyaan/blog-raspberry-pi-source.git
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>blog-raspberry-pi-source
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>cmake<span class="w"> </span>-S<span class="w"> </span>docs/data-oriented-design/examples<span class="w"> </span>-B<span class="w"> </span>/tmp/pi-design-debug<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>cmake<span class="w"> </span>--build<span class="w"> </span>/tmp/pi-design-debug
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>/tmp/pi-design-debug<span class="w"> </span>--output-on-failure
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a>/tmp/pi-design-debug/simulation_demo
+<p>For a downloaded directory, replace the -S path with that directory. Expected output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>baseline: bodies=2 first x=1
 </code></pre></div></td></tr></table></div>
-<p>Use another build directory if that path already belongs to a different
-project. The code requires C++17 and uses no third-party libraries.</p>
-<p>You can also download the current project's nineteen files into one local folder:
-<a href="../examples/CMakeLists.txt">CMakeLists.txt</a>,
-<a href="../examples/simulation.hpp">simulation.hpp</a>,
-<a href="../examples/demo.cpp">demo.cpp</a>, <a href="../examples/tests.cpp">tests.cpp</a>,
-<a href="../examples/entity_identity.hpp">entity_identity.hpp</a>,
-<a href="../examples/identity_demo.cpp">identity_demo.cpp</a>,
-<a href="../examples/identity_tests.cpp">identity_tests.cpp</a>,
-<a href="../examples/minimal_ecs.hpp">minimal_ecs.hpp</a>,
-<a href="../examples/ecs_demo.cpp">ecs_demo.cpp</a>, <a href="../examples/ecs_tests.cpp">ecs_tests.cpp</a>,
-<a href="../examples/generational_ecs.hpp">generational_ecs.hpp</a>,
-<a href="../examples/generation_demo.cpp">generation_demo.cpp</a>,
-<a href="../examples/generation_tests.cpp">generation_tests.cpp</a>,
-<a href="../examples/deferred_ecs.hpp">deferred_ecs.hpp</a>,
-<a href="../examples/deferred_demo.cpp">deferred_demo.cpp</a>,
-<a href="../examples/deferred_tests.cpp">deferred_tests.cpp</a>,
-<a href="../examples/sparse_store.hpp">sparse_store.hpp</a>,
-<a href="../examples/storage_demo.cpp">storage_demo.cpp</a>, and <a href="../examples/storage_tests.cpp">storage_tests.cpp</a>.
-The identity, ECS, and storage files supply the separate Chapter 4–8 targets; the original
-simulation sources and demonstration remain unchanged.
-Then point <code>cmake -S</code> at that folder.</p>
-<p>Expected demonstration output from the supplied fixture:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<h2 id="read-only-the-baseline-first">Read Only the Baseline First<a class="headerlink" href="#read-only-the-baseline-first" title="Permanent link">¶</a></h2>
+<p>In baseline.hpp, inspect BasicSeed, validate_basic, Baseline::step, and Baseline::states. The record contains position, velocity, three capability flags, and remaining lifetime.</p>
+<p>Here is the actual step method inside <code>Baseline</code>:</p>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>after 0.25s: alive=3 visible=2
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>after 0.50s: alive=2 visible=2
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>visible position: 1,0
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>visible position: 5,5
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="n">validate_dt</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">bodies_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">moving</span><span class="p">)</span><span class="w"> </span><span class="n">move</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">velocity</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">expiring</span><span class="p">)</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">remaining</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="n">bodies_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_if</span><span class="p">(</span><span class="n">bodies_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">bodies_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">        </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">body</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="n">live</span><span class="p">(</span><span class="n">body</span><span class="p">);</span><span class="w"> </span><span class="p">}),</span><span class="w"> </span><span class="n">bodies_</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>This is a correctness example, not a benchmark.</p>
-<p><strong>Verification scope:</strong> the supplied project was compiled and its CTest suite
-run in Debug and Release with GNU C++ 15.2.0 on the development host.
-It has not yet been run on Raspberry Pi hardware. Record your OS, compiler
-version, and test output when reproducing it on a Pi.</p>
-<h2 id="one-record-per-body">One Record per Body<a class="headerlink" href="#one-record-per-body" title="Permanent link">¶</a></h2>
-<p>The baseline uses this input and storage record:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span>
-<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Vec2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Seed</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="n">Vec2</span><span class="w"> </span><span class="n">position</span><span class="p">;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="n">Vec2</span><span class="w"> </span><span class="n">velocity</span><span class="p">;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">moving</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">visible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">expiring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">};</span>
+<p><code>auto&amp;</code> updates the owned record, not a copy. <code>remove_if</code> gathers survivors at the beginning of the vector; <code>erase</code> removes the trailing range. Deletion follows traversal so the loop does not retain an iterator to an element it just erased.</p>
+<p>The motion equation is:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>position = position + velocity * dt
 </code></pre></div></td></tr></table></div>
-<p>A stationary body still contains velocity fields, and a non-expiring body
-still contains a remaining-lifetime field. The flags determine whether those
-values are relevant. That is a simple representation with some unused data,
-not necessarily a problem worth fixing.</p>
-<p>The <code>plain::World</code> class owns a <code>std::vector&lt;Seed&gt;</code>. Its step method is:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">dt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="n">validate_dt</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">bodies_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">moving</span><span class="p">)</span><span class="w"> </span><span class="n">move</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">velocity</span><span class="p">,</span><span class="w"> </span><span class="n">dt</span><span class="p">);</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">expiring</span><span class="p">)</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">remaining</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">dt</span><span class="p">;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="n">bodies_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_if</span><span class="p">(</span><span class="n">bodies_</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">bodies_</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">Seed</span><span class="o">&amp;</span><span class="w"> </span><span class="n">body</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">expiring</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="n">remaining</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">        </span><span class="p">}),</span><span class="w"> </span><span class="n">bodies_</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p>The full header supplies <code>move</code>, time-step validation, construction, and
-snapshots. Deletion happens after iteration rather than erasing elements
-inside the range loop. Erasure and vector growth can invalidate references;
-do not retain a pointer to a body across those operations.</p>
-<h2 id="check-behaviour-independently">Check Behaviour Independently<a class="headerlink" href="#check-behaviour-independently" title="Permanent link">¶</a></h2>
-<p>Tests should contain expected results, not just compare two implementations
-that could share the same mistake.</p>
-<p>For a body at <code>(0, 0)</code> with velocity <code>(2, -4)</code>, a <code>0.25</code> second step should
-produce <code>(0.5, -1)</code>. A stationary body must not move even if its stored velocity
-is nonzero. A moving invisible body moves but does not appear in rendering.</p>
-<p>The supplied tests check those cases, exact-boundary expiration, initially
-expired bodies, an empty world, and invalid time steps. They also run all eight
-combinations of the three flags. Failures use explicit checks rather than
-<code>assert</code>, so the checks remain active in Release builds.</p>
-<p>Test the Release build separately:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>docs/data-oriented-design/examples<span class="w"> </span>-B<span class="w"> </span>/tmp/pi-design-release<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>/tmp/pi-design-release
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>/tmp/pi-design-release<span class="w"> </span>--output-on-failure
-</code></pre></div></td></tr></table></div>
-<h2 id="costs-and-limits">Costs and Limits<a class="headerlink" href="#costs-and-limits" title="Permanent link">¶</a></h2>
-<p>The baseline mixes behaviour flags and data in one record. It does not support
-stable entity handles, concurrent mutation, arbitrary component registration,
-or a renderer. Those are explicit non-goals.</p>
-<p>Keep this design if your workload and changes remain easy to express.
-Do not introduce a registry merely because the course title contains ECS.</p>
-<h3 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">¶</a></h3>
-<p>Add a stationary, invisible, expiring seed. Write its expected survivor count
-before running the program. Then change <code>dt</code> to a value larger than its
-lifetime and explain the movement-before-expiration rule.</p>
-<p>Previous: <a href="../01_design_boundaries/">Design boundaries</a>.
-Next: <a href="../03_inheritance_and_composition/">Inheritance and composition</a>.</p></div>
+<p>At x=0 with vx=2, dt=0.25 produces x=0.5. A stationary body's position stays unchanged even if stored velocity is nonzero.</p>
+<p>Expiration follows movement: remaining=0.5 receives two dt=0.25 updates before removal. Reversing the order changes behaviour.</p>
+<h2 id="test-before-refactoring">Test Before Refactoring<a class="headerlink" href="#test-before-refactoring" title="Permanent link">¶</a></h2>
+<p>Run <code>design_tests baseline</code>. It covers eight combinations of movement, visibility, and lifetime, initial expiration, calculated motion, and rejection of invalid time steps.</p>
+<p>Invalid-time checks include zero, negative values, infinity, and NaN. Later groups repeat them across alternative worlds. Test checks throw; they are not assertions removed by Release builds.</p>
+<p>Finite inputs do not promise protection from floating-point overflow under arbitrarily large repeated updates. Our fixtures stay within ordinary finite ranges; a production numeric policy would be another requirement.</p>
+<h2 id="what-this-design-makes-easy">What This Design Makes Easy<a class="headerlink" href="#what-this-design-makes-easy" title="Permanent link">¶</a></h2>
+<p>To follow one body, read one record and one loop. Ownership and deletion are local. The costs are mixed-purpose fields and capability branches; those may be acceptable for a small fixed simulation.</p>
+<p>No benchmark establishes a speed advantage or disadvantage.</p>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">¶</a></h2>
+<p>Make a moving baseline body invisible: its trajectory should not change. Then give it a lifetime ending exactly at the step boundary and confirm its final movement.</p>
+<p>Next: add a real requirement before comparing architectures.</p>
+<hr>
+<p><a href="../01_design_boundaries/">Previous: Chapter 1</a> · <a href="../">Course overview</a> · <a href="../03_adding_acceleration/">Next: Chapter 3</a></p></div>
 
 
 
@@ -6893,7 +7028,7 @@ Next: <a href="../03_inheritance_and_composition/">Inheritance and composition</
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 08:35:54 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
   </span>
 
     
@@ -6925,10 +7060,10 @@ Next: <a href="../03_inheritance_and_composition/">Inheritance and composition</
           <li><a href="https://ohyaan.github.io/data-oriented-design/">Browse the Data Oriented Design guide hub</a></li>
         
         
-          <li><a href="../01_design_boundaries/">Previous: C++ Design Boundaries: From Big OOPs to ECS</a></li>
+          <li><a href="../01_design_boundaries/">Previous: C++ Design Boundaries: Start with Requirements</a></li>
         
         
-          <li><a href="../03_inheritance_and_composition/">Next: C++ Inheritance vs Composition Before Building an ECS</a></li>
+          <li><a href="../03_adding_acceleration/">Next: Add Acceleration to a C++ Simulation Before Refactoring</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
