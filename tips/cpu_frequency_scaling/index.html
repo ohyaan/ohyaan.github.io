@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Optimize Raspberry Pi performance with CPU frequency scaling. Learn how to configure GPU settings and kernel governors like ondemand for dynamic scaling.">
+        <meta name="description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>CPU Frequency Scaling - With Raspberry Pi</title>
+        <title>Raspberry Pi CPU Frequency: Commands and Governors - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="CPU Frequency Scaling - With Raspberry Pi">
-  <meta property="og:description" content="Optimize Raspberry Pi performance with CPU frequency scaling. Learn how to configure GPU settings and kernel governors like ondemand for dynamic scaling.">
+  <meta property="og:title" content="Raspberry Pi CPU Frequency: Commands and Governors - With Raspberry Pi">
+  <meta property="og:description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/cpu_frequency_scaling/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="CPU Frequency Scaling">
+  <meta property="og:image:alt" content="Raspberry Pi CPU Frequency: Commands and Governors">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-06-21">
+    <meta property="article:modified_time" content="2026-10-09">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CPU Frequency Scaling - With Raspberry Pi">
-  <meta name="twitter:description" content="Optimize Raspberry Pi performance with CPU frequency scaling. Learn how to configure GPU settings and kernel governors like ondemand for dynamic scaling.">
+  <meta name="twitter:title" content="Raspberry Pi CPU Frequency: Commands and Governors - With Raspberry Pi">
+  <meta name="twitter:description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "CPU Frequency Scaling",
-    "description": "Optimize Raspberry Pi performance with CPU frequency scaling. Learn how to configure GPU settings and kernel governors like ondemand for dynamic scaling.",
+    "headline": "Raspberry Pi CPU Frequency: Commands and Governors",
+    "description": "Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.",
     "url": "https://ohyaan.github.io/tips/cpu_frequency_scaling/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/cpu_frequency_scaling/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-06-21"
+    "dateModified": "2026-10-09"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "CPU Frequency Scaling", "item": "https://ohyaan.github.io/tips/cpu_frequency_scaling/"}
+      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi CPU Frequency: Commands and Governors", "item": "https://ohyaan.github.io/tips/cpu_frequency_scaling/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cpu-frequency-scaling" class="md-skip">
+        <a href="#raspberry-pi-cpu-frequency-check-clock-speed-and-governors" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CPU Frequency Scaling
+              Raspberry Pi CPU Frequency: Commands and Governors
             
           </span>
         </div>
@@ -4426,7 +4426,7 @@
           
   
   <span class="md-ellipsis">
-    CPU Frequency Scaling
+    Raspberry Pi CPU Frequency: Commands and Governors
     
   </span>
   
@@ -4438,7 +4438,7 @@
         
   
   <span class="md-ellipsis">
-    CPU Frequency Scaling
+    Raspberry Pi CPU Frequency: Commands and Governors
     
   </span>
   
@@ -4461,45 +4461,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#raspberry-pi-cpu-frequency-commands" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Raspberry Pi CPU frequency commands
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#gpu-configuration" class="md-nav__link">
+  <a href="#inspect-cpufreq-policy-before-changing-it" class="md-nav__link">
     <span class="md-ellipsis">
-      GPU Configuration
+      Inspect CPUFreq policy before changing it
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#linux-kernel-configuration" class="md-nav__link">
+  <a href="#what-the-governor-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      Linux Kernel Configuration
+      What the governor changes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#monitoring-cpu-frequency-changes" class="md-nav__link">
+  <a href="#why-is-my-raspberry-pi-cpu-frequency-low" class="md-nav__link">
     <span class="md-ellipsis">
-      Monitoring CPU Frequency Changes
+      Why is my Raspberry Pi CPU frequency low?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#test-a-governor-reversibly" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      Test a governor reversibly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do-i-need-to-edit-configtxt-or-rebuild-the-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do I need to edit config.txt or rebuild the kernel?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related guides
     </span>
   </a>
   
@@ -6109,7 +6136,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Temperature Command: Check CPU Heat and Throttling
+    Raspberry Pi Temperature: Command, Limits and Cooling
     
   </span>
   
@@ -6916,10 +6943,8 @@
 
 
 
-<div><h1 id="cpu-frequency-scaling">CPU Frequency Scaling<a class="headerlink" href="#cpu-frequency-scaling" title="Permanent link">¶</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>CPU frequency scaling is a power management technique that adjusts the operating frequency of a processor based on system demands. On Raspberry Pi OS, the default configuration sets the CPU frequency to a fixed 700MHz, which provides consistent performance but may consume more power than necessary during periods of low activity.</p>
-<p>By implementing dynamic frequency scaling, you can optimize your Raspberry Pi's power consumption and heat generation while still maintaining responsive performance when needed. This is particularly valuable for battery-powered projects, headless servers, and use cases where maximum processing power is only occasionally required.</p>
+<div><h1 id="raspberry-pi-cpu-frequency-check-clock-speed-and-governors">Raspberry Pi CPU Frequency: Check Clock Speed and Governors<a class="headerlink" href="#raspberry-pi-cpu-frequency-check-clock-speed-and-governors" title="Permanent link">¶</a></h1>
+<p>Check Raspberry Pi CPU clock speed with <code>vcgencmd measure_clock arm</code>. Inspect the Linux governor separately: a low idle clock can be normal, while a low clock during load needs temperature, power, and policy checks—not an immediate overclock.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -6929,89 +6954,160 @@
   </script>
 </div>
 
-<h2 id="gpu-configuration">GPU Configuration<a class="headerlink" href="#gpu-configuration" title="Permanent link">¶</a></h2>
-<p><code>/boot/firmware/config.txt</code> is read by the GPU before the CPU starts up, and it contains settings for CPU frequency as well. Add the following lines:</p>
+<h2 id="raspberry-pi-cpu-frequency-commands">Raspberry Pi CPU frequency commands<a class="headerlink" href="#raspberry-pi-cpu-frequency-commands" title="Permanent link">¶</a></h2>
+<p>Run on the Pi host:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Enable CPU frequency scaling</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">force_turbo</span><span class="o">=</span><span class="m">0</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Set minimum CPU frequency (default is 700)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nv">arm_freq_min</span><span class="o">=</span><span class="m">100</span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Firmware Arm clock: hertz.</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Linux CPUFreq reading: kilohertz, if this policy exists.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cat<span class="w"> </span>/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
 </code></pre></div></td></tr></table></div>
-<p>A reboot is required for these changes to take effect.</p>
-<p>For comprehensive information about GPU and CPU configuration options, the official documentation is available at:
-<a href="http://elinux.org/RPiconfig">RPiconfig - eLinux.org</a></p>
-<h2 id="linux-kernel-configuration">Linux Kernel Configuration<a class="headerlink" href="#linux-kernel-configuration" title="Permanent link">¶</a></h2>
-<p>By modifying the GPU settings, the CPU gains frequency scaling capabilities. However, the Linux kernel has its own control mechanisms, which by default lock the CPU frequency at 100MHz.</p>
-<p>You can check the current, maximum, and minimum CPU frequencies using the following commands:</p>
-<ul>
-<li>Current CPU frequency:
-  <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq
-</code></pre></div></td></tr></table></div></li>
-<li>Maximum CPU frequency:
-  <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq
-</code></pre></div></td></tr></table></div></li>
-<li>Minimum CPU frequency:
-  <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq
-</code></pre></div></td></tr></table></div></li>
-</ul>
-<p>The Linux kernel includes a CPU frequency governor that determines how frequency changes occur. By default, Raspberry Pi OS uses the <code>powersave</code> governor.</p>
-<p>Available governors:
-- <code>performance</code>: Always runs at the maximum CPU frequency.
-- <code>powersave</code>: Always runs at the minimum CPU frequency.
-- <code>ondemand</code>: Adjusts frequency based on CPU load (Raspberry Pi OS toggles between min and max only).
-- <code>conservative</code>: Smoothly adjusts frequency based on CPU load.
-- <code>userspace</code>: Allows user-space daemons to control the CPU frequency.</p>
-<p>These settings can be changed during runtime via sysfs:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span>ondemand<span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+<p>These interfaces use different units and may describe different aspects of clock control. For a Linux reading in MHz:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>awk<span class="w"> </span><span class="s1">'{printf "%.0f MHz\n", $1/1000}'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span>/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
 </code></pre></div></td></tr></table></div>
-<p>To make this setting persist after reboot, there are two options:</p>
-<ol>
-<li>
-<p><strong>Adding the command to <code>/etc/rc.local</code></strong></p>
-<ul>
-<li>This method executes the command after the kernel boots, which may result in a longer boot time.</li>
-</ul>
-</li>
-<li>
-<p><strong>Enabling kernel configuration options:</strong></p>
-<ul>
-<li>Enable the following kernel options:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>CONFIG_CPU_FREQ_DEFAULT_GOV_CONSERVATIVE
-</code></pre></div></td></tr></table></div></li>
-<li>This method requires rebuilding the kernel but ensures full CPU power during boot.</li>
-</ul>
-</li>
-</ol>
-<h2 id="monitoring-cpu-frequency-changes">Monitoring CPU Frequency Changes<a class="headerlink" href="#monitoring-cpu-frequency-changes" title="Permanent link">¶</a></h2>
-<p>After implementing these settings, you can monitor the CPU frequency changes in real-time to observe how your Raspberry Pi adapts to different workloads:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Watch CPU frequency in real-time</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="c1"># Or create a simple load test to see frequency scaling in action</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="c1"># Install stress tool if not already available</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>stress
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="c1"># Run a stress test in one terminal</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>stress<span class="w"> </span>--cpu<span class="w"> </span><span class="m">4</span><span class="w"> </span>--timeout<span class="w"> </span><span class="m">30</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="c1"># While monitoring frequency in another terminal</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span>cat<span class="w"> </span>/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+<p>Do not assume a universal default of 700 MHz, a minimum of 100 MHz, or one governor across all boards and images. Query your running system.</p>
+<h2 id="inspect-cpufreq-policy-before-changing-it">Inspect CPUFreq policy before changing it<a class="headerlink" href="#inspect-cpufreq-policy-before-changing-it" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Read each policy the kernel exposes.</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">for</span><span class="w"> </span>policy<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/devices/system/cpu/cpufreq/policy*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'\nPolicy: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span>field<span class="w"> </span><span class="k">in</span><span class="w"> </span>scaling_driver<span class="w"> </span>scaling_governor<span class="w"> </span>scaling_available_governors<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">                 </span>scaling_min_freq<span class="w"> </span>scaling_max_freq<span class="w"> </span>scaling_cur_freq<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">        </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">        </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s: '</span><span class="w"> </span><span class="s2">"</span><span class="nv">$field</span><span class="s2">"</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">        </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="k">done</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>CPU frequency scaling offers an effective way to balance performance and power consumption on your Raspberry Pi. By configuring both the GPU settings in <code>/boot/firmware/config.txt</code> and the Linux kernel's frequency governor, you can create a system that efficiently adapts to varying workloads.</p>
-<p>While the power savings from frequency scaling may be modest compared to more aggressive power management techniques like disabling unused hardware components, it provides an excellent compromise that preserves functionality while reducing energy usage during idle periods. This approach is particularly beneficial for always-on systems or projects where consistent but not maximum performance is required.</p>
-<p>For optimal results, consider combining CPU frequency scaling with other power management strategies outlined in the Power Saving guide. This comprehensive approach will maximize efficiency while ensuring your Raspberry Pi performs reliably for your specific use case.</p></div>
+<p>Policies can cover several CPUs. Missing policy files mean this interface is unavailable in that environment, not that CPU frequency is zero.</p>
+<p>The <a href="https://docs.kernel.org/admin-guide/pm/cpufreq.html#policy-interface-in-sysfs">Linux CPUFreq documentation</a> distinguishes the current governor, allowed limits, and requested frequency. scaling_cur_freq often reflects a requested state rather than an exact instantaneous hardware measurement. cpuinfo_cur_freq, when supported, uses hardware feedback. Read the <a href="https://www.raspberrypi.com/documentation/computers/os.html#measure_clock-clock">firmware command reference</a> for vcgencmd.</p>
+<h2 id="what-the-governor-changes">What the governor changes<a class="headerlink" href="#what-the-governor-changes" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Governor, if available</th>
+<th>Policy intent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>performance</td>
+<td>Request the highest frequency within the policy limit</td>
+</tr>
+<tr>
+<td>powersave</td>
+<td>Request the lowest frequency within the policy limit</td>
+</tr>
+<tr>
+<td>ondemand or schedutil</td>
+<td>Adapt requests to activity using the governor's algorithm</td>
+</tr>
+<tr>
+<td>userspace</td>
+<td>Allow an external controller to request frequency</td>
+</tr>
+</tbody>
+</table>
+<p>Actual clocks remain subject to hardware, firmware, power, and temperature constraints. performance is not a promise of an always-maximal measured clock; powersave is not proof of the lowest whole-board energy use.</p>
+<p>Available choices depend on driver and kernel configuration. Use scaling_available_governors rather than copying a name from another Pi.</p>
+<h2 id="why-is-my-raspberry-pi-cpu-frequency-low">Why is my Raspberry Pi CPU frequency low?<a class="headerlink" href="#why-is-my-raspberry-pi-cpu-frequency-low" title="Permanent link">¶</a></h2>
+<p>Observe the workload that appears slow:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'vcgencmd measure_clock arm; vcgencmd measure_temp; vcgencmd get_throttled'</span>
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Check next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low at idle, rises during work</td>
+<td>Normal scaling may explain it</td>
+</tr>
+<tr>
+<td>Warm and clock falls during sustained work</td>
+<td><a href="../raspberry_pi_temperature_monitoring_and_alerts/">Temperature, airflow, and cooling</a></td>
+</tr>
+<tr>
+<td>Current undervoltage flags</td>
+<td><a href="../raspberry_pi_get_throttled_undervoltage/">Power supply and cable</a></td>
+</tr>
+<tr>
+<td>Only historical flags remain</td>
+<td>Resolve whether the fault recurs during the current workload</td>
+</tr>
+<tr>
+<td>Low requested limit or powersave policy</td>
+<td>Inspect recorded limits and governor</td>
+</tr>
+<tr>
+<td>Normal clock, application still slow</td>
+<td><a href="../raspberry_pi_os_performance_optimization_2026/">Memory, I/O, or application bottleneck</a></td>
+</tr>
+</tbody>
+</table>
+<p>Do not diagnose thermal throttling from a historical bit alone. Do not compensate for insufficient power by forcing a higher frequency.</p>
+<h2 id="test-a-governor-reversibly">Test a governor reversibly<a class="headerlink" href="#test-a-governor-reversibly" title="Permanent link">¶</a></h2>
+<p>This Bash example targets policy0 only. Review that policy first, save its current governor, and choose a listed replacement:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">policy_path</span><span class="o">=</span>/sys/devices/system/cpu/cpufreq/policy0
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">previous_governor</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nv">candidate_governor</span><span class="o">=</span>performance
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Stop if the kernel does not list this choice.</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>grep<span class="w"> </span>-qw<span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_available_governors"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1"># Run the same short application workload, then restore in this shell.</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$previous_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+</code></pre></div></td></tr></table></div>
+<p>This is a temporary policy experiment, not overclocking. Another service may change the policy, and reboot may restore the image's configuration. Avoid doing it on an unattended appliance without a recovery path.</p>
+<p>For comparison, record workload duration, clock, temperature, and throttling under both policies. Include measured energy if power use matters. No speed or power improvement is promised here.</p>
+<h2 id="do-i-need-to-edit-configtxt-or-rebuild-the-kernel">Do I need to edit config.txt or rebuild the kernel?<a class="headerlink" href="#do-i-need-to-edit-configtxt-or-rebuild-the-kernel" title="Permanent link">¶</a></h2>
+<p>Not for a first measurement or a temporary change to an available governor. Leave firmware clock and voltage settings at their defaults while diagnosing power and cooling.</p>
+<p>Firmware configuration affects supported frequency behaviour but is not interchangeable with a Linux governor. Do not copy old arm_freq_min=100 advice across models. Kernel rebuilding is not a routine prerequisite for CPUFreq diagnosis.</p>
+<p>Use the <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#frequency-management-and-thermal-control">official hardware frequency-management documentation</a> for model-specific controls.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<p><strong>Permission denied when writing the governor:</strong> the policy write needs administrative access. <code>sudo echo ... &gt; file</code> does not elevate the shell's redirection; use the reviewed tee command above.</p>
+<p><strong>Invalid argument:</strong> confirm that the governor is listed for that policy. Do not force a name unavailable in the kernel.</p>
+<p><strong>No cpufreq directory:</strong> check on the Pi host, not only inside a container, and inspect its kernel/driver support. Installing a user-space utility cannot create a missing kernel policy.</p>
+<p><strong>Governor changes back:</strong> identify the service managing power policy before adding another persistent configuration. Two controllers can overwrite each other's settings.</p>
+<h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../raspberry_pi_temperature_monitoring_and_alerts/">CPU temperature commands, thermal limits, and cooling</a></li>
+<li><a href="../raspberry_pi_get_throttled_undervoltage/">get_throttled current/history decoding</a></li>
+<li><a href="../raspberry_pi_os_performance_optimization_2026/">Raspberry Pi performance diagnosis</a></li>
+<li><a href="../raspberry_pi_power_consumption_cost_calculator/">Measure power consumption and estimate running cost</a></li>
+</ul>
+<p>Keep the default policy if a measured workload gains nothing from changing it.</p></div>
 
 
 
@@ -7034,7 +7130,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2026 22:32:34 JST">2026-10-09</span>
   </span>
 
     
