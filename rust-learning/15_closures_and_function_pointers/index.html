@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Maintain the C++ simulation with explicit ownership, capability, cleanup, and timing invariants. Use change maps and failure tests beyond output equality.">
+        <meta name="description" content="Learn Rust closure captures with Raspberry Pi fixtures, distinguish Fn, FnMut and FnOnce, return a move closure, and compare closures with function pointers.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/data-oriented-design/09_maintenance_and_invariants/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/15_closures_and_function_pointers/">
       
       
-        <link rel="prev" href="../08_debugging_state_and_execution/">
+        <link rel="prev" href="../14_trait_objects_and_dispatch/">
       
       
-        <link rel="next" href="../10_choosing_a_design/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Maintain C++ ECS: Invariants, Change Impact, and Tests - With Raspberry Pi</title>
+        <title>Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Maintain C++ ECS: Invariants, Change Impact, and Tests - With Raspberry Pi">
-  <meta property="og:description" content="Maintain the C++ simulation with explicit ownership, capability, cleanup, and timing invariants. Use change maps and failure tests beyond output equality.">
+  <meta property="og:title" content="Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust closure captures with Raspberry Pi fixtures, distinguish Fn, FnMut and FnOnce, return a move closure, and compare closures with function pointers.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/data-oriented-design/09_maintenance_and_invariants/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__09_maintenance_and_invariants.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/15_closures_and_function_pointers/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__15_closures_and_function_pointers.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Maintain C++ ECS: Invariants, Change Impact, and Tests">
+  <meta property="og:image:alt" content="Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-10-07">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-10-07">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Maintain C++ ECS: Invariants, Change Impact, and Tests - With Raspberry Pi">
-  <meta name="twitter:description" content="Maintain the C++ simulation with explicit ownership, capability, cleanup, and timing invariants. Use change maps and failure tests beyond output equality.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__09_maintenance_and_invariants.jpg">
+  <meta name="twitter:title" content="Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust closure captures with Raspberry Pi fixtures, distinguish Fn, FnMut and FnOnce, return a move closure, and compare closures with function pointers.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__15_closures_and_function_pointers.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Maintain C++ ECS: Invariants, Change Impact, and Tests",
-    "description": "Maintain the C++ simulation with explicit ownership, capability, cleanup, and timing invariants. Use change maps and failure tests beyond output equality.",
-    "url": "https://ohyaan.github.io/data-oriented-design/09_maintenance_and_invariants/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/data-oriented-design/09_maintenance_and_invariants/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/data-oriented-design__09_maintenance_and_invariants.jpg"],
+    "headline": "Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi",
+    "description": "Learn Rust closure captures with Raspberry Pi fixtures, distinguish Fn, FnMut and FnOnce, return a move closure, and compare closures with function pointers.",
+    "url": "https://ohyaan.github.io/rust-learning/15_closures_and_function_pointers/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/15_closures_and_function_pointers/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__15_closures_and_function_pointers.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-10-07",
-    "dateModified": "2026-10-07"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Maintain C++ ECS: Invariants, Change Impact, and Tests", "item": "https://ohyaan.github.io/data-oriented-design/09_maintenance_and_invariants/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi", "item": "https://ohyaan.github.io/rust-learning/15_closures_and_function_pointers/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#maintain-c-ecs-invariants-change-impact-and-tests" class="md-skip">
+        <a href="#rust-closures-and-function-pointers" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Maintain C++ ECS: Invariants, Change Impact, and Tests
+              Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi
             
           </span>
         </div>
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -410,13 +412,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../data-oriented-design/" class="md-tabs__link">
           
   
     
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1812,19 +1814,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1836,13 +1841,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1858,7 +1863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1880,7 +1885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1902,7 +1907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1924,7 +1929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+      <a href="../04_ownership_moves_copy_and_clone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1946,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/05_references_borrowing_and_slices/" class="md-nav__link">
+      <a href="../05_references_borrowing_and_slices/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1968,7 +1973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/06_structs_methods_and_associated_functions/" class="md-nav__link">
+      <a href="../06_structs_methods_and_associated_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1990,7 +1995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/07_enums_match_and_patterns/" class="md-nav__link">
+      <a href="../07_enums_match_and_patterns/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2012,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/08_strings_vectors_and_hash_maps/" class="md-nav__link">
+      <a href="../08_strings_vectors_and_hash_maps/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2034,7 +2039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/09_option_result_and_error_handling/" class="md-nav__link">
+      <a href="../09_option_result_and_error_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2056,7 +2061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/10_crates_modules_paths_and_visibility/" class="md-nav__link">
+      <a href="../10_crates_modules_paths_and_visibility/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2078,7 +2083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/11_generics_bounds_and_const_generics/" class="md-nav__link">
+      <a href="../11_generics_bounds_and_const_generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2100,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/12_traits_implementations_and_associated_types/" class="md-nav__link">
+      <a href="../12_traits_implementations_and_associated_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2122,7 +2127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/13_lifetimes_and_borrowed_apis/" class="md-nav__link">
+      <a href="../13_lifetimes_and_borrowed_apis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2144,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/14_trait_objects_and_dispatch/" class="md-nav__link">
+      <a href="../14_trait_objects_and_dispatch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2163,10 +2168,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../rust-learning/15_closures_and_function_pointers/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rust Closures: Fn, FnMut, FnOnce and move on Raspberry Pi
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2176,6 +2202,116 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and outcome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#match-the-rust-closure-bound-to-the-callers-needs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match the Rust closure bound to the caller's needs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-complete-closure-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the complete closure program
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capture-mode-and-call-behaviour-are-separate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capture mode and call behaviour are separate
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-generic-callable-can-own-or-borrow-its-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      A generic callable can own or borrow its environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-items-and-function-pointers-are-not-captured-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function items and function pointers are not captured environments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returning-a-closure-and-borrowing-through-a-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returning a closure and borrowing through a callback
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-consuming-a-capture-twice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing: consuming a capture twice
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2935,8 +3071,6 @@
       
   
   
-    
-  
   
   
     
@@ -2953,22 +3087,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../data-oriented-design/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2980,13 +3111,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             ECS
@@ -2999,10 +3130,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -3032,11 +3161,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
         
           
           <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
@@ -3051,7 +3180,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_2">
             <span class="md-nav__icon md-icon"></span>
             Main course
@@ -3065,7 +3194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01_design_boundaries/" class="md-nav__link">
+      <a href="../../data-oriented-design/01_design_boundaries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3087,7 +3216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02_plain_structs_and_loops/" class="md-nav__link">
+      <a href="../../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3109,7 +3238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03_adding_acceleration/" class="md-nav__link">
+      <a href="../../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3131,7 +3260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04_comparing_design_alternatives/" class="md-nav__link">
+      <a href="../../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3153,7 +3282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05_identity_and_ownership/" class="md-nav__link">
+      <a href="../../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3175,7 +3304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06_components_and_systems/" class="md-nav__link">
+      <a href="../../data-oriented-design/06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3197,7 +3326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07_execution_order_and_deferred_commands/" class="md-nav__link">
+      <a href="../../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3219,7 +3348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08_debugging_state_and_execution/" class="md-nav__link">
+      <a href="../../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3238,31 +3367,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Maintain C++ ECS: Invariants, Change Impact, and Tests
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3272,80 +3380,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#rules-we-already-own" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rules We Already Own
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#walk-a-future-change" class="md-nav__link">
-    <span class="md-ellipsis">
-      Walk a Future Change
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#test-different-mistakes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Test Different Mistakes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#failure-boundaries-are-api-behaviour" class="md-nav__link">
-    <span class="md-ellipsis">
-      Failure Boundaries Are API Behaviour
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deliberate-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deliberate Limits
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3358,7 +3392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10_choosing_a_design/" class="md-nav__link">
+      <a href="../../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3413,7 +3447,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../advanced/" class="md-nav__link ">
+            <a href="../../data-oriented-design/advanced/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3447,7 +3481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3469,7 +3503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/02_component_storage/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7369,8 +7403,8 @@
 
 
 
-<div><h1 id="maintain-c-ecs-invariants-change-impact-and-tests">Maintain C++ ECS: Invariants, Change Impact, and Tests<a class="headerlink" href="#maintain-c-ecs-invariants-change-impact-and-tests" title="Permanent link">¶</a></h1>
-<p>A maintainable design exposes its rules and makes likely mistakes testable. Abstractions help only if the team can preserve the invariants they introduce.</p>
+<div><h1 id="rust-closures-and-function-pointers">Rust Closures and Function Pointers<a class="headerlink" href="#rust-closures-and-function-pointers" title="Permanent link">¶</a></h1>
+<p>A Rust closure is callable code together with the environment it captures. Its call traits depend on what its body does with that environment; move changes how values are captured, not automatically how many times the closure can be called.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7380,88 +7414,408 @@
   </script>
 </div>
 
-<h2 id="rules-we-already-own">Rules We Already Own<a class="headerlink" href="#rules-we-already-own" title="Permanent link">¶</a></h2>
+<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../14_trait_objects_and_dispatch/">trait objects and dispatch</a>. You will pass predicates and stateful callbacks, transfer an owned value through a one-shot closure, and choose between a generic callable and a function pointer. All readings are fixtures, not hardware measurements.</p>
+<h2 id="match-the-rust-closure-bound-to-the-callers-needs">Match the Rust closure bound to the caller's needs<a class="headerlink" href="#match-the-rust-closure-bound-to-the-callers-needs" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Invariant</th>
-<th>Enforcement</th>
-<th>Evidence</th>
+<th>Bound</th>
+<th>What the caller can require</th>
+<th>Example here</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Valid dt before mutation</td>
-<td>Step entry</td>
-<td>Invalid-step tests</td>
+<td>Fn</td>
+<td>Calls through a shared reference</td>
+<td>A predicate that reads a threshold</td>
 </tr>
 <tr>
-<td>Acceleration needs movement</td>
-<td>Seed validation</td>
-<td>Rejected combination</td>
+<td>FnMut</td>
+<td>Calls with mutable access to the callable</td>
+<td>A callback that updates its call count</td>
 </tr>
 <tr>
-<td>Handle belongs to one world</td>
-<td>Issuer and resolution</td>
-<td>Foreign number collision</td>
-</tr>
-<tr>
-<td>Deleted entity leaves no data</td>
-<td>erase_all</td>
-<td>Five store counts become zero</td>
-</tr>
-<tr>
-<td>Decisions see stable membership</td>
-<td>Deferred wrapper</td>
-<td>Callback inspection</td>
-</tr>
-<tr>
-<td>Retry does not replay prefix</td>
-<td>Pop successful commands</td>
-<td>Controlled second-spawn failure</td>
-</tr>
-<tr>
-<td>Visibility is not motion</td>
-<td>Update/query rules</td>
-<td>Invisible-body regression</td>
+<td>FnOnce</td>
+<td>A consuming call is permitted</td>
+<td>A closure that returns its captured String</td>
 </tr>
 </tbody>
 </table>
-<p>Explicit test failures remain enabled in Release. Passing fixtures does not prove every possible execution safe.</p>
-<h2 id="walk-a-future-change">Walk a Future Change<a class="headerlink" href="#walk-a-future-change" title="Permanent link">¶</a></h2>
-<p>Consider Drag scaling velocity before movement. This is an exercise, not an implemented feature.</p>
-<p>Records need data, validation, update condition, observation, and tests. Composition must decide whether Drag belongs inside Motion. Inheritance must decide whether it is an algorithm variant or independent configuration.</p>
-<p>ECS also needs store construction, rollback, cleanup, pass order, and snapshots. A new pass may clarify its writer while increasing consistency obligations.</p>
-<p>Do not count only the new loop.</p>
-<h2 id="test-different-mistakes">Test Different Mistakes<a class="headerlink" href="#test-different-mistakes" title="Permanent link">¶</a></h2>
+<p>Fn implies FnMut, and FnMut implies FnOnce. Every closure implements FnOnce; a closure may also implement the other call traits. A FnOnce bound does not prove the actual callable is only callable once, but it does not promise repeatability. See <a href="https://doc.rust-lang.org/std/ops/trait.FnOnce.html">FnOnce</a>.</p>
+<h2 id="build-the-complete-closure-program">Build the complete closure program<a class="headerlink" href="#build-the-complete-closure-program" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_closures
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_closures
+</code></pre></div></td></tr></table></div>
+<p>Keep edition = "2024" in Cargo.toml and replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-1-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-1-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-1-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-1-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-1-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-1-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-1-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-1-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-1-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-1-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-1-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-1-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-1-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-1-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-1-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-1-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-1-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-1-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-1-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-1-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-1-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-1-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-1-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-1-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-1-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-1-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-1-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-1-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-1-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-1-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-1-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-1-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-1-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-1-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-1-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-1-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-1-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-1-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-1-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-1-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-1-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-1-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-1-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-1-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-1-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-1-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-1-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-1-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-1-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-1-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-1-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-1-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-1-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-1-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-1-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-1-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-1-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-1-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-1-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-1-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-1-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-1-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-1-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-1-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-1-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-1-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-1-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-1-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-1-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-1-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-1-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-1-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-1-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-1-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-1-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-1-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-1-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-1-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-1-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-1-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-1-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-1-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-1-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-1-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-1-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-1-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-1-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-1-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-1-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-1-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-1-100">100</a></span>
+<span class="normal"><a href="#__codelineno-1-101">101</a></span>
+<span class="normal"><a href="#__codelineno-1-102">102</a></span>
+<span class="normal"><a href="#__codelineno-1-103">103</a></span>
+<span class="normal"><a href="#__codelineno-1-104">104</a></span>
+<span class="normal"><a href="#__codelineno-1-105">105</a></span>
+<span class="normal"><a href="#__codelineno-1-106">106</a></span>
+<span class="normal"><a href="#__codelineno-1-107">107</a></span>
+<span class="normal"><a href="#__codelineno-1-108">108</a></span>
+<span class="normal"><a href="#__codelineno-1-109">109</a></span>
+<span class="normal"><a href="#__codelineno-1-110">110</a></span>
+<span class="normal"><a href="#__codelineno-1-111">111</a></span>
+<span class="normal"><a href="#__codelineno-1-112">112</a></span>
+<span class="normal"><a href="#__codelineno-1-113">113</a></span>
+<span class="normal"><a href="#__codelineno-1-114">114</a></span>
+<span class="normal"><a href="#__codelineno-1-115">115</a></span>
+<span class="normal"><a href="#__codelineno-1-116">116</a></span>
+<span class="normal"><a href="#__codelineno-1-117">117</a></span>
+<span class="normal"><a href="#__codelineno-1-118">118</a></span>
+<span class="normal"><a href="#__codelineno-1-119">119</a></span>
+<span class="normal"><a href="#__codelineno-1-120">120</a></span>
+<span class="normal"><a href="#__codelineno-1-121">121</a></span>
+<span class="normal"><a href="#__codelineno-1-122">122</a></span>
+<span class="normal"><a href="#__codelineno-1-123">123</a></span>
+<span class="normal"><a href="#__codelineno-1-124">124</a></span>
+<span class="normal"><a href="#__codelineno-1-125">125</a></span>
+<span class="normal"><a href="#__codelineno-1-126">126</a></span>
+<span class="normal"><a href="#__codelineno-1-127">127</a></span>
+<span class="normal"><a href="#__codelineno-1-128">128</a></span>
+<span class="normal"><a href="#__codelineno-1-129">129</a></span>
+<span class="normal"><a href="#__codelineno-1-130">130</a></span>
+<span class="normal"><a href="#__codelineno-1-131">131</a></span>
+<span class="normal"><a href="#__codelineno-1-132">132</a></span>
+<span class="normal"><a href="#__codelineno-1-133">133</a></span>
+<span class="normal"><a href="#__codelineno-1-134">134</a></span>
+<span class="normal"><a href="#__codelineno-1-135">135</a></span>
+<span class="normal"><a href="#__codelineno-1-136">136</a></span>
+<span class="normal"><a href="#__codelineno-1-137">137</a></span>
+<span class="normal"><a href="#__codelineno-1-138">138</a></span>
+<span class="normal"><a href="#__codelineno-1-139">139</a></span>
+<span class="normal"><a href="#__codelineno-1-140">140</a></span>
+<span class="normal"><a href="#__codelineno-1-141">141</a></span>
+<span class="normal"><a href="#__codelineno-1-142">142</a></span>
+<span class="normal"><a href="#__codelineno-1-143">143</a></span>
+<span class="normal"><a href="#__codelineno-1-144">144</a></span>
+<span class="normal"><a href="#__codelineno-1-145">145</a></span>
+<span class="normal"><a href="#__codelineno-1-146">146</a></span>
+<span class="normal"><a href="#__codelineno-1-147">147</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">count_matching</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">readings</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="kt">i32</span><span class="p">],</span><span class="w"> </span><span class="n">predicate</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nc">where</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reading</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">readings</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">predicate</span><span class="p">(</span><span class="n">reading</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="n">count</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="p">}</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">fn</span><span class="w"> </span><span class="nf">apply_twice</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">operation</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="nc">where</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="n">operation</span><span class="p">(</span><span class="n">first</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="p">}</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="k">fn</span><span class="w"> </span><span class="nf">run_once</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="nc">where</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">FnOnce</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="p">{</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="n">operation</span><span class="p">()</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="p">}</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="k">fn</span><span class="w"> </span><span class="nf">measure_twice</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="k">where</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nb">Fn</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="p">{</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="p">(</span><span class="n">operation</span><span class="p">(),</span><span class="w"> </span><span class="n">operation</span><span class="p">())</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="p">}</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="k">fn</span><span class="w"> </span><span class="nf">add_one</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="p">}</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="k">fn</span><span class="w"> </span><span class="nf">apply_pointer</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span><span class="w"> </span><span class="nc">fn</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">    </span><span class="n">operation</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="p">}</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="k">fn</span><span class="w"> </span><span class="nf">make_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">offset</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="p">}</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="c1">// The callback must accept the local borrow created inside this function.</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="k">fn</span><span class="w"> </span><span class="nf">with_local_label</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">callback</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="nc">where</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">    </span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nc">for</span><span class="o">&lt;'</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;'</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="p">{</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="n">callback</span><span class="p">(</span><span class="o">&amp;</span><span class="n">label</span><span class="p">)</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="p">}</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60_000</span><span class="p">;</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">reading</span><span class="o">|</span><span class="w"> </span><span class="n">reading</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">threshold</span><span class="p">;</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">        </span><span class="s">"matching={}"</span><span class="p">,</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">        </span><span class="n">count_matching</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">46_700</span><span class="p">,</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span><span class="w"> </span><span class="mi">61_000</span><span class="p">],</span><span class="w"> </span><span class="n">predicate</span><span class="p">)</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">        </span><span class="n">calls</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">        </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">calls</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">apply_twice</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">update</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"stateful={result}, calls={calls}"</span><span class="p">);</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">owned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">finish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">owned</span><span class="p">;</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"once={}"</span><span class="p">,</span><span class="w"> </span><span class="n">run_once</span><span class="p">(</span><span class="n">finish</span><span class="p">));</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="w">    </span><span class="c1">// Own the String, but only inspect it: this move closure implements Fn.</span>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">inspect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">len</span><span class="p">();</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"move read-only={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">measure_twice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inspect</span><span class="p">));</span>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">        </span><span class="s">"pointers={},{}"</span><span class="p">,</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">        </span><span class="n">apply_pointer</span><span class="p">(</span><span class="n">add_one</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">),</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">        </span><span class="n">apply_pointer</span><span class="p">(</span><span class="o">|</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_offset</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"returned={}"</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"local bytes={}"</span><span class="p">,</span><span class="w"> </span><span class="n">with_local_label</span><span class="p">(</span><span class="o">|</span><span class="n">text</span><span class="o">|</span><span class="w"> </span><span class="n">text</span><span class="p">.</span><span class="n">len</span><span class="p">()));</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="p">}</span>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">add_one</span><span class="p">,</span><span class="w"> </span><span class="n">apply_pointer</span><span class="p">,</span><span class="w"> </span><span class="n">apply_twice</span><span class="p">,</span><span class="w"> </span><span class="n">count_matching</span><span class="p">};</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">make_offset</span><span class="p">,</span><span class="w"> </span><span class="n">measure_twice</span><span class="p">,</span><span class="w"> </span><span class="n">run_once</span><span class="p">,</span><span class="w"> </span><span class="n">with_local_label</span><span class="p">};</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">predicate_captures_threshold_and_includes_the_boundary</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60_000</span><span class="p">;</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">count_matching</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">59_999</span><span class="p">,</span><span class="w"> </span><span class="mi">60_000</span><span class="p">],</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="o">|</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">threshold</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">count_matching</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[],</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="o">|</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">threshold</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-105" name="__codelineno-1-105"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">mutable_capture_records_both_calls</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">            </span><span class="n">calls</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">calls</span>
+<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">        </span><span class="p">};</span>
+<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">apply_twice</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">update</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">calls</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-1-113" name="__codelineno-1-113"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-114" name="__codelineno-1-114"></a>
+<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">once_can_transfer_a_non_copy_capture</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-118" name="__codelineno-1-118"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">run_once</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">label</span><span class="p">),</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-120" name="__codelineno-1-120"></a>
+<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">move_read_only_capture_still_satisfies_fn</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-124" name="__codelineno-1-124"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">inspect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">len</span><span class="p">();</span>
+<a id="__codelineno-1-125" name="__codelineno-1-125"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">measure_twice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inspect</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span>
+<a id="__codelineno-1-126" name="__codelineno-1-126"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">inspect</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<a id="__codelineno-1-127" name="__codelineno-1-127"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-128" name="__codelineno-1-128"></a>
+<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-130" name="__codelineno-1-130"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">pointer_accepts_function_and_non_capturing_closure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-131" name="__codelineno-1-131"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">apply_pointer</span><span class="p">(</span><span class="n">add_one</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-132" name="__codelineno-1-132"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">apply_pointer</span><span class="p">(</span><span class="o">|</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-134" name="__codelineno-1-134"></a>
+<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">returned_closure_owns_its_offset</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-137" name="__codelineno-1-137"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">operation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_offset</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">);</span>
+<a id="__codelineno-1-138" name="__codelineno-1-138"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">operation</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-139" name="__codelineno-1-139"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">operation</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">);</span>
+<a id="__codelineno-1-140" name="__codelineno-1-140"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-141" name="__codelineno-1-141"></a>
+<a id="__codelineno-1-142" name="__codelineno-1-142"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-143" name="__codelineno-1-143"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">callback_accepts_local_borrow_without_retaining_it</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-144" name="__codelineno-1-144"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">with_local_label</span><span class="p">(</span><span class="o">|</span><span class="n">label</span><span class="o">|</span><span class="w"> </span><span class="n">label</span><span class="p">.</span><span class="n">len</span><span class="p">()),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<a id="__codelineno-1-145" name="__codelineno-1-145"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">with_local_label</span><span class="p">(</span><span class="kt">str</span><span class="p">::</span><span class="n">len</span><span class="p">),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<a id="__codelineno-1-146" name="__codelineno-1-146"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-147" name="__codelineno-1-147"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>check
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+</code></pre></div></td></tr></table></div>
+<p>Expected output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>matching=2
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>stateful=3, calls=2
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>once=Pi 4B
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>move read-only=(5, 5)
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>pointers=6,7
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>returned=7
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>local bytes=5
+</code></pre></div></td></tr></table></div>
+<p>There are seven tests. The value 3 is a deliberately stateful result: the first callback adds 1 and the second adds 2. If the callback did not retain its count, this would be a different algorithm.</p>
+<h2 id="capture-mode-and-call-behaviour-are-separate">Capture mode and call behaviour are separate<a class="headerlink" href="#capture-mode-and-call-behaviour-are-separate" title="Permanent link">¶</a></h2>
+<p>The predicate borrows the threshold to read it. The update closure mutably borrows calls and changes it each time. Its binding is mutable because calling this FnMut closure needs mutable access. The borrow can end after the last relevant use of update, allowing the final count to be printed.</p>
+<p>Without move, capture choices follow how the body uses the environment; move requests capture by value. Copy values can be copied into that environment, while a captured String transfers ownership. If the captured value is already a reference, moving that reference does not move its referent or extend its validity. The Book's <a href="https://doc.rust-lang.org/book/ch13-01-closures.html">closure capture examples</a> introduce these choices.</p>
+<p>finish returns the captured String by value, consuming that capture when called. inspect owns its String but only borrows it internally to compute len(), so it supports repeated shared calls. This is why inspecting the body matters more than looking for the move keyword.</p>
+<p>Captures may be precise parts of a value rather than an entire surrounding struct, subject to the language's capture rules. A closure's Send, Sync or lifetime requirements depend on what it captures; move alone is not a thread-safety or static-lifetime guarantee. See the <a href="https://doc.rust-lang.org/reference/types/closure.html">closure-type reference</a>. Threads come later.</p>
+<h2 id="a-generic-callable-can-own-or-borrow-its-environment">A generic callable can own or borrow its environment<a class="headerlink" href="#a-generic-callable-can-own-or-borrow-its-environment" title="Permanent link">¶</a></h2>
+<p>apply_twice takes F by value. Passing <code>&amp;mut update</code> makes F a mutable reference to the existing closure, rather than transferring the closure itself. run_once consumes its callable and may return owned text; that result can outlive the callable because it owns the String.</p>
+<p>Choose the least restrictive bound needed by the algorithm. A one-call consumer can accept FnOnce; a repeated stateful algorithm needs FnMut; shared calls require Fn. Fn does not mean mathematically pure: interior mutability or other side effects can exist behind an apparently shared call. We will study those mechanisms later rather than equate Fn with “no effects”.</p>
+<h2 id="function-items-and-function-pointers-are-not-captured-environments">Function items and function pointers are not captured environments<a class="headerlink" href="#function-items-and-function-pointers-are-not-captured-environments" title="Permanent link">¶</a></h2>
+<p>The type <code>fn(i32) -&gt; i32</code> is a safe Rust function pointer. A named function item coerces to that pointer type; a non-capturing closure can also coerce. A closure that captures offset cannot be put into this pointer type, because the pointer has no captured environment to carry.</p>
+<p>Every closure expression has its own anonymous type, even when two expressions have identical signatures. Inference also chooses concrete parameter types; <code>let identity = |x| x</code> is not a generic function you can freely call with both String and i32. Generic callable bounds avoid needing to name the closure type. Consult the <a href="https://doc.rust-lang.org/reference/types/function-pointer.html">function-pointer rules</a>.</p>
+<p>Function pointers and capturing closures both support ordinary call syntax, but do not promise the same representation or dispatch cost. No timing comparison is claimed. Foreign ABI and unsafe function pointers are postponed to the unsafe/FFI lesson.</p>
+<h2 id="returning-a-closure-and-borrowing-through-a-callback">Returning a closure and borrowing through a callback<a class="headerlink" href="#returning-a-closure-and-borrowing-through-a-callback" title="Permanent link">¶</a></h2>
+<p>make_offset returns one hidden concrete closure type via impl Fn. Its move capture stores offset in the returned environment, so the original local parameter can end. Omitting move would try to return a closure borrowing that local parameter and fail. A factory returning different closure expressions from two branches must still respect the opaque return's one-concrete-type rule.</p>
+<p>with_local_label constructs its own String. The bound <code>for&lt;'a&gt; Fn(&amp;'a str) -&gt; usize</code> accepts a callback for every applicable input lifetime, including the short borrow created inside the function. The callback returns an owned usize, not that borrowed label. The shorter spelling Fn(&amp;str) -&gt; usize expresses the same lifetime generality in this context; see <a href="https://doc.rust-lang.org/reference/trait-bounds.html#higher-ranked-trait-bounds">higher-ranked bounds</a>.</p>
+<p>A callback requiring only &amp;'static str cannot satisfy this contract. This is different from moving a String into a callback: input lifetime requirements and captured environment ownership are separate questions.</p>
+<h2 id="deliberately-failing-consuming-a-capture-twice">Deliberately failing: consuming a capture twice<a class="headerlink" href="#deliberately-failing-consuming-a-capture-twice" title="Permanent link">¶</a></h2>
+<p>In a separate scratch project, replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">finish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">label</span><span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">finish</span><span class="p">();</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">finish</span><span class="p">();</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{first}, {second}"</span><span class="p">);</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><code>cargo check</code> reports E0382. The first call consumes this closure because its body moves the non-Copy String out. If two independently owned strings are required, a closure returning label.clone() can be repeatable, with the explicit copying cost. If only inspection is required, borrow the captured data instead.</p>
+<h2 id="exercises-and-troubleshooting">Exercises and troubleshooting<a class="headerlink" href="#exercises-and-troubleshooting" title="Permanent link">¶</a></h2>
 <ol>
-<li>Independently calculate a trajectory.</li>
-<li>Compare full normalised snapshots.</li>
-<li>Exercise invalid input and stale handles.</li>
-<li>Check final movement and cleanup.</li>
-<li>Reproduce a deliberately wrong condition.</li>
-<li>Inject a queue failure and test recovery.</li>
+<li>Change apply_twice's bound from FnMut to Fn: passing &amp;mut update produces E0277 because that mutable callable reference does not implement Fn. Passing update by value instead produces E0525 because the closure mutates its capture and is only FnMut. Keep FnMut for this algorithm.</li>
+<li>Remove mut from update's binding while passing &amp;mut update: expect E0596. The mut parameter inside apply_twice does not make the caller's binding mutable.</li>
+<li>Print label immediately after creating the move read-only inspect closure: expect E0382 because the String moved into inspect, even though inspect itself implements Fn.</li>
+<li>Pass a closure capturing a local offset to apply_pointer: expect E0308. Use a generic Fn bound when a captured environment is required.</li>
+<li>Remove move from make_offset's returned closure: expect E0373 because the returned environment would borrow the function's local offset.</li>
+<li>Repair finish to return label.clone() and call it twice: expect <code>Pi 4B, Pi 4B</code>. Explain why Clone changes this body's consuming behaviour rather than treating it as a free ownership repair.</li>
+<li>Define <code>fn static_length(text: &amp;'static str) -&gt; usize { text.len() }</code> and pass it to with_local_label: expect a “not general enough” error. An inline closure with a static input annotation can instead report a lifetime error. Replacing the higher-ranked bound with a static input would not make the locally constructed label static.</li>
 </ol>
-<p>Independent expectations protect against shared helper bugs. Cross-design comparisons protect against accidental semantic differences.</p>
-<h2 id="failure-boundaries-are-api-behaviour">Failure Boundaries Are API Behaviour<a class="headerlink" href="#failure-boundaries-are-api-behaviour" title="Permanent link">¶</a></h2>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>/tmp/pi-design-main/design_demo<span class="w"> </span>maintenance
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>/tmp/pi-design-main/design_tests<span class="w"> </span>maintenance
-</code></pre></div></td></tr></table></div>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>invalid acceleration rejected; bodies=1
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>after cleanup: positions=0 velocities=0 accelerations=0
-</code></pre></div></td></tr></table></div>
-<p>Rejected input leaves existing bodies unchanged. Consumed but unpublished IDs are acceptable. A queue can leave an applied prefix: recoverable is not transactional.</p>
-<p>A caller must choose retry, discard, or stop without inadvertently running simulation again.</p>
-<h2 id="deliberate-limits">Deliberate Limits<a class="headerlink" href="#deliberate-limits" title="Permanent link">¶</a></h2>
-<p>No parallel scheduler, generic query API, serialization protocol, or runtime component editing is provided. Owner markers are process-local, not save-file IDs.</p>
-<p>Generations and sparse indices impose extra invariants only when their requirements exist. Keep those experiments outside the main course's dependency chain.</p>
-<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">¶</a></h2>
-<p>For a proposed component, name the writer, cleanup path, invalid states, observation policy, and order test before debating container choice.</p>
-<p>Next: choose a design for your requirements, not for the final chapter.</p>
-<hr>
-<p><a href="../08_debugging_state_and_execution/">Previous: Chapter 8</a> · <a href="../">Course overview</a> · <a href="../10_choosing_a_design/">Next: Chapter 10</a></p></div>
+<p>When a call-trait bound fails, inspect mutations and moves in the body. When a function-pointer conversion fails, check for captured values. When a closure outlives its captures, choose valid borrowing or transfer ownership rather than adding lifetime annotations that cannot extend storage.</p>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, the lesson was verified on a Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, all seven tests, formatting and debug/release output comparisons passed. The repeatable Clone repair and elided higher-ranked callback bound also passed. Consumed/moved captures, an immutable closure binding, a capturing function-pointer conversion, a returned local borrow, insufficient callback lifetime generality and both forms of the inappropriate Fn bound failed as expected (E0382, E0596, E0308, E0373, a generality diagnostic, E0277 and E0525 as applicable). The inline static callback was separately observed to report a lifetime error. No thread-safety or performance claim is inferred from move.</p>
+<p>Next in the roadmap are iterators and lazy adapters. That lesson is planned, not yet available.</p>
+<p><a href="../14_trait_objects_and_dispatch/">Previous: trait objects and dispatch</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7484,7 +7838,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:20:36 JST">2026-10-10</span>
   </span>
 
     
@@ -7494,7 +7848,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:20:36 JST">2026-10-10</span>
   </span>
 
     
@@ -7513,13 +7867,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
-          <li><a href="https://ohyaan.github.io/data-oriented-design/">Browse the Data Oriented Design guide hub</a></li>
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
         
-          <li><a href="../08_debugging_state_and_execution/">Previous: Debug C++ ECS State: Trace Writers and Execution Order</a></li>
+          <li><a href="../14_trait_objects_and_dispatch/">Previous: Rust dyn Trait vs impl Trait on Raspberry Pi</a></li>
         
         
-          <li><a href="../10_choosing_a_design/">Next: Choose Records, Composition, or ECS for C++ Projects</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
