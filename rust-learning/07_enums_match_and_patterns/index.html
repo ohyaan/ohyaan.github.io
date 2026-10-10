@@ -6,35 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn AArch64 and Arm64 assembly on Raspberry Pi OS Trixie. Follow registers, instructions, ABI, stack, GDB, NEON, C++, GPIO, and optimization examples.">
+        <meta name="description" content="Learn Rust enums, exhaustive match, guards, if let and let else by modelling Raspberry Pi reading states, with boundary tests and compiler failures.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/assembly/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/07_enums_match_and_patterns/">
       
       
-        <link rel="prev" href="../data-oriented-design/advanced/02_component_storage/">
+        <link rel="prev" href="../06_structs_methods_and_associated_functions/">
       
       
-        <link rel="next" href="aarch64_adrp_add_ldr_literal_address_loading/">
+        <link rel="next" href="../../design-patterns/">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+      <link rel="icon" href="../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path - With Raspberry Pi</title>
+        <title>Rust Enums, Match and Patterns on Raspberry Pi - With Raspberry Pi</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +55,7 @@
     
       <link rel="stylesheet" href="/stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path - With Raspberry Pi">
-  <meta property="og:description" content="Learn AArch64 and Arm64 assembly on Raspberry Pi OS Trixie. Follow registers, instructions, ABI, stack, GDB, NEON, C++, GPIO, and optimization examples.">
+  <meta property="og:title" content="Rust Enums, Match and Patterns on Raspberry Pi - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust enums, exhaustive match, guards, if let and let else by modelling Raspberry Pi reading states, with boundary tests and compiler failures.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/assembly/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__index.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/07_enums_match_and_patterns/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__07_enums_match_and_patterns.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path">
+  <meta property="og:image:alt" content="Rust Enums, Match and Patterns on Raspberry Pi">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2025-11-29">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-10-03">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path - With Raspberry Pi">
-  <meta name="twitter:description" content="Learn AArch64 and Arm64 assembly on Raspberry Pi OS Trixie. Follow registers, instructions, ABI, stack, GDB, NEON, C++, GPIO, and optimization examples.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__index.jpg">
+  <meta name="twitter:title" content="Rust Enums, Match and Patterns on Raspberry Pi - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust enums, exhaustive match, guards, if let and let else by modelling Raspberry Pi reading states, with boundary tests and compiler failures.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__07_enums_match_and_patterns.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path",
-    "description": "Learn AArch64 and Arm64 assembly on Raspberry Pi OS Trixie. Follow registers, instructions, ABI, stack, GDB, NEON, C++, GPIO, and optimization examples.",
-    "url": "https://ohyaan.github.io/assembly/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/assembly__index.jpg"],
+    "headline": "Rust Enums, Match and Patterns on Raspberry Pi",
+    "description": "Learn Rust enums, exhaustive match, guards, if let and let else by modelling Raspberry Pi reading states, with boundary tests and compiler failures.",
+    "url": "https://ohyaan.github.io/rust-learning/07_enums_match_and_patterns/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/07_enums_match_and_patterns/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__07_enums_match_and_patterns.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2025-11-29",
-    "dateModified": "2026-10-03"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path", "item": "https://ohyaan.github.io/assembly/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust Enums, Match and Patterns on Raspberry Pi", "item": "https://ohyaan.github.io/rust-learning/07_enums_match_and_patterns/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#aarch64-and-arm64-assembly-on-raspberry-pi-learning-path" class="md-skip">
+        <a href="#rust-enums-match-and-patterns" class="md-skip">
           Skip to content
         </a>
       
@@ -178,7 +178,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path
+              Rust Enums, Match and Patterns on Raspberry Pi
             
           </span>
         </div>
@@ -294,7 +294,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../getting-started/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
     
@@ -314,7 +314,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../basic-operations/" class="md-tabs__link">
+        <a href="../../basic-operations/" class="md-tabs__link">
           
   
     
@@ -334,7 +334,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../programming/" class="md-tabs__link">
+        <a href="../../programming/" class="md-tabs__link">
           
   
     
@@ -354,7 +354,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../cpp-learning/" class="md-tabs__link">
+        <a href="../../cpp-learning/" class="md-tabs__link">
           
   
     
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -394,7 +396,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../design-patterns/" class="md-tabs__link">
+        <a href="../../design-patterns/" class="md-tabs__link">
           
   
     
@@ -414,7 +416,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../data-oriented-design/" class="md-tabs__link">
+        <a href="../../data-oriented-design/" class="md-tabs__link">
           
   
     
@@ -430,13 +432,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../assembly/" class="md-tabs__link">
           
   
     
@@ -456,7 +456,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../os-development/" class="md-tabs__link">
+        <a href="../../os-development/" class="md-tabs__link">
           
   
     
@@ -476,7 +476,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../aosp/" class="md-tabs__link">
+        <a href="../../aosp/" class="md-tabs__link">
           
   
     
@@ -496,7 +496,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../tips/" class="md-tabs__link">
+        <a href="../../tips/" class="md-tabs__link">
           
   
     
@@ -516,7 +516,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting/" class="md-tabs__link">
+        <a href="../../troubleshooting/" class="md-tabs__link">
           
   
     
@@ -559,7 +559,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -604,7 +604,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../getting-started/" class="md-nav__link ">
+            <a href="../../getting-started/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -638,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
+      <a href="../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -682,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
+      <a href="../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -742,7 +742,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../basic-operations/" class="md-nav__link ">
+            <a href="../../basic-operations/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -776,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -798,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -820,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -842,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -864,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -926,7 +926,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../programming/" class="md-nav__link ">
+            <a href="../../programming/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -960,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/2._controlling_led_with_gpio/" class="md-nav__link">
+      <a href="../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1004,7 +1004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
+      <a href="../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1026,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
+      <a href="../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1048,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
+      <a href="../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1070,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
+      <a href="../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1128,7 +1128,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cpp-learning/" class="md-nav__link ">
+            <a href="../../cpp-learning/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1215,7 +1215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/1.introduction/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/1.introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1237,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1259,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/3.control_flow/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1281,7 +1281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/4.functions/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/4.functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1303,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/5.operators/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/5.operators/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1325,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1404,7 +1404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/1.memory_management/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1426,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1448,7 +1448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/3.inheritance/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1470,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1547,7 +1547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.containers/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1569,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.templates/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1591,7 +1591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/2.algorithms/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1670,7 +1670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1692,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/2.cpp20/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1714,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/3.cpp23/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1736,7 +1736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/4.build_systems/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1796,19 +1798,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1820,13 +1825,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1842,7 +1847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1864,7 +1869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1886,7 +1891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1908,7 +1913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+      <a href="../04_ownership_moves_copy_and_clone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1930,7 +1935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/05_references_borrowing_and_slices/" class="md-nav__link">
+      <a href="../05_references_borrowing_and_slices/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1952,7 +1957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/06_structs_methods_and_associated_functions/" class="md-nav__link">
+      <a href="../06_structs_methods_and_associated_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1971,10 +1976,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../rust-learning/07_enums_match_and_patterns/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rust Enums, Match and Patterns on Raspberry Pi
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1984,6 +2010,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and outcome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#represent-alternatives-with-a-rust-enum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Represent alternatives with a Rust enum
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#match-is-exhaustive-and-produces-a-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Match is exhaustive and produces a value
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patterns-can-borrow-or-move" class="md-nav__link">
+    <span class="md-ellipsis">
+      Patterns can borrow or move
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-let-and-let-else-have-different-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      If let and let else have different jobs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-incomplete-match" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing incomplete match
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2030,7 +2148,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../design-patterns/" class="md-nav__link ">
+            <a href="../../design-patterns/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2115,7 +2233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/singleton_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2137,7 +2255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2159,7 +2277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2181,7 +2299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/builder_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/builder_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2203,7 +2321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/prototype_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2288,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/adapter_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2310,7 +2428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/decorator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2332,7 +2450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/facade_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/facade_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2354,7 +2472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/proxy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2376,7 +2494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/composite_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/composite_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2398,7 +2516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/bridge_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2420,7 +2538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2511,7 +2629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2533,7 +2651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2555,7 +2673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2577,7 +2695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/command_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2599,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/state_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2621,7 +2739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2643,7 +2761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2665,7 +2783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2687,7 +2805,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2709,7 +2827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2771,7 +2889,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../data-oriented-design/" class="md-nav__link ">
+            <a href="../../data-oriented-design/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2866,7 +2984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/01_design_boundaries/" class="md-nav__link">
+      <a href="../../data-oriented-design/01_design_boundaries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2888,7 +3006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
+      <a href="../../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2910,7 +3028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
+      <a href="../../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2932,7 +3050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
+      <a href="../../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2954,7 +3072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
+      <a href="../../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2976,7 +3094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/06_components_and_systems/" class="md-nav__link">
+      <a href="../../data-oriented-design/06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2998,7 +3116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
+      <a href="../../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3020,7 +3138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
+      <a href="../../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3042,7 +3160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
+      <a href="../../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3064,7 +3182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
+      <a href="../../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3119,7 +3237,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../data-oriented-design/advanced/" class="md-nav__link ">
+            <a href="../../data-oriented-design/advanced/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3153,7 +3271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3175,7 +3293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3209,8 +3327,6 @@
       
   
   
-    
-  
   
   
     
@@ -3239,22 +3355,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../assembly/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3266,13 +3379,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_8" id="__nav_8_label" tabindex="">
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Arm64 Assembly
@@ -3288,7 +3401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../../assembly/aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3310,7 +3423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3332,7 +3445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3354,7 +3467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3376,7 +3489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3398,7 +3511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3420,7 +3533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3442,7 +3555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="neon_simd_vector_programming_on_arm64/" class="md-nav__link">
+      <a href="../../assembly/neon_simd_vector_programming_on_arm64/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3502,7 +3615,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../os-development/" class="md-nav__link ">
+            <a href="../../os-development/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3585,7 +3698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3607,7 +3720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3629,7 +3742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3651,7 +3764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3726,7 +3839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3748,7 +3861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3823,7 +3936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3845,7 +3958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3920,7 +4033,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3942,7 +4055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4017,7 +4130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4039,7 +4152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4105,7 +4218,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../aosp/" class="md-nav__link ">
+            <a href="../../aosp/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4139,7 +4252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/android_architecture_map/" class="md-nav__link">
+      <a href="../../aosp/android_architecture_map/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4161,7 +4274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/aosp_architecture_explained/" class="md-nav__link">
+      <a href="../../aosp/aosp_architecture_explained/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4183,7 +4296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/build_aosp_android_16_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../aosp/build_aosp_android_16_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4205,7 +4318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/run_aaos_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../aosp/run_aaos_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4475,7 +4588,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../tips/" class="md-nav__link ">
+            <a href="../../tips/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4509,7 +4622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/automated_backup_strategies/" class="md-nav__link">
+      <a href="../../tips/automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4531,7 +4644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4553,7 +4666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4575,7 +4688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4597,7 +4710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4619,7 +4732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+      <a href="../../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4641,7 +4754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4663,7 +4776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../../tips/cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4685,7 +4798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4707,7 +4820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4729,7 +4842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4751,7 +4864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4773,7 +4886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
+      <a href="../../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4795,7 +4908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
+      <a href="../../tips/edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4817,7 +4930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
+      <a href="../../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4839,7 +4952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4861,7 +4974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4883,7 +4996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4905,7 +5018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4927,7 +5040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4949,7 +5062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4971,7 +5084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4993,7 +5106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5015,7 +5128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5037,7 +5150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
+      <a href="../../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5059,7 +5172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5081,7 +5194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+      <a href="../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5103,7 +5216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5125,7 +5238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5147,7 +5260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5169,7 +5282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5191,7 +5304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5213,7 +5326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5235,7 +5348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5257,7 +5370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
+      <a href="../../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5279,7 +5392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5301,7 +5414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
+      <a href="../../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5323,7 +5436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5345,7 +5458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
+      <a href="../../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5367,7 +5480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5389,7 +5502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5411,7 +5524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5433,7 +5546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5455,7 +5568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5477,7 +5590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5499,7 +5612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5521,7 +5634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
+      <a href="../../tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5543,7 +5656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
+      <a href="../../tips/network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5565,7 +5678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5587,7 +5700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
+      <a href="../../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5609,7 +5722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5631,7 +5744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5653,7 +5766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5675,7 +5788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5697,7 +5810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5719,7 +5832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5741,7 +5854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5763,7 +5876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5785,7 +5898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5807,7 +5920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5829,7 +5942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5851,7 +5964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5873,7 +5986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5895,7 +6008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5917,7 +6030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5939,7 +6052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5961,7 +6074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5983,7 +6096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6005,7 +6118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6027,7 +6140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_network_manager_update_failed/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_network_manager_update_failed/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6049,7 +6162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6071,7 +6184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6093,7 +6206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6115,7 +6228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6137,7 +6250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6159,7 +6272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6181,7 +6294,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6203,7 +6316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6225,7 +6338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6247,7 +6360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6269,7 +6382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6291,7 +6404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6313,7 +6426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6335,7 +6448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6357,7 +6470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6379,7 +6492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6401,7 +6514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6423,7 +6536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6445,7 +6558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
+      <a href="../../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6467,7 +6580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6489,7 +6602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6511,7 +6624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6533,7 +6646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6555,7 +6668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
+      <a href="../../tips/run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6577,7 +6690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6599,7 +6712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
+      <a href="../../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6621,7 +6734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6643,7 +6756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6665,7 +6778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6687,7 +6800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
+      <a href="../../tips/secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6709,7 +6822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6731,7 +6844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6753,7 +6866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/setting_up_vpn_access/" class="md-nav__link">
+      <a href="../../tips/setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6775,7 +6888,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
+      <a href="../../tips/smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6797,7 +6910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
+      <a href="../../tips/smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6819,7 +6932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6841,7 +6954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6863,7 +6976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6885,7 +6998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6907,7 +7020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6963,7 +7076,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../troubleshooting/" class="md-nav__link ">
+            <a href="../../troubleshooting/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -6997,7 +7110,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
+      <a href="../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7019,7 +7132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/frequently_asked_questions/" class="md-nav__link">
+      <a href="../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7041,7 +7154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
+      <a href="../../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7080,112 +7193,326 @@
 
 
 
-<div><h1 id="aarch64-and-arm64-assembly-on-raspberry-pi-learning-path">AArch64 and Arm64 Assembly on Raspberry Pi: Learning Path<a class="headerlink" href="#aarch64-and-arm64-assembly-on-raspberry-pi-learning-path" title="Permanent link">¶</a></h1>
-<p>This learning path takes you from a first AArch64 program to functions, debugging, C++ integration, GPIO, and NEON SIMD. It is designed for 64-bit Raspberry Pi OS on Arm64-capable boards.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Quick answer</p>
-<p><strong>AArch64</strong> is the 64-bit execution state and instruction set; <strong>Arm64</strong> is the commonly used platform name in Linux tools and package repositories. On Raspberry Pi OS, confirm <code>uname -m</code> reports <code>aarch64</code>, then start with registers and the calling convention before optimization.</p>
+<div><h1 id="rust-enums-match-and-patterns">Rust Enums, Match and Patterns<a class="headerlink" href="#rust-enums-match-and-patterns" title="Permanent link">¶</a></h1>
+<p>A Rust enum describes alternatives: a reading can contain a measurement, be missing, or carry an invalid-input explanation. This lesson uses match and patterns to handle those states explicitly instead of confusing a missing reading with a real zero.</p>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
 </div>
-<h2 id="check-your-environment">Check your environment<a class="headerlink" href="#check-your-environment" title="Permanent link">¶</a></h2>
+
+<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../06_structs_methods_and_associated_functions/">structs and methods</a>. You will attach data to enum variants, match exhaustively, borrow fields through patterns and use if let and let else for focused cases. The input is fixture data; the threshold of 60,000 millidegrees is an exercise policy, not a Pi cooling or throttling limit.</p>
+<h2 id="represent-alternatives-with-a-rust-enum">Represent alternatives with a Rust enum<a class="headerlink" href="#represent-alternatives-with-a-rust-enum" title="Permanent link">¶</a></h2>
+<p>Our <code>ReadingState</code> has three variants. <code>Measured</code> uses named fields, <code>Missing</code> has no data, and <code>Invalid</code> contains owned text. Each value is one variant, not all three at once. Unlike several independent flags, this representation cannot express “missing and measured” simultaneously.</p>
+<p>That guarantee has limits. <code>Measured</code> still accepts any i32; an enum does not establish sensor accuracy or validate an operating range. Nor does it decide when a measurement becomes missing: application logic supplies that state.</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>gcc<span class="w"> </span>--version
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>as<span class="w"> </span>--version
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>gdb<span class="w"> </span>--version
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_states
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_states
 </code></pre></div></td></tr></table></div>
-<p>If <code>uname -m</code> reports <code>armv7l</code>, you are running a 32-bit userspace and these AArch64 examples will not assemble as written. Install the basic native toolchain with <code>sudo apt install build-essential gdb</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Term</th>
-<th>Meaning in this series</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AArch64</td>
-<td>Arm's 64-bit instruction set and execution state</td>
-</tr>
-<tr>
-<td>Arm64</td>
-<td>Linux/platform name normally corresponding to AArch64</td>
-</tr>
-<tr>
-<td>AAPCS64</td>
-<td>Procedure-call rules for arguments, results, registers, and stack</td>
-</tr>
-<tr>
-<td>NEON/Advanced SIMD</td>
-<td>Vector instructions using the <code>V0</code>–<code>V31</code> registers</td>
-</tr>
-</tbody>
-</table>
-<p><a id="arm64-assembly-mastery-route"></a></p>
-<h2 id="assembly-tutorials">Assembly tutorials<a class="headerlink" href="#assembly-tutorials" title="Permanent link">¶</a></h2>
-<h3 id="1-arm64-assembly-on-raspberry-pi-aarch64-tutorial">1. <strong><a href="introduction_to_arm64_assembly_on_raspberry_pi/">Arm64 Assembly on Raspberry Pi: AArch64 Tutorial</a></strong><a class="headerlink" href="#1-arm64-assembly-on-raspberry-pi-aarch64-tutorial" title="Permanent link">¶</a></h3>
-<p>Verify a 64-bit Raspberry Pi OS environment, use GNU assembler (<code>as</code>) and linker (<code>ld</code>), run a Linux AArch64 hello-world program, and debug it with GDB.</p>
-<h3 id="2-arm64-registers-and-aarch64-instructions">2. <strong><a href="arm64_registers_and_basic_instructions/">ARM64 Registers and AArch64 Instructions</a></strong><a class="headerlink" href="#2-arm64-registers-and-aarch64-instructions" title="Permanent link">¶</a></h3>
-<p>Learn the core register model: general-purpose registers (<code>X0</code>–<code>X30</code>, <code>SP</code>, <code>ZR</code>), AAPCS64 rules, floating-point registers, arithmetic, logical operations, and memory access.</p>
-<h3 id="3-adrp-add-adr-and-ldr-literal">3. <strong><a href="aarch64_adrp_add_ldr_literal_address_loading/">ADRP, ADD, ADR, and LDR Literal</a></strong><a class="headerlink" href="#3-adrp-add-adr-and-ldr-literal" title="Permanent link">¶</a></h3>
-<p>Learn how AArch64 constructs PC-relative addresses, loads nearby data, uses relocation pairs, and accesses the Global Offset Table.</p>
-<h3 id="4-control-flow-and-branching">4. <strong><a href="control_flow_and_branching_in_arm64_assembly/">Control Flow and Branching</a></strong><a class="headerlink" href="#4-control-flow-and-branching" title="Permanent link">¶</a></h3>
-<p>Implement logic structures in assembly. Learn how processor flags, conditional branch instructions (<code>B.cond</code>, <code>CBZ</code>), and loops control execution flow.</p>
-<h3 id="5-functions-and-stack-management">5. <strong><a href="functions_and_stack_management_in_arm64_assembly/">Functions and Stack Management</a></strong><a class="headerlink" href="#5-functions-and-stack-management" title="Permanent link">¶</a></h3>
-<p>Understand the AAPCS64 calling convention. Learn how parameters are passed via registers, manage the stack frame (<code>SP</code>), handle link register (<code>LR</code>) storage, and build nested functions.</p>
-<h3 id="6-interfacing-with-c-and-gpio">6. <strong><a href="interfacing_with_c%2B%2B_and_gpio_control/">Interfacing with C++ and GPIO</a></strong><a class="headerlink" href="#6-interfacing-with-c-and-gpio" title="Permanent link">¶</a></h3>
-<p>Write mixed-language applications. Call assembly routines directly from C++ source files, pass data across boundaries, and control physical Raspberry Pi GPIO pins using low-level memory maps.</p>
-<h3 id="7-neon-simd-vector-programming">7. <strong><a href="neon_simd_vector_programming_on_arm64/">NEON SIMD Vector Programming</a></strong><a class="headerlink" href="#7-neon-simd-vector-programming" title="Permanent link">¶</a></h3>
-<p>Harness parallel computing. Learn how to use NEON vector registers and instructions to process multiple data elements simultaneously, accelerating image processing pipelines and math solvers.</p>
-<h3 id="8-inline-assembly-in-c">8. <strong><a href="inline_assembly_in_c%2B%2B_on_raspberry_pi/">Inline Assembly in C++</a></strong><a class="headerlink" href="#8-inline-assembly-in-c" title="Permanent link">¶</a></h3>
-<p>Embed raw assembly blocks directly inside your C++ code. Master GCC extended asm syntax, input/output constraints, clobber lists, and low-level instruction mapping.</p>
-<h2 id="choose-a-route-by-goal">Choose a route by goal<a class="headerlink" href="#choose-a-route-by-goal" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Goal</th>
-<th>Read first</th>
-<th>Continue with</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Understand disassembly</td>
-<td>Introduction and registers</td>
-<td>Address loading and control flow</td>
-</tr>
-<tr>
-<td>Call assembly from C/C++</td>
-<td>Registers and functions</td>
-<td>C++ integration and inline assembly</td>
-</tr>
-<tr>
-<td>Debug crashes</td>
-<td>Control flow and functions</td>
-<td>GDB examples in each article</td>
-</tr>
-<tr>
-<td>Optimize numeric code</td>
-<td>Functions and ABI</td>
-<td>NEON SIMD, then measurement</td>
-</tr>
-<tr>
-<td>Access hardware</td>
-<td>C++ integration</td>
-<td>GPIO and kernel-supported interfaces</td>
-</tr>
-</tbody>
-</table>
-<h2 id="a-repeatable-practice-loop">A repeatable practice loop<a class="headerlink" href="#a-repeatable-practice-loop" title="Permanent link">¶</a></h2>
-<p>For every example, keep the source, exact build command, disassembly, and observed output together. Compile with debug symbols, inspect the generated instructions, single-step the code, then benchmark only after verifying correctness:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>gcc<span class="w"> </span>-g<span class="w"> </span>-O0<span class="w"> </span>example.s<span class="w"> </span>-o<span class="w"> </span>example
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>objdump<span class="w"> </span>-d<span class="w"> </span>example<span class="w"> </span><span class="p">|</span><span class="w"> </span>less
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>gdb<span class="w"> </span>./example
+<p>Replace <code>src/main.rs</code> with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-1-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-1-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-1-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-1-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-1-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-1-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-1-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-1-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-1-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-1-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-1-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-1-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-1-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-1-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-1-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-1-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-1-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-1-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-1-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-1-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-1-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-1-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-1-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-1-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-1-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-1-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-1-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-1-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-1-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-1-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-1-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-1-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-1-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-1-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-1-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-1-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-1-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-1-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-1-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-1-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-1-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-1-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-1-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-1-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-1-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-1-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-1-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-1-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-1-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-1-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-1-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-1-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-1-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-1-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-1-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-1-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-1-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-1-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-1-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-1-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-1-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-1-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-1-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-1-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-1-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-1-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-1-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-1-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-1-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-1-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-1-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-1-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-1-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-1-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-1-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-1-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-1-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-1-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-1-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-1-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-1-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-1-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-1-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-1-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-1-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-1-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-1-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-1-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-1-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-1-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-1-100">100</a></span>
+<span class="normal"><a href="#__codelineno-1-101">101</a></span>
+<span class="normal"><a href="#__codelineno-1-102">102</a></span>
+<span class="normal"><a href="#__codelineno-1-103">103</a></span>
+<span class="normal"><a href="#__codelineno-1-104">104</a></span>
+<span class="normal"><a href="#__codelineno-1-105">105</a></span>
+<span class="normal"><a href="#__codelineno-1-106">106</a></span>
+<span class="normal"><a href="#__codelineno-1-107">107</a></span>
+<span class="normal"><a href="#__codelineno-1-108">108</a></span>
+<span class="normal"><a href="#__codelineno-1-109">109</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">enum</span><span class="w"> </span><span class="nc">ReadingState</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="n">Missing</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="n">Invalid</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="p">}</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="k">fn</span><span class="w"> </span><span class="nf">classify</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">ReadingState</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">*</span><span class="n">millidegrees</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">60_000</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"notice"</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"below threshold"</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Missing</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"missing"</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Invalid</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"invalid"</span><span class="p">,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">fn</span><span class="w"> </span><span class="nf">print_measured</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">ReadingState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">"no measured value"</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"measured={millidegrees}"</span><span class="p">);</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="p">}</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="c1">// Fixtures: there is no sensor or parser in this program.</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">states</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">            </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">46_700</span><span class="p">,</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">            </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Missing</span><span class="p">,</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">        </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Invalid</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"not a number"</span><span class="p">)),</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">    </span><span class="p">];</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">&amp;</span><span class="n">states</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">"state={}"</span><span class="p">,</span><span class="w"> </span><span class="n">classify</span><span class="p">(</span><span class="n">state</span><span class="p">));</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Invalid</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">"reason={reason}"</span><span class="p">);</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="n">print_measured</span><span class="p">(</span><span class="o">&amp;</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="n">print_measured</span><span class="p">(</span><span class="o">&amp;</span><span class="n">states</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="p">}</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">ReadingState</span><span class="p">,</span><span class="w"> </span><span class="n">classify</span><span class="p">};</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">below_threshold_is_classified</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="w">            </span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">                </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">59_999</span><span class="p">,</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="w">            </span><span class="p">}),</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">            </span><span class="s">"below threshold"</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">        </span><span class="p">);</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">equality_and_above_need_notice</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">            </span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">                </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">60_000</span><span class="p">,</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">            </span><span class="p">}),</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">            </span><span class="s">"notice"</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">        </span><span class="p">);</span>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">            </span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a><span class="w">                </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">60_001</span><span class="p">,</span>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">            </span><span class="p">}),</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">            </span><span class="s">"notice"</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">        </span><span class="p">);</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">missing_differs_from_real_zero</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Missing</span><span class="p">),</span><span class="w"> </span><span class="s">"missing"</span><span class="p">);</span>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">            </span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Measured</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}),</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">            </span><span class="s">"below threshold"</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">        </span><span class="p">);</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">matching_does_not_consume_invalid_text</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Invalid</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"bad input"</span><span class="p">));</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">),</span><span class="w"> </span><span class="s">"invalid"</span><span class="p">);</span>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">ReadingState</span><span class="p">::</span><span class="n">Invalid</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">state</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">            </span><span class="fm">panic!</span><span class="p">(</span><span class="s">"fixture must be invalid"</span><span class="p">);</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">        </span><span class="p">};</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">reason</span><span class="p">,</span><span class="w"> </span><span class="s">"bad input"</span><span class="p">);</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state</span><span class="p">),</span><span class="w"> </span><span class="s">"invalid"</span><span class="p">);</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">range_and_alternative_patterns_select_values</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="n">expected</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">@</span><span class="w"> </span><span class="mi">0</span><span class="o">..=</span><span class="mi">9</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="w">                </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="w">                </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-1-105" name="__codelineno-1-105"></a><span class="w">            </span><span class="p">};</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>Optimization claims should include the compiler flags, input size, number of runs, CPU temperature, and throttling state. Use the <a href="../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/">reproducible Raspberry Pi benchmark guide</a> when comparing assembly with compiler-generated code.</p></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+</code></pre></div></td></tr></table></div>
+<p>Expected output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>state=below threshold
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>state=notice
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>state=missing
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>state=invalid
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>reason=not a number
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>measured=46700
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>no measured value
+</code></pre></div></td></tr></table></div>
+<h2 id="match-is-exhaustive-and-produces-a-value">Match is exhaustive and produces a value<a class="headerlink" href="#match-is-exhaustive-and-produces-a-value" title="Permanent link">¶</a></h2>
+<p>Each match arm consists of a pattern and a result. Rust checks that every possible value is handled. Here, the match expression returns a string label; all arms must produce compatible values.</p>
+<p>The first arm binds <code>millidegrees</code> and uses a guard after <code>if</code>. The fallback Measured arm remains necessary: a guard does not prove every possible measured value is covered. Arms are considered in order, so putting the unguarded Measured arm first would prevent the guarded one from doing useful work.</p>
+<p><code>..</code> ignores remaining named fields; <code>_</code> ignores a value without binding it. A catch-all arm can be useful, but matching each variant explicitly makes an added variant prompt a review of this decision. A wildcard can hide that reminder.</p>
+<p>The <a href="https://doc.rust-lang.org/book/ch06-02-match.html">match chapter</a> explains these rules. Enums can also have associated functions and methods in impl blocks, just like the struct in lesson 6.</p>
+<p>The returned <code>&amp;'static str</code> is a reference to one of the fixed string literals, not newly allocated text borrowed from a local String. The lifetime lesson later explains the annotation; it does not prolong the lifetime of arbitrary local data.</p>
+<h3 id="destructuring-alternatives-and-ranges">Destructuring, alternatives and ranges<a class="headerlink" href="#destructuring-alternatives-and-ranges" title="Permanent link">¶</a></h3>
+<p>Patterns also extract tuples and structs, as previous lessons demonstrated. <code>10 | 11</code> accepts either literal, <code>0..=9</code> matches an inclusive range, and <code>value @ 0..=9</code> both checks the range and binds the matching integer. The final test exercises their boundaries. These are patterns, not Boolean expressions pasted into a match arm.</p>
+<p><code>_</code> discards without introducing a name. A name beginning with an underscore is still a binding and can move a non-Copy value; it merely signals intentional non-use. Explicit bindings and borrowed matches should reflect the ownership you need. Or-patterns must introduce compatible bindings in their alternatives.</p>
+<h2 id="patterns-can-borrow-or-move">Patterns can borrow or move<a class="headerlink" href="#patterns-can-borrow-or-move" title="Permanent link">¶</a></h2>
+<p>We match a <code>&amp;ReadingState</code>, so the field bindings use borrowed access: <code>millidegrees</code> is an <code>&amp;i32</code>, and <code>reason</code> is an <code>&amp;String</code>. Dereferencing the integer in the guard makes the comparison explicit. This behaviour is part of pattern binding modes, often called match ergonomics; it does not clone fields.</p>
+<p>Matching an owned enum by value can instead move non-Copy fields. Use a borrowed match when inspecting a state that the caller must keep. Adding <code>mut</code> to a binding is not a replacement for choosing an appropriate reference.</p>
+<p>In edition 2024, explicit binding modifiers have additional restrictions when the default mode is already borrowing. Start with the simple borrowed patterns shown here rather than adding <code>ref</code> mechanically. See the <a href="https://doc.rust-lang.org/reference/patterns.html">patterns reference</a> for binding modes and their edition rules.</p>
+<h2 id="if-let-and-let-else-have-different-jobs">If let and let else have different jobs<a class="headerlink" href="#if-let-and-let-else-have-different-jobs" title="Permanent link">¶</a></h2>
+<p><code>if let</code> handles one interesting pattern and skips the rest unless you provide an else branch. We use it to print only invalid-input reasons; it does not replace the exhaustive classification.</p>
+<p><code>let ... else</code> either binds the requested pattern for the following code or exits that path. Its else block must diverge, for example with return, break where appropriate, or panic. The main program uses return, so print_measured reports absence without manufacturing a numeric reading.</p>
+<p>A plain <code>let (count, value) = tuple;</code> accepts a pattern that always matches that tuple shape. An enum-specific pattern can fail to match a different variant and is refutable; it needs a context such as match, if let or let else. The official <a href="https://doc.rust-lang.org/book/ch06-03-if-let.html">concise control-flow chapter</a> describes the focused forms.</p>
+<h2 id="deliberately-failing-incomplete-match">Deliberately failing incomplete match<a class="headerlink" href="#deliberately-failing-incomplete-match" title="Permanent link">¶</a></h2>
+<p>In a separate scratch project, replace <code>src/main.rs</code> with this complete program:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="n">Ready</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="n">Missing</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="p">}</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">fn</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="n">state</span><span class="p">:</span><span class="w"> </span><span class="nc">State</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="n">State</span><span class="p">::</span><span class="n">Ready</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">"ready"</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="p">}</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="p">(</span><span class="n">State</span><span class="p">::</span><span class="n">Ready</span><span class="p">));</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><code>cargo check</code> should reject the non-exhaustive match (E0004), even though this main function only supplies Ready. The function accepts any State, and its contract must account for Missing too.</p>
+<h2 id="exercises-and-checks">Exercises and checks<a class="headerlink" href="#exercises-and-checks" title="Permanent link">¶</a></h2>
+<ol>
+<li>Remove the unguarded Measured arm from classify: expect E0004. The guard alone is not exhaustive.</li>
+<li>Make the else block in print_measured print a message but not return: expect E0308 because the else branch does not diverge. Restore the return.</li>
+<li>Change the fixture's first measurement to <code>0</code>: expect a real measured zero, not <code>missing</code>. Tests preserve the distinction.</li>
+<li>Add a new <code>Stale</code> variant: explicitly add an arm before restoring the original exercise. Decide whether a stale value needs its own data rather than a second independent Boolean flag.</li>
+</ol>
+<p>If an integer binding is unexpectedly a reference, inspect the matched expression's type before adding a clone. If moving a String makes the enum unusable, decide whether ownership transfer was really intended.</p>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, this lesson was verified on a Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, all 5 tests, formatting and debug/release output comparisons passed. The zero-measurement exercise also ran. The incomplete match, missing unguarded arm, added variant and non-diverging else exercises failed for their expected reasons. The program does not acquire or parse sensor data.</p>
+<p>Next in the roadmap are strings, vectors and maps, allowing us to work with variable-size input. That lesson is planned, not yet available.</p>
+<p><a href="../06_structs_methods_and_associated_functions/">Previous: structs and methods</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7208,7 +7535,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 12:40:56 JST">2026-10-10</span>
   </span>
 
     
@@ -7218,7 +7545,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 29, 2025 22:57:05 JST">2025-11-29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 12:40:56 JST">2026-10-10</span>
   </span>
 
     
@@ -7237,11 +7564,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
-          <li><a href="../data-oriented-design/advanced/02_component_storage/">Previous: C++ Component Storage: Bounded Sparse Sets and Invariants</a></li>
+        
+          <li><a href="../06_structs_methods_and_associated_functions/">Previous: Rust Structs, Methods and Associated Functions on Raspberry Pi</a></li>
         
         
-          <li><a href="aarch64_adrp_add_ldr_literal_address_loading/">Next: AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
@@ -7307,10 +7636,10 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
