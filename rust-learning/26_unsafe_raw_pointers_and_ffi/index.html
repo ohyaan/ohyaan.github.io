@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Choose plain records, composition, a custom ECS, or a library from concrete C++ requirements. Weigh changeability, tracing, invariants, and maintenance.">
+        <meta name="description" content="Learn Rust unsafe boundaries on Raspberry Pi with documented pointer contracts, unions, C ABI calls, layout checks and a worker shutdown checkpoint.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/data-oriented-design/10_choosing_a_design/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/26_unsafe_raw_pointers_and_ffi/">
       
       
-        <link rel="prev" href="../09_maintenance_and_invariants/">
+        <link rel="prev" href="../25_attributes_cfg_features_and_editions/">
       
       
-        <link rel="next" href="../advanced/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Choose Records, Composition, or ECS for C++ Projects - With Raspberry Pi</title>
+        <title>Rust Unsafe, Raw Pointers and FFI: Explain the Safe Wrapper Contract - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Choose Records, Composition, or ECS for C++ Projects - With Raspberry Pi">
-  <meta property="og:description" content="Choose plain records, composition, a custom ECS, or a library from concrete C++ requirements. Weigh changeability, tracing, invariants, and maintenance.">
+  <meta property="og:title" content="26. Unsafe Rust and FFI - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust unsafe boundaries on Raspberry Pi with documented pointer contracts, unions, C ABI calls, layout checks and a worker shutdown checkpoint.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/data-oriented-design/10_choosing_a_design/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__10_choosing_a_design.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/26_unsafe_raw_pointers_and_ffi/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__26_unsafe_raw_pointers_and_ffi.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Choose Records, Composition, or ECS for C++ Projects">
+  <meta property="og:image:alt" content="26. Unsafe Rust and FFI">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-10-07">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-10-07">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Choose Records, Composition, or ECS for C++ Projects - With Raspberry Pi">
-  <meta name="twitter:description" content="Choose plain records, composition, a custom ECS, or a library from concrete C++ requirements. Weigh changeability, tracing, invariants, and maintenance.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/data-oriented-design__10_choosing_a_design.jpg">
+  <meta name="twitter:title" content="26. Unsafe Rust and FFI - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust unsafe boundaries on Raspberry Pi with documented pointer contracts, unions, C ABI calls, layout checks and a worker shutdown checkpoint.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__26_unsafe_raw_pointers_and_ffi.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Choose Records, Composition, or ECS for C++ Projects",
-    "description": "Choose plain records, composition, a custom ECS, or a library from concrete C++ requirements. Weigh changeability, tracing, invariants, and maintenance.",
-    "url": "https://ohyaan.github.io/data-oriented-design/10_choosing_a_design/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/data-oriented-design/10_choosing_a_design/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/data-oriented-design__10_choosing_a_design.jpg"],
+    "headline": "26. Unsafe Rust and FFI",
+    "description": "Learn Rust unsafe boundaries on Raspberry Pi with documented pointer contracts, unions, C ABI calls, layout checks and a worker shutdown checkpoint.",
+    "url": "https://ohyaan.github.io/rust-learning/26_unsafe_raw_pointers_and_ffi/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/26_unsafe_raw_pointers_and_ffi/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__26_unsafe_raw_pointers_and_ffi.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-10-07",
-    "dateModified": "2026-10-07"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Choose Records, Composition, or ECS for C++ Projects", "item": "https://ohyaan.github.io/data-oriented-design/10_choosing_a_design/"}
+      {"@type": "ListItem", "position": 2, "name": "26. Unsafe Rust and FFI", "item": "https://ohyaan.github.io/rust-learning/26_unsafe_raw_pointers_and_ffi/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#choose-records-composition-or-ecs-for-c-projects" class="md-skip">
+        <a href="#26-rust-unsafe-raw-pointers-and-ffi" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Choose Records, Composition, or ECS for C++ Projects
+              Rust Unsafe, Raw Pointers and FFI: Explain the Safe Wrapper Contract
             
           </span>
         </div>
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -410,13 +412,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../data-oriented-design/" class="md-tabs__link">
           
   
     
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1788,19 +1790,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1812,13 +1817,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1893,7 +1898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1915,7 +1920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1937,7 +1942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1959,7 +1964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+      <a href="../04_ownership_moves_copy_and_clone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1981,7 +1986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/05_references_borrowing_and_slices/" class="md-nav__link">
+      <a href="../05_references_borrowing_and_slices/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2003,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/06_structs_methods_and_associated_functions/" class="md-nav__link">
+      <a href="../06_structs_methods_and_associated_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2025,7 +2030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/07_enums_match_and_patterns/" class="md-nav__link">
+      <a href="../07_enums_match_and_patterns/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2047,7 +2052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/08_strings_vectors_and_hash_maps/" class="md-nav__link">
+      <a href="../08_strings_vectors_and_hash_maps/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2069,7 +2074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/09_option_result_and_error_handling/" class="md-nav__link">
+      <a href="../09_option_result_and_error_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2156,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/10_crates_modules_paths_and_visibility/" class="md-nav__link">
+      <a href="../10_crates_modules_paths_and_visibility/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2178,7 +2183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/11_generics_bounds_and_const_generics/" class="md-nav__link">
+      <a href="../11_generics_bounds_and_const_generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2200,7 +2205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/12_traits_implementations_and_associated_types/" class="md-nav__link">
+      <a href="../12_traits_implementations_and_associated_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2222,7 +2227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/13_lifetimes_and_borrowed_apis/" class="md-nav__link">
+      <a href="../13_lifetimes_and_borrowed_apis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2244,7 +2249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/14_trait_objects_and_dispatch/" class="md-nav__link">
+      <a href="../14_trait_objects_and_dispatch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2266,7 +2271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/15_closures_and_function_pointers/" class="md-nav__link">
+      <a href="../15_closures_and_function_pointers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2288,7 +2293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/16_iterators_and_lazy_adapters/" class="md-nav__link">
+      <a href="../16_iterators_and_lazy_adapters/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2310,7 +2315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/17_tests_documentation_and_cargo/" class="md-nav__link">
+      <a href="../17_tests_documentation_and_cargo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2337,8 +2342,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -2366,11 +2373,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -2385,7 +2392,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Part 3: Resources and Advanced Rust
@@ -2399,7 +2406,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/18_box_deref_and_drop/" class="md-nav__link">
+      <a href="../18_box_deref_and_drop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2421,7 +2428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/19_rc_weak_cell_and_refcell/" class="md-nav__link">
+      <a href="../19_rc_weak_cell_and_refcell/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2443,7 +2450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/20_threads_send_sync_arc_and_locks/" class="md-nav__link">
+      <a href="../20_threads_send_sync_arc_and_locks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2465,7 +2472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/21_channels_atomics_and_shutdown/" class="md-nav__link">
+      <a href="../21_channels_atomics_and_shutdown/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2487,7 +2494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/22_async_await_and_future/" class="md-nav__link">
+      <a href="../22_async_await_and_future/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2509,7 +2516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/23_pin_unpin_and_async_boundaries/" class="md-nav__link">
+      <a href="../23_pin_unpin_and_async_boundaries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2531,7 +2538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/24_declarative_and_procedural_macros/" class="md-nav__link">
+      <a href="../24_declarative_and_procedural_macros/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2553,7 +2560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/25_attributes_cfg_features_and_editions/" class="md-nav__link">
+      <a href="../25_attributes_cfg_features_and_editions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2572,10 +2579,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../rust-learning/26_unsafe_raw_pointers_and_ffi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    26. Unsafe Rust and FFI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2585,6 +2613,125 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning goals and prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust-unsafe-permission-is-not-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust unsafe: permission is not proof
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-complete-dependency-free-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the complete dependency-free program
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#audit-the-safe-wrapper-not-only-its-test-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Audit the safe wrapper, not only its test results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#union-reads-require-validity-not-a-tracked-active-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      Union reads require validity, not a tracked active variant
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ffi-needs-layout-abi-ownership-and-error-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      FFI needs layout, ABI, ownership and error policy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#undefined-behaviour-is-not-an-expected-failing-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Undefined behaviour is not an expected failing exercise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-unsafe-fn-still-needs-an-unsafe-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing: unsafe fn still needs an unsafe block
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-iii-checkpoint-defend-ownership-and-shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Part III checkpoint: defend ownership and shutdown
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3352,8 +3499,6 @@
       
   
   
-    
-  
   
   
     
@@ -3370,22 +3515,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../data-oriented-design/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3397,13 +3539,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             ECS
@@ -3416,10 +3558,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -3449,11 +3589,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
         
           
           <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
@@ -3468,7 +3608,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_2">
             <span class="md-nav__icon md-icon"></span>
             Main course
@@ -3482,7 +3622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../01_design_boundaries/" class="md-nav__link">
+      <a href="../../data-oriented-design/01_design_boundaries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3504,7 +3644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02_plain_structs_and_loops/" class="md-nav__link">
+      <a href="../../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3526,7 +3666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../03_adding_acceleration/" class="md-nav__link">
+      <a href="../../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3548,7 +3688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04_comparing_design_alternatives/" class="md-nav__link">
+      <a href="../../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3570,7 +3710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../05_identity_and_ownership/" class="md-nav__link">
+      <a href="../../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3592,7 +3732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../06_components_and_systems/" class="md-nav__link">
+      <a href="../../data-oriented-design/06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3614,7 +3754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../07_execution_order_and_deferred_commands/" class="md-nav__link">
+      <a href="../../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3636,7 +3776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08_debugging_state_and_execution/" class="md-nav__link">
+      <a href="../../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3658,7 +3798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09_maintenance_and_invariants/" class="md-nav__link">
+      <a href="../../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3677,31 +3817,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Choose Records, Composition, or ECS for C++ Projects
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3711,80 +3830,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#revisit-the-evidence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Revisit the Evidence
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#decision-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decision Guide
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#three-concrete-decisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Three Concrete Decisions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#teaching-implementation-vs-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      Teaching Implementation vs Library
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#extensions-only-when-required" class="md-nav__link">
-    <span class="md-ellipsis">
-      Extensions Only When Required
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#final-exercise" class="md-nav__link">
-    <span class="md-ellipsis">
-      Final Exercise
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3830,7 +3875,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../advanced/" class="md-nav__link ">
+            <a href="../../data-oriented-design/advanced/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3864,7 +3909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3886,7 +3931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../advanced/02_component_storage/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7786,8 +7831,8 @@
 
 
 
-<div><h1 id="choose-records-composition-or-ecs-for-c-projects">Choose Records, Composition, or ECS for C++ Projects<a class="headerlink" href="#choose-records-composition-or-ecs-for-c-projects" title="Permanent link">¶</a></h1>
-<p>Finishing this course does not mean adopting ECS. Choose the least costly representation satisfying actual ownership, processing, and change requirements.</p>
+<div><h1 id="26-rust-unsafe-raw-pointers-and-ffi">26. Rust Unsafe, Raw Pointers and FFI<a class="headerlink" href="#26-rust-unsafe-raw-pointers-and-ffi" title="Permanent link">¶</a></h1>
+<p>Unsafe Rust does not disable ownership or make undefined behaviour acceptable. It permits specific operations whose safety obligations must be justified by the implementation and its callers. This lesson uses narrow examples with explicit contracts, then completes Part III with a worker that needs no unsafe code at all.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7797,73 +7842,473 @@
   </script>
 </div>
 
-<h2 id="revisit-the-evidence">Revisit the Evidence<a class="headerlink" href="#revisit-the-evidence" title="Permanent link">¶</a></h2>
-<p>We added acceleration before refactoring, preserved behaviour, compared capability combinations, separated identity from location, defined visibility, reproduced a bug, and tested recovery.</p>
-<p>None establishes a performance winner. Measure later if an actual workload has speed or memory requirements.</p>
-<h2 id="decision-guide">Decision Guide<a class="headerlink" href="#decision-guide" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Situation</th>
-<th>Starting point</th>
-<th>Cost to check</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Small fixed capabilities and local updates</td>
-<td>Records/functions</td>
-<td>Flags remain understandable</td>
-</tr>
-<tr>
-<td>Optional owned behaviours stay together</td>
-<td>Composition</td>
-<td>Nested relationships stay clear</td>
-</tr>
-<tr>
-<td>Small family of substitutable algorithms</td>
-<td>Inheritance</td>
-<td>Base contract and construction</td>
-</tr>
-<tr>
-<td>Operations naturally process capability subsets</td>
-<td>ECS</td>
-<td>Cross-store invariants and entity traces</td>
-</tr>
-<tr>
-<td>ECS requirements exceed teaching code</td>
-<td>Evaluate a library</td>
-<td>Semantics, dependencies, migration</td>
-</tr>
-</tbody>
-</table>
-<p>Selection alone suggests IDs, not ECS. Deferred edits suggest timing boundaries, not generations. Runtime capability replacement is not demonstrated here.</p>
-<h2 id="three-concrete-decisions">Three Concrete Decisions<a class="headerlink" href="#three-concrete-decisions" title="Permanent link">¶</a></h2>
-<p><strong>Small particle exercise:</strong> fixed flags, direct updates, no external references. Keep records if the loop stays readable.</p>
-<p><strong>Selected simulation body:</strong> selection must survive unrelated deletion. Add owner-scoped IDs to records and stop if stores solve nothing else.</p>
-<p><strong>Capability-oriented tooling:</strong> many operations need subsets and clearly identified writers. Separate stores may help; budget for lifecycle consistency and trace tooling.</p>
-<p>These are design judgements, not measured rankings.</p>
-<h2 id="teaching-implementation-vs-library">Teaching Implementation vs Library<a class="headerlink" href="#teaching-implementation-vs-library" title="Permanent link">¶</a></h2>
-<p>Our code exposes policies; it is not a production engine. It lacks generic queries, mature tooling, parallel scheduling, and integration facilities.</p>
-<p><a href="https://github.com/skypjack/entt/wiki/Entity-Component-System">EnTT's entity/component documentation</a> describes registry facilities. <a href="https://www.flecs.dev/flecs/Systems.html">Flecs' systems documentation</a> describes its systems and execution model. Treat these as evaluation starting points, not drop-in replacements.</p>
-<p>Before migration, verify:</p>
-<ul>
-<li>Handle lifetime and cross-world ownership.</li>
-<li>Visibility of creation and deletion.</li>
-<li>Iteration and observation order.</li>
-<li>Component reference invalidation.</li>
-<li>Tracing one entity's writers.</li>
-<li>Failure behaviour callers rely on.</li>
-</ul>
-<p>Use the chosen version's documentation for API details. This course neither installs nor benchmarks those libraries.</p>
-<h2 id="extensions-only-when-required">Extensions Only When Required<a class="headerlink" href="#extensions-only-when-required" title="Permanent link">¶</a></h2>
-<p>For reusable slots, study <a href="../advanced/01_slot_reuse_and_generations/">generations</a>. For a concrete storage concern, study <a href="../advanced/02_component_storage/">component storage</a>.</p>
-<p>Neither is a prerequisite to the decision, nor proof that records were inadequate.</p>
-<h2 id="final-exercise">Final Exercise<a class="headerlink" href="#final-exercise" title="Permanent link">¶</a></h2>
-<p>Write a decision record: requirements, chosen representation, rejected alternatives, invariants, debugging path, and conditions for revisiting it.</p>
-<p>A defensible “keep the direct loop” is as valid as a defensible ECS adoption.</p>
-<hr>
-<p><a href="../09_maintenance_and_invariants/">Previous: Chapter 9</a> · <a href="../">Course overview</a></p></div>
+<h2 id="learning-goals-and-prerequisites">Learning goals and prerequisites<a class="headerlink" href="#learning-goals-and-prerequisites" title="Permanent link">¶</a></h2>
+<p>Use <a href="../05_references_borrowing_and_slices/">ownership and borrowing</a>, <a href="../18_box_deref_and_drop/">resource cleanup</a>, <a href="../21_channels_atomics_and_shutdown/">thread shutdown</a> and <a href="../25_attributes_cfg_features_and_editions/">edition configuration</a> to explain why a boundary is safe. You will distinguish unsafe functions from unsafe blocks, trait implementation obligations from ordinary traits, and layout from a complete foreign-interface contract.</p>
+<p>Use stable Rust, Cargo and edition 2024. No external libraries, GPIO or system settings are needed. Our C-ABI call links two declarations in one Rust executable; it does not claim to test a separately compiled C library.</p>
+<h2 id="rust-unsafe-permission-is-not-proof">Rust unsafe: permission is not proof<a class="headerlink" href="#rust-unsafe-permission-is-not-proof" title="Permanent link">¶</a></h2>
+<p>The <a href="https://doc.rust-lang.org/reference/unsafety.html">unsafe operation list</a> includes raw-pointer dereference, unsafe function calls, union field reads and unsafe trait implementations. Ordinary creation or comparison of a raw pointer is not the same as dereferencing it. Borrow checking and ordinary type checking still operate inside an unsafe block.</p>
+<p>An unsafe fn states a requirement its caller must uphold. A small unsafe block identifies where the implementation relies on a justified requirement. The <a href="https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html">edition-2024 unsafe-operation lint</a> helps separate these roles; our crate denies it so an unsafe fn body cannot silently omit the explicit block.</p>
+<h2 id="run-the-complete-dependency-free-program">Run the complete dependency-free program<a class="headerlink" href="#run-the-complete-dependency-free-program" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>rust-unsafe-boundaries<span class="w"> </span>--edition<span class="w"> </span><span class="m">2024</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>rust-unsafe-boundaries
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Replace src/main.rs with the complete program below.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>cargo<span class="w"> </span>check<span class="w"> </span>--offline
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--offline
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--offline<span class="w"> </span>--release
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>cargo<span class="w"> </span>run<span class="w"> </span>--offline<span class="w"> </span>--quiet
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>cargo<span class="w"> </span>run<span class="w"> </span>--offline<span class="w"> </span>--quiet<span class="w"> </span>--release
+</code></pre></div></td></tr></table></div>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-1-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-1-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-1-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-1-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-1-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-1-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-1-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-1-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-1-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-1-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-1-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-1-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-1-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-1-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-1-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-1-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-1-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-1-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-1-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-1-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-1-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-1-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-1-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-1-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-1-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-1-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-1-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-1-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-1-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-1-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-1-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-1-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-1-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-1-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-1-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-1-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-1-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-1-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-1-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-1-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-1-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-1-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-1-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-1-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-1-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-1-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-1-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-1-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-1-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-1-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-1-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-1-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-1-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-1-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-1-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-1-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-1-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-1-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-1-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-1-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-1-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-1-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-1-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-1-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-1-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-1-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-1-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-1-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-1-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-1-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-1-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-1-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-1-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-1-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-1-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-1-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-1-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-1-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-1-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-1-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-1-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-1-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-1-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-1-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-1-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-1-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-1-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-1-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-1-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-1-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-1-100">100</a></span>
+<span class="normal"><a href="#__codelineno-1-101">101</a></span>
+<span class="normal"><a href="#__codelineno-1-102">102</a></span>
+<span class="normal"><a href="#__codelineno-1-103">103</a></span>
+<span class="normal"><a href="#__codelineno-1-104">104</a></span>
+<span class="normal"><a href="#__codelineno-1-105">105</a></span>
+<span class="normal"><a href="#__codelineno-1-106">106</a></span>
+<span class="normal"><a href="#__codelineno-1-107">107</a></span>
+<span class="normal"><a href="#__codelineno-1-108">108</a></span>
+<span class="normal"><a href="#__codelineno-1-109">109</a></span>
+<span class="normal"><a href="#__codelineno-1-110">110</a></span>
+<span class="normal"><a href="#__codelineno-1-111">111</a></span>
+<span class="normal"><a href="#__codelineno-1-112">112</a></span>
+<span class="normal"><a href="#__codelineno-1-113">113</a></span>
+<span class="normal"><a href="#__codelineno-1-114">114</a></span>
+<span class="normal"><a href="#__codelineno-1-115">115</a></span>
+<span class="normal"><a href="#__codelineno-1-116">116</a></span>
+<span class="normal"><a href="#__codelineno-1-117">117</a></span>
+<span class="normal"><a href="#__codelineno-1-118">118</a></span>
+<span class="normal"><a href="#__codelineno-1-119">119</a></span>
+<span class="normal"><a href="#__codelineno-1-120">120</a></span>
+<span class="normal"><a href="#__codelineno-1-121">121</a></span>
+<span class="normal"><a href="#__codelineno-1-122">122</a></span>
+<span class="normal"><a href="#__codelineno-1-123">123</a></span>
+<span class="normal"><a href="#__codelineno-1-124">124</a></span>
+<span class="normal"><a href="#__codelineno-1-125">125</a></span>
+<span class="normal"><a href="#__codelineno-1-126">126</a></span>
+<span class="normal"><a href="#__codelineno-1-127">127</a></span>
+<span class="normal"><a href="#__codelineno-1-128">128</a></span>
+<span class="normal"><a href="#__codelineno-1-129">129</a></span>
+<span class="normal"><a href="#__codelineno-1-130">130</a></span>
+<span class="normal"><a href="#__codelineno-1-131">131</a></span>
+<span class="normal"><a href="#__codelineno-1-132">132</a></span>
+<span class="normal"><a href="#__codelineno-1-133">133</a></span>
+<span class="normal"><a href="#__codelineno-1-134">134</a></span>
+<span class="normal"><a href="#__codelineno-1-135">135</a></span>
+<span class="normal"><a href="#__codelineno-1-136">136</a></span>
+<span class="normal"><a href="#__codelineno-1-137">137</a></span>
+<span class="normal"><a href="#__codelineno-1-138">138</a></span>
+<span class="normal"><a href="#__codelineno-1-139">139</a></span>
+<span class="normal"><a href="#__codelineno-1-140">140</a></span>
+<span class="normal"><a href="#__codelineno-1-141">141</a></span>
+<span class="normal"><a href="#__codelineno-1-142">142</a></span>
+<span class="normal"><a href="#__codelineno-1-143">143</a></span>
+<span class="normal"><a href="#__codelineno-1-144">144</a></span>
+<span class="normal"><a href="#__codelineno-1-145">145</a></span>
+<span class="normal"><a href="#__codelineno-1-146">146</a></span>
+<span class="normal"><a href="#__codelineno-1-147">147</a></span>
+<span class="normal"><a href="#__codelineno-1-148">148</a></span>
+<span class="normal"><a href="#__codelineno-1-149">149</a></span>
+<span class="normal"><a href="#__codelineno-1-150">150</a></span>
+<span class="normal"><a href="#__codelineno-1-151">151</a></span>
+<span class="normal"><a href="#__codelineno-1-152">152</a></span>
+<span class="normal"><a href="#__codelineno-1-153">153</a></span>
+<span class="normal"><a href="#__codelineno-1-154">154</a></span>
+<span class="normal"><a href="#__codelineno-1-155">155</a></span>
+<span class="normal"><a href="#__codelineno-1-156">156</a></span>
+<span class="normal"><a href="#__codelineno-1-157">157</a></span>
+<span class="normal"><a href="#__codelineno-1-158">158</a></span>
+<span class="normal"><a href="#__codelineno-1-159">159</a></span>
+<span class="normal"><a href="#__codelineno-1-160">160</a></span>
+<span class="normal"><a href="#__codelineno-1-161">161</a></span>
+<span class="normal"><a href="#__codelineno-1-162">162</a></span>
+<span class="normal"><a href="#__codelineno-1-163">163</a></span>
+<span class="normal"><a href="#__codelineno-1-164">164</a></span>
+<span class="normal"><a href="#__codelineno-1-165">165</a></span>
+<span class="normal"><a href="#__codelineno-1-166">166</a></span>
+<span class="normal"><a href="#__codelineno-1-167">167</a></span>
+<span class="normal"><a href="#__codelineno-1-168">168</a></span>
+<span class="normal"><a href="#__codelineno-1-169">169</a></span>
+<span class="normal"><a href="#__codelineno-1-170">170</a></span>
+<span class="normal"><a href="#__codelineno-1-171">171</a></span>
+<span class="normal"><a href="#__codelineno-1-172">172</a></span>
+<span class="normal"><a href="#__codelineno-1-173">173</a></span>
+<span class="normal"><a href="#__codelineno-1-174">174</a></span>
+<span class="normal"><a href="#__codelineno-1-175">175</a></span>
+<span class="normal"><a href="#__codelineno-1-176">176</a></span>
+<span class="normal"><a href="#__codelineno-1-177">177</a></span>
+<span class="normal"><a href="#__codelineno-1-178">178</a></span>
+<span class="normal"><a href="#__codelineno-1-179">179</a></span>
+<span class="normal"><a href="#__codelineno-1-180">180</a></span>
+<span class="normal"><a href="#__codelineno-1-181">181</a></span>
+<span class="normal"><a href="#__codelineno-1-182">182</a></span>
+<span class="normal"><a href="#__codelineno-1-183">183</a></span>
+<span class="normal"><a href="#__codelineno-1-184">184</a></span>
+<span class="normal"><a href="#__codelineno-1-185">185</a></span>
+<span class="normal"><a href="#__codelineno-1-186">186</a></span>
+<span class="normal"><a href="#__codelineno-1-187">187</a></span>
+<span class="normal"><a href="#__codelineno-1-188">188</a></span>
+<span class="normal"><a href="#__codelineno-1-189">189</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">#![deny(unsafe_op_in_unsafe_fn)]</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ffi</span><span class="p">::</span><span class="n">c_int</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">mpsc</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="sd">/// Read a single copied integer through a raw pointer.</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="sd">///</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="sd">/// # Safety</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="sd">/// The pointer must be derived from storage containing a live, initialized,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="sd">/// aligned i32, readable for this call, with no conflicting mutation.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="k">unsafe</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">read_one</span><span class="p">(</span><span class="n">pointer</span><span class="p">:</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="c1">// SAFETY: the caller must establish the documented pointer contract.</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="n">pointer</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="p">}</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="k">fn</span><span class="w"> </span><span class="nf">first_reading</span><span class="p">(</span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="kt">i32</span><span class="p">])</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">None</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="c1">// SAFETY: a nonempty shared i32 slice provides an initialized, aligned</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">    </span><span class="c1">// first element; the borrow keeps its storage alive and prevents writes.</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="nb">Some</span><span class="p">(</span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">read_one</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">as_ptr</span><span class="p">())</span><span class="w"> </span><span class="p">})</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="p">}</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="sd">/// A type whose all-zero representation is a valid, initialized value.</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="sd">///</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="sd">/// # Safety</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="sd">/// Implementers must guarantee that zero initialization produces a valid Self.</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="k">unsafe</span><span class="w"> </span><span class="k">trait</span><span class="w"> </span><span class="n">ZeroValid</span><span class="p">:</span><span class="w"> </span><span class="nb">Copy</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="c1">// SAFETY: every i32 bit pattern is valid, including all-zero.</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="k">unsafe</span><span class="w"> </span><span class="k">impl</span><span class="w"> </span><span class="n">ZeroValid</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="k">fn</span><span class="w"> </span><span class="nf">zero_value</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nc">ZeroValid</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">T</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="c1">// SAFETY: ZeroValid's implementation contract guarantees validity.</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">zeroed</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="p">}</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="cp">#[repr(C)]</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="k">union</span><span class="w"> </span><span class="nc">Bits</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="n">signed</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="w">    </span><span class="n">unsigned</span><span class="p">:</span><span class="w"> </span><span class="kt">u32</span><span class="p">,</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="p">}</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="k">fn</span><span class="w"> </span><span class="nf">unsigned_bits</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">u32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">bits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Bits</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">signed</span><span class="p">:</span><span class="w"> </span><span class="nc">value</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="w">    </span><span class="c1">// SAFETY: i32/u32 have matching size/alignment and all bit patterns are</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="c1">// valid integers. The written field initializes the entire u32 storage.</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bits</span><span class="p">.</span><span class="n">unsigned</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="p">}</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="cp">#[repr(C)]</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="k">struct</span><span class="w"> </span><span class="nc">WireReading</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">    </span><span class="n">present</span><span class="p">:</span><span class="w"> </span><span class="kt">u8</span><span class="p">,</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="p">}</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="k">mod</span><span class="w"> </span><span class="nn">exported</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ffi</span><span class="p">::</span><span class="n">c_int</span><span class="p">;</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="c1">// SAFETY: this uniquely named symbol is defined exactly once in this</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">    </span><span class="c1">// teaching executable; its matching declaration uses the same C ABI.</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">    </span><span class="cp">#[unsafe(no_mangle)]</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">rust_course_26_double</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">c_int</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">c_int</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">        </span><span class="n">value</span><span class="p">.</span><span class="n">saturating_mul</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="p">}</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="k">unsafe</span><span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">    </span><span class="cp">#[link_name = </span><span class="s">"rust_course_26_double"</span><span class="cp">]</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">double_from_c_abi</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">c_int</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">c_int</span><span class="p">;</span>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="p">}</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="k">fn</span><span class="w"> </span><span class="nf">ffi_double</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">c_int</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">c_int</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="w">    </span><span class="c1">// SAFETY: the symbol above has this exact ABI/signature, accepts every</span>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="w">    </span><span class="c1">// c_int, retains no pointers and neither panics nor unwinds.</span>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">double_from_c_abi</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="p">}</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="k">fn</span><span class="w"> </span><span class="nf">worker_report</span><span class="p">(</span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="kt">i32</span><span class="p">])</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">    </span><span class="n">thread</span><span class="p">::</span><span class="n">scope</span><span class="p">(</span><span class="o">|</span><span class="n">scope</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">receiver</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpsc</span><span class="p">::</span><span class="n">sync_channel</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">worker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scope</span><span class="p">.</span><span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">try_fold</span><span class="p">(</span><span class="mi">0_</span><span class="k">i64</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">sum</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="o">-</span><span class="mi">100_000</span><span class="o">..=</span><span class="mi">150_000</span><span class="p">).</span><span class="n">contains</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">"invalid fixture"</span><span class="p">);</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">                </span><span class="n">sum</span><span class="p">.</span><span class="n">checked_add</span><span class="p">(</span><span class="kt">i64</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">value</span><span class="p">)).</span><span class="n">ok_or</span><span class="p">(</span><span class="s">"sum overflow"</span><span class="p">)</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="w">            </span><span class="p">});</span>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">            </span><span class="n">sender</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">        </span><span class="c1">// Receive before joining: also works with a zero-capacity channel.</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">received</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">receiver</span><span class="p">.</span><span class="n">recv</span><span class="p">();</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">joined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">worker</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">joined</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">Ok</span><span class="p">(()))</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">Err</span><span class="p">(</span><span class="n">_</span><span class="p">))</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">"receiver disconnected"</span><span class="p">),</span>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">            </span><span class="nb">Err</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">"worker panicked"</span><span class="p">),</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">        </span><span class="n">received</span><span class="p">.</span><span class="n">map_err</span><span class="p">(</span><span class="o">|</span><span class="n">_</span><span class="o">|</span><span class="w"> </span><span class="s">"no report"</span><span class="p">)</span><span class="o">?</span>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">    </span><span class="p">})</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="p">}</span>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a>
+<a id="__codelineno-1-105" name="__codelineno-1-105"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="w">        </span><span class="s">"first={:?}, empty={:?}"</span><span class="p">,</span>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">        </span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">46_700</span><span class="p">]),</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="w">        </span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[])</span>
+<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"zero={}, bits={}"</span><span class="p">,</span><span class="w"> </span><span class="n">zero_value</span><span class="p">::</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="n">unsigned_bits</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"C ABI double={}"</span><span class="p">,</span><span class="w"> </span><span class="n">ffi_double</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">));</span>
+<a id="__codelineno-1-113" name="__codelineno-1-113"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-114" name="__codelineno-1-114"></a><span class="w">        </span><span class="s">"wire size={}, align={}, present offset={}"</span><span class="p">,</span>
+<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">        </span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">size_of</span><span class="p">::</span><span class="o">&lt;</span><span class="n">WireReading</span><span class="o">&gt;</span><span class="p">(),</span>
+<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">        </span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">align_of</span><span class="p">::</span><span class="o">&lt;</span><span class="n">WireReading</span><span class="o">&gt;</span><span class="p">(),</span>
+<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">        </span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">offset_of</span><span class="o">!</span><span class="p">(</span><span class="n">WireReading</span><span class="p">,</span><span class="w"> </span><span class="n">present</span><span class="p">)</span>
+<a id="__codelineno-1-118" name="__codelineno-1-118"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">46_700</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">];</span>
+<a id="__codelineno-1-120" name="__codelineno-1-120"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">        </span><span class="s">"worker={:?}, retained={}"</span><span class="p">,</span>
+<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">        </span><span class="n">worker_report</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input</span><span class="p">),</span>
+<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">        </span><span class="n">input</span><span class="p">.</span><span class="n">len</span><span class="p">()</span>
+<a id="__codelineno-1-124" name="__codelineno-1-124"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-125" name="__codelineno-1-125"></a><span class="p">}</span>
+<a id="__codelineno-1-126" name="__codelineno-1-126"></a>
+<a id="__codelineno-1-127" name="__codelineno-1-127"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-128" name="__codelineno-1-128"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+<a id="__codelineno-1-130" name="__codelineno-1-130"></a>
+<a id="__codelineno-1-131" name="__codelineno-1-131"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-132" name="__codelineno-1-132"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">safe_pointer_wrapper_handles_empty_zero_and_negative</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[]),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
+<a id="__codelineno-1-134" name="__codelineno-1-134"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">46_700</span><span class="p">]),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="p">]),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">));</span>
+<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-137" name="__codelineno-1-137"></a>
+<a id="__codelineno-1-138" name="__codelineno-1-138"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-139" name="__codelineno-1-139"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">pointer_wrapper_agrees_with_safe_slice_access</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-140" name="__codelineno-1-140"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">fixture</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">[</span><span class="fm">vec!</span><span class="p">[],</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">46_700</span><span class="p">]]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-141" name="__codelineno-1-141"></a><span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">first_reading</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fixture</span><span class="p">),</span><span class="w"> </span><span class="n">fixture</span><span class="p">.</span><span class="n">first</span><span class="p">().</span><span class="n">copied</span><span class="p">());</span>
+<a id="__codelineno-1-142" name="__codelineno-1-142"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-143" name="__codelineno-1-143"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-144" name="__codelineno-1-144"></a>
+<a id="__codelineno-1-145" name="__codelineno-1-145"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-146" name="__codelineno-1-146"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">only_promised_zero_representation_is_used</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-147" name="__codelineno-1-147"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">zero_value</span><span class="p">::</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-148" name="__codelineno-1-148"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-149" name="__codelineno-1-149"></a>
+<a id="__codelineno-1-150" name="__codelineno-1-150"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-151" name="__codelineno-1-151"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">union_integer_bits_agree_with_numeric_cast</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-152" name="__codelineno-1-152"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">[</span><span class="kt">i32</span><span class="p">::</span><span class="n">MIN</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">::</span><span class="n">MAX</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-153" name="__codelineno-1-153"></a><span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">unsigned_bits</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">u32</span><span class="p">);</span>
+<a id="__codelineno-1-154" name="__codelineno-1-154"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-155" name="__codelineno-1-155"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-156" name="__codelineno-1-156"></a>
+<a id="__codelineno-1-157" name="__codelineno-1-157"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-158" name="__codelineno-1-158"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">c_abi_boundary_has_explicit_overflow_policy</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-159" name="__codelineno-1-159"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ffi_double</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-160" name="__codelineno-1-160"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ffi_double</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">),</span><span class="w"> </span><span class="o">-</span><span class="mi">1000</span><span class="p">);</span>
+<a id="__codelineno-1-161" name="__codelineno-1-161"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ffi_double</span><span class="p">(</span><span class="n">c_int</span><span class="p">::</span><span class="n">MAX</span><span class="p">),</span><span class="w"> </span><span class="n">c_int</span><span class="p">::</span><span class="n">MAX</span><span class="p">);</span>
+<a id="__codelineno-1-162" name="__codelineno-1-162"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ffi_double</span><span class="p">(</span><span class="n">c_int</span><span class="p">::</span><span class="n">MIN</span><span class="p">),</span><span class="w"> </span><span class="n">c_int</span><span class="p">::</span><span class="n">MIN</span><span class="p">);</span>
+<a id="__codelineno-1-163" name="__codelineno-1-163"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-164" name="__codelineno-1-164"></a>
+<a id="__codelineno-1-165" name="__codelineno-1-165"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-166" name="__codelineno-1-166"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">c_layout_has_nonoverlapping_fields_and_tail_padding</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-167" name="__codelineno-1-167"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">offset_of</span><span class="o">!</span><span class="p">(</span><span class="n">WireReading</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-168" name="__codelineno-1-168"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">offset_of</span><span class="o">!</span><span class="p">(</span><span class="n">WireReading</span><span class="p">,</span><span class="w"> </span><span class="n">present</span><span class="p">),</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-1-169" name="__codelineno-1-169"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">size_of</span><span class="p">::</span><span class="o">&lt;</span><span class="n">WireReading</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<a id="__codelineno-1-170" name="__codelineno-1-170"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">mem</span><span class="p">::</span><span class="n">align_of</span><span class="p">::</span><span class="o">&lt;</span><span class="n">WireReading</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-1-171" name="__codelineno-1-171"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-172" name="__codelineno-1-172"></a>
+<a id="__codelineno-1-173" name="__codelineno-1-173"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-174" name="__codelineno-1-174"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">worker_returns_sum_only_after_joining</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-175" name="__codelineno-1-175"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">46_700</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">];</span>
+<a id="__codelineno-1-176" name="__codelineno-1-176"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">worker_report</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input</span><span class="p">),</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="mi">46_200</span><span class="p">));</span>
+<a id="__codelineno-1-177" name="__codelineno-1-177"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mi">46_700</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">]);</span>
+<a id="__codelineno-1-178" name="__codelineno-1-178"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-179" name="__codelineno-1-179"></a>
+<a id="__codelineno-1-180" name="__codelineno-1-180"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-181" name="__codelineno-1-181"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">worker_reports_invalid_input_instead_of_partial_success</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-182" name="__codelineno-1-182"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">worker_report</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">46_700</span><span class="p">,</span><span class="w"> </span><span class="mi">150_001</span><span class="p">]),</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">"invalid fixture"</span><span class="p">));</span>
+<a id="__codelineno-1-183" name="__codelineno-1-183"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-184" name="__codelineno-1-184"></a>
+<a id="__codelineno-1-185" name="__codelineno-1-185"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-186" name="__codelineno-1-186"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">empty_worker_input_is_a_completed_zero_sum</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-187" name="__codelineno-1-187"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">worker_report</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[]),</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-188" name="__codelineno-1-188"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-189" name="__codelineno-1-189"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Expected output on the verified aarch64 Linux target:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>first=Some(46700), empty=None
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>zero=0, bits=4294967295
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>C ABI double=-1000
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>wire size=8, align=4, present offset=4
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>worker=Ok(46200), retained=3
+</code></pre></div></td></tr></table></div>
+<h2 id="audit-the-safe-wrapper-not-only-its-test-results">Audit the safe wrapper, not only its test results<a class="headerlink" href="#audit-the-safe-wrapper-not-only-its-test-results" title="Permanent link">¶</a></h2>
+<p>first_reading accepts a slice, not an arbitrary pointer supplied by safe code. It rejects empty input before the read; the remaining pointer originates in a live shared slice. The wrapper returns a copied integer, so no borrowed pointer escapes. The unsafe function separately states what an unsafe caller must establish.</p>
+<p>For production code, values.first().copied() is preferable here. Similarly, zero_value::<i32>() can simply be 0 and unsigned_bits can be a numeric cast. These unsafe examples demonstrate obligations, not speed improvements or reasons to replace safe standard APIs. <a href="https://doc.rust-lang.org/std/mem/fn.zeroed.html">mem::zeroed</a> does not promise validity for arbitrary T: a reference or function pointer cannot be created by assuming a zero pattern is valid. An incorrect unsafe trait implementation could make a safe generic wrapper unsound; we implement only i32.</i32></p>
+<h2 id="union-reads-require-validity-not-a-tracked-active-variant">Union reads require validity, not a tracked active variant<a class="headerlink" href="#union-reads-require-validity-not-a-tracked-active-variant" title="Permanent link">¶</a></h2>
+<p>Rust <a href="https://doc.rust-lang.org/reference/items/unions.html">unions</a> share field storage without a discriminant. Writing a field is different from reading one: the read must produce a valid value of its chosen type. The integer fields above occupy the same-sized initialized storage and permit all bit patterns. This argument does not generalise to bool, references or arbitrary structs. Use enums for ordinary tagged states rather than forcing callers to track a union's interpretation manually.</p>
+<h2 id="ffi-needs-layout-abi-ownership-and-error-policy">FFI needs layout, ABI, ownership and error policy<a class="headerlink" href="#ffi-needs-layout-abi-ownership-and-error-policy" title="Permanent link">¶</a></h2>
+<p>The <a href="https://doc.rust-lang.org/reference/type-layout.html">layout Reference</a> explains repr(C), alignment and padding. repr(C) does not turn String, Vec, references or trait objects into a universal C data format. Our present byte would need an agreed interpretation such as 0 or 1 at an actual foreign boundary; the struct itself does not enforce that logical policy. Do not serialize its entire memory, including padding, as a portable wire format.</p>
+<p>The <a href="https://doc.rust-lang.org/reference/items/external-blocks.html">external-block rules</a> describe the declared ABI and foreign items. A declaration is a promise, not verification of a library implementation. Our safe wrapper relies on the matching symbol defined in the same program and uses c_int for C's int. It crosses the C ABI, but no external C compiler or third-party library was tested. An actual FFI interface must also specify valid pointers/lengths, allocation and freeing responsibilities, retention, threads, errors and unwinding.</p>
+<p>The <a href="https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-attributes.html">unsafe-attribute rules</a> require explicit acknowledgement for no_mangle in edition 2024. A symbol collision can affect safety outside the function body; our teaching symbol must remain unique. extern "C" is not an instruction to permit Rust panic unwinding through arbitrary C frames. This function uses saturating arithmetic and has no panic path; a broader exported API needs a considered error/unwind boundary.</p>
+<h2 id="undefined-behaviour-is-not-an-expected-failing-exercise">Undefined behaviour is not an expected failing exercise<a class="headerlink" href="#undefined-behaviour-is-not-an-expected-failing-exercise" title="Permanent link">¶</a></h2>
+<p>The <a href="https://doc.rust-lang.org/reference/behavior-considered-undefined.html">undefined-behaviour Reference</a> covers invalid values, data races, dangling/misaligned access, ABI violations and aliasing obligations. Its list is not a complete formal model. Unsafe code must remain valid for every safe caller of its API, not only the fixture that happened to run.</p>
+<p>Do not test a null dereference, a dangling reference, an invalid union value or double free by running it and waiting for a crash. Undefined behaviour may appear to succeed and can affect the entire program. The failures below are compiler diagnostics; runtime tests use only valid inputs. Miri can be an additional tool for suitable Rust code, but is not a proof and does not generally validate arbitrary external FFI; this lesson does not claim a Miri run.</p>
+<h2 id="deliberately-failing-unsafe-fn-still-needs-an-unsafe-block">Deliberately failing: unsafe fn still needs an unsafe block<a class="headerlink" href="#deliberately-failing-unsafe-fn-still-needs-an-unsafe-block" title="Permanent link">¶</a></h2>
+<p>In a separate scratch project:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#![deny(unsafe_op_in_unsafe_fn)]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">unsafe</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">read_one</span><span class="p">(</span><span class="n">pointer</span><span class="p">:</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="o">*</span><span class="n">pointer</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="p">}</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></td></tr></table></div>
+<p>cargo check reports E0133 under our lint policy. Repair with a narrow unsafe block and preserve the pointer safety contract, or replace the operation with a safe slice API. Do not add allow merely to remove the diagnostic.</p>
+<h2 id="part-iii-checkpoint-defend-ownership-and-shutdown">Part III checkpoint: defend ownership and shutdown<a class="headerlink" href="#part-iii-checkpoint-defend-ownership-and-shutdown" title="Permanent link">¶</a></h2>
+<p>worker_report is intentionally safe Rust. Explain this sequence before changing it:</p>
+<ol>
+<li>The calling thread retains the input; a scoped worker borrows its immutable slice.</li>
+<li>The worker owns its sender and produces an owned Result, not a borrowed pointer to worker-local data.</li>
+<li>The receiver waits before join, allowing a rendezvous channel to make progress too.</li>
+<li>The function records both receive and join outcomes before propagating an error. A received message alone is not a substitute for successful worker completion.</li>
+<li>Invalid fixture input rejects the entire report, rather than inventing a zero or returning a partial success.</li>
+</ol>
+<p>The lexical scope prevents its worker borrow escaping. Explicit join lets us inspect the panic outcome; scoped threads also enforce completion on scope exit. Capacity one bounds this one-message channel, not all possible resource use. No async runtime is required, and adding unsafe would not repair a lifecycle or error-policy mistake.</p>
+<p>Checkpoint tasks: change channel capacity to zero and four, add an invalid reading after a valid one, and confirm the empty input policy. Explain what would change if the worker retained owned input instead. For multiple workers, inspect every join outcome even if an earlier worker fails; cancellation requires an explicit protocol rather than merely dropping a result handle. Revisit <a href="../21_channels_atomics_and_shutdown/">lesson 21</a> for Stop versus sender disconnection, and <a href="../22_async_await_and_future/">lesson 22</a> for why dropping a future is not universal rollback.</p>
+<h2 id="exercises-and-troubleshooting">Exercises and troubleshooting<a class="headerlink" href="#exercises-and-troubleshooting" title="Permanent link">¶</a></h2>
+<ol>
+<li>Replace first_reading's implementation with values.first().copied(). The same tests and output must pass without unsafe code in that wrapper.</li>
+<li>Remove the unsafe block around the union read. Expect E0133. Explain validity before restoring it.</li>
+<li>Remove unsafe from the trait implementation. Expect E0200: implementing an unsafe trait is an explicit obligation, not inference from Copy.</li>
+<li>Remove unsafe from the extern block, or use #[no_mangle] without its unsafe wrapper. Edition 2024 rejects these declarations. Do not assume older syntax means the safety obligation disappeared.</li>
+<li>Make a repr(C, packed) struct with a u8 followed by i32 and try to borrow the i32 field. Expect E0793. Copying a field or using an appropriately justified unaligned raw-pointer operation is different from creating an aligned reference; do not execute a misaligned reference workaround.</li>
+<li>Inspect every SAFETY comment. Can a safe caller violate any premise through the exposed API? A passing test does not replace that argument.</li>
+</ol>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, this lesson was verified on the authorised Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Checks, nine debug/release tests, formatting, debug/release outputs and five further comparisons passed. The safe slice repair and capacity-zero/four checkpoint variants passed their tests and outputs. Six compile failures checked missing unsafe-operation blocks, unsafe trait implementation, union access, extern declaration, unsafe attributes and packed references. No undefined-behaviour example was executed, no external C library or Miri run was tested, and these checks do not establish soundness for arbitrary unsafe extensions.</p>
+<p>Next in the roadmap are files, arguments and a Linux CLI. That lesson is planned, not yet available.</p>
+<p><a href="../25_attributes_cfg_features_and_editions/">Previous: configuration and editions</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7886,7 +8331,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 19:27:15 JST">2026-10-10</span>
   </span>
 
     
@@ -7896,7 +8341,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 7, 2026 22:31:09 JST">2026-10-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 19:27:15 JST">2026-10-10</span>
   </span>
 
     
@@ -7915,13 +8360,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
-          <li><a href="https://ohyaan.github.io/data-oriented-design/">Browse the Data Oriented Design guide hub</a></li>
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
         
-          <li><a href="../09_maintenance_and_invariants/">Previous: Maintain C++ ECS: Invariants, Change Impact, and Tests</a></li>
+          <li><a href="../25_attributes_cfg_features_and_editions/">Previous: 25. Attributes, Features and Editions</a></li>
         
         
-          <li><a href="../advanced/">Next: Optional C++ ECS Experiments: Identity and Storage</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
