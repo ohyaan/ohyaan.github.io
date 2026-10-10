@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Define Rust traits for Raspberry Pi fixtures, use associated types and constants, compose behaviour with bounds, and understand derive and coherence.">
+        <meta name="description" content="Learn Rust Pin and Unpin on Raspberry Pi with safe future wrappers, movable owning handles, borrowed pinning, cancellation tests and compiler failures.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/12_traits_implementations_and_associated_types/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/23_pin_unpin_and_async_boundaries/">
       
       
-        <link rel="prev" href="../11_generics_bounds_and_const_generics/">
+        <link rel="prev" href="../22_async_await_and_future/">
       
       
-        <link rel="next" href="../13_lifetimes_and_borrowed_apis/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Rust Traits and Associated Types on Raspberry Pi - With Raspberry Pi</title>
+        <title>Rust Pin and Unpin: Moving Handles, Polling Futures and Safe Projection - With Raspberry Pi</title>
       
     
     
@@ -78,14 +78,14 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="12. Traits and Associated Types - With Raspberry Pi">
-  <meta property="og:description" content="Define Rust traits for Raspberry Pi fixtures, use associated types and constants, compose behaviour with bounds, and understand derive and coherence.">
+  <meta property="og:title" content="23. Pin and Unpin - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust Pin and Unpin on Raspberry Pi with safe future wrappers, movable owning handles, borrowed pinning, cancellation tests and compiler failures.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/12_traits_implementations_and_associated_types/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__12_traits_implementations_and_associated_types.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/23_pin_unpin_and_async_boundaries/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__23_pin_unpin_and_async_boundaries.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="12. Traits and Associated Types">
+  <meta property="og:image:alt" content="23. Pin and Unpin">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-10-10">
@@ -95,9 +95,9 @@
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="12. Traits and Associated Types - With Raspberry Pi">
-  <meta name="twitter:description" content="Define Rust traits for Raspberry Pi fixtures, use associated types and constants, compose behaviour with bounds, and understand derive and coherence.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__12_traits_implementations_and_associated_types.jpg">
+  <meta name="twitter:title" content="23. Pin and Unpin - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust Pin and Unpin on Raspberry Pi with safe future wrappers, movable owning handles, borrowed pinning, cancellation tests and compiler failures.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__23_pin_unpin_and_async_boundaries.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,11 +116,11 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "12. Traits and Associated Types",
-    "description": "Define Rust traits for Raspberry Pi fixtures, use associated types and constants, compose behaviour with bounds, and understand derive and coherence.",
-    "url": "https://ohyaan.github.io/rust-learning/12_traits_implementations_and_associated_types/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/12_traits_implementations_and_associated_types/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__12_traits_implementations_and_associated_types.jpg"],
+    "headline": "23. Pin and Unpin",
+    "description": "Learn Rust Pin and Unpin on Raspberry Pi with safe future wrappers, movable owning handles, borrowed pinning, cancellation tests and compiler failures.",
+    "url": "https://ohyaan.github.io/rust-learning/23_pin_unpin_and_async_boundaries/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/23_pin_unpin_and_async_boundaries/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__23_pin_unpin_and_async_boundaries.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "12. Traits and Associated Types", "item": "https://ohyaan.github.io/rust-learning/12_traits_implementations_and_associated_types/"}
+      {"@type": "ListItem", "position": 2, "name": "23. Pin and Unpin", "item": "https://ohyaan.github.io/rust-learning/23_pin_unpin_and_async_boundaries/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#rust-traits-implementations-and-associated-types" class="md-skip">
+        <a href="#23-rust-pin-unpin-and-async-boundaries" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Rust Traits and Associated Types on Raspberry Pi
+              Rust Pin and Unpin: Moving Handles, Polling Futures and Safe Projection
             
           </span>
         </div>
@@ -2101,10 +2101,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2130,11 +2128,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
         
           
           <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
@@ -2149,7 +2147,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             Part 2: Abstraction and APIs
@@ -2204,31 +2202,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    12. Traits and Associated Types
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../12_traits_implementations_and_associated_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2238,116 +2215,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites-and-outcome" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites and outcome
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-the-rust-trait-contract-includes" class="md-nav__link">
-    <span class="md-ellipsis">
-      What the Rust trait contract includes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-the-complete-fixture-source-program" class="md-nav__link">
-    <span class="md-ellipsis">
-      Build the complete fixture-source program
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#associated-types-versus-generic-trait-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Associated types versus generic trait parameters
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#defaults-supertraits-and-delegation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Defaults, supertraits and delegation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#blanket-implementations-and-coherence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Blanket implementations and coherence
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#derive-is-generated-implementation-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      Derive is generated implementation code
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deliberately-failing-foreign-trait-on-a-foreign-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deliberately failing: foreign trait on a foreign type
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exercises-and-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercises and troubleshooting
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verification-and-next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verification and next step
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2475,8 +2342,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -2498,11 +2367,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" checked>
         
           
           <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
@@ -2517,7 +2386,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Part 3: Resources and Advanced Rust
@@ -2638,10 +2507,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../23_pin_unpin_and_async_boundaries/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    23. Pin and Unpin
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2651,6 +2541,116 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-goals-and-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learning goals and prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust-pin-and-unpin-which-value-is-restricted" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust Pin and Unpin: which value is restricted?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-and-run-the-complete-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and run the complete program
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-pinning-owning-pinning-and-reborrowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local pinning, owning pinning and reborrowing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-wrapping-is-not-unsafe-structural-projection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safe wrapping is not unsafe structural projection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erased-futures-thread-bounds-and-lifetimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erased futures, thread bounds and lifetimes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-first-distinction-about-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      A first distinction about variance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-pinnew-requires-unpin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing: Pin::new requires Unpin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -7750,8 +7750,8 @@
 
 
 
-<div><h1 id="rust-traits-implementations-and-associated-types">Rust Traits, Implementations and Associated Types<a class="headerlink" href="#rust-traits-implementations-and-associated-types" title="Permanent link">¶</a></h1>
-<p>A Rust trait describes behaviour that a type agrees to provide; it is not a class containing shared fields. This lesson defines a reading source, gives integer and text fixtures different result types, and composes a named report without inheritance or runtime dispatch.</p>
+<div><h1 id="23-rust-pin-unpin-and-async-boundaries">23. Rust Pin, Unpin and Async Boundaries<a class="headerlink" href="#23-rust-pin-unpin-and-async-boundaries" title="Permanent link">¶</a></h1>
+<p>Rust Pin restricts access that could move a pinned pointee; it does not freeze an owning pointer or make a future thread-safe. This lesson separates those ideas with a complete dependency-free program and tests, including a wrapper that polls an async future without unsafe field projection.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7761,17 +7761,32 @@
   </script>
 </div>
 
-<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
-<p>Complete <a href="../11_generics_bounds_and_const_generics/">generics, bounds and const generics</a>. You will implement required methods, reuse a default method, constrain an associated type, and recognise why two implementations cannot conflict. The example uses fixture data and stable Rust; hardware I/O and trait objects are separate topics.</p>
-<h2 id="what-the-rust-trait-contract-includes">What the Rust trait contract includes<a class="headerlink" href="#what-the-rust-trait-contract-includes" title="Permanent link">¶</a></h2>
-<p>Our Source trait declares an associated type Value, an associated constant UNIT, a required read method and a default summary method. <code>Self</code> refers to the implementing type, so <code>Self::Value</code> names that implementation's chosen value type. The read receiver is shared: callers borrow the source rather than consume it.</p>
-<p>The <a href="https://doc.rust-lang.org/reference/items/traits.html">trait reference</a> explains required and default associated items. A default method can call required methods, but does not allocate fields or provide a parent object's storage. Implementations must supply the required items; the trait declaration's signatures are not optional conventions.</p>
-<h2 id="build-the-complete-fixture-source-program">Build the complete fixture-source program<a class="headerlink" href="#build-the-complete-fixture-source-program" title="Permanent link">¶</a></h2>
+<h2 id="learning-goals-and-prerequisites">Learning goals and prerequisites<a class="headerlink" href="#learning-goals-and-prerequisites" title="Permanent link">¶</a></h2>
+<p>After <a href="../22_async_await_and_future/">async, await and Future</a>, you can identify who owns a future, who only borrows it, and where poll requires Pin. Here you will distinguish movement of a handle from movement of its pointee, choose local or heap pinning, and explain why Unpin, Send and lifetimes are independent constraints.</p>
+<p>Use stable Rust, Cargo and edition 2024. The examples work without Raspberry Pi hardware access, external crates or an async runtime. Values are fixtures, not sensor measurements.</p>
+<h2 id="rust-pin-and-unpin-which-value-is-restricted">Rust Pin and Unpin: which value is restricted?<a class="headerlink" href="#rust-pin-and-unpin-which-value-is-restricted" title="Permanent link">¶</a></h2>
+<p>An ordinary Box owns heap storage, but its API still permits moving its value out. Pin<box>&gt; changes the access contract for a pointee that is not Unpin. Moving that owning handle is allowed; moving the protected value out through safe access is not. Read the <a href="https://doc.rust-lang.org/std/pin/struct.Pin.html">Pin type's API</a> alongside these examples.</box></p>
+<p>Unpin is an auto trait: most ordinary types implement it automatically. Its meaning is that pinning imposes no extra movement restriction on this type. It is not an operation that relocates memory, and it does not imply Copy, Send, Sync or 'static. For T: Unpin, safe Pin::new, get_mut and into_inner expose ordinary access. See the <a href="https://doc.rust-lang.org/std/marker/trait.Unpin.html">Unpin contract</a>.</p>
+<p>Our StableLabel contains <a href="https://doc.rust-lang.org/std/marker/struct.PhantomPinned.html">PhantomPinned</a>, so it does not automatically implement Unpin. This deliberately demonstrates the API restriction; it contains no self-reference and does not intrinsically need a stable address. PhantomPinned alone does not pin a value: an ordinary, not-yet-pinned StableLabel can still move.</p>
+<h2 id="create-and-run-the-complete-program">Create and run the complete program<a class="headerlink" href="#create-and-run-the-complete-program" title="Permanent link">¶</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_traits
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_traits
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>rust-pinning<span class="w"> </span>--edition<span class="w"> </span><span class="m">2024</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>rust-pinning
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Replace src/main.rs with the complete program below.</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>cargo<span class="w"> </span>check
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--release
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet<span class="w"> </span>--release
 </code></pre></div></td></tr></table></div>
-<p>Keep edition = "2024" in Cargo.toml and replace src/main.rs with:</p>
 <div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">  2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">  3</a></span>
@@ -7945,251 +7960,376 @@
 <span class="normal"><a href="#__codelineno-1-171">171</a></span>
 <span class="normal"><a href="#__codelineno-1-172">172</a></span>
 <span class="normal"><a href="#__codelineno-1-173">173</a></span>
-<span class="normal"><a href="#__codelineno-1-174">174</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">mod</span><span class="w"> </span><span class="nn">sources</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">fmt</span><span class="p">::</span><span class="n">Display</span><span class="p">;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">trait</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">        </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="p">:</span><span class="w"> </span><span class="nc">Display</span><span class="p">;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">UNIT</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="p">;</span>
+<span class="normal"><a href="#__codelineno-1-174">174</a></span>
+<span class="normal"><a href="#__codelineno-1-175">175</a></span>
+<span class="normal"><a href="#__codelineno-1-176">176</a></span>
+<span class="normal"><a href="#__codelineno-1-177">177</a></span>
+<span class="normal"><a href="#__codelineno-1-178">178</a></span>
+<span class="normal"><a href="#__codelineno-1-179">179</a></span>
+<span class="normal"><a href="#__codelineno-1-180">180</a></span>
+<span class="normal"><a href="#__codelineno-1-181">181</a></span>
+<span class="normal"><a href="#__codelineno-1-182">182</a></span>
+<span class="normal"><a href="#__codelineno-1-183">183</a></span>
+<span class="normal"><a href="#__codelineno-1-184">184</a></span>
+<span class="normal"><a href="#__codelineno-1-185">185</a></span>
+<span class="normal"><a href="#__codelineno-1-186">186</a></span>
+<span class="normal"><a href="#__codelineno-1-187">187</a></span>
+<span class="normal"><a href="#__codelineno-1-188">188</a></span>
+<span class="normal"><a href="#__codelineno-1-189">189</a></span>
+<span class="normal"><a href="#__codelineno-1-190">190</a></span>
+<span class="normal"><a href="#__codelineno-1-191">191</a></span>
+<span class="normal"><a href="#__codelineno-1-192">192</a></span>
+<span class="normal"><a href="#__codelineno-1-193">193</a></span>
+<span class="normal"><a href="#__codelineno-1-194">194</a></span>
+<span class="normal"><a href="#__codelineno-1-195">195</a></span>
+<span class="normal"><a href="#__codelineno-1-196">196</a></span>
+<span class="normal"><a href="#__codelineno-1-197">197</a></span>
+<span class="normal"><a href="#__codelineno-1-198">198</a></span>
+<span class="normal"><a href="#__codelineno-1-199">199</a></span>
+<span class="normal"><a href="#__codelineno-1-200">200</a></span>
+<span class="normal"><a href="#__codelineno-1-201">201</a></span>
+<span class="normal"><a href="#__codelineno-1-202">202</a></span>
+<span class="normal"><a href="#__codelineno-1-203">203</a></span>
+<span class="normal"><a href="#__codelineno-1-204">204</a></span>
+<span class="normal"><a href="#__codelineno-1-205">205</a></span>
+<span class="normal"><a href="#__codelineno-1-206">206</a></span>
+<span class="normal"><a href="#__codelineno-1-207">207</a></span>
+<span class="normal"><a href="#__codelineno-1-208">208</a></span>
+<span class="normal"><a href="#__codelineno-1-209">209</a></span>
+<span class="normal"><a href="#__codelineno-1-210">210</a></span>
+<span class="normal"><a href="#__codelineno-1-211">211</a></span>
+<span class="normal"><a href="#__codelineno-1-212">212</a></span>
+<span class="normal"><a href="#__codelineno-1-213">213</a></span>
+<span class="normal"><a href="#__codelineno-1-214">214</a></span>
+<span class="normal"><a href="#__codelineno-1-215">215</a></span>
+<span class="normal"><a href="#__codelineno-1-216">216</a></span>
+<span class="normal"><a href="#__codelineno-1-217">217</a></span>
+<span class="normal"><a href="#__codelineno-1-218">218</a></span>
+<span class="normal"><a href="#__codelineno-1-219">219</a></span>
+<span class="normal"><a href="#__codelineno-1-220">220</a></span>
+<span class="normal"><a href="#__codelineno-1-221">221</a></span>
+<span class="normal"><a href="#__codelineno-1-222">222</a></span>
+<span class="normal"><a href="#__codelineno-1-223">223</a></span>
+<span class="normal"><a href="#__codelineno-1-224">224</a></span>
+<span class="normal"><a href="#__codelineno-1-225">225</a></span>
+<span class="normal"><a href="#__codelineno-1-226">226</a></span>
+<span class="normal"><a href="#__codelineno-1-227">227</a></span>
+<span class="normal"><a href="#__codelineno-1-228">228</a></span>
+<span class="normal"><a href="#__codelineno-1-229">229</a></span>
+<span class="normal"><a href="#__codelineno-1-230">230</a></span>
+<span class="normal"><a href="#__codelineno-1-231">231</a></span>
+<span class="normal"><a href="#__codelineno-1-232">232</a></span>
+<span class="normal"><a href="#__codelineno-1-233">233</a></span>
+<span class="normal"><a href="#__codelineno-1-234">234</a></span>
+<span class="normal"><a href="#__codelineno-1-235">235</a></span>
+<span class="normal"><a href="#__codelineno-1-236">236</a></span>
+<span class="normal"><a href="#__codelineno-1-237">237</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">future</span><span class="p">::</span><span class="n">Future</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">marker</span><span class="p">::</span><span class="n">PhantomPinned</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">pin</span><span class="p">::{</span><span class="n">Pin</span><span class="p">,</span><span class="w"> </span><span class="n">pin</span><span class="p">};</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">atomic</span><span class="p">::{</span><span class="n">AtomicUsize</span><span class="p">,</span><span class="w"> </span><span class="n">Ordering</span><span class="p">};</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">task</span><span class="p">::{</span><span class="n">Context</span><span class="p">,</span><span class="w"> </span><span class="n">Poll</span><span class="p">,</span><span class="w"> </span><span class="n">Wake</span><span class="p">,</span><span class="w"> </span><span class="n">Waker</span><span class="p">};</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7"></a>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="p">;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">read</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">                </span><span class="nb">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">"{value} {}"</span><span class="p">,</span><span class="w"> </span><span class="bp">Self</span><span class="p">::</span><span class="n">UNIT</span><span class="p">),</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">                </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="s">"missing ({})"</span><span class="p">,</span><span class="w"> </span><span class="bp">Self</span><span class="p">::</span><span class="n">UNIT</span><span class="p">),</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">            </span><span class="p">}</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="cp">#[derive(Debug, Clone, PartialEq, Eq)]</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">,</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22"></a>
-<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="k">impl</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">        </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">UNIT</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mC"</span><span class="p">;</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26"></a>
-<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="n">millidegrees</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">struct</span><span class="w"> </span><span class="nc">StableLabel</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="n">_pinned</span><span class="p">:</span><span class="w"> </span><span class="nc">PhantomPinned</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="k">impl</span><span class="w"> </span><span class="n">StableLabel</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Self</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">        </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">            </span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="nc">text</span><span class="p">.</span><span class="n">to_owned</span><span class="p">(),</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">            </span><span class="n">_pinned</span><span class="p">:</span><span class="w"> </span><span class="nc">PhantomPinned</span><span class="p">,</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;&amp;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">        </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">get_ref</span><span class="p">().</span><span class="n">text</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="p">}</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="c1">// The wrapper owns a movable handle to an independently pinned future.</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Observed</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">    </span><span class="n">inner</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">    </span><span class="n">polls</span><span class="p">:</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="p">}</span>
 <a id="__codelineno-1-31" name="__codelineno-1-31"></a>
-<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Status</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="n">online</span><span class="p">:</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-35" name="__codelineno-1-35"></a>
-<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="k">impl</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">        </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">;</span>
-<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">UNIT</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"status"</span><span class="p">;</span>
-<a id="__codelineno-1-39" name="__codelineno-1-39"></a>
-<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">online</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"online"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">"offline"</span><span class="w"> </span><span class="p">}))</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="p">}</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45"></a>
-<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="k">use</span><span class="w"> </span><span class="n">sources</span><span class="p">::{</span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Status</span><span class="p">,</span><span class="w"> </span><span class="n">Temperature</span><span class="p">};</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47"></a>
-<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="k">trait</span><span class="w"> </span><span class="n">Named</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">;</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="p">}</span>
-<a id="__codelineno-1-51" name="__codelineno-1-51"></a>
-<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Device</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
-<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="nc">S</span><span class="p">,</span>
-<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="p">}</span>
-<a id="__codelineno-1-56" name="__codelineno-1-56"></a>
-<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="k">impl</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Named</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Device</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">        </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span>
-<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="p">}</span>
-<a id="__codelineno-1-62" name="__codelineno-1-62"></a>
-<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="c1">// Delegate to the contained source while retaining its chosen value type.</span>
-<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="k">impl</span><span class="o">&lt;</span><span class="n">S</span><span class="p">:</span><span class="w"> </span><span class="nc">Source</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Device</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="p">::</span><span class="n">Value</span><span class="p">;</span>
-<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">UNIT</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="p">::</span><span class="n">UNIT</span><span class="p">;</span>
-<a id="__codelineno-1-67" name="__codelineno-1-67"></a>
-<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="p">}</span>
-<a id="__codelineno-1-72" name="__codelineno-1-72"></a>
-<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="k">trait</span><span class="w"> </span><span class="n">Report</span><span class="p">:</span><span class="w"> </span><span class="nc">Source</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Named</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">report_line</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">        </span><span class="fm">format!</span><span class="p">(</span><span class="s">"{}: {}"</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">(),</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
-<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="p">}</span>
-<a id="__codelineno-1-78" name="__codelineno-1-78"></a>
-<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="c1">// One implementation covers every type satisfying both requirements.</span>
-<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nc">Source</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Named</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Report</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{}</span>
-<a id="__codelineno-1-81" name="__codelineno-1-81"></a>
-<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="k">fn</span><span class="w"> </span><span class="nf">read_integer</span><span class="o">&lt;</span><span class="n">S</span><span class="p">:</span><span class="w"> </span><span class="nc">Source</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">S</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="p">}</span>
-<a id="__codelineno-1-85" name="__codelineno-1-85"></a>
-<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">        </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">),</span>
-<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">        </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="nc">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="w">            </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">46_700</span><span class="p">),</span>
-<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">        </span><span class="p">},</span>
-<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">    </span><span class="p">};</span>
-<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">        </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">),</span>
-<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">        </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="nc">Status</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">online</span><span class="p">:</span><span class="w"> </span><span class="nc">true</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">    </span><span class="p">};</span>
-<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">missing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">None</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-1-98" name="__codelineno-1-98"></a>
-<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">.</span><span class="n">report_line</span><span class="p">());</span>
-<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">.</span><span class="n">report_line</span><span class="p">());</span>
-<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="w"> </span><span class="n">missing</span><span class="p">.</span><span class="n">summary</span><span class="p">());</span>
-<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"integer={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_integer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">));</span>
-<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"unit={}"</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Temperature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Source</span><span class="o">&gt;</span><span class="p">::</span><span class="n">UNIT</span><span class="p">);</span>
-<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="p">}</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="k">impl</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Observed</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">inner</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Self</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">        </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">            </span><span class="n">inner</span><span class="p">:</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="n">inner</span><span class="p">),</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">            </span><span class="n">polls</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="p">}</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="k">impl</span><span class="o">&lt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nc">Future</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Future</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Observed</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">F</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">poll</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">Self</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Context</span><span class="o">&lt;'</span><span class="nb">_</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Poll</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Output</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">get_mut</span><span class="p">();</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="w">        </span><span class="n">this</span><span class="p">.</span><span class="n">polls</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">        </span><span class="n">this</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">as_mut</span><span class="p">().</span><span class="n">poll</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="p">}</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="k">struct</span><span class="w"> </span><span class="nc">YieldOnce</span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="k">impl</span><span class="w"> </span><span class="n">Future</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">YieldOnce</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">poll</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">Self</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Context</span><span class="o">&lt;'</span><span class="nb">_</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Poll</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">            </span><span class="n">Poll</span><span class="p">::</span><span class="n">Ready</span><span class="p">(())</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">            </span><span class="n">context</span><span class="p">.</span><span class="n">waker</span><span class="p">().</span><span class="n">wake_by_ref</span><span class="p">();</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">            </span><span class="n">Poll</span><span class="p">::</span><span class="n">Pending</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="p">}</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="cp">#[derive(Default)]</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="k">struct</span><span class="w"> </span><span class="nc">CountWake</span><span class="p">(</span><span class="n">AtomicUsize</span><span class="p">);</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="k">impl</span><span class="w"> </span><span class="n">Wake</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">CountWake</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">wake</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="mf">0.</span><span class="n">fetch_add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Ordering</span><span class="p">::</span><span class="n">Relaxed</span><span class="p">);</span>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="p">}</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="c1">// Only for futures known to finish on their first poll; not an executor.</span>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="k">fn</span><span class="w"> </span><span class="nf">ready_value</span><span class="o">&lt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="nc">Future</span><span class="o">&gt;</span><span class="p">(</span><span class="n">future</span><span class="p">:</span><span class="w"> </span><span class="nc">F</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">F</span><span class="p">::</span><span class="n">Output</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">waker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waker</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">CountWake</span><span class="p">::</span><span class="n">default</span><span class="p">()));</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">::</span><span class="n">from_waker</span><span class="p">(</span><span class="o">&amp;</span><span class="n">waker</span><span class="p">);</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">pinned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pin</span><span class="o">!</span><span class="p">(</span><span class="n">future</span><span class="p">);</span>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">pinned</span><span class="p">.</span><span class="n">as_mut</span><span class="p">().</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">        </span><span class="n">Poll</span><span class="p">::</span><span class="n">Ready</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">        </span><span class="n">Poll</span><span class="p">::</span><span class="n">Pending</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">panic!</span><span class="p">(</span><span class="s">"fixture unexpectedly suspended"</span><span class="p">),</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="p">}</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="k">fn</span><span class="w"> </span><span class="nf">shorten</span><span class="o">&lt;'</span><span class="na">long</span><span class="p">:</span><span class="w"> </span><span class="o">'</span><span class="na">short</span><span class="p">,</span><span class="w"> </span><span class="o">'</span><span class="na">short</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="na">long</span><span class="w"> </span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="na">short</span><span class="w"> </span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">    </span><span class="n">value</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="p">}</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="n">StableLabel</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">));</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ptr</span><span class="p">::</span><span class="n">from_ref</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">get_ref</span><span class="p">());</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">    </span><span class="c1">// This moves the handle, not the heap allocation's StableLabel.</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="n">label</span><span class="p">];</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">unchanged</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ptr</span><span class="p">::</span><span class="n">from_ref</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">as_ref</span><span class="p">().</span><span class="n">get_ref</span><span class="p">());</span>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">        </span><span class="s">"same pointee={unchanged}, label={}"</span><span class="p">,</span>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">        </span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">as_ref</span><span class="p">().</span><span class="n">text</span><span class="p">()</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">);</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="w">    </span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">text</span><span class="p">).</span><span class="n">get_mut</span><span class="p">().</span><span class="n">push_str</span><span class="p">(</span><span class="s">" 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Unpin text={text}"</span><span class="p">);</span>
 <a id="__codelineno-1-105" name="__codelineno-1-105"></a>
-<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="cp">#[cfg(test)]</span>
-<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">Device</span><span class="p">,</span><span class="w"> </span><span class="n">Named</span><span class="p">,</span><span class="w"> </span><span class="n">Report</span><span class="p">,</span><span class="w"> </span><span class="n">Source</span><span class="p">,</span><span class="w"> </span><span class="n">Status</span><span class="p">,</span><span class="w"> </span><span class="n">Temperature</span><span class="p">,</span><span class="w"> </span><span class="n">read_integer</span><span class="p">};</span>
-<a id="__codelineno-1-109" name="__codelineno-1-109"></a>
-<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">required_method_preserves_zero</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-113" name="__codelineno-1-113"></a><span class="w">            </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
-<a id="__codelineno-1-114" name="__codelineno-1-114"></a><span class="w">        </span><span class="p">};</span>
-<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">summary</span><span class="p">(),</span><span class="w"> </span><span class="s">"0 mC"</span><span class="p">);</span>
-<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-118" name="__codelineno-1-118"></a>
-<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-120" name="__codelineno-1-120"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">default_method_handles_absence</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">None</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
-<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">summary</span><span class="p">(),</span><span class="w"> </span><span class="s">"missing (mC)"</span><span class="p">);</span>
-<a id="__codelineno-1-124" name="__codelineno-1-124"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Observed</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="w">        </span><span class="n">YieldOnce</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="k">await</span><span class="p">;</span>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">        </span><span class="mi">46_700</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">notifications</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">CountWake</span><span class="p">::</span><span class="n">default</span><span class="p">());</span>
+<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">waker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waker</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">notifications</span><span class="p">));</span>
+<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">::</span><span class="n">from_waker</span><span class="p">(</span><span class="o">&amp;</span><span class="n">waker</span><span class="p">);</span>
+<a id="__codelineno-1-113" name="__codelineno-1-113"></a><span class="w">    </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="p">).</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="p">),</span><span class="w"> </span><span class="n">Poll</span><span class="p">::</span><span class="n">Pending</span><span class="p">);</span>
+<a id="__codelineno-1-114" name="__codelineno-1-114"></a><span class="w">    </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">notifications</span><span class="p">.</span><span class="mf">0.</span><span class="n">load</span><span class="p">(</span><span class="n">Ordering</span><span class="p">::</span><span class="n">Relaxed</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="p">).</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">        </span><span class="n">Poll</span><span class="p">::</span><span class="n">Ready</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">        </span><span class="n">Poll</span><span class="p">::</span><span class="n">Pending</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">panic!</span><span class="p">(</span><span class="s">"fixture should finish on second poll"</span><span class="p">),</span>
+<a id="__codelineno-1-118" name="__codelineno-1-118"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"observed={value}, polls={}"</span><span class="p">,</span><span class="w"> </span><span class="n">observed</span><span class="p">.</span><span class="n">polls</span><span class="p">);</span>
+<a id="__codelineno-1-120" name="__codelineno-1-120"></a>
+<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">futures</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Pin</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;&gt;&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">        </span><span class="fm">vec!</span><span class="p">[</span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">46_700</span><span class="w"> </span><span class="p">}),</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">})];</span>
+<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">values</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">futures</span><span class="p">.</span><span class="n">into_iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="n">ready_value</span><span class="p">).</span><span class="n">collect</span><span class="p">();</span>
+<a id="__codelineno-1-124" name="__codelineno-1-124"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"erased values={values:?}"</span><span class="p">);</span>
 <a id="__codelineno-1-125" name="__codelineno-1-125"></a>
-<a id="__codelineno-1-126" name="__codelineno-1-126"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-127" name="__codelineno-1-127"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">associated_value_can_be_owned_text</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-128" name="__codelineno-1-128"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">online</span><span class="p">:</span><span class="w"> </span><span class="nc">false</span><span class="w"> </span><span class="p">};</span>
-<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"offline"</span><span class="p">)));</span>
-<a id="__codelineno-1-130" name="__codelineno-1-130"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">summary</span><span class="p">(),</span><span class="w"> </span><span class="s">"offline status"</span><span class="p">);</span>
-<a id="__codelineno-1-131" name="__codelineno-1-131"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-132" name="__codelineno-1-132"></a>
-<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-134" name="__codelineno-1-134"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">generic_device_delegates_integer_source</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">            </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"fixture"</span><span class="p">),</span>
-<a id="__codelineno-1-137" name="__codelineno-1-137"></a><span class="w">            </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="nc">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-138" name="__codelineno-1-138"></a><span class="w">                </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">),</span>
-<a id="__codelineno-1-139" name="__codelineno-1-139"></a><span class="w">            </span><span class="p">},</span>
-<a id="__codelineno-1-140" name="__codelineno-1-140"></a><span class="w">        </span><span class="p">};</span>
-<a id="__codelineno-1-141" name="__codelineno-1-141"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">device</span><span class="p">.</span><span class="n">name</span><span class="p">(),</span><span class="w"> </span><span class="s">"fixture"</span><span class="p">);</span>
-<a id="__codelineno-1-142" name="__codelineno-1-142"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_integer</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">));</span>
-<a id="__codelineno-1-143" name="__codelineno-1-143"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">device</span><span class="p">.</span><span class="n">report_line</span><span class="p">(),</span><span class="w"> </span><span class="s">"fixture: -500 mC"</span><span class="p">);</span>
+<a id="__codelineno-1-126" name="__codelineno-1-126"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-127" name="__codelineno-1-127"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">borrowed</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">'</span><span class="nb">_</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-1-128" name="__codelineno-1-128"></a><span class="w">        </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">shorten</span><span class="p">(</span><span class="o">&amp;</span><span class="n">owner</span><span class="p">).</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"borrowed bytes={}"</span><span class="p">,</span><span class="w"> </span><span class="n">ready_value</span><span class="p">(</span><span class="n">borrowed</span><span class="p">));</span>
+<a id="__codelineno-1-130" name="__codelineno-1-130"></a><span class="p">}</span>
+<a id="__codelineno-1-131" name="__codelineno-1-131"></a>
+<a id="__codelineno-1-132" name="__codelineno-1-132"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-134" name="__codelineno-1-134"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">cell</span><span class="p">::</span><span class="n">Cell</span><span class="p">;</span>
+<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">rc</span><span class="p">::</span><span class="n">Rc</span><span class="p">;</span>
+<a id="__codelineno-1-137" name="__codelineno-1-137"></a>
+<a id="__codelineno-1-138" name="__codelineno-1-138"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">DropFlag</span><span class="p">(</span><span class="n">Rc</span><span class="o">&lt;</span><span class="n">Cell</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+<a id="__codelineno-1-139" name="__codelineno-1-139"></a>
+<a id="__codelineno-1-140" name="__codelineno-1-140"></a><span class="w">    </span><span class="k">impl</span><span class="w"> </span><span class="nb">Drop</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">DropFlag</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-141" name="__codelineno-1-141"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-142" name="__codelineno-1-142"></a><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="mf">0.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="mf">0.</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-143" name="__codelineno-1-143"></a><span class="w">        </span><span class="p">}</span>
 <a id="__codelineno-1-144" name="__codelineno-1-144"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-1-145" name="__codelineno-1-145"></a>
 <a id="__codelineno-1-146" name="__codelineno-1-146"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-147" name="__codelineno-1-147"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">blanket_report_also_works_for_text_source</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-148" name="__codelineno-1-148"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-149" name="__codelineno-1-149"></a><span class="w">            </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"network"</span><span class="p">),</span>
-<a id="__codelineno-1-150" name="__codelineno-1-150"></a><span class="w">            </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="nc">Status</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">online</span><span class="p">:</span><span class="w"> </span><span class="nc">true</span><span class="w"> </span><span class="p">},</span>
-<a id="__codelineno-1-151" name="__codelineno-1-151"></a><span class="w">        </span><span class="p">};</span>
-<a id="__codelineno-1-152" name="__codelineno-1-152"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">device</span><span class="p">.</span><span class="n">report_line</span><span class="p">(),</span><span class="w"> </span><span class="s">"network: online status"</span><span class="p">);</span>
-<a id="__codelineno-1-153" name="__codelineno-1-153"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-154" name="__codelineno-1-154"></a>
-<a id="__codelineno-1-155" name="__codelineno-1-155"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-156" name="__codelineno-1-156"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">derived_clone_and_equality_preserve_fixture</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-157" name="__codelineno-1-157"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-158" name="__codelineno-1-158"></a><span class="w">            </span><span class="n">millidegrees</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">46_700</span><span class="p">),</span>
-<a id="__codelineno-1-159" name="__codelineno-1-159"></a><span class="w">        </span><span class="p">};</span>
-<a id="__codelineno-1-160" name="__codelineno-1-160"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">cloned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span>
-<a id="__codelineno-1-161" name="__codelineno-1-161"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">cloned</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">);</span>
-<a id="__codelineno-1-162" name="__codelineno-1-162"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
-<a id="__codelineno-1-163" name="__codelineno-1-163"></a><span class="w">            </span><span class="fm">format!</span><span class="p">(</span><span class="s">"{source:?}"</span><span class="p">),</span>
-<a id="__codelineno-1-164" name="__codelineno-1-164"></a><span class="w">            </span><span class="s">"Temperature { millidegrees: Some(46700) }"</span>
-<a id="__codelineno-1-165" name="__codelineno-1-165"></a><span class="w">        </span><span class="p">);</span>
-<a id="__codelineno-1-166" name="__codelineno-1-166"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-167" name="__codelineno-1-167"></a>
-<a id="__codelineno-1-168" name="__codelineno-1-168"></a><span class="w">    </span><span class="cp">#[test]</span>
-<a id="__codelineno-1-169" name="__codelineno-1-169"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">associated_constant_is_implementation_specific</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-170" name="__codelineno-1-170"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Temperature</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Source</span><span class="o">&gt;</span><span class="p">::</span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="s">"mC"</span><span class="p">);</span>
-<a id="__codelineno-1-171" name="__codelineno-1-171"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Status</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Source</span><span class="o">&gt;</span><span class="p">::</span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="s">"status"</span><span class="p">);</span>
-<a id="__codelineno-1-172" name="__codelineno-1-172"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&lt;</span><span class="n">Temperature</span><span class="o">&gt;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Source</span><span class="o">&gt;</span><span class="p">::</span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="s">"mC"</span><span class="p">);</span>
-<a id="__codelineno-1-173" name="__codelineno-1-173"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-174" name="__codelineno-1-174"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>check
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+<a id="__codelineno-1-147" name="__codelineno-1-147"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">moving_and_growing_handles_preserves_pointee</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-148" name="__codelineno-1-148"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="n">StableLabel</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">));</span>
+<a id="__codelineno-1-149" name="__codelineno-1-149"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ptr</span><span class="p">::</span><span class="n">from_ref</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">get_ref</span><span class="p">());</span>
+<a id="__codelineno-1-150" name="__codelineno-1-150"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">handles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="n">first</span><span class="p">];</span>
+<a id="__codelineno-1-151" name="__codelineno-1-151"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">32</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-152" name="__codelineno-1-152"></a><span class="w">            </span><span class="n">handles</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="n">StableLabel</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"fixture"</span><span class="p">)));</span>
+<a id="__codelineno-1-153" name="__codelineno-1-153"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-154" name="__codelineno-1-154"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">ptr</span><span class="p">::</span><span class="n">from_ref</span><span class="p">(</span><span class="n">handles</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">as_ref</span><span class="p">().</span><span class="n">get_ref</span><span class="p">()));</span>
+<a id="__codelineno-1-155" name="__codelineno-1-155"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">handles</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">as_ref</span><span class="p">().</span><span class="n">text</span><span class="p">(),</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-156" name="__codelineno-1-156"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-157" name="__codelineno-1-157"></a>
+<a id="__codelineno-1-158" name="__codelineno-1-158"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-159" name="__codelineno-1-159"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">unpin_allows_ordinary_mutation_and_extraction</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-160" name="__codelineno-1-160"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">);</span>
+<a id="__codelineno-1-161" name="__codelineno-1-161"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">pinned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">text</span><span class="p">);</span>
+<a id="__codelineno-1-162" name="__codelineno-1-162"></a><span class="w">        </span><span class="n">Pin</span><span class="p">::</span><span class="n">into_inner</span><span class="p">(</span><span class="n">pinned</span><span class="p">).</span><span class="n">push_str</span><span class="p">(</span><span class="s">" 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-163" name="__codelineno-1-163"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-164" name="__codelineno-1-164"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-165" name="__codelineno-1-165"></a>
+<a id="__codelineno-1-166" name="__codelineno-1-166"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-167" name="__codelineno-1-167"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">wrapper_is_unpin_even_when_inner_future_is_not</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-168" name="__codelineno-1-168"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">require_unpin</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nb">Unpin</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">T</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-169" name="__codelineno-1-169"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">observed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Observed</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">46_700</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-170" name="__codelineno-1-170"></a><span class="w">        </span><span class="n">require_unpin</span><span class="p">(</span><span class="o">&amp;</span><span class="n">observed</span><span class="p">);</span>
+<a id="__codelineno-1-171" name="__codelineno-1-171"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ready_value</span><span class="p">(</span><span class="n">observed</span><span class="p">),</span><span class="w"> </span><span class="mi">46_700</span><span class="p">);</span>
+<a id="__codelineno-1-172" name="__codelineno-1-172"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-173" name="__codelineno-1-173"></a>
+<a id="__codelineno-1-174" name="__codelineno-1-174"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-175" name="__codelineno-1-175"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">pending_wrapper_counts_notification_and_completion</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-176" name="__codelineno-1-176"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Observed</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-177" name="__codelineno-1-177"></a><span class="w">            </span><span class="n">YieldOnce</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="k">await</span><span class="p">;</span>
+<a id="__codelineno-1-178" name="__codelineno-1-178"></a><span class="w">            </span><span class="mi">0</span>
+<a id="__codelineno-1-179" name="__codelineno-1-179"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-1-180" name="__codelineno-1-180"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">CountWake</span><span class="p">::</span><span class="n">default</span><span class="p">());</span>
+<a id="__codelineno-1-181" name="__codelineno-1-181"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">waker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Waker</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count</span><span class="p">));</span>
+<a id="__codelineno-1-182" name="__codelineno-1-182"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Context</span><span class="p">::</span><span class="n">from_waker</span><span class="p">(</span><span class="o">&amp;</span><span class="n">waker</span><span class="p">);</span>
+<a id="__codelineno-1-183" name="__codelineno-1-183"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="p">).</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="p">),</span><span class="w"> </span><span class="n">Poll</span><span class="p">::</span><span class="n">Pending</span><span class="p">);</span>
+<a id="__codelineno-1-184" name="__codelineno-1-184"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">count</span><span class="p">.</span><span class="mf">0.</span><span class="n">load</span><span class="p">(</span><span class="n">Ordering</span><span class="p">::</span><span class="n">Relaxed</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-185" name="__codelineno-1-185"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">observed</span><span class="p">).</span><span class="n">poll</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">context</span><span class="p">),</span><span class="w"> </span><span class="n">Poll</span><span class="p">::</span><span class="n">Ready</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-186" name="__codelineno-1-186"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">observed</span><span class="p">.</span><span class="n">polls</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-1-187" name="__codelineno-1-187"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-188" name="__codelineno-1-188"></a>
+<a id="__codelineno-1-189" name="__codelineno-1-189"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-190" name="__codelineno-1-190"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">different_async_types_share_an_explicit_interface</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-191" name="__codelineno-1-191"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">futures</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Pin</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;&gt;&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-1-192" name="__codelineno-1-192"></a><span class="w">            </span><span class="fm">vec!</span><span class="p">[</span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="w"> </span><span class="p">}),</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">})];</span>
+<a id="__codelineno-1-193" name="__codelineno-1-193"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span>
+<a id="__codelineno-1-194" name="__codelineno-1-194"></a><span class="w">            </span><span class="n">futures</span><span class="p">.</span><span class="n">into_iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="n">ready_value</span><span class="p">).</span><span class="n">collect</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;&gt;</span><span class="p">(),</span>
+<a id="__codelineno-1-195" name="__codelineno-1-195"></a><span class="w">            </span><span class="p">[</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-1-196" name="__codelineno-1-196"></a><span class="w">        </span><span class="p">);</span>
+<a id="__codelineno-1-197" name="__codelineno-1-197"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-198" name="__codelineno-1-198"></a>
+<a id="__codelineno-1-199" name="__codelineno-1-199"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-200" name="__codelineno-1-200"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">boxed_future_can_borrow_a_local_owner</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-201" name="__codelineno-1-201"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-202" name="__codelineno-1-202"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">future</span><span class="p">:</span><span class="w"> </span><span class="nc">Pin</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Future</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">'</span><span class="nb">_</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">owner</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-1-203" name="__codelineno-1-203"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">ready_value</span><span class="p">(</span><span class="n">future</span><span class="p">),</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
+<a id="__codelineno-1-204" name="__codelineno-1-204"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-205" name="__codelineno-1-205"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-206" name="__codelineno-1-206"></a>
+<a id="__codelineno-1-207" name="__codelineno-1-207"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-208" name="__codelineno-1-208"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">borrowed_pin_is_not_the_cancellation_owner</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-209" name="__codelineno-1-209"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">drops</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Cell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-210" name="__codelineno-1-210"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DropFlag</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">drops</span><span class="p">));</span>
+<a id="__codelineno-1-211" name="__codelineno-1-211"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-212" name="__codelineno-1-212"></a><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">_guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">guard</span><span class="p">;</span>
+<a id="__codelineno-1-213" name="__codelineno-1-213"></a><span class="w">            </span><span class="n">std</span><span class="p">::</span><span class="n">future</span><span class="p">::</span><span class="n">pending</span><span class="p">::</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">().</span><span class="k">await</span><span class="p">;</span>
+<a id="__codelineno-1-214" name="__codelineno-1-214"></a><span class="w">        </span><span class="p">});</span>
+<a id="__codelineno-1-215" name="__codelineno-1-215"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-1-216" name="__codelineno-1-216"></a><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">borrowed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">owner</span><span class="p">.</span><span class="n">as_mut</span><span class="p">();</span>
+<a id="__codelineno-1-217" name="__codelineno-1-217"></a><span class="w">            </span><span class="nb">drop</span><span class="p">(</span><span class="n">borrowed</span><span class="p">);</span>
+<a id="__codelineno-1-218" name="__codelineno-1-218"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-219" name="__codelineno-1-219"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">drops</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-220" name="__codelineno-1-220"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">owner</span><span class="p">);</span>
+<a id="__codelineno-1-221" name="__codelineno-1-221"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">drops</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-222" name="__codelineno-1-222"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-223" name="__codelineno-1-223"></a>
+<a id="__codelineno-1-224" name="__codelineno-1-224"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-225" name="__codelineno-1-225"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">pinned_does_not_mean_not_send</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-226" name="__codelineno-1-226"></a><span class="w">        </span><span class="k">fn</span><span class="w"> </span><span class="nf">require_send</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nb">Send</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">T</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<a id="__codelineno-1-227" name="__codelineno-1-227"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span><span class="p">::</span><span class="n">pin</span><span class="p">(</span><span class="n">StableLabel</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">));</span>
+<a id="__codelineno-1-228" name="__codelineno-1-228"></a><span class="w">        </span><span class="n">require_send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">label</span><span class="p">);</span>
+<a id="__codelineno-1-229" name="__codelineno-1-229"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-230" name="__codelineno-1-230"></a>
+<a id="__codelineno-1-231" name="__codelineno-1-231"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-232" name="__codelineno-1-232"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">shortening_reference_does_not_extend_owner_lifetime</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-233" name="__codelineno-1-233"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">owner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-234" name="__codelineno-1-234"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">shorter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shorten</span><span class="p">(</span><span class="o">&amp;</span><span class="n">owner</span><span class="p">);</span>
+<a id="__codelineno-1-235" name="__codelineno-1-235"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">shorter</span><span class="p">,</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-236" name="__codelineno-1-236"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-237" name="__codelineno-1-237"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>Expected output:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>Pi 4B: 46700 mC
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>Pi 4B: online status
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>missing (mC)
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>integer=Some(46700)
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>unit=mC
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>same pointee=true, label=Pi 4B
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>Unpin text=Pi 4B
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>observed=46700, polls=2
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>erased values=[46700, 0]
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>borrowed bytes=5
 </code></pre></div></td></tr></table></div>
-<p>There are seven tests. Status constructs an owned String on each read; traits do not make that allocation disappear. Temperature copies an Option<i32>. These are implementation choices behind the same contract.</i32></p>
-<h2 id="associated-types-versus-generic-trait-parameters">Associated types versus generic trait parameters<a class="headerlink" href="#associated-types-versus-generic-trait-parameters" title="Permanent link">¶</a></h2>
-<p>Temperature chooses Value = i32; Status chooses Value = String. The function bound <code>Source&lt;Value = i32&gt;</code> accepts only a source whose associated type is exactly i32. Merely having a read method with a similar name does not implement Source.</p>
-<p>For this non-generic Source trait, a particular implementing type has one chosen Value, not a caller-selected result type for every call. A trait declared with a parameter, such as Convert<t>, can instead have distinct implementations for different T where coherence permits. That is useful for a conversion with several targets; our source has one natural reading type. The Book's <a href="https://doc.rust-lang.org/book/ch20-02-advanced-traits.html">advanced traits</a> contrasts these choices.</t></p>
-<p><code>&lt;Temperature as Source&gt;::UNIT</code> is a fully qualified path. It states both the implementing type and the trait, useful when names would otherwise be ambiguous. UNIT belongs to the implementation, not to an individual instance. The <code>'static</code> string reference here points to a string literal; it does not require each source object to live forever.</p>
-<h2 id="defaults-supertraits-and-delegation">Defaults, supertraits and delegation<a class="headerlink" href="#defaults-supertraits-and-delegation" title="Permanent link">¶</a></h2>
-<p>Neither Temperature nor Status overrides summary(), so each gets its default body. An implementation can replace that method while keeping its signature. Callers should rely on the documented trait contract rather than assume every implementation uses identical formatting or cost.</p>
-<p>Report requires both Source and Named as supertraits. It can use their methods, but does not inherit their fields. Device satisfies them through explicit implementations, and its source field uses composition. Named does not need a bound on S; Source does, because it calls S's read method. See the <a href="https://doc.rust-lang.org/reference/items/traits.html#supertraits">supertrait rules</a>.</p>
-<p>Keep <code>use sources::Source</code> in scope for ordinary trait-method calls on Temperature or Status. The trait is declared in a different module, unlike their inherent methods. Fully qualified calls such as <code>Source::summary(&amp;missing)</code> can select the trait explicitly. Adding pub to methods inside a trait impl is not how to export them; make the trait accessible and use its API.</p>
-<h2 id="blanket-implementations-and-coherence">Blanket implementations and coherence<a class="headerlink" href="#blanket-implementations-and-coherence" title="Permanent link">¶</a></h2>
-<p>The <code>impl&lt;T: Source + Named&gt; Report for T {}</code> line is a blanket implementation. Its empty body is valid because report_line has a default. Device<temperature> qualifies, as does Device<status>; no separate Report impl is needed for either.</status></temperature></p>
-<p>Adding an explicit Report implementation for Device<temperature> would overlap with that blanket implementation and fail with E0119. A more specific-looking implementation does not automatically override a generic one on stable Rust. Decide where customization belongs before committing to a broad blanket impl.</temperature></p>
-<p>There is also an orphan check: implementing a foreign trait directly for a foreign type is rejected. Defining our own trait allows implementations on foreign types, and defining a local wrapper can allow foreign-trait implementations. Generic cases also have uncovered-parameter restrictions; “one local type anywhere” is not a complete rule. The <a href="https://doc.rust-lang.org/reference/items/implementations.html">implementation reference</a> gives the precise check. A type alias for a foreign type does not create a local wrapper.</p>
-<h2 id="derive-is-generated-implementation-code">Derive is generated implementation code<a class="headerlink" href="#derive-is-generated-implementation-code" title="Permanent link">¶</a></h2>
-<p>Temperature derives Debug, Clone, PartialEq and Eq. Those generated implementations use its fields, so the fields must satisfy the relevant requirements. Eq is suitable for Option<i32>; changing that field to Option<f64> would fail its Eq requirement. Deriving Clone does not imply Copy.</f64></i32></p>
-<p>The <a href="https://doc.rust-lang.org/reference/attributes/derive.html">derive reference</a> describes generated implementations and built-in traits. Display is not a built-in derive: user-facing text needs a chosen format, while Debug supports diagnostics. See the <a href="https://doc.rust-lang.org/std/fmt/trait.Display.html">Display documentation</a>. Derive macros are revisited in the macro lesson; there is no need to write a procedural macro here.</p>
-<h2 id="deliberately-failing-foreign-trait-on-a-foreign-type">Deliberately failing: foreign trait on a foreign type<a class="headerlink" href="#deliberately-failing-foreign-trait-on-a-foreign-type" title="Permanent link">¶</a></h2>
-<p>In a separate scratch project, replace src/main.rs with this complete program:</p>
-<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span>
-<span class="normal"><a href="#__codelineno-4-6">6</a></span>
-<span class="normal"><a href="#__codelineno-4-7">7</a></span>
-<span class="normal"><a href="#__codelineno-4-8">8</a></span>
-<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">fmt</span><span class="p">;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">impl</span><span class="w"> </span><span class="n">fmt</span><span class="p">::</span><span class="n">Display</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">formatter</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">fmt</span><span class="p">::</span><span class="n">Formatter</span><span class="o">&lt;'</span><span class="nb">_</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">fmt</span><span class="p">::</span><span class="nb">Result</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">        </span><span class="fm">write!</span><span class="p">(</span><span class="n">formatter</span><span class="p">,</span><span class="w"> </span><span class="s">"{:?}"</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">}</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<p>The address comparison is only an observation in this fixture, not a proof of an unsafe implementation. No raw pointer is dereferenced. Ordinary Box handles also keep their allocations in place when moved; Pin's additional value is the restricted API, not a new allocator.</p>
+<h2 id="local-pinning-owning-pinning-and-reborrowing">Local pinning, owning pinning and reborrowing<a class="headerlink" href="#local-pinning-owning-pinning-and-reborrowing" title="Permanent link">¶</a></h2>
+<p>Box::pin owns heap storage. The <a href="https://doc.rust-lang.org/std/pin/macro.pin.html">pin! macro</a> instead creates a local pinned value and returns borrowed access to that storage, without requiring heap allocation. Inside an async body the storage can become part of its generated future, so “local” is more precise than always calling it a stack allocation. A locally pinned value cannot escape the lifetime of its backing storage.</p>
+<p>as_mut creates another temporary pinned mutable borrow. It lets a poll call consume that borrow while retaining the owning handle for later calls. as_ref exposes shared pinned access. get_ref returns a shared reference; reading through it does not let you move the pointee out.</p>
+<p>The drop test captures a guard before the async body starts. Dropping borrowed Pin&lt;&amp;mut _&gt; ends only that borrow; dropping the owning Box destroys the still-unpolled future and its captured guard. This complements the previous lesson's cancellation-after-poll test.</p>
+<h2 id="safe-wrapping-is-not-unsafe-structural-projection">Safe wrapping is not unsafe structural projection<a class="headerlink" href="#safe-wrapping-is-not-unsafe-structural-projection" title="Permanent link">¶</a></h2>
+<p>Observed is Unpin because its fields are a movable pinned Box handle and a counter. get_mut therefore gives mutable access to the wrapper. Moving that handle leaves its separately allocated future pinned; as_mut supplies the pinned reference needed by <a href="https://doc.rust-lang.org/std/future/trait.Future.html">Future::poll</a>. No F: Unpin bound is necessary.</p>
+<p>An embedded inner: F is a different design. Projecting Pin&lt;&amp;mut Wrapper<f>&gt; into Pin&lt;&amp;mut F&gt; can promise that a particular field never moves while pinned. Such a structural-pinning design also constrains destruction, replacement and other APIs. Do not imitate our get_mut for an arbitrary embedded !Unpin field. See the <a href="https://doc.rust-lang.org/std/pin/index.html#projections-and-structural-pinning">structural-pinning and Drop rules</a> before writing a custom unsafe projection. This course defers unsafe implementations to lesson 26.</f></p>
+<p>Pin is not general immutability: interior mutation can remain valid, and Pin::set can replace a pointee by dropping its previous value in place first. The obligation concerns address-sensitive state and valid destruction, not banning every write.</p>
+<h2 id="erased-futures-thread-bounds-and-lifetimes">Erased futures, thread bounds and lifetimes<a class="headerlink" href="#erased-futures-thread-bounds-and-lifetimes" title="Permanent link">¶</a></h2>
+<p>Different async expressions produce different concrete types, even when they return the same i32. Our trait-object collection chooses dynamic dispatch and heap-owned pinning explicitly. ready_value polls each known-ready fixture once; it panics on Pending and is not a scheduler. The two-poll test repolls only its known YieldOnce fixture after observing notification. Do not use either helper to busy-poll arbitrary I/O or poll a completed future again.</p>
+<p>The collection's omitted object lifetime defaults to 'static here. The borrowed example instead specifies + '_ and completes while owner is alive. Pin adds neither a longer lifetime nor Send. A future holding Rc is still unsuitable for a Send-requiring spawn API, even if boxed and pinned. Conversely our !Unpin StableLabel is Send: thread transfer of the owning handle need not move its protected allocation.</p>
+<h2 id="a-first-distinction-about-variance">A first distinction about variance<a class="headerlink" href="#a-first-distinction-about-variance" title="Permanent link">¶</a></h2>
+<p>shorten expresses 'long: 'short: a reference valid for the longer lifetime may be used for the shorter one. This is lifetime subtyping, not an extension of the owner's lifetime. The <a href="https://doc.rust-lang.org/reference/subtyping.html">Reference's variance rules</a> explain how enclosing types affect such conversions.</p>
+<p>Shared &amp;T is covariant in T; &amp;mut T is invariant in T, although it remains covariant in its own borrow lifetime. This distinction prevents changing the referent type in ways that could write a too-short reference into longer-lived storage. RefCell<t> is also invariant in T. Do not infer that every container permits a nested reference's lifetime to be shortened merely because a shared str reference does. Pin does not bypass these rules.</t></p>
+<h2 id="deliberately-failing-pinnew-requires-unpin">Deliberately failing: Pin::new requires Unpin<a class="headerlink" href="#deliberately-failing-pinnew-requires-unpin" title="Permanent link">¶</a></h2>
+<p>Use a separate scratch project for this complete failure:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">marker</span><span class="p">::</span><span class="n">PhantomPinned</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">pin</span><span class="p">::</span><span class="n">Pin</span><span class="p">;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">StableLabel</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="n">_pinned</span><span class="p">:</span><span class="w"> </span><span class="nc">PhantomPinned</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StableLabel</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">        </span><span class="n">_pinned</span><span class="p">:</span><span class="w"> </span><span class="nc">PhantomPinned</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">_borrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pin</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">label</span><span class="p">);</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p><code>cargo check</code> reports E0117: Display and Vec are both foreign to this crate. Matching a method signature does not remove the orphan rule. A local newtype such as <code>struct Readings(Vec&lt;i32&gt;);</code> gives you a distinct type whose Display implementation can deliberately format its contained vector.</p>
+<p>cargo check reports E0277 because safe Pin::new requires an Unpin pointee. Repair it with Box::pin(label) or a local pin!(label), not an unsafe constructor added merely to silence the compiler. Neither repair requires implementing Unpin for this demonstration type.</p>
 <h2 id="exercises-and-troubleshooting">Exercises and troubleshooting<a class="headerlink" href="#exercises-and-troubleshooting" title="Permanent link">¶</a></h2>
 <ol>
-<li>Remove <code>type Value = i32</code> from Temperature's implementation: expect E0046 for the missing required item, rather than an inferred associated type.</li>
-<li>Call read_integer on the Status-based device: expect E0271 because its Value is String, not i32. The general report still accepts it.</li>
-<li>Add <code>impl Report for Device&lt;Temperature&gt; {}</code>: expect E0119 because the blanket implementation already applies.</li>
-<li>Fully qualify Source in other bounds and type paths, then remove it from the root use list: expect E0599 at missing.summary(), even though the implementation remains present. Restore the import or use <code>sources::Source::summary(&amp;missing)</code>; import Source directly from sources in the child tests if you remove the root name.</li>
-<li>Repair the foreign-trait example with Readings, implement Display for that wrapper, and format <code>self.0</code>. Print Readings containing <code>[46700, 60000]</code>; expect <code>[46700, 60000]</code>. Changing Vec's name through a type alias is not a repair.</li>
-<li>Change only Temperature's field from Option<i32> to Option<f64>: expect compile failure, including the derived Eq requirement. A wholesale float conversion needs an explicit equality policy and updated associated types, fixtures and tests.</f64></i32></li>
+<li>Repair the failure with Box::pin, then move its handle into a vector. Explain why PhantomPinned by itself did not establish the pinning contract.</li>
+<li>Call get_mut on a pinned mutable reference to StableLabel. Expect E0277. Use shared get_ref access for inspection instead; do not promise that an arbitrary address-sensitive type is Unpin.</li>
+<li>Attempt to move StableLabel out of Pin<box>&gt; with dereference. Expect E0507. Explain why a movable handle does not authorize moving its pointee.</box></li>
+<li>Try a vector of two unboxed async expressions instead of the erased collection. Expect E0308. Choose one concrete future type or an explicitly erased interface depending on the API you want.</li>
+<li>Change the borrowed example's object lifetime to 'static while retaining its local String borrow. Expect E0597. Compare the repairs: finish within the borrow or deliberately capture owned data with async move.</li>
+<li>Replace Observed's heap-pinned field with F directly. Explain the extra Unpin restriction a safe get_mut-based implementation would need, and why that is not equivalent for generated async futures.</li>
+<li>Use local pin! in a nested scope and attempt to return its borrowed pinned reference. Expect a temporary/lifetime error, not heap ownership. Identify the backing storage before choosing a repair.</li>
 </ol>
-<p>If a required item is missing, check the trait declaration. If a method cannot be found, distinguish a missing implementation, an unsatisfied bound and a missing import. If impls conflict, inspect blanket coverage; hiding them in different modules does not avoid coherence.</p>
 <h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
-<p>On October 10, 2026, the lesson was verified on a Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, all seven tests, formatting and debug/release output comparisons passed. Fully qualified calls, the import repair and the local Display wrapper also passed. The orphan, missing associated type, mismatched value type, overlapping implementation, missing import and float Eq examples failed as expected, including E0117, E0046, E0271, E0119, E0599 and E0277 respectively. No live sensor or performance measurement is involved.</p>
-<p>Next: <a href="../13_lifetimes_and_borrowed_apis/">lifetimes and borrowed APIs</a>, explaining the validity of returned references. Source here also has an associated constant, which affects whether it can become a trait object; the dispatch lesson will explain that separately.</p>
-<p><a href="../11_generics_bounds_and_const_generics/">Previous: generics and bounds</a> · <a href="../">Course overview</a></p></div>
+<p>On October 10, 2026, this lesson was verified on the authorised Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, nine debug/release tests, formatting, debug/release output comparisons and five further runs passed. Heap and local pinning repairs passed. Seven expected compile failures covered safe Pin::new, get_mut, extracting an async future, moving a pointee out, distinct async types, a 'static object borrow and escaping local pin storage. These checks demonstrate API boundaries, not hardware performance or the soundness of a custom unsafe pinning implementation.</p>
+<p>Next in the roadmap are declarative and procedural macros. That lesson is planned, not yet available.</p>
+<p><a href="../22_async_await_and_future/">Previous: async and Future</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -8212,7 +8352,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:10:57 JST">2026-10-10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 19:09:49 JST">2026-10-10</span>
   </span>
 
     
@@ -8222,7 +8362,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:06:43 JST">2026-10-10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 19:09:49 JST">2026-10-10</span>
   </span>
 
     
@@ -8244,10 +8384,10 @@
           <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
         
-          <li><a href="../11_generics_bounds_and_const_generics/">Previous: 11. Generics and Bounds</a></li>
+          <li><a href="../22_async_await_and_future/">Previous: 22. Async, Await and Future</a></li>
         
         
-          <li><a href="../13_lifetimes_and_borrowed_apis/">Next: 13. Lifetimes and Borrowed APIs</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
