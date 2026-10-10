@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Run local LLMs and VLMs on Raspberry Pi 5 with AI HAT+ 2, Hailo-10H, hailo-ollama, Open WebUI, model setup, API tests, and troubleshooting.">
+        <meta name="description" content="Learn Rust shared ownership and interior mutability with Rc, Weak, Cell and RefCell, including borrow conflicts and Raspberry Pi fixture tests.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/19_rc_weak_cell_and_refcell/">
       
       
-        <link rel="prev" href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">
+        <link rel="prev" href="../18_box_deref_and_drop/">
       
       
-        <link rel="next" href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs - With Raspberry Pi</title>
+        <title>Rust Rc, Weak, Cell and RefCell on Raspberry Pi - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs - With Raspberry Pi">
-  <meta property="og:description" content="Run local LLMs and VLMs on Raspberry Pi 5 with AI HAT+ 2, Hailo-10H, hailo-ollama, Open WebUI, model setup, API tests, and troubleshooting.">
+  <meta property="og:title" content="Rust Rc, Weak, Cell and RefCell on Raspberry Pi - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust shared ownership and interior mutability with Rc, Weak, Cell and RefCell, including borrow conflicts and Raspberry Pi fixture tests.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/19_rc_weak_cell_and_refcell/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__19_rc_weak_cell_and_refcell.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs">
+  <meta property="og:image:alt" content="Rust Rc, Weak, Cell and RefCell on Raspberry Pi">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-07-26">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-08-01">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs - With Raspberry Pi">
-  <meta name="twitter:description" content="Run local LLMs and VLMs on Raspberry Pi 5 with AI HAT+ 2, Hailo-10H, hailo-ollama, Open WebUI, model setup, API tests, and troubleshooting.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms.jpg">
+  <meta name="twitter:title" content="Rust Rc, Weak, Cell and RefCell on Raspberry Pi - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust shared ownership and interior mutability with Rc, Weak, Cell and RefCell, including borrow conflicts and Raspberry Pi fixture tests.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__19_rc_weak_cell_and_refcell.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs",
-    "description": "Run local LLMs and VLMs on Raspberry Pi 5 with AI HAT+ 2, Hailo-10H, hailo-ollama, Open WebUI, model setup, API tests, and troubleshooting.",
-    "url": "https://ohyaan.github.io/tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms.jpg"],
+    "headline": "Rust Rc, Weak, Cell and RefCell on Raspberry Pi",
+    "description": "Learn Rust shared ownership and interior mutability with Rc, Weak, Cell and RefCell, including borrow conflicts and Raspberry Pi fixture tests.",
+    "url": "https://ohyaan.github.io/rust-learning/19_rc_weak_cell_and_refcell/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/19_rc_weak_cell_and_refcell/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__19_rc_weak_cell_and_refcell.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-07-26",
-    "dateModified": "2026-08-01"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs", "item": "https://ohyaan.github.io/tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust Rc, Weak, Cell and RefCell on Raspberry Pi", "item": "https://ohyaan.github.io/rust-learning/19_rc_weak_cell_and_refcell/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-ai-hat-plus-2-complete-guide-local-llms-and-vlms" class="md-skip">
+        <a href="#rust-rc-weak-cell-and-refcell" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs
+              Rust Rc, Weak, Cell and RefCell on Raspberry Pi
             
           </span>
         </div>
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -490,13 +492,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tips/" class="md-tabs__link">
           
   
     
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1820,19 +1822,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1844,13 +1849,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1866,7 +1871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1888,7 +1893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1910,7 +1915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1932,7 +1937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+      <a href="../04_ownership_moves_copy_and_clone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1954,7 +1959,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/05_references_borrowing_and_slices/" class="md-nav__link">
+      <a href="../05_references_borrowing_and_slices/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1976,7 +1981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/06_structs_methods_and_associated_functions/" class="md-nav__link">
+      <a href="../06_structs_methods_and_associated_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1998,7 +2003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/07_enums_match_and_patterns/" class="md-nav__link">
+      <a href="../07_enums_match_and_patterns/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2020,7 +2025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/08_strings_vectors_and_hash_maps/" class="md-nav__link">
+      <a href="../08_strings_vectors_and_hash_maps/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2042,7 +2047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/09_option_result_and_error_handling/" class="md-nav__link">
+      <a href="../09_option_result_and_error_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2064,7 +2069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/10_crates_modules_paths_and_visibility/" class="md-nav__link">
+      <a href="../10_crates_modules_paths_and_visibility/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2086,7 +2091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/11_generics_bounds_and_const_generics/" class="md-nav__link">
+      <a href="../11_generics_bounds_and_const_generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2108,7 +2113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/12_traits_implementations_and_associated_types/" class="md-nav__link">
+      <a href="../12_traits_implementations_and_associated_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2130,7 +2135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/13_lifetimes_and_borrowed_apis/" class="md-nav__link">
+      <a href="../13_lifetimes_and_borrowed_apis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2152,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/14_trait_objects_and_dispatch/" class="md-nav__link">
+      <a href="../14_trait_objects_and_dispatch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2174,7 +2179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/15_closures_and_function_pointers/" class="md-nav__link">
+      <a href="../15_closures_and_function_pointers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2196,7 +2201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/16_iterators_and_lazy_adapters/" class="md-nav__link">
+      <a href="../16_iterators_and_lazy_adapters/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2218,7 +2223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/17_tests_documentation_and_cargo/" class="md-nav__link">
+      <a href="../17_tests_documentation_and_cargo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2240,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/18_box_deref_and_drop/" class="md-nav__link">
+      <a href="../18_box_deref_and_drop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2259,10 +2264,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../rust-learning/19_rc_weak_cell_and_refcell/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rust Rc, Weak, Cell and RefCell on Raspberry Pi
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2272,6 +2298,107 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and outcome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-complete-rust-shared-state-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the complete Rust shared-state example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rc-owns-cloning-its-handle-does-not-copy-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rc owns; cloning its handle does not copy Device
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cell-and-refcell-implement-different-access-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell and RefCell implement different access strategies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-borrow-ends-when-its-guard-is-dropped" class="md-nav__link">
+    <span class="md-ellipsis">
+      A borrow ends when its guard is dropped
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weak-back-links-separate-navigation-from-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weak back-links separate navigation from ownership
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-shared-ownership-is-not-exclusive-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing: shared ownership is not exclusive access
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4514,8 +4641,6 @@
       
   
   
-    
-  
   
   
     
@@ -4748,22 +4873,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../tips/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4775,13 +4897,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="">
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -4797,7 +4919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../automated_backup_strategies/" class="md-nav__link">
+      <a href="../../tips/automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4819,7 +4941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4841,7 +4963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4863,7 +4985,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4885,7 +5007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4907,7 +5029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+      <a href="../../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4929,7 +5051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4951,7 +5073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../../tips/cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4973,7 +5095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4995,7 +5117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5017,7 +5139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5039,7 +5161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5061,7 +5183,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
+      <a href="../../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5083,7 +5205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
+      <a href="../../tips/edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5105,7 +5227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
+      <a href="../../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5127,7 +5249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5149,7 +5271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5171,7 +5293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5193,7 +5315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5215,7 +5337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5237,7 +5359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5259,7 +5381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5281,7 +5403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5303,7 +5425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5325,7 +5447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
+      <a href="../../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5347,7 +5469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5369,7 +5491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+      <a href="../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5391,7 +5513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5413,7 +5535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5435,7 +5557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5457,7 +5579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5479,7 +5601,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5501,7 +5623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5523,7 +5645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5545,7 +5667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
+      <a href="../../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5567,7 +5689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5589,7 +5711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
+      <a href="../../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5611,7 +5733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5633,7 +5755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
+      <a href="../../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5655,7 +5777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5677,7 +5799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5699,7 +5821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5721,7 +5843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5743,7 +5865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5765,7 +5887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5787,7 +5909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5809,7 +5931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
+      <a href="../../tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5831,7 +5953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
+      <a href="../../tips/network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5853,7 +5975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5875,7 +5997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
+      <a href="../../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5897,7 +6019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5919,7 +6041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5941,7 +6063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5963,7 +6085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5985,7 +6107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6004,31 +6126,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6038,134 +6139,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-ai-hat-2-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      What AI HAT+ 2 changes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hardware-and-software-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hardware and software requirements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-install-and-verify-the-hardware" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Install and verify the hardware
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-install-the-hailo-10h-runtime" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Install the Hailo-10H runtime
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-install-the-hailo-genai-model-package" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Install the Hailo GenAI model package
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-start-hailo-ollama-and-run-an-llm" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Start hailo-ollama and run an LLM
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-open-webui" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Add Open WebUI
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-run-hailo-ollama-as-a-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Run hailo-ollama as a service
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-vlm-and-camera-projects" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. VLM and camera projects
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#monitoring-and-realistic-benchmarking" class="md-nav__link">
-    <span class="md-ellipsis">
-      Monitoring and realistic benchmarking
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-guides-and-official-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related guides and official references
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6178,7 +6151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6200,7 +6173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6222,7 +6195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6244,7 +6217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6266,7 +6239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6288,7 +6261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6310,7 +6283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6332,7 +6305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6354,7 +6327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6376,7 +6349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6398,7 +6371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6420,7 +6393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6442,7 +6415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6464,7 +6437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_network_manager_update_failed/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_network_manager_update_failed/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6486,7 +6459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6508,7 +6481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6530,7 +6503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6552,7 +6525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6574,7 +6547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6596,7 +6569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6618,7 +6591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6640,7 +6613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6662,7 +6635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6684,7 +6657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6706,7 +6679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6728,7 +6701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6750,7 +6723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6772,7 +6745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6794,7 +6767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6816,7 +6789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6838,7 +6811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6860,7 +6833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6882,7 +6855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
+      <a href="../../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6904,7 +6877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6926,7 +6899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6948,7 +6921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6970,7 +6943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6992,7 +6965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
+      <a href="../../tips/run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7014,7 +6987,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7036,7 +7009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
+      <a href="../../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7058,7 +7031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7080,7 +7053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7102,7 +7075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7124,7 +7097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
+      <a href="../../tips/secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7146,7 +7119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7168,7 +7141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7190,7 +7163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setting_up_vpn_access/" class="md-nav__link">
+      <a href="../../tips/setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7212,7 +7185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
+      <a href="../../tips/smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7234,7 +7207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
+      <a href="../../tips/smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7256,7 +7229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7278,7 +7251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7300,7 +7273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7322,7 +7295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7344,7 +7317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7517,9 +7490,8 @@
 
 
 
-<div><h1 id="raspberry-pi-ai-hat-plus-2-complete-guide-local-llms-and-vlms">Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs<a class="headerlink" href="#raspberry-pi-ai-hat-plus-2-complete-guide-local-llms-and-vlms" title="Permanent link">¶</a></h1>
-<p>The Raspberry Pi AI HAT+ 2 adds a Hailo-10H accelerator and 8GB of dedicated memory to Raspberry Pi 5. Unlike the original AI HAT+, it can run supported large language models (LLMs), vision-language models (VLMs), and computer-vision pipelines locally without sending prompts or images to a cloud service.</p>
-<p>This guide installs the official Hailo software path on Raspberry Pi OS Trixie, verifies the NPU, runs a model through the <code>hailo-ollama</code> API, and adds Open WebUI as an optional browser interface.</p>
+<div><h1 id="rust-rc-weak-cell-and-refcell">Rust Rc, Weak, Cell and RefCell<a class="headerlink" href="#rust-rc-weak-cell-and-refcell" title="Permanent link">¶</a></h1>
+<p>Rc shares ownership; Cell and RefCell allow controlled mutation through shared access. Weak observes an allocation without keeping its value alive. Combining them is useful for single-threaded object graphs, but does not make those graphs thread-safe.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7529,260 +7501,432 @@
   </script>
 </div>
 
-<h2 id="what-ai-hat-2-changes">What AI HAT+ 2 changes<a class="headerlink" href="#what-ai-hat-2-changes" title="Permanent link">¶</a></h2>
-<p>AI HAT+ 2 is not simply a faster version of the 13 or 26 TOPS AI HAT+. It uses a different accelerator and software package.</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>AI HAT+</th>
-<th>AI HAT+ 2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Accelerator</td>
-<td>Hailo-8L or Hailo-8</td>
-<td>Hailo-10H</td>
-</tr>
-<tr>
-<td>Peak inference</td>
-<td>13 or 26 TOPS INT8</td>
-<td>40 TOPS INT4</td>
-</tr>
-<tr>
-<td>Dedicated memory</td>
-<td>None</td>
-<td>8GB</td>
-</tr>
-<tr>
-<td>Computer vision</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Supported local LLMs and VLMs</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Raspberry Pi package</td>
-<td><code>hailo-all</code></td>
-<td><code>hailo-h10-all</code></td>
-</tr>
-</tbody>
-</table>
-<p>The two Hailo packages cannot coexist. If you are replacing an older AI Kit or AI HAT+, remove its software before installing the Hailo-10H stack.</p>
-<h2 id="hardware-and-software-requirements">Hardware and software requirements<a class="headerlink" href="#hardware-and-software-requirements" title="Permanent link">¶</a></h2>
-<ul>
-<li>Raspberry Pi 5</li>
-<li>Raspberry Pi AI HAT+ 2</li>
-<li>Official 27W USB-C power supply or an equivalent high-quality supply</li>
-<li>Raspberry Pi Active Cooler</li>
-<li>The heatsink supplied with AI HAT+ 2</li>
-<li>Current 64-bit Raspberry Pi OS Trixie</li>
-<li>At least 10GB of free storage for software, models, and container images</li>
-</ul>
-<p>Install both cooling solutions before sustained inference. The Pi CPU still runs the operating system, API, user interface, camera pipeline, and pre/post-processing even when the NPU performs model inference.</p>
-<h2 id="1-install-and-verify-the-hardware">1. Install and verify the hardware<a class="headerlink" href="#1-install-and-verify-the-hardware" title="Permanent link">¶</a></h2>
-<p>Shut the Raspberry Pi down and disconnect power before working on the PCIe connector.</p>
-<ol>
-<li>Install the Active Cooler on the Raspberry Pi 5.</li>
-<li>Fit the supplied heatsink to AI HAT+ 2.</li>
-<li>Attach the included PCIe ribbon cable with the contacts in the documented orientation.</li>
-<li>Secure the HAT using the supplied spacers and screws.</li>
-<li>Reconnect power and boot Raspberry Pi OS.</li>
-</ol>
-<p>Update the operating system:</p>
+<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../18_box_deref_and_drop/">Box, Deref and Drop</a>. You will distinguish ownership from access, release a runtime borrow explicitly, and explain why a weak back-link does not form a strong ownership cycle. The program uses Raspberry Pi labels and synthetic readings, not sensors or performance measurements.</p>
+<h2 id="build-the-complete-rust-shared-state-example">Build the complete Rust shared-state example<a class="headerlink" href="#build-the-complete-rust-shared-state-example" title="Permanent link">¶</a></h2>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>reboot
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_shared
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_shared
 </code></pre></div></td></tr></table></div>
-<p>Confirm that the host is 64-bit Trixie:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(PRETTY_NAME|VERSION_CODENAME)='</span><span class="w"> </span>/etc/os-release
+<p>Keep edition = "2024" in Cargo.toml. Replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-1-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-1-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-1-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-1-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-1-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-1-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-1-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-1-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-1-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-1-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-1-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-1-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-1-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-1-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-1-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-1-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-1-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-1-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-1-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-1-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-1-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-1-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-1-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-1-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-1-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-1-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-1-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-1-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-1-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-1-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-1-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-1-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-1-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-1-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-1-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-1-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-1-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-1-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-1-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-1-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-1-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-1-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-1-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-1-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-1-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-1-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-1-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-1-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-1-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-1-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-1-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-1-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-1-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-1-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-1-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-1-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-1-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-1-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-1-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-1-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-1-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-1-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-1-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-1-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-1-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-1-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-1-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-1-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-1-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-1-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-1-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-1-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-1-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-1-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-1-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-1-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-1-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-1-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-1-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-1-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-1-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-1-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-1-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-1-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-1-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-1-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-1-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-1-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-1-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-1-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-1-100">100</a></span>
+<span class="normal"><a href="#__codelineno-1-101">101</a></span>
+<span class="normal"><a href="#__codelineno-1-102">102</a></span>
+<span class="normal"><a href="#__codelineno-1-103">103</a></span>
+<span class="normal"><a href="#__codelineno-1-104">104</a></span>
+<span class="normal"><a href="#__codelineno-1-105">105</a></span>
+<span class="normal"><a href="#__codelineno-1-106">106</a></span>
+<span class="normal"><a href="#__codelineno-1-107">107</a></span>
+<span class="normal"><a href="#__codelineno-1-108">108</a></span>
+<span class="normal"><a href="#__codelineno-1-109">109</a></span>
+<span class="normal"><a href="#__codelineno-1-110">110</a></span>
+<span class="normal"><a href="#__codelineno-1-111">111</a></span>
+<span class="normal"><a href="#__codelineno-1-112">112</a></span>
+<span class="normal"><a href="#__codelineno-1-113">113</a></span>
+<span class="normal"><a href="#__codelineno-1-114">114</a></span>
+<span class="normal"><a href="#__codelineno-1-115">115</a></span>
+<span class="normal"><a href="#__codelineno-1-116">116</a></span>
+<span class="normal"><a href="#__codelineno-1-117">117</a></span>
+<span class="normal"><a href="#__codelineno-1-118">118</a></span>
+<span class="normal"><a href="#__codelineno-1-119">119</a></span>
+<span class="normal"><a href="#__codelineno-1-120">120</a></span>
+<span class="normal"><a href="#__codelineno-1-121">121</a></span>
+<span class="normal"><a href="#__codelineno-1-122">122</a></span>
+<span class="normal"><a href="#__codelineno-1-123">123</a></span>
+<span class="normal"><a href="#__codelineno-1-124">124</a></span>
+<span class="normal"><a href="#__codelineno-1-125">125</a></span>
+<span class="normal"><a href="#__codelineno-1-126">126</a></span>
+<span class="normal"><a href="#__codelineno-1-127">127</a></span>
+<span class="normal"><a href="#__codelineno-1-128">128</a></span>
+<span class="normal"><a href="#__codelineno-1-129">129</a></span>
+<span class="normal"><a href="#__codelineno-1-130">130</a></span>
+<span class="normal"><a href="#__codelineno-1-131">131</a></span>
+<span class="normal"><a href="#__codelineno-1-132">132</a></span>
+<span class="normal"><a href="#__codelineno-1-133">133</a></span>
+<span class="normal"><a href="#__codelineno-1-134">134</a></span>
+<span class="normal"><a href="#__codelineno-1-135">135</a></span>
+<span class="normal"><a href="#__codelineno-1-136">136</a></span>
+<span class="normal"><a href="#__codelineno-1-137">137</a></span>
+<span class="normal"><a href="#__codelineno-1-138">138</a></span>
+<span class="normal"><a href="#__codelineno-1-139">139</a></span>
+<span class="normal"><a href="#__codelineno-1-140">140</a></span>
+<span class="normal"><a href="#__codelineno-1-141">141</a></span>
+<span class="normal"><a href="#__codelineno-1-142">142</a></span>
+<span class="normal"><a href="#__codelineno-1-143">143</a></span>
+<span class="normal"><a href="#__codelineno-1-144">144</a></span>
+<span class="normal"><a href="#__codelineno-1-145">145</a></span>
+<span class="normal"><a href="#__codelineno-1-146">146</a></span>
+<span class="normal"><a href="#__codelineno-1-147">147</a></span>
+<span class="normal"><a href="#__codelineno-1-148">148</a></span>
+<span class="normal"><a href="#__codelineno-1-149">149</a></span>
+<span class="normal"><a href="#__codelineno-1-150">150</a></span>
+<span class="normal"><a href="#__codelineno-1-151">151</a></span>
+<span class="normal"><a href="#__codelineno-1-152">152</a></span>
+<span class="normal"><a href="#__codelineno-1-153">153</a></span>
+<span class="normal"><a href="#__codelineno-1-154">154</a></span>
+<span class="normal"><a href="#__codelineno-1-155">155</a></span>
+<span class="normal"><a href="#__codelineno-1-156">156</a></span>
+<span class="normal"><a href="#__codelineno-1-157">157</a></span>
+<span class="normal"><a href="#__codelineno-1-158">158</a></span>
+<span class="normal"><a href="#__codelineno-1-159">159</a></span>
+<span class="normal"><a href="#__codelineno-1-160">160</a></span>
+<span class="normal"><a href="#__codelineno-1-161">161</a></span>
+<span class="normal"><a href="#__codelineno-1-162">162</a></span>
+<span class="normal"><a href="#__codelineno-1-163">163</a></span>
+<span class="normal"><a href="#__codelineno-1-164">164</a></span>
+<span class="normal"><a href="#__codelineno-1-165">165</a></span>
+<span class="normal"><a href="#__codelineno-1-166">166</a></span>
+<span class="normal"><a href="#__codelineno-1-167">167</a></span>
+<span class="normal"><a href="#__codelineno-1-168">168</a></span>
+<span class="normal"><a href="#__codelineno-1-169">169</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">cell</span><span class="p">::{</span><span class="n">Cell</span><span class="p">,</span><span class="w"> </span><span class="n">RefCell</span><span class="p">};</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">rc</span><span class="p">::{</span><span class="n">Rc</span><span class="p">,</span><span class="w"> </span><span class="n">Weak</span><span class="p">};</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Device</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">    </span><span class="n">visits</span><span class="p">:</span><span class="w"> </span><span class="nc">Cell</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="n">readings</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="o">&lt;</span><span class="n">Weak</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="n">children</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Rc</span><span class="o">&lt;</span><span class="n">Device</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="p">}</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="k">impl</span><span class="w"> </span><span class="n">Device</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Rc</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">        </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">            </span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">            </span><span class="n">visits</span><span class="p">:</span><span class="w"> </span><span class="nc">Cell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">            </span><span class="n">readings</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">Vec</span><span class="p">::</span><span class="n">new</span><span class="p">()),</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">            </span><span class="n">parent</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Weak</span><span class="p">::</span><span class="n">new</span><span class="p">()),</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">            </span><span class="n">children</span><span class="p">:</span><span class="w"> </span><span class="nc">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">Vec</span><span class="p">::</span><span class="n">new</span><span class="p">()),</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">        </span><span class="p">})</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">readings</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">push</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">        </span><span class="c1">// This tiny fixture does not reach the u32 limit.</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">visits</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">visits</span><span class="p">.</span><span class="n">get</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="p">}</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">observer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"same allocation={}"</span><span class="p">,</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">ptr_eq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">observer</span><span class="p">));</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"strong owners={}"</span><span class="p">,</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">strong_count</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">));</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">    </span><span class="n">observer</span><span class="p">.</span><span class="n">visit</span><span class="p">();</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">    </span><span class="n">observer</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="mi">46_700</span><span class="p">);</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">    </span><span class="n">device</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"visits={}"</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">.</span><span class="n">visits</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">readings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device</span><span class="p">.</span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"readings={:?}"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;*</span><span class="n">readings</span><span class="p">);</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">        </span><span class="s">"write blocked={}"</span><span class="p">,</span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="w">        </span><span class="n">device</span><span class="p">.</span><span class="n">readings</span><span class="p">.</span><span class="n">try_borrow_mut</span><span class="p">().</span><span class="n">is_err</span><span class="p">()</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">    </span><span class="nb">drop</span><span class="p">(</span><span class="n">readings</span><span class="p">);</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">    </span><span class="n">device</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">);</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"after release={:?}"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;*</span><span class="n">device</span><span class="p">.</span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">());</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="nb">drop</span><span class="p">(</span><span class="n">observer</span><span class="p">);</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"remaining owners={}"</span><span class="p">,</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">strong_count</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">));</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">    </span><span class="nb">drop</span><span class="p">(</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"value gone={}"</span><span class="p">,</span><span class="w"> </span><span class="n">weak</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"root"</span><span class="p">);</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"child"</span><span class="p">);</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">    </span><span class="o">*</span><span class="n">child</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">);</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="n">root</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">push</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">child</span><span class="p">));</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">        </span><span class="c1">// Upgrade temporarily owns the parent. Release it before dropping root.</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">child</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow</span><span class="p">().</span><span class="n">upgrade</span><span class="p">().</span><span class="n">expect</span><span class="p">(</span><span class="s">"live fixture root"</span><span class="p">);</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">"parent={}"</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">.</span><span class="n">label</span><span class="p">);</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">    </span><span class="nb">drop</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"parent gone={}"</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow</span><span class="p">().</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"child survives={}"</span><span class="p">,</span><span class="w"> </span><span class="n">child</span><span class="p">.</span><span class="n">label</span><span class="p">);</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="p">}</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">clone_shares_mutations_without_cloning_the_payload</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">alias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">);</span>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">ptr_eq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alias</span><span class="p">));</span>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">        </span><span class="n">alias</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">        </span><span class="n">alias</span><span class="p">.</span><span class="n">record</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">);</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">        </span><span class="n">alias</span><span class="p">.</span><span class="n">visit</span><span class="p">();</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">&amp;*</span><span class="n">device</span><span class="p">.</span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">]);</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">device</span><span class="p">.</span><span class="n">visits</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">empty_and_shared_read_borrows_are_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">readings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">Vec</span><span class="p">::</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">::</span><span class="n">new</span><span class="p">());</span>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">second</span><span class="p">.</span><span class="n">is_empty</span><span class="p">());</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">readings</span><span class="p">.</span><span class="n">try_borrow_mut</span><span class="p">().</span><span class="n">is_err</span><span class="p">());</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">releasing_guards_restores_exclusive_access</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">readings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">first</span><span class="p">);</span>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">readings</span><span class="p">.</span><span class="n">try_borrow_mut</span><span class="p">().</span><span class="n">is_err</span><span class="p">());</span>
+<a id="__codelineno-1-105" name="__codelineno-1-105"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">second</span><span class="p">);</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">();</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">46_700</span><span class="p">);</span>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">readings</span><span class="p">.</span><span class="n">try_borrow</span><span class="p">().</span><span class="n">is_err</span><span class="p">());</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">readings</span><span class="p">.</span><span class="n">try_borrow_mut</span><span class="p">().</span><span class="n">is_err</span><span class="p">());</span>
+<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">writer</span><span class="p">);</span>
+<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="o">&amp;*</span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">46_700</span><span class="p">]);</span>
+<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-113" name="__codelineno-1-113"></a>
+<a id="__codelineno-1-114" name="__codelineno-1-114"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">weak_does_not_keep_the_value_alive</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">));</span>
+<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">weak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-118" name="__codelineno-1-118"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">upgraded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">weak</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-120" name="__codelineno-1-120"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">weak</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_some</span><span class="p">());</span>
+<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">upgraded</span><span class="p">);</span>
+<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">weak</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-124" name="__codelineno-1-124"></a>
+<a id="__codelineno-1-125" name="__codelineno-1-125"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-126" name="__codelineno-1-126"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">weak_parent_allows_root_destruction_while_child_survives</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-127" name="__codelineno-1-127"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"root"</span><span class="p">);</span>
+<a id="__codelineno-1-128" name="__codelineno-1-128"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Device</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="s">"child"</span><span class="p">);</span>
+<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">root_watch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">);</span>
+<a id="__codelineno-1-130" name="__codelineno-1-130"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">child_watch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">child</span><span class="p">);</span>
+<a id="__codelineno-1-131" name="__codelineno-1-131"></a><span class="w">        </span><span class="o">*</span><span class="n">child</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">);</span>
+<a id="__codelineno-1-132" name="__codelineno-1-132"></a><span class="w">        </span><span class="n">root</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">push</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">child</span><span class="p">));</span>
+<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+<a id="__codelineno-1-134" name="__codelineno-1-134"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">root_watch</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">child</span><span class="p">.</span><span class="n">parent</span><span class="p">.</span><span class="n">borrow</span><span class="p">().</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">child</span><span class="p">.</span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="s">"child"</span><span class="p">);</span>
+<a id="__codelineno-1-137" name="__codelineno-1-137"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+<a id="__codelineno-1-138" name="__codelineno-1-138"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">child_watch</span><span class="p">.</span><span class="n">upgrade</span><span class="p">().</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-139" name="__codelineno-1-139"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-140" name="__codelineno-1-140"></a>
+<a id="__codelineno-1-141" name="__codelineno-1-141"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-142" name="__codelineno-1-142"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">unique_rc_can_be_mutated_without_a_cell</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-143" name="__codelineno-1-143"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">));</span>
+<a id="__codelineno-1-144" name="__codelineno-1-144"></a><span class="w">        </span><span class="n">Rc</span><span class="p">::</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">value</span><span class="p">).</span><span class="n">unwrap</span><span class="p">().</span><span class="n">push_str</span><span class="p">(</span><span class="s">" 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-145" name="__codelineno-1-145"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">alias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-146" name="__codelineno-1-146"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">value</span><span class="p">).</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-147" name="__codelineno-1-147"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">alias</span><span class="p">);</span>
+<a id="__codelineno-1-148" name="__codelineno-1-148"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">weak</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">downgrade</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-149" name="__codelineno-1-149"></a><span class="w">        </span><span class="fm">assert!</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">value</span><span class="p">).</span><span class="n">is_none</span><span class="p">());</span>
+<a id="__codelineno-1-150" name="__codelineno-1-150"></a><span class="w">        </span><span class="nb">drop</span><span class="p">(</span><span class="n">weak</span><span class="p">);</span>
+<a id="__codelineno-1-151" name="__codelineno-1-151"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">Rc</span><span class="p">::</span><span class="n">get_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">value</span><span class="p">).</span><span class="n">unwrap</span><span class="p">(),</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-152" name="__codelineno-1-152"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-153" name="__codelineno-1-153"></a>
+<a id="__codelineno-1-154" name="__codelineno-1-154"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-155" name="__codelineno-1-155"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">cell_can_replace_non_copy_owned_values</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-156" name="__codelineno-1-156"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">));</span>
+<a id="__codelineno-1-157" name="__codelineno-1-157"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">)),</span><span class="w"> </span><span class="s">"Pi"</span><span class="p">);</span>
+<a id="__codelineno-1-158" name="__codelineno-1-158"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">take</span><span class="p">(),</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-159" name="__codelineno-1-159"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">into_inner</span><span class="p">(),</span><span class="w"> </span><span class="s">""</span><span class="p">);</span>
+<a id="__codelineno-1-160" name="__codelineno-1-160"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-161" name="__codelineno-1-161"></a>
+<a id="__codelineno-1-162" name="__codelineno-1-162"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-163" name="__codelineno-1-163"></a><span class="w">    </span><span class="cp">#[should_panic(expected = </span><span class="s">"already borrowed"</span><span class="cp">)]</span>
+<a id="__codelineno-1-164" name="__codelineno-1-164"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">infallible_borrow_panics_on_conflict</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-165" name="__codelineno-1-165"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">readings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-1-166" name="__codelineno-1-166"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow</span><span class="p">();</span>
+<a id="__codelineno-1-167" name="__codelineno-1-167"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">_writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readings</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">();</span>
+<a id="__codelineno-1-168" name="__codelineno-1-168"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-169" name="__codelineno-1-169"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>Expect <code>aarch64</code> and <code>VERSION_CODENAME=trixie</code>.</p>
-<h2 id="2-install-the-hailo-10h-runtime">2. Install the Hailo-10H runtime<a class="headerlink" href="#2-install-the-hailo-10h-runtime" title="Permanent link">¶</a></h2>
-<p>Install the driver and software metapackage:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dkms<span class="w"> </span>hailo-h10-all
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>sudo<span class="w"> </span>reboot
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>check
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
 </code></pre></div></td></tr></table></div>
-<p>Verify that the firmware responds:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>hailortcli<span class="w"> </span>fw-control<span class="w"> </span>identify
+<p>Expected binary output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>same allocation=true
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>strong owners=2
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>visits=1
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>readings=[46700, 0]
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>write blocked=true
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>after release=[46700, 0, -500]
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>remaining owners=1
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>value gone=true
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>parent=root
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>parent gone=true
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>child survives=child
 </code></pre></div></td></tr></table></div>
-<p>Also check PCIe detection:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>hailo
+<p>Eight tests cover shared state, empty input, overlapping guards, weak lifetimes, tree destruction, unique ownership, non-Copy Cell contents and a deliberately expected panic. That panic is a passing negative test, not the normal binary's behaviour.</p>
+<h2 id="rc-owns-cloning-its-handle-does-not-copy-device">Rc owns; cloning its handle does not copy Device<a class="headerlink" href="#rc-owns-cloning-its-handle-does-not-copy-device" title="Permanent link">¶</a></h2>
+<p>The two handles refer to one Device. Mutations made through observer are visible through device. Rc::clone increments the strong-owner count rather than calling Device::clone. Counts in this fixture explain ownership; they are not an application protocol. Moving an Rc still moves a binding as usual.</p>
+<p>The last strong owner's destruction drops Device. A Weak does not keep Device alive, although it retains the backing allocation until weak handles are also released. upgrade returns Option<rc>&gt;: Some adds a strong owner, None means the value is no longer available. Retaining the upgraded handle can therefore postpone destruction. Weak::new starts without a live referent.</rc></p>
+<p>Rc normally exposes shared access. Rc::get_mut can provide &amp;mut T when there are no other strong or weak handles, as the test demonstrates. Do not add RefCell merely because a value happens to be heap-allocated. For clone-on-write, Rc::make_mut is another distinct API; it may clone a shared payload and does not promise all handles keep observing one mutable object. See the <a href="https://doc.rust-lang.org/std/rc/struct.Rc.html">Rc API</a> and <a href="https://doc.rust-lang.org/std/rc/struct.Weak.html">Weak API</a>.</p>
+<h2 id="cell-and-refcell-implement-different-access-strategies">Cell and RefCell implement different access strategies<a class="headerlink" href="#cell-and-refcell-implement-different-access-strategies" title="Permanent link">¶</a></h2>
+<p>Interior mutability is a safe API's ability to change controlled contents through shared access. It does not grant permission to mutate arbitrary data behind &amp;T. These standard-library containers encapsulate the implementation obligations; learning their APIs does not require writing unsafe code.</p>
+<p>Cell's get copies out a T and requires T: Copy. set and replace can handle non-Copy values without handing out a shared reference to the stored value; replace returns the old owned value. take replaces it with T::default(), and into_inner consumes the container. Our counter uses get/set; the String test uses replacement instead. Cell is not limited to integers, and it does not use RefCell-style borrow guards. For details see <a href="https://doc.rust-lang.org/std/cell/struct.Cell.html">Cell</a>.</p>
+<p>RefCell's borrow returns a Ref guard; borrow_mut returns a RefMut guard. Multiple readers or one writer are permitted, not both. Enforcement happens at runtime for that container. The surrounding references, moves and lifetimes still undergo compiler checking. This is not a switch that disables Rust's borrow checker. See <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html">RefCell</a>.</p>
+<p>try_borrow and try_borrow_mut report conflicts as errors. borrow and borrow_mut panic instead. A failed try does not wait for another operation or repair the conflict. Choose error handling when a conflict is an expected API outcome, and avoid hiding unexpected logic errors by silently discarding them.</p>
+<h2 id="a-borrow-ends-when-its-guard-is-dropped">A borrow ends when its guard is dropped<a class="headerlink" href="#a-borrow-ends-when-its-guard-is-dropped" title="Permanent link">¶</a></h2>
+<p>The readings variable owns a guard, not a copied Vec. Its last printed use does not itself call the guard's destructor; drop(readings) explicitly releases the dynamic borrow before record requests exclusive access. Every live read guard must be released, as the two-reader test shows.</p>
+<p>Keep guards short-lived. A temporary borrow in a simple statement is released when that temporary's scope ends, but not every expression has the same temporary scope; consult <a href="https://doc.rust-lang.org/reference/destructors.html#temporary-scopes">temporary scopes</a>. Named guards and explicit blocks make boundaries visible. Avoid calling a callback or a recursively invoked method while holding a guard if that code may borrow the same cell incompatibly. Such re-entrancy can fail even on one thread.</p>
+<p>Prefer ordinary fields and &amp;mut self when exclusive access naturally describes the operation. Interior mutability moves a potential failure to runtime and can make dependencies less obvious; it is a design choice, not a universal compiler-error repair.</p>
+<h2 id="weak-back-links-separate-navigation-from-ownership">Weak back-links separate navigation from ownership<a class="headerlink" href="#weak-back-links-separate-navigation-from-ownership" title="Permanent link">¶</a></h2>
+<p>Our root owns its child strongly; the child observes its parent weakly. The external child handle lets the child survive root destruction, but its parent link then upgrades to None. The inner block releases the temporary parent owner before dropping root.</p>
+<p>If both directions hold strong Rc handles, the owners can keep one another alive after external handles disappear. Rust permits memory leaks in safe code: a leak is not automatically undefined behaviour. Decide which edges own values and which merely navigate. Weak breaks a cycle only when the remaining strong ownership graph no longer contains that cycle. See <a href="https://doc.rust-lang.org/std/rc/index.html">single-threaded reference counting</a>.</p>
+<p>For a different design, an owning Vec with indices or another explicit owner can avoid distributed ownership. Rc is useful when shared ownership is genuinely needed, not simply because two parts of a program read the same value.</p>
+<h2 id="deliberately-failing-shared-ownership-is-not-exclusive-access">Deliberately failing: shared ownership is not exclusive access<a class="headerlink" href="#deliberately-failing-shared-ownership-is-not-exclusive-access" title="Permanent link">¶</a></h2>
+<p>In a separate scratch project, replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">rc</span><span class="p">::</span><span class="n">Rc</span><span class="p">;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">));</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">_alias</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">label</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="n">label</span><span class="p">.</span><span class="n">push_str</span><span class="p">(</span><span class="s">" 4B"</span><span class="p">);</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>Do not manually force PCIe Gen 3 for AI HAT+ 2. That configuration step applies to the older AI Kit; the HAT+ products manage the required setting automatically.</p>
-<h2 id="3-install-the-hailo-genai-model-package">3. Install the Hailo GenAI model package<a class="headerlink" href="#3-install-the-hailo-genai-model-package" title="Permanent link">¶</a></h2>
-<p>The official LLM workflow uses a versioned Hailo GenAI Model Zoo Debian package. Download the current Raspberry Pi Arm64 package from the Hailo Developer Zone, then install the downloaded file. The official documentation used version 5.1.1 at the time this guide was written:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>hailo_gen_ai_model_zoo_5.1.1_arm64.deb
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>--fix-broken<span class="w"> </span>install
-</code></pre></div></td></tr></table></div>
-<p>Because this package and its available models change, confirm the current filename in the official documentation instead of copying an old download URL from a third-party mirror.</p>
-<h2 id="4-start-hailo-ollama-and-run-an-llm">4. Start hailo-ollama and run an LLM<a class="headerlink" href="#4-start-hailo-ollama-and-run-an-llm" title="Permanent link">¶</a></h2>
-<p>Start the local backend in one terminal:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>hailo-ollama
-</code></pre></div></td></tr></table></div>
-<p>In a second terminal, list the supported models:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8000/hailo/v1/list
-</code></pre></div></td></tr></table></div>
-<p>Download one of the returned models. This example uses a small Qwen model:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8000/api/pull<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"model":"qwen2:1.5b","stream":true}'</span>
-</code></pre></div></td></tr></table></div>
-<p>Send a chat request:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-9-10">10</a></span>
-<span class="normal"><a href="#__codelineno-9-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8000/api/chat<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="s1">    "model": "qwen2:1.5b",</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="s1">    "messages": [</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="s1">      {</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="s1">        "role": "user",</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="s1">        "content": "Explain GPIO pull-up resistors in three short points."</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="s1">      }</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="s1">    ]</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="s1">  }'</span>
-</code></pre></div></td></tr></table></div>
-<p>Model names are determined by the installed Hailo package. Always use a name returned by the list endpoint.</p>
-<h2 id="5-add-open-webui">5. Add Open WebUI<a class="headerlink" href="#5-add-open-webui" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi OS Trixie uses Python 3.13, while the recommended Open WebUI path is containerised. Install Docker using its current official instructions, then confirm it works:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>docker<span class="w"> </span>version
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world
-</code></pre></div></td></tr></table></div>
-<p>Pull and start Open WebUI on the host network so it can reach <code>hailo-ollama</code> on port 8000:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span>
-<span class="normal"><a href="#__codelineno-11-5">5</a></span>
-<span class="normal"><a href="#__codelineno-11-6">6</a></span>
-<span class="normal"><a href="#__codelineno-11-7">7</a></span>
-<span class="normal"><a href="#__codelineno-11-8">8</a></span>
-<span class="normal"><a href="#__codelineno-11-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/open-webui/open-webui:main
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--name<span class="w"> </span>open-webui<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--restart<span class="o">=</span>always<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">OLLAMA_BASE_URL</span><span class="o">=</span>http://127.0.0.1:8000<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">  </span>ghcr.io/open-webui/open-webui:main
-</code></pre></div></td></tr></table></div>
-<p>Watch the initial startup:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>open-webui
-</code></pre></div></td></tr></table></div>
-<p>Open <code>http://raspberry-pi.local:8080</code> from another computer on the same network. Create the first administrator account, select the downloaded model, and send a test prompt.</p>
-<div class="admonition warning">
-<p class="admonition-title">Do not publish Open WebUI directly</p>
-<p>Keep port 8080 on a trusted LAN or behind authenticated private access such as Tailscale. Do not expose an unauthenticated AI interface through router port forwarding.</p>
-</div>
-<h2 id="6-run-hailo-ollama-as-a-service">6. Run hailo-ollama as a service<a class="headerlink" href="#6-run-hailo-ollama-as-a-service" title="Permanent link">¶</a></h2>
-<p>First locate the executable:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>hailo-ollama
-</code></pre></div></td></tr></table></div>
-<p>Create a user service using the returned path:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-14-10">10</a></span>
-<span class="normal"><a href="#__codelineno-14-11">11</a></span>
-<span class="normal"><a href="#__codelineno-14-12">12</a></span>
-<span class="normal"><a href="#__codelineno-14-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># ~/.config/systemd/user/hailo-ollama.service</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="k">[Unit]</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="na">Description</span><span class="o">=</span><span class="s">Hailo Ollama Backend</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6"></a>
-<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">[Service]</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/hailo-ollama</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5</span>
-<a id="__codelineno-14-11" name="__codelineno-14-11"></a>
-<a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="k">[Install]</span>
-<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
-</code></pre></div></td></tr></table></div>
-<p>Enable it and allow the user service to start without an interactive login:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span>
-<span class="normal"><a href="#__codelineno-15-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>daemon-reload
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a>systemctl<span class="w"> </span>--user<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>hailo-ollama
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>loginctl<span class="w"> </span>enable-linger
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>hailo-ollama
-</code></pre></div></td></tr></table></div>
-<p>If <code>command -v</code> reports a different path, update <code>ExecStart</code>.</p>
-<h2 id="7-vlm-and-camera-projects">7. VLM and camera projects<a class="headerlink" href="#7-vlm-and-camera-projects" title="Permanent link">¶</a></h2>
-<p>VLM applications combine an image with a text prompt, for example:</p>
-<ul>
-<li>Describe what is visible at a workbench.</li>
-<li>Read a gauge and explain whether it is in range.</li>
-<li>Summarise activity captured by a door camera.</li>
-<li>Answer questions about a component held in front of the camera.</li>
-</ul>
-<p>Start by confirming basic capture with the <a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/">rpicam and Picamera2 guide</a>. Then use a model and example pipeline explicitly supported by the installed Hailo Apps release. VLM model packaging is accelerator-specific; a generic GGUF or Hugging Face checkpoint cannot be copied directly to the Hailo-10H.</p>
-<h2 id="monitoring-and-realistic-benchmarking">Monitoring and realistic benchmarking<a class="headerlink" href="#monitoring-and-realistic-benchmarking" title="Permanent link">¶</a></h2>
-<p>Measure the complete application, not only a vendor TOPS figure. Use the shared <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">Raspberry Pi benchmark methodology</a> so CPU, Hailo-8L, and Hailo-10H results include the same context:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd get_throttled; free -h'</span>
-</code></pre></div></td></tr></table></div>
-<p>For LLM tests, record:</p>
-<ul>
-<li>Time to first token</li>
-<li>Output tokens per second</li>
-<li>Prompt length and output length</li>
-<li>Model name and package version</li>
-<li>Pi CPU temperature and throttling state</li>
-<li>Idle and load power consumption</li>
-</ul>
-<p>For vision models, record end-to-end frames per second, including capture and post-processing. A 40 TOPS label cannot be compared directly with 26 TOPS when the products use different numerical precision.</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<h3 id="hailortcli-cannot-find-the-device"><code>hailortcli</code> cannot find the device<a class="headerlink" href="#hailortcli-cannot-find-the-device" title="Permanent link">¶</a></h3>
-<p>Power off, reseat the PCIe cable, verify its orientation, and check <code>lspci</code>. Also confirm that the system uses a stable power supply.</p>
-<h3 id="hailo-all-conflicts-with-hailo-h10-all"><code>hailo-all</code> conflicts with <code>hailo-h10-all</code><a class="headerlink" href="#hailo-all-conflicts-with-hailo-h10-all" title="Permanent link">¶</a></h3>
-<p>The older Hailo-8/8L stack and Hailo-10H stack cannot coexist. Remove the package for hardware no longer installed, then reinstall <code>hailo-h10-all</code>.</p>
-<h3 id="the-requested-model-is-unavailable">The requested model is unavailable<a class="headerlink" href="#the-requested-model-is-unavailable" title="Permanent link">¶</a></h3>
-<p>Use the list endpoint. Hailo requires models compiled and packaged for Hailo-10H; arbitrary Ollama models are not automatically compatible.</p>
-<h3 id="open-webui-cannot-reach-the-backend">Open WebUI cannot reach the backend<a class="headerlink" href="#open-webui-cannot-reach-the-backend" title="Permanent link">¶</a></h3>
-<p>Confirm <code>curl http://localhost:8000/hailo/v1/list</code> works on the Pi, check <code>docker logs open-webui</code>, and verify that the container uses host networking and the correct <code>OLLAMA_BASE_URL</code>.</p>
-<h3 id="inference-slows-down">Inference slows down<a class="headerlink" href="#inference-slows-down" title="Permanent link">¶</a></h3>
-<p>Check temperatures and <code>vcgencmd get_throttled</code>. Confirm both heatsinks are fitted, remove airflow obstructions, and compare performance using the same model and prompt.</p>
-<h2 id="related-guides-and-official-references">Related guides and official references<a class="headerlink" href="#related-guides-and-official-references" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI Accelerator Comparison</a></li>
-<li><a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">Raspberry Pi benchmark methodology</a></li>
-<li><a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/">CPU-based local LLM optimisation</a></li>
-<li><a href="../edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/">Hailo-8L YOLOv11 object detection</a></li>
-<li><a href="https://www.raspberrypi.com/documentation/computers/ai.html">Official Raspberry Pi AI software documentation</a></li>
-<li><a href="https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html">Official AI HAT hardware documentation</a></li>
-</ul></div>
+<p>cargo check reports E0596: Rc does not supply DerefMut to String. A mutable handle binding does not establish unique ownership of the referent. An exclusive owner can use Rc::get_mut and handle None; a genuinely shared mutable design can choose an appropriate cell API.</p>
+<h2 id="exercises-and-troubleshooting">Exercises and troubleshooting<a class="headerlink" href="#exercises-and-troubleshooting" title="Permanent link">¶</a></h2>
+<ol>
+<li>Move drop(readings) immediately after device.record(-500). cargo check still succeeds, but cargo run panics when borrow_mut encounters the live reader. Restore the original order and compare. Deleting the guard release entirely also leaves it alive across the later drop(device), causing E0505 at compile time instead. The should_panic test illustrates the runtime conflict without making the normal program fail.</li>
+<li>Hold a second read guard and drop only the first: try_borrow_mut must still return Err. After both readers end, one writer is allowed; while that writer lives, both another writer and a reader must fail. These cases are in the guard test.</li>
+<li>Replace the counter type with Cell<string> and attempt get: expect E0599 because String is not Copy. Use replace/take instead; the non-Copy test demonstrates the owned-value result.</string></li>
+<li>Try to return &amp;str from a function taking &amp;RefCell<string> by borrowing and returning a reference into that temporary guard. Expect E0515. Return an owned String clone, or design an API that retains a Ref guard, rather than returning a reference whose guard has already ended.</string></li>
+<li>Keep an upgraded parent handle alive across drop(root): the parent's value remains available until that handle is also dropped. Explain why this does not invalidate Weak's non-owning property.</li>
+<li>Apply Rc::get_mut to the failing scratch program. With the alias alive it returns None. Dropping the alias makes it succeed if no weak handles remain; do not unwrap before establishing that invariant.</li>
+</ol>
+<p>Rc is neither Send nor Sync. Cell and RefCell are not Sync, although they can be Send when their contents satisfy the relevant bounds. Do not replace Rc with Arc and assume a RefCell inside becomes safe to share between threads. The <a href="https://doc.rust-lang.org/std/cell/index.html">cell module</a> distinguishes single-threaded interior-mutability tools from synchronization tools. Threads, Send/Sync and locks follow in the next lesson.</p>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, this lesson was checked on the authorised Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, eight tests, formatting and debug/release output comparisons passed. The unique-owner repair and retained-parent variant passed. Direct Rc mutation, Cell<string>::get, returning a reference through a temporary guard and dropping the owner while its guard remained live produced E0596, E0599, E0515 and E0505 respectively. Moving the guard release after the write compiled but failed the deliberate runtime-conflict test. No thread synchronization, sensor access or performance was measured.</string></p>
+<p>Next in the roadmap are threads, Send/Sync, Arc and locks. That lesson is planned, not yet available.</p>
+<p><a href="../18_box_deref_and_drop/">Previous: Box, Deref and Drop</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7805,7 +7949,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 1, 2026 09:46:28 JST">2026-08-01</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:44:22 JST">2026-10-10</span>
   </span>
 
     
@@ -7815,7 +7959,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 26, 2026 22:04:28 JST">2026-07-26</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:44:22 JST">2026-10-10</span>
   </span>
 
     
@@ -7834,13 +7978,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
-          <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
         
-          <li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Previous: Raspberry Pi AI Accelerators: AI Camera vs Coral vs Hailo</a></li>
+          <li><a href="../18_box_deref_and_drop/">Previous: Rust Box, Deref and Drop on Raspberry Pi</a></li>
         
         
-          <li><a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/">Next: Raspberry Pi USB OTG Mass-Storage Gadget</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
