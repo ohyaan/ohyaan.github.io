@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Fix Raspberry Pi OverlayFS changes lost after reboot. Verify root and boot mounts, disable the temporary overlay for updates, and test persistent data.">
+        <meta name="description" content="Learn Rust ownership, moves, Copy and Clone with a Raspberry Pi label example, compiler errors and tests before introducing borrowed references.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/tips/raspberry_pi_overlayfs_changes_lost_updates/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/04_ownership_moves_copy_and_clone/">
       
       
-        <link rel="prev" href="../raspberry_pi_os_trixie_sudo_password_required/">
+        <link rel="prev" href="../03_types_operators_and_expressions/">
       
       
-        <link rel="next" href="../raspberry_pi_pico_2_w_rp2350_getting_started/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Raspberry Pi OverlayFS: Changes Lost and Update Problems - With Raspberry Pi</title>
+        <title>Rust Ownership and Moves: Copy, Clone and Scope - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Raspberry Pi OverlayFS: Changes Lost and Update Problems - With Raspberry Pi">
-  <meta property="og:description" content="Fix Raspberry Pi OverlayFS changes lost after reboot. Verify root and boot mounts, disable the temporary overlay for updates, and test persistent data.">
+  <meta property="og:title" content="Rust Ownership and Moves: Copy, Clone and Scope - With Raspberry Pi">
+  <meta property="og:description" content="Learn Rust ownership, moves, Copy and Clone with a Raspberry Pi label example, compiler errors and tests before introducing borrowed references.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/tips/raspberry_pi_overlayfs_changes_lost_updates/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_overlayfs_changes_lost_updates.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/04_ownership_moves_copy_and_clone/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__04_ownership_moves_copy_and_clone.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Raspberry Pi OverlayFS: Changes Lost and Update Problems">
+  <meta property="og:image:alt" content="Rust Ownership and Moves: Copy, Clone and Scope">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-10-03">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-10-03">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Raspberry Pi OverlayFS: Changes Lost and Update Problems - With Raspberry Pi">
-  <meta name="twitter:description" content="Fix Raspberry Pi OverlayFS changes lost after reboot. Verify root and boot mounts, disable the temporary overlay for updates, and test persistent data.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_overlayfs_changes_lost_updates.jpg">
+  <meta name="twitter:title" content="Rust Ownership and Moves: Copy, Clone and Scope - With Raspberry Pi">
+  <meta name="twitter:description" content="Learn Rust ownership, moves, Copy and Clone with a Raspberry Pi label example, compiler errors and tests before introducing borrowed references.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__04_ownership_moves_copy_and_clone.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Raspberry Pi OverlayFS: Changes Lost and Update Problems",
-    "description": "Fix Raspberry Pi OverlayFS changes lost after reboot. Verify root and boot mounts, disable the temporary overlay for updates, and test persistent data.",
-    "url": "https://ohyaan.github.io/tips/raspberry_pi_overlayfs_changes_lost_updates/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/raspberry_pi_overlayfs_changes_lost_updates/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_overlayfs_changes_lost_updates.jpg"],
+    "headline": "Rust Ownership and Moves: Copy, Clone and Scope",
+    "description": "Learn Rust ownership, moves, Copy and Clone with a Raspberry Pi label example, compiler errors and tests before introducing borrowed references.",
+    "url": "https://ohyaan.github.io/rust-learning/04_ownership_moves_copy_and_clone/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/04_ownership_moves_copy_and_clone/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__04_ownership_moves_copy_and_clone.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-10-03",
-    "dateModified": "2026-10-03"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi OverlayFS: Changes Lost and Update Problems", "item": "https://ohyaan.github.io/tips/raspberry_pi_overlayfs_changes_lost_updates/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust Ownership and Moves: Copy, Clone and Scope", "item": "https://ohyaan.github.io/rust-learning/04_ownership_moves_copy_and_clone/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-overlayfs-changes-lost-after-reboot-and-update-problems" class="md-skip">
+        <a href="#rust-ownership-moves-copy-and-clone" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Raspberry Pi OverlayFS: Changes Lost and Update Problems
+              Rust Ownership and Moves: Copy, Clone and Scope
             
           </span>
         </div>
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -490,13 +492,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tips/" class="md-tabs__link">
           
   
     
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1790,19 +1792,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1814,13 +1819,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1836,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1858,7 +1863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1880,7 +1885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1899,10 +1904,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rust Ownership and Moves: Copy, Clone and Scope
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1912,6 +1938,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and outcome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-owned-string-is-not-a-string-literal" class="md-nav__link">
+    <span class="md-ellipsis">
+      An owned String is not a string literal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-a-complete-ownership-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run a complete ownership example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust-moves-versus-copy-and-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rust moves versus Copy and Clone
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope-and-resource-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope and resource release
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and limits
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4154,8 +4272,6 @@
       
   
   
-    
-  
   
   
     
@@ -4388,22 +4504,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../tips/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4415,13 +4528,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="">
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -4437,7 +4550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../automated_backup_strategies/" class="md-nav__link">
+      <a href="../../tips/automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4459,7 +4572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4481,7 +4594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4503,7 +4616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4525,7 +4638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4547,7 +4660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+      <a href="../../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4569,7 +4682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4591,7 +4704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../../tips/cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4613,7 +4726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4635,7 +4748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4657,7 +4770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4679,7 +4792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4701,7 +4814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
+      <a href="../../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4723,7 +4836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
+      <a href="../../tips/edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4745,7 +4858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
+      <a href="../../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4767,7 +4880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4789,7 +4902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4811,7 +4924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4833,7 +4946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4855,7 +4968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4877,7 +4990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4899,7 +5012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4921,7 +5034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4943,7 +5056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4965,7 +5078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
+      <a href="../../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4987,7 +5100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5009,7 +5122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+      <a href="../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5031,7 +5144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5053,7 +5166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5075,7 +5188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5097,7 +5210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5119,7 +5232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5141,7 +5254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5163,7 +5276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5185,7 +5298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
+      <a href="../../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5207,7 +5320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5229,7 +5342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
+      <a href="../../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5251,7 +5364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5273,7 +5386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
+      <a href="../../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5295,7 +5408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5317,7 +5430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5339,7 +5452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5361,7 +5474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5383,7 +5496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5405,7 +5518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5427,7 +5540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5449,7 +5562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
+      <a href="../../tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5471,7 +5584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
+      <a href="../../tips/network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5493,7 +5606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5515,7 +5628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
+      <a href="../../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5537,7 +5650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5559,7 +5672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5581,7 +5694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5603,7 +5716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5625,7 +5738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5647,7 +5760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5669,7 +5782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5691,7 +5804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5713,7 +5826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5735,7 +5848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5757,7 +5870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5779,7 +5892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5801,7 +5914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5823,7 +5936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5845,7 +5958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5867,7 +5980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5889,7 +6002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5911,7 +6024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5933,7 +6046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5955,7 +6068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_network_manager_update_failed/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_network_manager_update_failed/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5977,7 +6090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5999,7 +6112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6021,7 +6134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6043,7 +6156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6062,31 +6175,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Raspberry Pi OverlayFS: Changes Lost and Update Problems
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../tips/raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6096,107 +6188,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#match-the-overlayfs-symptom" class="md-nav__link">
-    <span class="md-ellipsis">
-      Match the OverlayFS symptom
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-inspect-the-actual-mount-for-each-affected-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Inspect the actual mount for each affected path
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-save-needed-runtime-changes-before-rebooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Save needed runtime changes before rebooting
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-disable-root-overlayfs-and-reboot-first" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Disable root OverlayFS and reboot first
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-update-and-verify-while-the-temporary-overlay-is-disabled" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Update and verify while the temporary overlay is disabled
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-make-application-persistence-explicit" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Make application persistence explicit
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-distinguish-full-temporary-storage-from-a-read-only-fault" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Distinguish full temporary storage from a read-only fault
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#persistence-test-after-maintenance" class="md-nav__link">
-    <span class="md-ellipsis">
-      Persistence test after maintenance
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references-and-related-guides" class="md-nav__link">
-    <span class="md-ellipsis">
-      References and related guides
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6209,7 +6200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6231,7 +6222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6253,7 +6244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6275,7 +6266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6297,7 +6288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6319,7 +6310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6341,7 +6332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6363,7 +6354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6385,7 +6376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6407,7 +6398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6429,7 +6420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6451,7 +6442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6473,7 +6464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6495,7 +6486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
+      <a href="../../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6517,7 +6508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6539,7 +6530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6561,7 +6552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6583,7 +6574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6605,7 +6596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
+      <a href="../../tips/run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6627,7 +6618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6649,7 +6640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
+      <a href="../../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6671,7 +6662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6693,7 +6684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6715,7 +6706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6737,7 +6728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
+      <a href="../../tips/secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6759,7 +6750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6781,7 +6772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6803,7 +6794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setting_up_vpn_access/" class="md-nav__link">
+      <a href="../../tips/setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6825,7 +6816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
+      <a href="../../tips/smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6847,7 +6838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
+      <a href="../../tips/smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6869,7 +6860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6891,7 +6882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6913,7 +6904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6935,7 +6926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6957,7 +6948,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7130,8 +7121,8 @@
 
 
 
-<div><h1 id="raspberry-pi-overlayfs-changes-lost-after-reboot-and-update-problems">Raspberry Pi OverlayFS: Changes Lost After Reboot and Update Problems<a class="headerlink" href="#raspberry-pi-overlayfs-changes-lost-after-reboot-and-update-problems" title="Permanent link">¶</a></h1>
-<p>If packages, configuration edits, or browser settings disappear after reboot, check whether Raspberry Pi OS is using a temporary OverlayFS root. A successful write to <code>/</code> can be stored in RAM while the underlying filesystem remains unchanged. This guide distinguishes that expected reset behaviour from read-only mount errors and failed storage.</p>
+<div><h1 id="rust-ownership-moves-copy-and-clone">Rust Ownership, Moves, Copy and Clone<a class="headerlink" href="#rust-ownership-moves-copy-and-clone" title="Permanent link">¶</a></h1>
+<p>Rust ownership determines which binding can use a value and when owned resources are released. This lesson uses a small text label to distinguish moving ownership, copying a value and explicitly cloning it; no C++ background is needed.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -7141,146 +7132,185 @@
   </script>
 </div>
 
-<h2 id="match-the-overlayfs-symptom">Match the OverlayFS symptom<a class="headerlink" href="#match-the-overlayfs-symptom" title="Permanent link">¶</a></h2>
+<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
+<p>Read <a href="../03_types_operators_and_expressions/">types and expressions</a>. By the end, predict which variable is usable after an assignment or function call. The next lesson introduces borrowing so a function can inspect text without taking ownership.</p>
+<h2 id="an-owned-string-is-not-a-string-literal">An owned String is not a string literal<a class="headerlink" href="#an-owned-string-is-not-a-string-literal" title="Permanent link">¶</a></h2>
+<p><code>String::from("Pi 4B")</code> creates owned, growable text. The literal <code>"Pi 4B"</code> has type <code>&amp;str</code>, a reference to string data. We use String here to study ownership; UTF-8 and text APIs receive fuller treatment later.</p>
+<p>A value has an owner; assigning a non-Copy value to another binding transfers it. The old binding cannot then be used as though it still owned that value. This is a rule about valid use, not a promise that a particular number of machine instructions or physical memory copies occurs.</p>
+<p>Moving this String does not request a duplicate of its text allocation. Do not use the shortcut “stack values copy, heap values move”: the type's Copy implementation determines copying, not a value's storage location.</p>
+<h2 id="run-a-complete-ownership-example">Run a complete ownership example<a class="headerlink" href="#run-a-complete-ownership-example" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_ownership
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_ownership
+</code></pre></div></td></tr></table></div>
+<p>Replace <code>src/main.rs</code> with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">decorate</span><span class="p">(</span><span class="n">label</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="c1">// This function owns label and returns ownership of the result.</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="fm">format!</span><span class="p">(</span><span class="s">"device={label}"</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">reading</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">46_700</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">copied</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reading</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"readings: {reading}, {copied}"</span><span class="p">);</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">original</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">duplicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">original</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">original</span><span class="p">;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="c1">// original is no longer usable here; moved owns that String.</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"labels: {moved}, {duplicate}"</span><span class="p">);</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decorate</span><span class="p">(</span><span class="n">moved</span><span class="p">);</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{decorated}"</span><span class="p">);</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="p">}</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::</span><span class="n">decorate</span><span class="p">;</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">owned_label_becomes_a_report</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">decorate</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">)),</span><span class="w"> </span><span class="s">"device=Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">string_clone_can_be_changed_independently</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">original</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi"</span><span class="p">);</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">duplicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">original</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">        </span><span class="n">duplicate</span><span class="p">.</span><span class="n">push_str</span><span class="p">(</span><span class="s">" 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">original</span><span class="p">,</span><span class="w"> </span><span class="s">"Pi"</span><span class="p">);</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">duplicate</span><span class="p">,</span><span class="w"> </span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">empty_owned_label_is_valid_input</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">decorate</span><span class="p">(</span><span class="nb">String</span><span class="p">::</span><span class="n">new</span><span class="p">()),</span><span class="w"> </span><span class="s">"device="</span><span class="p">);</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+</code></pre></div></td></tr></table></div>
+<p>Expected program output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>readings: 46700, 46700
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>labels: Pi 4B, Pi 4B
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>device=Pi 4B
+</code></pre></div></td></tr></table></div>
+<h2 id="rust-moves-versus-copy-and-clone">Rust moves versus Copy and Clone<a class="headerlink" href="#rust-moves-versus-copy-and-clone" title="Permanent link">¶</a></h2>
+<p><code>i32</code> implements <code>Copy</code>, so assigning <code>reading</code> leaves it usable. Copy is a type property, not a runtime choice made according to how large a value looks. Many simple types are Copy; String is not.</p>
 <table>
 <thead>
 <tr>
-<th>Symptom</th>
-<th>First check</th>
-<th>Meaning to investigate</th>
+<th>Operation</th>
+<th>What happens</th>
+<th>Old binding usable?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Edits work but vanish at reboot</td>
-<td>Actual root mount and upper layer</td>
-<td>Temporary overlay discards runtime changes</td>
+<td><code>let copied = reading</code></td>
+<td>Copy an i32</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td><code>/boot/firmware</code> rejects writes</td>
-<td>Boot partition mount options</td>
-<td>Boot protection is separate from root overlay</td>
+<td><code>let moved = original</code></td>
+<td>Move the String</td>
+<td>No</td>
 </tr>
 <tr>
-<td>APT reports success but packages disappear</td>
-<td>Whether updates ran inside the overlay</td>
-<td>Changes were not committed to persistent root</td>
+<td><code>let duplicate = original.clone()</code></td>
+<td>Create independently owned String text</td>
+<td>Yes</td>
 </tr>
 <tr>
-<td><code>Read-only file system</code> appears unexpectedly</td>
-<td>Mount options and kernel errors</td>
-<td>Intended protection or storage/filesystem fault</td>
-</tr>
-<tr>
-<td><code>No space left on device</code> despite free SD space</td>
-<td>Upper-layer capacity, inodes, RAM</td>
-<td>The limiting filesystem may be temporary</td>
-</tr>
-<tr>
-<td>Disabling boot protection fails while overlay is active</td>
-<td>Current root mode and pending reboot</td>
-<td>Finish disabling root overlay first</td>
+<td><code>decorate(moved)</code></td>
+<td>Transfer the String to the function parameter</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
-<h2 id="1-inspect-the-actual-mount-for-each-affected-path">1. Inspect the actual mount for each affected path<a class="headerlink" href="#1-inspect-the-actual-mount-for-each-affected-path" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Read-only inspection: root, home, boot, and any overlay mounts.</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>cat<span class="w"> </span>/etc/os-release
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>findmnt<span class="w"> </span>-T<span class="w"> </span>/<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>findmnt<span class="w"> </span>-T<span class="w"> </span>/home<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>findmnt<span class="w"> </span>-T<span class="w"> </span>/boot/firmware<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>findmnt<span class="w"> </span>-t<span class="w"> </span>overlay
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>cat<span class="w"> </span>/proc/cmdline
-</code></pre></div></td></tr></table></div>
-<p>Use <code>findmnt -T</code> with the exact application data path too. A directory named <code>/data</code> is not persistent simply because of its name: if no separate filesystem is mounted there, it is part of the overlaid root. Docker volumes and bind mounts likewise persist only when their underlying host storage persists.</p>
-<p>In the current Trixie <code>raspi-config</code> implementation, the temporary-root setting uses <code>overlayroot=tmpfs</code>. Custom images and older releases can use different mechanisms. Mount output establishes the current filesystem; a saved configuration describes what a later boot may use.</p>
-<h3 id="compare-current-and-configured-state-on-trixie">Compare current and configured state on Trixie<a class="headerlink" href="#compare-current-and-configured-state-on-trixie" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># These installed raspi-config queries print 0 when detected, 1 otherwise.</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>get_overlay_now
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>get_overlay_conf
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>get_bootro_now
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>get_bootro_conf
-</code></pre></div></td></tr></table></div>
-<p>These are setting queries, not filesystem health checks. Verify their presence in your installed package as explained in the <a href="../raspi_config_command_not_found_nonint_errors/">raspi-config diagnosis guide</a>. A pending reboot can explain a difference between configured and current state.</p>
-<h2 id="2-save-needed-runtime-changes-before-rebooting">2. Save needed runtime changes before rebooting<a class="headerlink" href="#2-save-needed-runtime-changes-before-rebooting" title="Permanent link">¶</a></h2>
-<p>Disabling the overlay and rebooting discards its temporary changes. Before doing so, export application configuration and back up data to verified persistent storage or another computer. A backup stored elsewhere under the same temporary root will disappear too.</p>
-<p>Keep application-consistent database backups rather than copying an actively written database directory. Include credentials, SSH configuration, device identity, and any changes needed to reconnect remotely. Check that the destination filesystem is mounted and writable, then inspect the exported files.</p>
-<h2 id="3-disable-root-overlayfs-and-reboot-first">3. Disable root OverlayFS and reboot first<a class="headerlink" href="#3-disable-root-overlayfs-and-reboot-first" title="Permanent link">¶</a></h2>
-<p>Open the supported configuration tool:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>raspi-config
-</code></pre></div></td></tr></table></div>
-<p>Use <strong>Performance Options → Overlay File System</strong> to disable the root overlay. Reboot with local recovery access available. On Trixie, changing boot-partition protection while the root overlay is still active can be refused because the permanent <code>fstab</code> change cannot be made in that state.</p>
-<p>After reboot, check the actual mounts again. If boot write protection also needs to be removed for maintenance, return to the menu now, make that change, and reboot when requested. Follow this sequence rather than repeatedly changing both settings inside a temporary root.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Check that maintenance is taking place on the intended persistent filesystem.</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>findmnt<span class="w"> </span>-T<span class="w"> </span>/<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>findmnt<span class="w"> </span>-T<span class="w"> </span>/boot/firmware<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
-</code></pre></div></td></tr></table></div>
-<p>Do not assume a menu confirmation means the running root has already changed. Also, <code>mount -o remount,rw /</code> does not turn a RAM-backed overlay into persistent storage or commit its contents to the lower layer.</p>
-<h2 id="4-update-and-verify-while-the-temporary-overlay-is-disabled">4. Update and verify while the temporary overlay is disabled<a class="headerlink" href="#4-update-and-verify-while-the-temporary-overlay-is-disabled" title="Permanent link">¶</a></h2>
-<p>Once the persistent root and required boot partition are writable, apply updates within the same Raspberry Pi OS release:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<p>The clone occurs before the move. Reversing those statements attempts to clone after ownership transferred. The <a href="https://doc.rust-lang.org/std/marker/trait.Copy.html">Copy API documentation</a> also explains why types implementing Drop cannot implement Copy.</p>
+<p><code>clone()</code> explicitly requests duplication according to a type's <a href="https://doc.rust-lang.org/std/clone/trait.Clone.html">Clone implementation</a>. For String, the duplicate owns independent text storage. That does not mean every Clone implementation performs a deep copy: later, cloning an Rc shares ownership instead. Copy types also implement Clone.</p>
+<p>Passing <code>moved</code> to <code>decorate</code> transfers ownership into its parameter. Returning the resulting String transfers ownership to the caller. The caller cannot reuse <code>moved</code> afterward. Prefer ownership transfer when the receiving function really needs to own a value; use borrowing for inspection rather than cloning just to silence an error.</p>
+<p><code>format!</code> builds a new String; it does not return the input allocation unchanged. The input is dropped when the function finishes, while the result belongs to <code>decorated</code>. The earlier <code>println!</code> borrows its arguments for formatting, so printing <code>moved</code> does not prevent the later ownership transfer.</p>
+<h2 id="scope-and-resource-release">Scope and resource release<a class="headerlink" href="#scope-and-resource-release" title="Permanent link">¶</a></h2>
+<p>An initialized owned value is normally dropped when its owner leaves scope. If it was moved, the old binding does not drop it again. Assigning a new value to an initialized owning variable also drops the old value; explicit <code>drop(value)</code> consumes a value early.</p>
+<p>A name can remain in lexical scope after a move yet no longer be usable. A name declared in an inner block is inaccessible outside it even without a move. Reinitialising a moved mutable binding makes it own a new value; it does not restore the old value.</p>
+<p>String's cleanup releases its owned allocation. Later we study Drop, resource wrappers and exception boundaries in detail. Do not generalise normal scope exit to process termination: aborts and intentional leaks do not provide the same cleanup guarantees.</p>
+<p>The official <a href="https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html">ownership chapter</a> explains the introductory model; <a href="https://doc.rust-lang.org/reference/destructors.html">destructors</a> provide precise scope and cleanup rules.</p>
+<h2 id="deliberately-failing-example">Deliberately failing example<a class="headerlink" href="#deliberately-failing-example" title="Permanent link">¶</a></h2>
+<p>Use a separate scratch project for this complete program:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>systemctl<span class="w"> </span>--failed
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">original</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="s">"Pi 4B"</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">moved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">original</span><span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{original}"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Error: use after move.</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{moved}"</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>Read APT's proposed changes and errors. If an interrupted installation remains after returning to the persistent root, use the <a href="../raspberry_pi_network_manager_update_failed/">APT diagnosis guide</a> rather than deleting package locks or assuming an overlay error explains every package failure.</p>
-<p>Reboot with the overlay still disabled, verify package versions and application behaviour, and restore the exported changes as needed. Re-enable the overlay only after the persistent baseline works. Then reboot again and test both disposable changes and required persistent state.</p>
-<h2 id="5-make-application-persistence-explicit">5. Make application persistence explicit<a class="headerlink" href="#5-make-application-persistence-explicit" title="Permanent link">¶</a></h2>
-<p>For an appliance that must retain data, use a separately mounted writable filesystem and configure the application to store its state there. Verify the mount before starting the writer; otherwise a missing data device can cause writes to land in a plain directory on the temporary root.</p>
-<p>For your own systemd service, a mount dependency can help:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Add to the [Unit] section of your application's service or its drop-in.</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">[Unit]</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="na">RequiresMountsFor</span><span class="o">=</span><span class="s">/srv/pi-data</span>
-</code></pre></div></td></tr></table></div>
-<p>This adds ordering and requirements for mounts needed to access the path. It does not create a separate mount or prove that <code>/srv/pi-data</code> is on the intended device. Configure the mount, inspect <code>findmnt -T /srv/pi-data</code>, and test the service with the device present and absent. See the <a href="https://manpages.debian.org/trixie/systemd/systemd.unit.5.en.html#RequiresMountsFor=">systemd unit dependency reference for Trixie</a>.</p>
-<h2 id="6-distinguish-full-temporary-storage-from-a-read-only-fault">6. Distinguish full temporary storage from a read-only fault<a class="headerlink" href="#6-distinguish-full-temporary-storage-from-a-read-only-fault" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Inspect capacity, inode usage, memory pressure, and kernel evidence.</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>df<span class="w"> </span>-hT
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>df<span class="w"> </span>-i
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>free<span class="w"> </span>-h
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>cat<span class="w"> </span>/proc/pressure/memory
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'mmc|nvme|I/O error|EXT4-fs|read-only|oom|out of memory'</span>
-</code></pre></div></td></tr></table></div>
-<p>For a temporary overlay, inspect the <code>upperdir</code> shown in mount options and the filesystem backing it; free space on the SD card alone is not enough. Relocate or bound the writer that grows logs, downloads, caches, or application data. See the <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">memory-pressure guide</a>.</p>
-<p>If an ordinary persistent root unexpectedly became read-only alongside I/O or filesystem errors, preserve data and investigate storage and power. Do not repeatedly force a writable remount. Filesystem repair should use recovery media with the affected filesystem unmounted.</p>
-<h2 id="persistence-test-after-maintenance">Persistence test after maintenance<a class="headerlink" href="#persistence-test-after-maintenance" title="Permanent link">¶</a></h2>
-<p>Use harmless markers in a test location, not production database files:</p>
+<p>Run <code>cargo check</code>. Expect a moved-value error (E0382). Making <code>original</code> mutable does not restore ownership. Either use the new owner, clone when independent ownership is required, or redesign the operation to borrow, as the next lesson demonstrates.</p>
+<h2 id="exercises-and-limits">Exercises and limits<a class="headerlink" href="#exercises-and-limits" title="Permanent link">¶</a></h2>
 <ol>
-<li>With overlay disabled, confirm that an intended persistent test file survives reboot.</li>
-<li>Re-enable the temporary overlay and confirm that a disposable root test file disappears.</li>
-<li>Confirm that data on the separately mounted filesystem still survives.</li>
-<li>Test startup with the data device missing so the application does not silently write to temporary root.</li>
-<li>Repeat the documented maintenance procedure before relying on remote-only updates.</li>
+<li>Call <code>decorate(duplicate)</code> twice: expect the second use to fail. Explain which call consumed the value.</li>
+<li>Put a temporary String inside a nested block. Use it inside the block, then try outside: expect a scope error, a different reason from use after move.</li>
+<li>Replace <code>let moved = original</code> with <code>let moved = original.clone()</code>: both bindings become usable. Explain why that changes the ownership relationship and may add allocation work.</li>
 </ol>
-<p>For a complete setup and rollback plan, see the <a href="../overlayfs_-_layer-based_filesystems_for_raspberry_pi/">OverlayFS read-only-root guide</a>.</p>
-<h2 id="references-and-related-guides">References and related guides<a class="headerlink" href="#references-and-related-guides" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="https://github.com/RPi-Distro/raspi-config/blob/trixie/raspi-config">Trixie raspi-config implementation</a> — current and configured checks, temporary-root switch, and boot-protection sequence.</li>
-<li><a href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html">Linux kernel OverlayFS documentation</a> — upper/lower layer behaviour and mount requirements.</li>
-<li><a href="../raspberry_pi_sd_card_wear_reduction_read_only_root_logs/">Reduce SD-card writes</a></li>
-<li><a href="../raspberry_pi_os_trixie_sudo_password_required/">Sudo and administrator access</a></li>
-</ul>
-<p>Implementation checked on 3 October 2026. This maintenance procedure needs validation on your image and data layout; it does not claim that every custom overlay uses temporary RAM storage.</p></div>
+<p>The runtime tests check returned text and independent String cloning. The failing example checks compiler enforcement. Neither measures allocation cost or performance, and neither is a complete model of C++ move semantics; that comparison belongs in the advanced series.</p>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, this lesson was verified on a Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Check, all 3 tests, formatting and debug/release output comparisons passed. The moved-value example and repeated-call and scope exercises failed for the expected reasons. The clone variant also compiled and ran. No hardware or allocation-cost benchmark is claimed.</p>
+<p>The next lesson on references, borrowing and slices is planned, not published yet.</p>
+<p><a href="../03_types_operators_and_expressions/">Previous: types and expressions</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7303,7 +7333,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 14:42:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 12:28:46 JST">2026-10-10</span>
   </span>
 
     
@@ -7313,7 +7343,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 14:42:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 12:28:46 JST">2026-10-10</span>
   </span>
 
     
@@ -7332,13 +7362,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
-          <li><a href="https://ohyaan.github.io/tips/">Browse the Tips guide hub</a></li>
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
         
-          <li><a href="../raspberry_pi_os_trixie_sudo_password_required/">Previous: Fix sudo Password Prompts on Raspberry Pi OS Trixie</a></li>
+          <li><a href="../03_types_operators_and_expressions/">Previous: Rust Types, Operators and Expressions on Raspberry Pi</a></li>
         
         
-          <li><a href="../raspberry_pi_pico_2_w_rp2350_getting_started/">Next: Raspberry Pi Pico 2 W and RP2350 Getting Started Guide</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
