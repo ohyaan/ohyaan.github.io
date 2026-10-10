@@ -6,35 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Tips & Advanced Techniques. Follow practical Raspberry Pi setup steps, configuration examples, best practices, security guidance, and troubleshooting tips.">
+        <meta name="description" content="Compare Rust generics, impl Trait and dyn Trait with Raspberry Pi fixtures, mix implementations through borrowed objects, and check dyn compatibility.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/tips/">
+        <link rel="canonical" href="https://ohyaan.github.io/rust-learning/14_trait_objects_and_dispatch/">
       
       
-        <link rel="prev" href="../aosp/run_aaos_on_raspberry_pi/">
+        <link rel="prev" href="../13_lifetimes_and_borrowed_apis/">
       
       
-        <link rel="next" href="automated_backup_strategies/">
+        <link rel="next" href="../../design-patterns/">
       
       
-        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../feed_rss_created.xml">
-        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../feed_rss_updated.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../feed_rss_updated.xml">
       
-      <link rel="icon" href="../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
+      <link rel="icon" href="../../images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>Tips & Advanced Techniques - With Raspberry Pi</title>
+        <title>Rust dyn Trait vs impl Trait on Raspberry Pi - With Raspberry Pi</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +55,7 @@
     
       <link rel="stylesheet" href="/stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Tips &amp; Advanced Techniques - With Raspberry Pi">
-  <meta property="og:description" content="Tips & Advanced Techniques. Follow practical Raspberry Pi setup steps, configuration examples, best practices, security guidance, and troubleshooting tips.">
+  <meta property="og:title" content="Rust dyn Trait vs impl Trait on Raspberry Pi - With Raspberry Pi">
+  <meta property="og:description" content="Compare Rust generics, impl Trait and dyn Trait with Raspberry Pi fixtures, mix implementations through borrowed objects, and check dyn compatibility.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/tips/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__index.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/rust-learning/14_trait_objects_and_dispatch/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__14_trait_objects_and_dispatch.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Tips &amp; Advanced Techniques">
+  <meta property="og:image:alt" content="Rust dyn Trait vs impl Trait on Raspberry Pi">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2025-11-29">
+    <meta property="article:published_time" content="2026-10-10">
   
   
-    <meta property="article:modified_time" content="2026-10-09">
+    <meta property="article:modified_time" content="2026-10-10">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Tips &amp; Advanced Techniques - With Raspberry Pi">
-  <meta name="twitter:description" content="Tips & Advanced Techniques. Follow practical Raspberry Pi setup steps, configuration examples, best practices, security guidance, and troubleshooting tips.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__index.jpg">
+  <meta name="twitter:title" content="Rust dyn Trait vs impl Trait on Raspberry Pi - With Raspberry Pi">
+  <meta name="twitter:description" content="Compare Rust generics, impl Trait and dyn Trait with Raspberry Pi fixtures, mix implementations through borrowed objects, and check dyn compatibility.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/rust-learning__14_trait_objects_and_dispatch.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Tips \u0026amp; Advanced Techniques",
-    "description": "Tips \u0026 Advanced Techniques. Follow practical Raspberry Pi setup steps, configuration examples, best practices, security guidance, and troubleshooting tips.",
-    "url": "https://ohyaan.github.io/tips/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/tips__index.jpg"],
+    "headline": "Rust dyn Trait vs impl Trait on Raspberry Pi",
+    "description": "Compare Rust generics, impl Trait and dyn Trait with Raspberry Pi fixtures, mix implementations through borrowed objects, and check dyn compatibility.",
+    "url": "https://ohyaan.github.io/rust-learning/14_trait_objects_and_dispatch/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/rust-learning/14_trait_objects_and_dispatch/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/rust-learning__14_trait_objects_and_dispatch.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2025-11-29",
-    "dateModified": "2026-10-09"
+    "datePublished": "2026-10-10",
+    "dateModified": "2026-10-10"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Tips \u0026amp; Advanced Techniques", "item": "https://ohyaan.github.io/tips/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust dyn Trait vs impl Trait on Raspberry Pi", "item": "https://ohyaan.github.io/rust-learning/14_trait_objects_and_dispatch/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tips-advanced-techniques" class="md-skip">
+        <a href="#rust-trait-objects-and-dispatch-dyn-trait-vs-impl-trait" class="md-skip">
           Skip to content
         </a>
       
@@ -178,7 +178,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-header__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tips &amp; Advanced Techniques
+              Rust dyn Trait vs impl Trait on Raspberry Pi
             
           </span>
         </div>
@@ -294,7 +294,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../getting-started/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
     
@@ -314,7 +314,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../basic-operations/" class="md-tabs__link">
+        <a href="../../basic-operations/" class="md-tabs__link">
           
   
     
@@ -334,7 +334,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../programming/" class="md-tabs__link">
+        <a href="../../programming/" class="md-tabs__link">
           
   
     
@@ -354,7 +354,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../cpp-learning/" class="md-tabs__link">
+        <a href="../../cpp-learning/" class="md-tabs__link">
           
   
     
@@ -370,11 +370,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../rust-learning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
     
@@ -394,7 +396,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../design-patterns/" class="md-tabs__link">
+        <a href="../../design-patterns/" class="md-tabs__link">
           
   
     
@@ -414,7 +416,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../data-oriented-design/" class="md-tabs__link">
+        <a href="../../data-oriented-design/" class="md-tabs__link">
           
   
     
@@ -434,7 +436,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../assembly/" class="md-tabs__link">
+        <a href="../../assembly/" class="md-tabs__link">
           
   
     
@@ -454,7 +456,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../os-development/" class="md-tabs__link">
+        <a href="../../os-development/" class="md-tabs__link">
           
   
     
@@ -474,7 +476,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../aosp/" class="md-tabs__link">
+        <a href="../../aosp/" class="md-tabs__link">
           
   
     
@@ -490,13 +492,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../tips/" class="md-tabs__link">
           
   
     
@@ -516,7 +516,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../troubleshooting/" class="md-tabs__link">
+        <a href="../../troubleshooting/" class="md-tabs__link">
           
   
     
@@ -559,7 +559,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
+    <a href="../.." title="With Raspberry Pi" class="md-nav__button md-logo" aria-label="With Raspberry Pi" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -604,7 +604,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../getting-started/" class="md-nav__link ">
+            <a href="../../getting-started/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -638,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
+      <a href="../../getting-started/hardware_setup_for_raspberry_pi__complete_assembly_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -682,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
+      <a href="../../getting-started/introduction_to_raspberry_pi__complete_beginner%27s_guide_2025/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -742,7 +742,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../basic-operations/" class="md-nav__link ">
+            <a href="../../basic-operations/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -776,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -798,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -820,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -842,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/system_settings_configuration_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -864,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../basic-operations/user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../basic-operations/user_and_permission_management_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -926,7 +926,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../programming/" class="md-nav__link ">
+            <a href="../../programming/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -960,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../programming/1._programming_basics_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/2._controlling_led_with_gpio/" class="md-nav__link">
+      <a href="../../programming/2._controlling_led_with_gpio/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1004,7 +1004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
+      <a href="../../programming/3._controlling_gpio_input_with_a_tactile_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1026,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
+      <a href="../../programming/4._controlling_a_buzzer_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1048,7 +1048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
+      <a href="../../programming/5._controlling_a_positional_servo_motor_with_pwm__basic_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1070,7 +1070,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
+      <a href="../../programming/6._controlling_a_continuous_rotation_servo_motor_with_pwm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1128,7 +1128,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cpp-learning/" class="md-nav__link ">
+            <a href="../../cpp-learning/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1215,7 +1215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/1.introduction/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/1.introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1237,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/2.basic_syntax/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1259,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/3.control_flow/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/3.control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1281,7 +1281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/4.functions/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/4.functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1303,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/5.operators/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/5.operators/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1325,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
+      <a href="../../cpp-learning/part1/6.pointers_references/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1404,7 +1404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/1.memory_management/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/1.memory_management/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1426,7 +1426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/2.classes_objects/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1448,7 +1448,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/3.inheritance/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/3.inheritance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1470,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
+      <a href="../../cpp-learning/part2/4.operator_overloading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1547,7 +1547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.containers/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.containers/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1569,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/1.templates/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/1.templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1591,7 +1591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part3/2.algorithms/" class="md-nav__link">
+      <a href="../../cpp-learning/part3/2.algorithms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1670,7 +1670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/1.modern_utilities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1692,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/2.cpp20/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/2.cpp20/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1714,7 +1714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/3.cpp23/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/3.cpp23/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1736,7 +1736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp-learning/part4/4.build_systems/" class="md-nav__link">
+      <a href="../../cpp-learning/part4/4.build_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1770,6 +1770,8 @@
       
   
   
+    
+  
   
   
     
@@ -1810,19 +1812,22 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../rust-learning/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1834,13 +1839,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Rust
@@ -1856,7 +1861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/01_install_rust_and_first_cargo_project/" class="md-nav__link">
+      <a href="../01_install_rust_and_first_cargo_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1878,7 +1883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/02_variables_types_functions_and_control_flow/" class="md-nav__link">
+      <a href="../02_variables_types_functions_and_control_flow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1900,7 +1905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/03_types_operators_and_expressions/" class="md-nav__link">
+      <a href="../03_types_operators_and_expressions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1922,7 +1927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/04_ownership_moves_copy_and_clone/" class="md-nav__link">
+      <a href="../04_ownership_moves_copy_and_clone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1944,7 +1949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/05_references_borrowing_and_slices/" class="md-nav__link">
+      <a href="../05_references_borrowing_and_slices/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1966,7 +1971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/06_structs_methods_and_associated_functions/" class="md-nav__link">
+      <a href="../06_structs_methods_and_associated_functions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1988,7 +1993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/07_enums_match_and_patterns/" class="md-nav__link">
+      <a href="../07_enums_match_and_patterns/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2010,7 +2015,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/08_strings_vectors_and_hash_maps/" class="md-nav__link">
+      <a href="../08_strings_vectors_and_hash_maps/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2032,7 +2037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/09_option_result_and_error_handling/" class="md-nav__link">
+      <a href="../09_option_result_and_error_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2054,7 +2059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/10_crates_modules_paths_and_visibility/" class="md-nav__link">
+      <a href="../10_crates_modules_paths_and_visibility/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2076,7 +2081,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/11_generics_bounds_and_const_generics/" class="md-nav__link">
+      <a href="../11_generics_bounds_and_const_generics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2098,7 +2103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/12_traits_implementations_and_associated_types/" class="md-nav__link">
+      <a href="../12_traits_implementations_and_associated_types/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2120,7 +2125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust-learning/13_lifetimes_and_borrowed_apis/" class="md-nav__link">
+      <a href="../13_lifetimes_and_borrowed_apis/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2139,10 +2144,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../rust-learning/14_trait_objects_and_dispatch/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Rust dyn Trait vs impl Trait on Raspberry Pi
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -2152,6 +2178,116 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites and outcome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choose-the-rust-interface-by-what-must-vary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose the Rust interface by what must vary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-complete-dispatch-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the complete dispatch comparison
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-and-dynamic-dispatch-do-not-choose-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static and dynamic dispatch do not choose ownership
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opaque-return-types-keep-one-concrete-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opaque return types keep one concrete type
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dyn-compatibility-is-a-trait-design-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dyn compatibility is a trait design constraint
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-lifetimes-are-separate-from-pointer-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object lifetimes are separate from pointer ownership
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliberately-failing-two-hidden-concrete-return-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliberately failing: two hidden concrete return types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises-and-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exercises and troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-and-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification and next step
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2198,7 +2334,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../design-patterns/" class="md-nav__link ">
+            <a href="../../design-patterns/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2283,7 +2419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/singleton_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/singleton_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2305,7 +2441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/factory_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2327,7 +2463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/abstract_factory_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2349,7 +2485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/builder_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/builder_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2371,7 +2507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/creational/prototype_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/creational/prototype_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2456,7 +2592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/adapter_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/adapter_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2478,7 +2614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/decorator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/decorator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2500,7 +2636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/facade_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/facade_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2522,7 +2658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/proxy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/proxy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2544,7 +2680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/composite_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/composite_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2566,7 +2702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/bridge_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/bridge_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2588,7 +2724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/structural/flyweight_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2679,7 +2815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/strategy_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2701,7 +2837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/observer_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2723,7 +2859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/template_method_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2745,7 +2881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/command_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/command_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2767,7 +2903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/state_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/state_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2789,7 +2925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/iterator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2811,7 +2947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/chain_of_responsibility_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2833,7 +2969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/mediator_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2855,7 +2991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/memento_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2877,7 +3013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
+      <a href="../../design-patterns/behavioral/visitor_pattern/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2939,7 +3075,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../data-oriented-design/" class="md-nav__link ">
+            <a href="../../data-oriented-design/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3034,7 +3170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/01_design_boundaries/" class="md-nav__link">
+      <a href="../../data-oriented-design/01_design_boundaries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3056,7 +3192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
+      <a href="../../data-oriented-design/02_plain_structs_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3078,7 +3214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
+      <a href="../../data-oriented-design/03_adding_acceleration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3100,7 +3236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
+      <a href="../../data-oriented-design/04_comparing_design_alternatives/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3122,7 +3258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
+      <a href="../../data-oriented-design/05_identity_and_ownership/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3144,7 +3280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/06_components_and_systems/" class="md-nav__link">
+      <a href="../../data-oriented-design/06_components_and_systems/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3166,7 +3302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
+      <a href="../../data-oriented-design/07_execution_order_and_deferred_commands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3188,7 +3324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
+      <a href="../../data-oriented-design/08_debugging_state_and_execution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3210,7 +3346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
+      <a href="../../data-oriented-design/09_maintenance_and_invariants/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3232,7 +3368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
+      <a href="../../data-oriented-design/10_choosing_a_design/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3287,7 +3423,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../data-oriented-design/advanced/" class="md-nav__link ">
+            <a href="../../data-oriented-design/advanced/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3321,7 +3457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/01_slot_reuse_and_generations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3343,7 +3479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
+      <a href="../../data-oriented-design/advanced/02_component_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3417,7 +3553,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../assembly/" class="md-nav__link ">
+            <a href="../../assembly/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3451,7 +3587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../../assembly/aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3473,7 +3609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../../assembly/arm64_registers_and_basic_instructions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3495,7 +3631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3517,7 +3653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../../assembly/functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3539,7 +3675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3561,7 +3697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../../assembly/interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3583,7 +3719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../assembly/introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3605,7 +3741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assembly/neon_simd_vector_programming_on_arm64/" class="md-nav__link">
+      <a href="../../assembly/neon_simd_vector_programming_on_arm64/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3665,7 +3801,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../os-development/" class="md-nav__link ">
+            <a href="../../os-development/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -3748,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/01._environment_setup_for_raspberry_pi_os_development/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3770,7 +3906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/02._understanding_the_raspberry_pi_boot_process/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3792,7 +3928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/03._uart_%22hello_world%22_-_first_output_from_our_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3814,7 +3950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
+      <a href="../../os-development/phase1-foundation/04._system_timer_-_precise_timing_for_your_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3889,7 +4025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/05._gpio_control_-_controlling_hardware_pins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3911,7 +4047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
+      <a href="../../os-development/phase2-hardware/06._interrupts_and_exception_handling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -3986,7 +4122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/07._framebuffer_graphics_-_drawing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4008,7 +4144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
+      <a href="../../os-development/phase3-display/08._text_rendering_-_writing_to_the_screen/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4083,7 +4219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/09._memory_allocation_-_managing_the_heap/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4105,7 +4241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
+      <a href="../../os-development/phase4-memory/10._virtual_memory__mmu__-_enabling_caching_and_protection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4180,7 +4316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/11._context_switching_-_the_heart_of_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4202,7 +4338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
+      <a href="../../os-development/phase5-process/12._scheduler_-_preemptive_multitasking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4268,7 +4404,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../aosp/" class="md-nav__link ">
+            <a href="../../aosp/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4302,7 +4438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/android_architecture_map/" class="md-nav__link">
+      <a href="../../aosp/android_architecture_map/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4324,7 +4460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/aosp_architecture_explained/" class="md-nav__link">
+      <a href="../../aosp/aosp_architecture_explained/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4346,7 +4482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/build_aosp_android_16_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../aosp/build_aosp_android_16_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4368,7 +4504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aosp/run_aaos_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../aosp/run_aaos_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4394,8 +4530,6 @@
       
   
   
-    
-  
   
   
     
@@ -4628,22 +4762,19 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../tips/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -4655,13 +4786,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_11" id="__nav_11_label" tabindex="">
+              <label class="md-nav__link " for="__nav_11" id="__nav_11_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             Tips
@@ -4677,7 +4808,7 @@
   
   
     <li class="md-nav__item">
-      <a href="automated_backup_strategies/" class="md-nav__link">
+      <a href="../../tips/automated_backup_strategies/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4699,7 +4830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/building_a_voice_assistant_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4721,7 +4852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
+      <a href="../../tips/building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4743,7 +4874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4765,7 +4896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4787,7 +4918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
+      <a href="../../tips/compute_module_5_setup_emmc_nvme_and_io_board_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4809,7 +4940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
+      <a href="../../tips/configuring_i_o_schedulers_for_improved_sd_card_performance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4831,7 +4962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpu_frequency_scaling/" class="md-nav__link">
+      <a href="../../tips/cpu_frequency_scaling/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4853,7 +4984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
+      <a href="../../tips/cpu_isolation_and_task_affinity_for_multicore_optimization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4875,7 +5006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
+      <a href="../../tips/creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4897,7 +5028,7 @@
   
   
     <li class="md-nav__item">
-      <a href="devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/devops__self-hosted_github_actions_runner_with_docker_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4919,7 +5050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4941,7 +5072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
+      <a href="../../tips/edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4963,7 +5094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
+      <a href="../../tips/edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -4985,7 +5116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
+      <a href="../../tips/edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5007,7 +5138,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5029,7 +5160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5051,7 +5182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
+      <a href="../../tips/enabling_chromium_to_sync_with_google_account/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5073,7 +5204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
+      <a href="../../tips/fix_issue_of_i2c_on_old_raspberry_pi_models/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5095,7 +5226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5117,7 +5248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_install_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5139,7 +5270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
+      <a href="../../tips/google_chrome_arm64_raspberry_pi_update_uninstall/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5161,7 +5292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
+      <a href="../../tips/hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5183,7 +5314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
+      <a href="../../tips/high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5205,7 +5336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
+      <a href="../../tips/high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5227,7 +5358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5249,7 +5380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
+      <a href="../../tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5271,7 +5402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5293,7 +5424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5315,7 +5446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5337,7 +5468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5359,7 +5490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5381,7 +5512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5403,7 +5534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/how_to_build_a_usb_midi_device_with_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5425,7 +5556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
+      <a href="../../tips/how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5447,7 +5578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/how_to_create_docker_image_of_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5469,7 +5600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
+      <a href="../../tips/how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5491,7 +5622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
+      <a href="../../tips/how_to_move_rootfs_to_external_usb_storage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5513,7 +5644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
+      <a href="../../tips/how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5535,7 +5666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
+      <a href="../../tips/how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5557,7 +5688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5579,7 +5710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5601,7 +5732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/llama_cpp_mlock_failed_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5623,7 +5754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
+      <a href="../../tips/local_llm_optimization_with_llama.cpp_-_on-device_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5645,7 +5776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
+      <a href="../../tips/managing_your_program_as_a_systemd_daemon/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5667,7 +5798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="network_attached_storage__nas__setup_guide/" class="md-nav__link">
+      <a href="../../tips/network_attached_storage__nas__setup_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5689,7 +5820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
+      <a href="../../tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5711,7 +5842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
+      <a href="../../tips/network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5733,7 +5864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5755,7 +5886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
+      <a href="../../tips/next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5777,7 +5908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/optimizing_swap_with_zram_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5799,7 +5930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5821,7 +5952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
+      <a href="../../tips/power_saving_on_raspberry_pi_os__complete_optimization_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5843,7 +5974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_5_headless_first_boot_ssh_checklist/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5865,7 +5996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5887,7 +6018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5909,7 +6040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_as_usb_otg_device_mass_storage_emulation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5931,7 +6062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5953,7 +6084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5975,7 +6106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -5997,7 +6128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_chrome_arm64_chromium_firefox_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6019,7 +6150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6041,7 +6172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_connect_remote_updates_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6063,7 +6194,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_get_throttled_undervoltage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6085,7 +6216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_networking_2026_hub/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6107,7 +6238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6129,7 +6260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6151,7 +6282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_lorawan_gateway_with_chirpstack/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6173,7 +6304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_memory_pressure_zram_oom_benchmark/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6195,7 +6326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_network_manager_update_failed/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_network_manager_update_failed/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6217,7 +6348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6239,7 +6370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_performance_optimization_2026/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6261,7 +6392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6283,7 +6414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_os_trixie_sudo_password_required/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6305,7 +6436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_overlayfs_changes_lost_updates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6327,7 +6458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_pico_2_w_rp2350_getting_started/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6349,7 +6480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_power_consumption_cost_calculator/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6371,7 +6502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6393,7 +6524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_sd_card_wear_reduction_read_only_root_logs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6415,7 +6546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_security_hardening_complete_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6437,7 +6568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_temperature_monitoring_and_alerts/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6459,7 +6590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6481,7 +6612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6503,7 +6634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_tpm_2_module_selection_spi_i2c_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6525,7 +6656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_comparison/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6547,7 +6678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6569,7 +6700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_usb_gadget_usb0_missing_troubleshooting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6591,7 +6722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
+      <a href="../../tips/raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6613,7 +6744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
+      <a href="../../tips/raspi_config_command_not_found_nonint_errors/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6635,7 +6766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
+      <a href="../../tips/real-time_image_classification_with_raspberry_pi_camera/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6657,7 +6788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6679,7 +6810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="remapping_caps_lock_to_control/" class="md-nav__link">
+      <a href="../../tips/remapping_caps_lock_to_control/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6701,7 +6832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6723,7 +6854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
+      <a href="../../tips/run_ultralytics_yolo_on_raspberry_pi_with_openvino/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6745,7 +6876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6767,7 +6898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
+      <a href="../../tips/secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6789,7 +6920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6811,7 +6942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
+      <a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6833,7 +6964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6855,7 +6986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
+      <a href="../../tips/secure_vnc_raspberry_pi_os_wayland_headless/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6877,7 +7008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6899,7 +7030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
+      <a href="../../tips/setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6921,7 +7052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="setting_up_vpn_access/" class="md-nav__link">
+      <a href="../../tips/setting_up_vpn_access/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6943,7 +7074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
+      <a href="../../tips/smart_home__advanced_home_assistant_dashboard_customization_with_css/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6965,7 +7096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
+      <a href="../../tips/smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -6987,7 +7118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
+      <a href="../../tips/static_ip_configuration_on_raspberry_pi_os/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7009,7 +7140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7031,7 +7162,7 @@
   
   
     <li class="md-nav__item">
-      <a href="tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
+      <a href="../../tips/tensorflow_lite_setup_and_object_detection_on_raspberry_pi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7053,7 +7184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="usb_ethernet_gadget_setup/" class="md-nav__link">
+      <a href="../../tips/usb_ethernet_gadget_setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7075,7 +7206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
+      <a href="../../tips/web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7131,7 +7262,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../troubleshooting/" class="md-nav__link ">
+            <a href="../../troubleshooting/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -7165,7 +7296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
+      <a href="../../troubleshooting/common_issues_and_solutions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7187,7 +7318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/frequently_asked_questions/" class="md-nav__link">
+      <a href="../../troubleshooting/frequently_asked_questions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7209,7 +7340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
+      <a href="../../troubleshooting/performance_troubleshooting_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -7248,244 +7379,447 @@
 
 
 
-<div><h1 id="tips-advanced-techniques">Tips &amp; Advanced Techniques<a class="headerlink" href="#tips-advanced-techniques" title="Permanent link">¶</a></h1>
-<p>These guides cover Raspberry Pi services, networking, storage, hardware interfaces, and performance tuning. Choose a topic below, then check the requirements for your board and OS version.</p>
-<h2 id="recently-updated-guides">Recently updated guides<a class="headerlink" href="#recently-updated-guides" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong><a href="raspberry_pi_temperature_monitoring_and_alerts/">CPU Temperature: Commands, Limits, and Cooling</a></strong> — Read temperature, separate heat from undervoltage, check the Pi 5 fan, and test a local warning.</li>
-<li><strong><a href="cpu_frequency_scaling/">CPU Frequency: Commands and Governors</a></strong> — Distinguish Hz from kHz, inspect policy, and test a reversible governor change.</li>
-<li><strong><a href="raspberry_pi_networkmanager_wait_online_slow_boot/">NetworkManager Wait-Online Slow Boot</a></strong> — Find the dependency and connection profile behind boot delays, then test a reversible fix.</li>
-<li><strong><a href="raspberry_pi_overlayfs_changes_lost_updates/">OverlayFS Changes Lost After Reboot</a></strong> — Separate temporary writes, boot protection, update maintenance, persistent data, and filesystem faults.</li>
-<li><strong><a href="raspi_config_command_not_found_nonint_errors/">raspi-config Not Working</a></strong> — Fix missing packages, sudo access, terminal problems, and non-interactive option errors.</li>
-<li><strong><a href="raspberry_pi_get_throttled_undervoltage/">Decode get_throttled and Undervoltage</a></strong> — Interpret 0x50000 and 0x50005, separate active faults from history, and check power and cooling.</li>
-<li><strong><a href="llama_cpp_mlock_failed_raspberry_pi/">llama.cpp Mlock Failed</a></strong> — Check current load modes, process limits, systemd overrides, and OOM failures before locking model memory.</li>
-<li><strong><a href="raspberry_pi_network_manager_update_failed/">NetworkManager Update Failed</a></strong> — Separate DNS, repositories, disk space, and interrupted package operations before repairing APT.</li>
-<li><strong><a href="raspberry_pi_usb_gadget_usb0_missing_troubleshooting/">USB Gadget Not Working</a></strong> — Diagnose missing usb0, controller binding, host drivers, addresses, and SSH in order.</li>
-<li><strong><a href="raspberry_pi_5_headless_first_boot_ssh_checklist/">Raspberry Pi 5 Headless First Boot</a></strong> — Configure Imager, power, Ethernet or Wi-Fi, SSH keys, and first-boot diagnosis without a monitor.</li>
-<li><strong><a href="secure_vnc_raspberry_pi_os_wayland_headless/">Secure VNC on Raspberry Pi OS</a></strong> — Enable Wayland desktop sharing, use a VPN or SSH tunnel, and diagnose black screens.</li>
-<li><strong><a href="raspberry_pi_os_trixie_sudo_password_required/">Fix sudo Password Prompts on Trixie</a></strong> — Restore administrator access safely and repair headless, systemd, cron, CI, and Docker automation.</li>
-<li><strong><a href="raspberry_pi_usb_gadget_mode_comparison/">USB Gadget Mode Comparison</a></strong> — Choose Ethernet, HID, MIDI, storage, or ConfigFS composite mode and avoid UDC conflicts.</li>
-<li><strong><a href="raspberry_pi_headless_setup_troubleshooter/">Headless Setup Troubleshooter</a></strong> — Select a symptom and generate a safe boot, network, mDNS, SSH, key, or USB diagnostic path locally.</li>
-<li><strong><a href="building_a_voice_assistant_with_raspberry_pi/">Offline Voice Assistant on Trixie</a></strong> — Build a measured sherpa-onnx pipeline with an allowlisted action boundary.</li>
-<li><strong><a href="hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/">Raspberry Pi 5 TPM 2.0 Security Guide</a></strong> — Separate secure boot, measured boot, LUKS2, dm-verity, key policy, and recovery roles.</li>
-<li><strong><a href="raspberry_pi_tpm_2_module_selection_spi_i2c_guide/">TPM 2.0 Module Selection</a></strong> — Check voltage, interface, Linux driver, Device Tree, GPIO conflicts, and replacement planning.</li>
-<li><strong><a href="raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/">TPM2 LUKS2 Auto-Unlock</a></strong> — Test encrypted data-volume unlock with recovery credentials and failure drills.</li>
-<li><strong><a href="google_chrome_arm64_raspberry_pi_install_errors/">Chrome ARM64 Error Diagnosis</a></strong> — Fix download, architecture, dependency, profile, sandbox, startup, and Sync errors.</li>
-<li><strong><a href="google_chrome_arm64_raspberry_pi_update_uninstall/">Update or Uninstall Chrome ARM64</a></strong> — Verify APT updates, repair the Google repository, preserve profiles, or return to Chromium.</li>
-<li><strong><a href="raspberry_pi_power_consumption_cost_calculator/">Power Consumption and Cost Calculator</a></strong> — Calculate energy and cost locally from measured idle/load watts.</li>
-<li><strong><a href="raspberry_pi_os_performance_optimization_2026/">Raspberry Pi OS Performance Optimization 2026</a></strong> — Choose ZRAM, OverlayFS, boot, storage, power, and thermal changes from measurements.</li>
-<li><strong><a href="enabling_chromium_to_sync_with_google_account/">Chromium Sync and Google Chrome ARM64</a></strong> — Understand Chromium's Google Account limitation, compare sync options, and install the official ARM64 package safely.</li>
-<li><strong><a href="raspberry_pi_memory_pressure_zram_oom_benchmark/">Memory Pressure, ZRAM, and OOM Diagnosis</a></strong> — Measure PSI, swap, compression, cgroup limits, and OOM events.</li>
-<li><strong><a href="raspberry_pi_sd_card_wear_reduction_read_only_root_logs/">SD Card Write Reduction</a></strong> — Identify writers, bound logs, use tmpfs selectively, and plan a read-only root.</li>
-<li><strong><a href="raspberry_pi_headless_networking_2026_hub/">Headless and Networking Guide 2026</a></strong> — Compare Ethernet, Wi-Fi, USB Gadget, Connect, Tailscale, SSH, and recovery paths.</li>
-<li><strong><a href="raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode: SSH over One Cable</a></strong> — Use Trixie's <code>rpi-usb-gadget</code> workflow with Windows, macOS, and Linux hosts.</li>
-<li><strong><a href="run_ultralytics_yolo_on_raspberry_pi_with_openvino/">Ultralytics YOLO with OpenVINO</a></strong> — Export Arm64 CPU models, enable caching, and benchmark the complete pipeline.</li>
-<li><strong><a href="raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/">Touch Display 2: 5, 7, and 10-Inch Comparison</a></strong> — Compatibility, DSI setup, rotation, kiosk use, and display benchmarks.</li>
-<li><strong><a href="raspberry_pi_pico_2_w_rp2350_getting_started/">Pico 2 W and RP2350 Getting Started</a></strong> — MicroPython, Wi-Fi, GPIO, RP2350 A4 notes, and repeatable measurements.</li>
-<li><strong><a href="raspberry_pi_connect_remote_updates_complete_guide/">Raspberry Pi Connect Remote Updates</a></strong> — Trixie script artefacts, staged rollout, OTA logging, and A/B recovery.</li>
-<li><strong><a href="raspberry_pi_lorawan_gateway_with_chirpstack/">LoRaWAN Gateway with ChirpStack</a></strong> — SX1302 gateway architecture, secure MQTT, device joins, and range testing.</li>
-<li><strong><a href="compute_module_5_setup_emmc_nvme_and_io_board_guide/">Compute Module 5 Setup</a></strong> — IO Board, eMMC flashing, NVMe boot planning, power, and thermal validation.</li>
-</ul>
-<div class="admonition info">
-<p class="admonition-title">Recommended Goal-Oriented Pathways</p>
-<p>If you have a specific project goal in mind, we highly recommend following these tailored pathways:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Path A: Smart Home &amp; Home Lab</label><label for="__tabbed_1_2">Path B: Edge AI &amp; Machine Learning</label><label for="__tabbed_1_3">Path C: Linux Kernel &amp; Low-Level Tuning</label><label for="__tabbed_1_4">Path D: High-Performance Server Admins</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>Build a secure, private, and fully automated home infrastructure.</p>
+<div><h1 id="rust-trait-objects-and-dispatch-dyn-trait-vs-impl-trait">Rust Trait Objects and Dispatch: dyn Trait vs impl Trait<a class="headerlink" href="#rust-trait-objects-and-dispatch-dyn-trait-vs-impl-trait" title="Permanent link">¶</a></h1>
+<p>Use generics when an operation can keep its concrete implementation type, and a trait object when values with different implementation types must share one runtime interface. Argument-position impl Trait is generic syntax; return-position impl Trait hides one concrete type rather than creating a mixed-type container.</p>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<h2 id="prerequisites-and-outcome">Prerequisites and outcome<a class="headerlink" href="#prerequisites-and-outcome" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../13_lifetimes_and_borrowed_apis/">lifetimes and borrowed APIs</a>. You will compare three calling forms, build a borrowed heterogeneous collection, and recognise restrictions on dyn-compatible traits. The examples use fixture readings; no sensor or performance measurement is needed.</p>
+<h2 id="choose-the-rust-interface-by-what-must-vary">Choose the Rust interface by what must vary<a class="headerlink" href="#choose-the-rust-interface-by-what-must-vary" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Concrete implementation choice</th>
+<th>Useful when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T: Read</code></td>
+<td>Caller chooses T; each instantiation keeps that type</td>
+<td>Generic algorithms and relationships between arguments</td>
+</tr>
+<tr>
+<td>Argument <code>impl Read</code></td>
+<td>Caller supplies an anonymous generic type</td>
+<td>One parameter needs a simple behaviour bound</td>
+</tr>
+<tr>
+<td>Return <code>impl Read</code></td>
+<td>Function hides one concrete return type</td>
+<td>Exposing behaviour without naming the implementation</td>
+</tr>
+<tr>
+<td><code>&amp;dyn Read&lt;Value = i32&gt;</code></td>
+<td>A borrowed trait object carries an implementation at runtime</td>
+<td>Mixed concrete implementations behind one interface</td>
+</tr>
+</tbody>
+</table>
+<p>The associated type is specified in the object type because the caller still needs to know the read method's return type. This example is deliberately narrower than the previous Source trait: Read has no associated constant, so it can be used as a trait object.</p>
+<h2 id="build-the-complete-dispatch-comparison">Build the complete dispatch comparison<a class="headerlink" href="#build-the-complete-dispatch-comparison" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>pi_dispatch
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>pi_dispatch
+</code></pre></div></td></tr></table></div>
+<p>Keep edition = "2024" in Cargo.toml and replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-1-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-1-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-1-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-1-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-1-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-1-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-1-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-1-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-1-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-1-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-1-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-1-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-1-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-1-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-1-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-1-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-1-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-1-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-1-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-1-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-1-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-1-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-1-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-1-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-1-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-1-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-1-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-1-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-1-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-1-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-1-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-1-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-1-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-1-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-1-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-1-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-1-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-1-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-1-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-1-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-1-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-1-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-1-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-1-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-1-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-1-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-1-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-1-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-1-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-1-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-1-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-1-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-1-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-1-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-1-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-1-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-1-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-1-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-1-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-1-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-1-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-1-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-1-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-1-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-1-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-1-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-1-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-1-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-1-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-1-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-1-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-1-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-1-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-1-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-1-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-1-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-1-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-1-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-1-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-1-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-1-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-1-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-1-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-1-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-1-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-1-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-1-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-1-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-1-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-1-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-1-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-1-100">100</a></span>
+<span class="normal"><a href="#__codelineno-1-101">101</a></span>
+<span class="normal"><a href="#__codelineno-1-102">102</a></span>
+<span class="normal"><a href="#__codelineno-1-103">103</a></span>
+<span class="normal"><a href="#__codelineno-1-104">104</a></span>
+<span class="normal"><a href="#__codelineno-1-105">105</a></span>
+<span class="normal"><a href="#__codelineno-1-106">106</a></span>
+<span class="normal"><a href="#__codelineno-1-107">107</a></span>
+<span class="normal"><a href="#__codelineno-1-108">108</a></span>
+<span class="normal"><a href="#__codelineno-1-109">109</a></span>
+<span class="normal"><a href="#__codelineno-1-110">110</a></span>
+<span class="normal"><a href="#__codelineno-1-111">111</a></span>
+<span class="normal"><a href="#__codelineno-1-112">112</a></span>
+<span class="normal"><a href="#__codelineno-1-113">113</a></span>
+<span class="normal"><a href="#__codelineno-1-114">114</a></span>
+<span class="normal"><a href="#__codelineno-1-115">115</a></span>
+<span class="normal"><a href="#__codelineno-1-116">116</a></span>
+<span class="normal"><a href="#__codelineno-1-117">117</a></span>
+<span class="normal"><a href="#__codelineno-1-118">118</a></span>
+<span class="normal"><a href="#__codelineno-1-119">119</a></span>
+<span class="normal"><a href="#__codelineno-1-120">120</a></span>
+<span class="normal"><a href="#__codelineno-1-121">121</a></span>
+<span class="normal"><a href="#__codelineno-1-122">122</a></span>
+<span class="normal"><a href="#__codelineno-1-123">123</a></span>
+<span class="normal"><a href="#__codelineno-1-124">124</a></span>
+<span class="normal"><a href="#__codelineno-1-125">125</a></span>
+<span class="normal"><a href="#__codelineno-1-126">126</a></span>
+<span class="normal"><a href="#__codelineno-1-127">127</a></span>
+<span class="normal"><a href="#__codelineno-1-128">128</a></span>
+<span class="normal"><a href="#__codelineno-1-129">129</a></span>
+<span class="normal"><a href="#__codelineno-1-130">130</a></span>
+<span class="normal"><a href="#__codelineno-1-131">131</a></span>
+<span class="normal"><a href="#__codelineno-1-132">132</a></span>
+<span class="normal"><a href="#__codelineno-1-133">133</a></span>
+<span class="normal"><a href="#__codelineno-1-134">134</a></span>
+<span class="normal"><a href="#__codelineno-1-135">135</a></span>
+<span class="normal"><a href="#__codelineno-1-136">136</a></span>
+<span class="normal"><a href="#__codelineno-1-137">137</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">trait</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Fixed</span><span class="p">(</span><span class="kt">i32</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="k">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Fixed</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="p">}</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Unavailable</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="k">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Unavailable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">        </span><span class="nb">None</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="p">}</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Borrowed</span><span class="o">&lt;'</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;'</span><span class="na">a</span><span class="w"> </span><span class="kt">i32</span><span class="p">);</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="k">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Borrowed</span><span class="o">&lt;'</span><span class="nb">_</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">    </span><span class="k">type</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="p">;</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span><span class="p">::</span><span class="n">Value</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="p">}</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="k">fn</span><span class="w"> </span><span class="nf">read_generic</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nc">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">?</span><span class="nb">Sized</span><span class="o">&gt;</span><span class="p">(</span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">T</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="p">}</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="k">fn</span><span class="w"> </span><span class="nf">read_impl</span><span class="p">(</span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">impl</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="p">}</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="k">fn</span><span class="w"> </span><span class="nf">read_dynamic</span><span class="p">(</span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="p">}</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="k">fn</span><span class="w"> </span><span class="nf">make_fixed</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="n">Fixed</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="p">}</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="c1">// The Box owns the Borrowed wrapper, not the integer it points to.</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="k">fn</span><span class="w"> </span><span class="nf">boxed_borrow</span><span class="o">&lt;'</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="na">a</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">'</span><span class="na">a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="nb">Box</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Borrowed</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="p">}</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fixed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fixed</span><span class="p">(</span><span class="mi">46_700</span><span class="p">);</span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">unavailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Unavailable</span><span class="p">;</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"generic={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_generic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">));</span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"impl argument={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_impl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">));</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"dynamic={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_dynamic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">));</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">    </span><span class="c1">// No Box is needed to borrow differently typed, existing values.</span>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">unavailable</span><span class="p">];</span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">sources</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">"mixed={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_dynamic</span><span class="p">(</span><span class="n">source</span><span class="p">));</span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">hidden</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_fixed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"opaque return={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_generic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">hidden</span><span class="p">));</span>
+<a id="__codelineno-1-72" name="__codelineno-1-72"></a>
+<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">;</span>
+<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">boxed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boxed_borrow</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"boxed borrow={:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">read_dynamic</span><span class="p">(</span><span class="n">boxed</span><span class="p">.</span><span class="n">as_ref</span><span class="p">()));</span>
+<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="p">}</span>
+<a id="__codelineno-1-77" name="__codelineno-1-77"></a>
+<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="cp">#[cfg(test)]</span>
+<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="k">mod</span><span class="w"> </span><span class="nn">tests</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">Fixed</span><span class="p">,</span><span class="w"> </span><span class="n">Read</span><span class="p">,</span><span class="w"> </span><span class="n">Unavailable</span><span class="p">,</span><span class="w"> </span><span class="n">boxed_borrow</span><span class="p">,</span><span class="w"> </span><span class="n">make_fixed</span><span class="p">};</span>
+<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span><span class="p">::{</span><span class="n">read_dynamic</span><span class="p">,</span><span class="w"> </span><span class="n">read_generic</span><span class="p">,</span><span class="w"> </span><span class="n">read_impl</span><span class="p">};</span>
+<a id="__codelineno-1-82" name="__codelineno-1-82"></a>
+<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">concrete_calls_agree_for_a_present_value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fixed</span><span class="p">(</span><span class="mi">46_700</span><span class="p">);</span>
+<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_generic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">46_700</span><span class="p">));</span>
+<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_impl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">46_700</span><span class="p">));</span>
+<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_dynamic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">46_700</span><span class="p">));</span>
+<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-90" name="__codelineno-1-90"></a>
+<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-92" name="__codelineno-1-92"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">concrete_calls_agree_for_absence</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Unavailable</span><span class="p">;</span>
+<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_generic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
+<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_impl</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
+<a id="__codelineno-1-96" name="__codelineno-1-96"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_dynamic</span><span class="p">(</span><span class="o">&amp;</span><span class="n">source</span><span class="p">),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
+<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-98" name="__codelineno-1-98"></a>
+<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-100" name="__codelineno-1-100"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">mixed_objects_preserve_each_implementation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-101" name="__codelineno-1-101"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fixed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fixed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-102" name="__codelineno-1-102"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">unavailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Unavailable</span><span class="p">;</span>
+<a id="__codelineno-1-103" name="__codelineno-1-103"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">sources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">unavailable</span><span class="p">];</span>
+<a id="__codelineno-1-104" name="__codelineno-1-104"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_dynamic</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-105" name="__codelineno-1-105"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_dynamic</span><span class="p">(</span><span class="n">sources</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span>
+<a id="__codelineno-1-106" name="__codelineno-1-106"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-107" name="__codelineno-1-107"></a>
+<a id="__codelineno-1-108" name="__codelineno-1-108"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-109" name="__codelineno-1-109"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">relaxed_sized_bound_accepts_an_object</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-110" name="__codelineno-1-110"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fixed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Fixed</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<a id="__codelineno-1-111" name="__codelineno-1-111"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">object</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Read</span><span class="o">&lt;</span><span class="n">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fixed</span><span class="p">;</span>
+<a id="__codelineno-1-112" name="__codelineno-1-112"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">read_generic</span><span class="p">(</span><span class="n">object</span><span class="p">),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">7</span><span class="p">));</span>
+<a id="__codelineno-1-113" name="__codelineno-1-113"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-114" name="__codelineno-1-114"></a>
+<a id="__codelineno-1-115" name="__codelineno-1-115"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-116" name="__codelineno-1-116"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">opaque_return_exposes_the_promised_trait</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-117" name="__codelineno-1-117"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_fixed</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-1-118" name="__codelineno-1-118"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+<a id="__codelineno-1-119" name="__codelineno-1-119"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-120" name="__codelineno-1-120"></a>
+<a id="__codelineno-1-121" name="__codelineno-1-121"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-122" name="__codelineno-1-122"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">boxed_object_can_borrow_local_data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-123" name="__codelineno-1-123"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">500</span><span class="p">;</span>
+<a id="__codelineno-1-124" name="__codelineno-1-124"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boxed_borrow</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-125" name="__codelineno-1-125"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">));</span>
+<a id="__codelineno-1-126" name="__codelineno-1-126"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-127" name="__codelineno-1-127"></a>
+<a id="__codelineno-1-128" name="__codelineno-1-128"></a><span class="w">    </span><span class="cp">#[test]</span>
+<a id="__codelineno-1-129" name="__codelineno-1-129"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">borrowed_object_does_not_consume_the_integer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-130" name="__codelineno-1-130"></a><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60_000</span><span class="p">;</span>
+<a id="__codelineno-1-131" name="__codelineno-1-131"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-1-132" name="__codelineno-1-132"></a><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boxed_borrow</span><span class="p">(</span><span class="o">&amp;</span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-1-133" name="__codelineno-1-133"></a><span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">read</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">60_000</span><span class="p">));</span>
+<a id="__codelineno-1-134" name="__codelineno-1-134"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-135" name="__codelineno-1-135"></a><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="mi">60_000</span><span class="p">);</span>
+<a id="__codelineno-1-136" name="__codelineno-1-136"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-137" name="__codelineno-1-137"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>cargo<span class="w"> </span>check
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cargo<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>cargo<span class="w"> </span>fmt<span class="w"> </span>--check
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>cargo<span class="w"> </span>run<span class="w"> </span>--quiet
+</code></pre></div></td></tr></table></div>
+<p>Expected output:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>generic=Some(46700)
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>impl argument=Some(46700)
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>dynamic=Some(46700)
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>mixed=Some(46700)
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>mixed=None
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>opaque return=Some(0)
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>boxed borrow=Some(-500)
+</code></pre></div></td></tr></table></div>
+<p>There are seven tests. Zero is a present value, not absence, regardless of the calling form. The object array borrows its sources; they must remain valid while those references are used.</p>
+<h2 id="static-and-dynamic-dispatch-do-not-choose-ownership">Static and dynamic dispatch do not choose ownership<a class="headerlink" href="#static-and-dynamic-dispatch-do-not-choose-ownership" title="Permanent link">¶</a></h2>
+<p>The generic function is instantiated for its concrete uses. The impl-argument form is also generic; it does not erase the type through a vtable. Naming T is useful when the same type must appear in several parameters or the return type; separate impl Trait parameters do not assert that their types are equal. Changing public signatures can also change which explicit generic arguments callers may supply.</p>
+<p>A trait-object pointer carries access to the value and its implementation's vtable; object calls use dynamic dispatch. This is a language-level description, not a promise of a particular ABI or machine instruction after optimisation. See the <a href="https://doc.rust-lang.org/reference/types/trait-object.html">trait-object reference</a>.</p>
+<p>Both our generic and dynamic functions borrow. Passing a value by a generic T could instead move it, while Box owns its contained value. The keyword dyn neither forces a heap allocation nor makes data thread-safe. <code>&amp;dyn Read</code> in the array needs no boxing; the boxed_borrow function uses Box only to demonstrate an owned wrapper. Box's resource behaviour is taught later.</p>
+<p><code>dyn Read&lt;Value = i32&gt;</code> is dynamically sized. The <code>?Sized</code> bound allows read_generic to accept an object through &amp;T; removing it restores the implicit Sized requirement. The impl-argument function shown here retains that requirement, so the two signatures do not accept exactly the same set of inputs.</p>
+<h2 id="opaque-return-types-keep-one-concrete-type">Opaque return types keep one concrete type<a class="headerlink" href="#opaque-return-types-keep-one-concrete-type" title="Permanent link">¶</a></h2>
+<p>make_fixed returns Fixed while promising only Read<value i32>. Callers can use the promised trait but cannot treat the result as a publicly exposed Fixed or access its tuple field. Different branches in this function cannot return unrelated concrete types under one impl Trait return.</value></p>
+<p>The <a href="https://doc.rust-lang.org/reference/types/impl-trait.html">impl Trait reference</a> distinguishes argument parameters from opaque returns. In Rust 2024, opaque returns automatically capture in-scope generic parameters, including lifetimes. A <code>use&lt;...&gt;</code> bound can precisely control permitted captures where supported. Our factory takes an owned integer and needs no borrowed capture; borrowing factories and edition differences require attention rather than assuming impl Trait means 'static.</p>
+<p>If runtime branches must return different implementations, use a suitable enum to keep a closed set of alternatives, or a boxed dyn-compatible interface when runtime type erasure fits the API. Neither is universally the faster or simpler choice. We make no performance comparison here.</p>
+<h2 id="dyn-compatibility-is-a-trait-design-constraint">Dyn compatibility is a trait design constraint<a class="headerlink" href="#dyn-compatibility-is-a-trait-design-constraint" title="Permanent link">¶</a></h2>
+<p>Our Read has an ordinary associated type fixed in the object type, and a method with an &amp;self receiver. That is sufficient for this example. The Source trait from lesson 12 has an associated constant and is not dyn-compatible as written.</p>
+<p>Other restrictions include a Sized supertrait, generic associated types, and dispatchable methods with type parameters or unsupported uses of Self. A method that needs concrete Self can sometimes be marked <code>where Self: Sized</code>; it then cannot be called on the trait object. Generic methods, opaque returns and async methods must be checked against the actual rules, not accepted just because other methods work. Consult <a href="https://doc.rust-lang.org/reference/items/traits.html#dyn-compatibility">dyn compatibility</a>; older material calls it object safety.</p>
+<p>Auto-trait bounds such as Send or Sync can further restrict an object, but the implementation must satisfy them. A trait object cannot simply combine arbitrary unrelated non-auto traits with plus; a named supertrait can expose a combined interface. Concurrency requirements are covered in their own lessons.</p>
+<h2 id="object-lifetimes-are-separate-from-pointer-ownership">Object lifetimes are separate from pointer ownership<a class="headerlink" href="#object-lifetimes-are-separate-from-pointer-ownership" title="Permanent link">¶</a></h2>
+<p><code>Box&lt;dyn Read&lt;Value = i32&gt; + 'a&gt;</code> allows the erased implementation to contain a reference valid for 'a. The Box owns Borrowed, while the local value remains owned by main. Dropping the Box releases its wrapper, not the integer's owner.</p>
+<p>Outside expression inference, a plain Box<dyn trait> commonly defaults its object lifetime to 'static unless another rule supplies a bound. That default is not the lifetime of the Box variable and does not forbid ordinary destruction of an owned implementation. A reference to a trait object has different defaulting rules. Spell the bound when exposing borrowed implementations; see <a href="https://doc.rust-lang.org/reference/lifetime-elision.html#default-trait-object-lifetimes">object lifetime defaults</a>.</dyn></p>
+<h2 id="deliberately-failing-two-hidden-concrete-return-types">Deliberately failing: two hidden concrete return types<a class="headerlink" href="#deliberately-failing-two-hidden-concrete-return-types" title="Permanent link">¶</a></h2>
+<p>In a separate scratch project, replace src/main.rs with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">trait</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="p">}</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Fixed</span><span class="p">(</span><span class="kt">i32</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Fixed</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="p">}</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="k">struct</span><span class="w"> </span><span class="nc">Unavailable</span><span class="p">;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="k">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Unavailable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">        </span><span class="nb">None</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="p">}</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="k">fn</span><span class="w"> </span><span class="nf">choose</span><span class="p">(</span><span class="n">available</span><span class="p">:</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">impl</span><span class="w"> </span><span class="n">Read</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">        </span><span class="n">Fixed</span><span class="p">(</span><span class="mi">46_700</span><span class="p">)</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">        </span><span class="n">Unavailable</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="p">}</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">choose</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="n">read</span><span class="p">());</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><code>cargo check</code> reports E0308. Both types implement Read, but an opaque return is not a runtime union. A repair is to return Box<dyn read>, boxing both branches; here both concrete implementations own all their data.</dyn></p>
+<h2 id="exercises-and-troubleshooting">Exercises and troubleshooting<a class="headerlink" href="#exercises-and-troubleshooting" title="Permanent link">¶</a></h2>
 <ol>
-<li><strong><a href="how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/">Home Assistant Smart Home Guide</a></strong> — Core smart home hub setup.</li>
-<li><strong><a href="how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/">Network-Wide Ad Blocker</a></strong> — Network shield using Pi-hole + Unbound.</li>
-<li><strong><a href="how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/">Plex &amp; Jellyfin Media Server</a></strong> — Personal streaming service.</li>
-<li><strong><a href="how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/">Private Cloud Storage</a></strong> — Dropbox alternative with Nextcloud.</li>
-<li><strong><a href="secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale Remote Access</a></strong> — Securely control your lab from anywhere.</li>
-<li><strong><a href="home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/">Home Lab Dashboard</a></strong> — Unified monitoring with Netdata and Uptime Kuma.</li>
-<li><strong><a href="smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/">Zigbee Smart Home integration</a></strong> — Fully local Zigbee network via Zigbee2MQTT.</li>
-<li><strong><a href="network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/">WireGuard with Web UI</a></strong> — Manage private VPN clients easily via QR codes.</li>
-<li><strong><a href="smart_home__advanced_home_assistant_dashboard_customization_with_css/">Advanced HA Dashboard Customization</a></strong> — CSS card custom designs for wall tablets.</li>
+<li>Remove ?Sized from read_generic and call it with a &amp;dyn Read<value i32>: expect E0277. Restore it when borrowing unsized implementations is intended.</value></li>
+<li>Try an array <code>[Fixed(0), Unavailable]</code> without trait-object references: expect E0308 because array elements need one type.</li>
+<li>Add an associated constant with a default to Read: expect E0038 at the trait-object uses. Remove it from this runtime interface or redesign the interface; do not delete useful constants from unrelated traits merely to make everything dyn-compatible.</li>
+<li>Remove <code>+ 'a</code> from boxed_borrow's return type: expect a lifetime error because the default object bound cannot accept this local borrow. Restore the explicit lifetime; do not leak the integer.</li>
+<li>Repair choose with Box<dyn read> and Box::new in both branches. Test both true and false: expect Some(46700) and None.</dyn></li>
+<li>Give make_fixed two branches that both construct Fixed with different integers: it remains a valid impl Read return because the concrete type is unchanged.</li>
 </ol>
-</div>
-<div class="tabbed-block">
-<p>Implement smart capabilities directly on edge devices.</p>
-<ol>
-<li><strong><a href="local_llm_optimization_with_llama.cpp_-_on-device_ai/">llama.cpp on Raspberry Pi</a></strong> — Build a local GGUF runtime, choose memory-loading modes, and benchmark prompt and generation speed.</li>
-<li><strong><a href="run_ultralytics_yolo_on_raspberry_pi_with_openvino/">OpenVINO YOLO on Arm64 CPU</a></strong> — Current CPU baseline with repeatable export and caching.</li>
-<li><strong><a href="tensorflow_lite_setup_and_object_detection_on_raspberry_pi/">TensorFlow Lite Object Detection</a></strong> — Core image detection setup.</li>
-<li><strong><a href="how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/">YOLOv8 AI Smart Camera</a></strong> — People and car detection with Discord alerts.</li>
-<li><strong><a href="building_a_voice_assistant_with_raspberry_pi/">Voice Assistant Setup</a></strong> — Private local voice controller.</li>
-<li><strong><a href="edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/">Llama 3.1 &amp; Open WebUI RAG</a></strong> — Secure offline RAG assistant using LangChain.</li>
-<li><strong><a href="edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/">Coral TPU Object Detection</a></strong> — Real-time video analytics with Frigate NVR.</li>
-<li><strong><a href="edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/">YOLOv8 Vulkan GPU Optimization</a></strong> — Test object detection using the internal GPU via NCNN.</li>
-<li><strong><a href="raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">AI Accelerator Comparison</a></strong> — Compare CPU, AI Camera, Coral, Hailo-8L, and Hailo-10H by workload.</li>
-<li><strong><a href="raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">AI HAT+ 2 Local LLMs and VLMs</a></strong> — Build generative AI applications with dedicated accelerator memory.</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<p>Deep dive into OS kernels, virtualization, and custom USB gadgets.</p>
-<ol>
-<li><strong><a href="ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/">Raspberry Pi eBPF and tcpconnect-bpfcc</a></strong> — Trace TCP connections by process and explore BCC.</li>
-<li><strong><a href="network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/">Network Namespaces &amp; VRF</a></strong> — Virtual isolation.</li>
-<li><strong><a href="creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/">USB Composite Gadgets (ConfigFS)</a></strong> — Virtual USB multi-device emulation.</li>
-<li><strong><a href="cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/">cgroups v2 &amp; systemd-run</a></strong> — Resource sandboxing.</li>
-<li><strong><a href="overlayfs_-_layer-based_filesystems_for_raspberry_pi/">OverlayFS Immutable Roots</a></strong> — Prevent SD card corruption.</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<p>Tune system hardware, security protocols, and real-time monitoring.</p>
-<ol>
-<li><strong><a href="raspberry_pi_os_performance_optimization_2026/">Performance Optimization 2026</a></strong> — Identify the actual bottleneck and choose a safe path.</li>
-<li><strong><a href="raspberry_pi_memory_pressure_zram_oom_benchmark/">Memory Pressure and OOM Diagnosis</a></strong> — Measure PSI, swap and cgroup limits before tuning.</li>
-<li><strong><a href="how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">NVMe SSD Boot (Pi 5)</a></strong> — Improve storage after a controlled benchmark.</li>
-<li><strong><a href="how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/">Prometheus &amp; Grafana Monitoring</a></strong> — Resource and thermal visualization.</li>
-<li><strong><a href="raspberry_pi_security_hardening_complete_guide/">Security Hardening Guide</a></strong> — Protect your Pi server.</li>
-<li><strong><a href="raspberry_pi_boot_time_optimization__complete_performance_guide/">Boot Time Optimization</a></strong> — Minimize measured application-ready time.</li>
-<li><strong><a href="cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/">K3s Multi-Node Cluster</a></strong> — High-availability Traefik routing with local DNS rewrites.</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-<hr>
-<h2 id="all-articles-by-category">All Articles by Category<a class="headerlink" href="#all-articles-by-category" title="Permanent link">¶</a></h2>
-<h2 id="ai-machine-learning">AI &amp; Machine Learning<a class="headerlink" href="#ai-machine-learning" title="Permanent link">¶</a></h2>
-<p>Harness the power of artificial intelligence on your Raspberry Pi with these practical AI implementation guides.</p>
-<ul>
-<li><strong><a href="local_llm_optimization_with_llama.cpp_-_on-device_ai/">llama.cpp Mlock and Benchmarking</a></strong> — Build current llama.cpp, size GGUF models, choose load modes, and measure prompt and generation speed.</li>
-<li><strong><a href="tensorflow_lite_setup_and_object_detection_on_raspberry_pi/">TensorFlow Lite Object Detection</a></strong> — Real-time object detection with pre-trained models and Coral USB Accelerator.</li>
-<li><strong><a href="building_a_voice_assistant_with_raspberry_pi/">Offline Voice Assistant</a></strong> — Build a Trixie-ready sherpa-onnx pipeline with measured audio, ASR, keyword, TTS, and safe action stages.</li>
-<li><strong><a href="real-time_image_classification_with_raspberry_pi_camera/">Image Classification System</a></strong> — Implement real-time image classification for plant identification, quality control, and more.</li>
-<li><strong><a href="how_to_build_an_ai_smart_security_camera_with_raspberry_pi_and_yolov8/">AI Smart Security Camera (YOLOv8)</a></strong> — Build an intelligent surveillance camera utilizing YOLOv8 object detection and Discord webhook notifications.</li>
-<li><strong><a href="self-hosted_local_ai_nvr_with_frigate_and_google_coral_on_raspberry_pi/">Self-Hosted Local AI NVR (Frigate)</a></strong> — Build a local AI NVR using Frigate and Google Coral TPU to track objects on RTSP cameras without cloud latency.</li>
-<li><strong><a href="edge_ai__high-speed_yolov11_object_detection_with_raspberry_pi_5_and_hailo-8l_ai_kit/">Edge AI: Hailo-8L NPU &amp; YOLOv11</a></strong> — Offload matrix calculations to the dedicated Hailo-8L NPU for high-frame-rate real-time YOLOv11 inference.</li>
-<li><strong><a href="edge_ai__building_a_private_local_ai_email_assistant_on_raspberry_pi_5_with_ollama/">Local AI Email Assistant (Ollama)</a></strong> — Build a private email agent fetching emails via IMAP and generating summaries using local LLMs.</li>
-<li><strong><a href="edge_ai__running_llama_3.1_on_raspberry_pi_5_with_ollama%2C_open_webui%2C_and_rag/">Llama 3.1 &amp; Open WebUI RAG</a></strong> — Deploy Llama 3.1 locally with Ollama and implement offline PDF-based RAG using LangChain.</li>
-<li><strong><a href="edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/">Coral TPU Face &amp; Object Recognition</a></strong> — Run high-frame-rate real-time object detection with Google Coral USB TPU and local Frigate NVR.</li>
-<li><strong><a href="edge_ai__running_yolov8_with_vulkan_gpu_acceleration_via_ncnn_on_pi_5/">YOLOv8 Vulkan GPU Acceleration</a></strong> — Accelerate YOLOv8 inference to 30 FPS using Pi 5's internal GPU via the NCNN framework.</li>
-<li><strong><a href="raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/">Camera Setup and Troubleshooting: rpicam and Picamera2</a></strong> — Configure current camera tools, migrate from legacy commands, and diagnose common camera failures.</li>
-<li><strong><a href="raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">AI HAT+ 2: Local LLMs and VLMs</a></strong> — Run supported generative AI models locally with Hailo-10H, hailo-ollama, and Open WebUI.</li>
-<li><strong><a href="run_ultralytics_yolo_on_raspberry_pi_with_openvino/">Ultralytics YOLO with OpenVINO</a></strong> — Export and deploy YOLO on the Raspberry Pi Arm64 CPU with model caching and camera inference.</li>
-<li><strong><a href="raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI Accelerator Comparison</a></strong> — Choose between CPU, AI Camera, Coral USB, AI HAT+, and AI HAT+ 2 for real projects.</li>
-</ul>
-<h2 id="home-network-smart-home">Home Network &amp; Smart Home<a class="headerlink" href="#home-network-smart-home" title="Permanent link">¶</a></h2>
-<p>Build a secure private network, automate your home, and block advertisements at the network level.</p>
-<div class="admonition tip">
-<p class="admonition-title">Home Lab Learning Order</p>
-<p><strong>Beginner:</strong> Start with the <a href="raspberry_pi_headless_networking_2026_hub/">Headless and Networking Hub</a>, <a href="raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless Setup</a>, and <a href="secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale</a>.</p>
-<p><strong>Intermediate:</strong> Add <a href="secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/">Docker Compose and Nginx Proxy Manager</a>, <a href="setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/">Pi-hole and Unbound</a>, and the <a href="home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/">Monitoring Dashboard</a>.</p>
-<p><strong>Advanced:</strong> Build <a href="high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/">Btrfs RAID 1</a>, a <a href="cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/">Multi-Node K3s Cluster</a>, and <a href="secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/">Cloudflare Tunnel access</a>.</p>
-</div>
-<ul>
-<li><strong><a href="how_to_build_a_smart_home_with_raspberry_pi_and_home_assistant/">Home Assistant Smart Home Guide</a></strong> — Deploy Home Assistant OS, connect commercial devices, wire local GPIO sensors, and set up automation triggers.</li>
-<li><strong><a href="how_to_build_a_network-wide_ad_blocker_with_raspberry_pi_and_pi-hole/">Network-Wide Ad Blocker (Pi-hole + Unbound)</a></strong> — Block ads and trackers for all network devices, and configure Unbound as a secure recursive DNS resolver.</li>
-<li><strong><a href="setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/">Pi-hole + Unbound on Docker Compose</a></strong> — Run Pi-hole and Unbound recursive DNS inside containerized Docker environments.</li>
-<li><strong><a href="secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale Remote VPN</a></strong> — Configure Tailscale VPN to access your home server from anywhere without opening ports or configuring Dynamic DNS.</li>
-<li><strong><a href="setting_up_vpn_access/">VPN Setup Guide</a></strong> — Establish standard private VPN servers for secure encrypted remote connections.</li>
-<li><strong><a href="raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/">Raspberry Pi Connect Complete Guide</a></strong> — Securely access a Pi desktop or shell from a browser without opening router ports.</li>
-<li><strong><a href="raspberry_pi_connect_remote_updates_complete_guide/">Raspberry Pi Connect Remote Updates</a></strong> — Package Trixie OTA scripts, deploy through Connect, monitor failures, and plan A/B rollback.</li>
-<li><strong><a href="raspberry_pi_headless_networking_2026_hub/">Headless and Networking Guide 2026</a></strong> — Choose Ethernet, Wi-Fi, USB Gadget, Connect, Tailscale, or VNC and retain a recovery path.</li>
-<li><strong><a href="../basic-operations/networking_setup_and_management_for_raspberry_pi/">Raspberry Pi NetworkManager and nmcli</a></strong> — Diagnose Wi-Fi, DNS, static IP, SSH lockouts, and NetworkManager update failures on Bookworm or Trixie.</li>
-<li><strong><a href="raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/">WiFi Access Point Setup</a></strong> — Create a routed NetworkManager hotspot or plan a bridged access point.</li>
-<li><strong><a href="raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">Remote Access and VNC</a></strong> — Enable and optimize high-performance remote desktop connections.</li>
-<li><strong><a href="secure_self-hosting__docker_compose_and_nginx_proxy_manager_on_raspberry_pi/">Secure Self-Hosting (Docker Compose + NPM)</a></strong> — Combine Pi-hole, Vaultwarden, and Nginx Proxy Manager on a single Pi using Docker Compose and SSL certificates.</li>
-<li><strong><a href="static_ip_configuration_on_raspberry_pi_os/">Static IP Configuration</a></strong> — Set up static IP addresses to ensure network server consistency.</li>
-<li><strong><a href="secure_home_server__expose_nextcloud_jellyfin_without_port_forwarding_via_cloudflare_tunnel/">Secure Expose: Cloudflare Tunnel</a></strong> — Expose local Nextcloud or Jellyfin servers to the web without port forwarding or risking residential IP exposure.</li>
-<li><strong><a href="secure_infrastructure__secure_remote_connections_with_wireguard_and_pi-hole_on_raspberry_pi/">Secure Connection (WireGuard + Pi-hole)</a></strong> — Access your home network securely on-the-go and block ads via virtual VPN tunnels.</li>
-<li><strong><a href="network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/">AdGuard Home &amp; Unbound over TLS</a></strong> — Protect privacy and block ads net-wide using AdGuard Home and recursive DNS over TLS.</li>
-<li><strong><a href="smart_home__connecting_zigbee_devices_to_home_assistant_container_via_docker/">Zigbee to Home Assistant Container</a></strong> — Pair Zigbee sensors and auto-discover them locally using Zigbee2MQTT and Docker Compose.</li>
-<li><strong><a href="network_mastery__wireguard_vpn_server_with_a_sleek_web_ui_via_docker/">WireGuard VPN Server with Web UI</a></strong> — Host a local WireGuard VPN and manage client peer profiles easily using QR codes.</li>
-<li><strong><a href="smart_home__advanced_home_assistant_dashboard_customization_with_css/">Advanced Home Assistant Dashboard Customization</a></strong> — Install HACS and write custom CSS card modifications to adjust card layout and appearance.</li>
-</ul>
-<h2 id="hardware-usb-iot">Hardware, USB &amp; IoT<a class="headerlink" href="#hardware-usb-iot" title="Permanent link">¶</a></h2>
-<p>Extend your Raspberry Pi with hardware protocols, microcontrollers, and custom USB interface configurations.</p>
-<ul>
-<li><strong><a href="building_a_wireless_iot_sensor_node_with_raspberry_pi_pico_w_and_mqtt/">Pico W &amp; MQTT Sensor Node</a></strong> — Program a Raspberry Pi Pico W to broadcast wireless sensor telemetry over MQTT.</li>
-<li><strong><a href="raspberry_pi_usb_gadget_mode_comparison/">USB Gadget Mode Comparison</a></strong> — Compare Ethernet, HID, MIDI, mass storage, and composite designs by goal, model, host, and safety requirement.</li>
-<li><strong><a href="raspberry_pi_as_usb_otg_device_mass_storage_emulation/">USB OTG Mass Storage</a></strong> — Configure your Pi to emulate a standard USB flash drive or virtual mass storage disk.</li>
-<li><strong><a href="raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode for SSH</a></strong> — Use the supported Trixie package for USB Ethernet, SSH, and optional host internet sharing.</li>
-<li><strong><a href="usb_ethernet_gadget_setup/">Raspberry Pi dwc2 USB Ethernet Gadget</a></strong> — Configure <code>dwc2</code>, <code>g_ether</code>, static addressing, and SSH for custom or older images.</li>
-<li><strong><a href="how_to_turn_your_raspberry_pi_into_a_usb_hid_keyboard_or_mouse/">USB HID Keyboard/Mouse</a></strong> — Turn your Raspberry Pi into a programmable physical keyboard or mouse emulator.</li>
-<li><strong><a href="creating_a_usb_composite_multi-function_gadget_on_raspberry_pi_using_configfs/">USB Composite Gadget (ConfigFS)</a></strong> — Emulate multiple USB device types (e.g. storage, serial, ethernet) over a single physical cable.</li>
-<li><strong><a href="high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/">High-Speed GPIO Control in C++</a></strong> — Compare modern <code>libgpiod</code> with direct register mmap access to toggle GPIO pins at maximum CPU frequencies.</li>
-<li><strong><a href="introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/">Embedded Systems Development with Rust</a></strong> — Configure a Rust cross-compilation environment and write safe, concurrency-proof GPIO control code.</li>
-<li><strong><a href="how_to_build_a_usb_midi_device_with_raspberry_pi/">USB MIDI Controller</a></strong> — Build custom MIDI instruments and controllers using the USB OTG controller.</li>
-<li><strong><a href="fix_issue_of_i2c_on_old_raspberry_pi_models/">Fix I2C on Old Models</a></strong> — Troubleshoot I2C configuration and communication errors on older Raspberry Pi models.</li>
-<li><strong><a href="next-gen_iot__building_a_matter_smart_home_sensor_node_with_raspberry_pi_pico_w/">Matter Smart Home Sensor Node</a></strong> — Build an open-standard Matter device on Pico W and integrate it locally into Home Assistant.</li>
-<li><strong><a href="raspberry_pi_pico_2_w_rp2350_getting_started/">Pico 2 W and RP2350 Getting Started</a></strong> — Flash MicroPython, connect Wi-Fi securely, test GPIO, and benchmark RP2350 workloads.</li>
-<li><strong><a href="raspberry_pi_touch_display_2_5_7_10_inch_comparison_and_setup/">Touch Display 2 Size Comparison and Setup</a></strong> — Choose between 5, 7, and 10-inch displays and configure DSI, rotation, touch, and kiosk mode.</li>
-<li><strong><a href="raspberry_pi_lorawan_gateway_with_chirpstack/">LoRaWAN Gateway with ChirpStack</a></strong> — Build a standards-compliant SX1302/SX1303 gateway and measure real-world coverage.</li>
-<li><strong><a href="compute_module_5_setup_emmc_nvme_and_io_board_guide/">Compute Module 5 Setup</a></strong> — Flash eMMC with rpiboot, configure NVMe, and validate carrier-board power and cooling.</li>
-</ul>
-<h2 id="kernel-filesystems-sandboxing">Kernel, Filesystems &amp; Sandboxing<a class="headerlink" href="#kernel-filesystems-sandboxing" title="Permanent link">¶</a></h2>
-<p>Explore advanced Linux OS kernels, file systems, security wrappers, and observability tools.</p>
-<ul>
-<li><strong><a href="ebpf__extended_berkeley_packet_filter__-_kernel_programming_for_raspberry_pi/">Raspberry Pi eBPF and tcpconnect-bpfcc</a></strong> — Install BCC, check kernel headers, and trace outgoing TCP connections by PID or port.</li>
-<li><strong><a href="network_namespaces_and_vrf_-_virtual_network_isolation_for_raspberry_pi/">Network Namespaces &amp; VRF</a></strong> — Create isolated virtual networks and custom routing tables inside single host OS namespaces.</li>
-<li><strong><a href="inotify_-_filesystem_monitoring_and_event-driven_automation_for_raspberry_pi/">inotify - Filesystem Monitoring</a></strong> — Implement real-time file access monitoring and trigger automatic event scripts.</li>
-<li><strong><a href="cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/">cgroups v2 &amp; systemd-run</a></strong> — Restrict CPU/memory usage and build custom process sandboxes.</li>
-<li><strong><a href="overlayfs_-_layer-based_filesystems_for_raspberry_pi/">OverlayFS</a></strong> — Construct read-only file systems to prevent SD card corruption and maintain immutable root partitions.</li>
-<li><strong><a href="raspberry_pi_sd_card_wear_reduction_read_only_root_logs/">SD Card Write Reduction</a></strong> — Diagnose writes, limit logs, move disposable data, and decide when OverlayFS is appropriate.</li>
-<li><strong><a href="fuse__filesystem_in_userspace__-_complete_guide_for_raspberry_pi/">FUSE - Filesystem in Userspace</a></strong> — Mount custom and cloud file systems easily using FUSE drivers.</li>
-<li><strong><a href="hardware_security_module__tpm__setup_with_dm-verity_and_encrypted_storage/">Hardware Security Module (TPM)</a></strong> — Secure device identity and data with hardware-enforced TPM modules and dm-verity.</li>
-<li><strong><a href="raspberry_pi_tpm_2_module_selection_spi_i2c_guide/">TPM 2.0 Module Selection</a></strong> — Select a compatible module and prove Linux driver binding before provisioning.</li>
-<li><strong><a href="raspberry_pi_tpm2_luks2_auto_unlock_systemd_cryptenroll/">TPM2 LUKS2 Auto-Unlock</a></strong> — Enroll a TPM token on an encrypted test data partition while retaining recovery access.</li>
-<li><strong><a href="real-time_robotics__building_and_configuring_a_preempt_rt_kernel_on_raspberry_pi_5/">Real-Time PREEMPT_RT Kernel</a></strong> — Patch, configure, and compile a hard real-time kernel on Raspberry Pi 5 for low-latency robotics loops.</li>
-<li><strong><a href="storage_optimization__btrfs_file_system_with_transparent_compression_and_snapshots_on_raspberry_pi/">Btrfs Storage Optimizations</a></strong> — Migrate to Btrfs to use transparent zstd compression and automated read-only snapshots.</li>
-<li><strong><a href="high-performance_storage__btrfs_raid_1_with_transparent_compression_on_pi_5/">Btrfs RAID 1 Redundant Storage</a></strong> — Create a self-healing RAID 1 disk array on Raspberry Pi 5 with transparent zstd compression.</li>
-</ul>
-<h2 id="system-administration-security">System Administration &amp; Security<a class="headerlink" href="#system-administration-security" title="Permanent link">¶</a></h2>
-<p>Manage logs, monitor system metrics, configure power systems, and implement best practice server security.</p>
-<ul>
-<li><strong><a href="raspberry_pi_os_trixie_sudo_password_required/">Fix sudo Password Prompts on Trixie</a></strong> — Diagnose authentication failures, set an admin password, repair automation, and apply a narrow sudoers rule when required.</li>
-<li><strong><a href="raspberry_pi_security_hardening_complete_guide/">Security Hardening</a></strong> — Review SSH, firewall, account, and update settings to protect your server from unauthorized logins and attacks.</li>
-<li><strong><a href="raspberry_pi_os_trixie_migration_guide__safe_upgrade_from_bookworm/">Raspberry Pi OS Trixie Migration Guide</a></strong> — Move safely from Bookworm with backups for services, Docker data, and remote access.</li>
-<li><strong><a href="how_to_build_a_portable_hacking_and_security_pentesting_tool_with_raspberry_pi_and_kali_linux/">Portable Pentesting Tool (Kali Linux)</a></strong> — Install Kali Linux, enable monitor mode/packet injection, and perform wireless security audits.</li>
-<li><strong><a href="managing_your_program_as_a_systemd_daemon/">Systemd Daemons</a></strong> — Configure custom scripts and binaries to run as managed background services.</li>
-<li><strong><a href="how_to_run_a_discord_bot_24_7_on_raspberry_pi_with_docker_and_systemd/">Discord Bot 24/7 Hosting</a></strong> — Run your Discord bot continuously using Systemd daemons or containerized Docker Compose.</li>
-<li><strong><a href="automated_backup_strategies/">Automated Backup Strategies</a></strong> — Establish reliable automated snapshot and replication schedules.</li>
-<li><strong><a href="raspberry_pi_temperature_monitoring_and_alerts/">CPU Temperature and Cooling</a></strong> — Check vcgencmd readings, thermal thresholds, Pi 5 fan behaviour, and local warning failures.</li>
-<li><strong><a href="raspberry_pi_benchmark_power_temperature_storage_network_ai/">Reproducible Raspberry Pi Benchmarks</a></strong> — Measure power, temperature, boot, storage, network, and AI performance with repeatable raw-data protocols.</li>
-<li><strong><a href="raspberry_pi_os_performance_optimization_2026/">Raspberry Pi OS Performance Optimization</a></strong> — Route each performance symptom to a measured, reversible optimization.</li>
-<li><strong><a href="raspberry_pi_memory_pressure_zram_oom_benchmark/">Memory Pressure, ZRAM, and OOM Diagnosis</a></strong> — Correlate PSI, swap traffic, compression, latency, and OOM events.</li>
-<li><strong><a href="how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/">Performance Monitoring (Prometheus &amp; Grafana)</a></strong> — Set up Prometheus, Grafana, and Node Exporter using Docker Compose to visualize real-time resource usage and CPU temperature.</li>
-<li><strong><a href="power_saving_on_raspberry_pi_os__complete_optimization_guide/">Power Saving Optimization</a></strong> — Tune system configuration to reduce electricity draw and prolong battery life.</li>
-<li><strong><a href="raspberry_pi_power_consumption_cost_calculator/">Power Consumption and Cost Calculator</a></strong> — Estimate daily, monthly, and annual energy from measured operating states.</li>
-<li><strong><a href="cpu_frequency_scaling/">CPU Frequency and Governors</a></strong> — Read the current clock, diagnose low frequency, and compare available policies without overclocking.</li>
-<li><strong><a href="optimizing_swap_with_zram_on_raspberry_pi_os/">ZRAM Swap Setup and Benchmark</a></strong> — Configure one ZRAM manager and validate its real workload impact.</li>
-<li><strong><a href="raspberry_pi_boot_time_optimization__complete_performance_guide/">Boot Time Optimization</a></strong> — Profile systemd startup times and disable unused services to accelerate boot speeds.</li>
-<li><strong><a href="raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless Setup Guide</a></strong> — Bootstrap a fully operational Raspberry Pi OS image without a monitor or keyboard.</li>
-<li><strong><a href="raspberry_pi_headless_setup_troubleshooter/">Headless Setup Troubleshooter</a></strong> — Diagnose boot, DHCP, mDNS, SSH, key, host-identity, and USB Gadget failures by symptom.</li>
-<li><strong><a href="home_lab__self-hosted_monitoring_dashboard_on_raspberry_pi_5/">Home Lab Monitoring Dashboard</a></strong> — Build a unified monitoring dashboard with Netdata, Uptime Kuma, and Grafana using Docker Compose.</li>
-</ul>
-<h2 id="storage-boot-containers">Storage, Boot &amp; Containers<a class="headerlink" href="#storage-boot-containers" title="Permanent link">¶</a></h2>
-<p>Configure Docker runtimes, mount external drives, and boot from high-performance solid-state drives.</p>
-<ul>
-<li><strong><a href="how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">NVMe SSD Boot (Pi 5)</a></strong> — Enable PCIe Gen 3 modes and configure SSDs as primary boot devices on the Pi 5.</li>
-<li><strong><a href="network_attached_storage__nas__setup_guide/">Network Attached Storage (NAS)</a></strong> — Deploy Samba shares and mount multi-drive RAID storage systems.</li>
-<li><strong><a href="how_to_build_a_raspberry_pi_home_media_server_with_plex_and_jellyfin/">Home Media Server (Plex &amp; Jellyfin)</a></strong> — Configure a containerized personal media server to stream local movie and music libraries to any device.</li>
-<li><strong><a href="how_to_build_a_private_cloud_storage_on_raspberry_pi_with_nextcloud/">Private Cloud Storage (Nextcloud)</a></strong> — Install Nextcloud using Docker Compose to build your own private Dropbox/Google Drive alternative with automated photo backups.</li>
-<li><strong><a href="how_to_move_rootfs_to_external_usb_storage/">External USB Storage</a></strong> — Migrate the OS root filesystem (rootfs) to faster external USB drives.</li>
-<li><strong><a href="configuring_i_o_schedulers_for_improved_sd_card_performance/">I/O Scheduler Optimization</a></strong> — Tune kernel disk schedulers to maximize read/write performance of slow SD cards.</li>
-<li><strong><a href="how_to_create_docker_image_of_raspberry_pi_os/">Docker on Raspberry Pi</a></strong> — Compile, configure, and scale containerized environments efficiently.</li>
-<li><strong><a href="running_a_lightweight_kubernetes_cluster__k3s__on_raspberry_pi/">Lightweight Kubernetes Cluster (k3s)</a></strong> — Set up a multi-node Kubernetes cluster on Raspberry Pi using Rancher's lightweight k3s distribution.</li>
-<li><strong><a href="how_to_build_a_ci_cd_pipeline_for_raspberry_pi_with_docker_and_github_actions/">CI/CD Pipeline with Docker &amp; GitHub Actions</a></strong> — Configure a self-hosted GitHub Actions runner to automate native Docker deployments on push.</li>
-<li><strong><a href="web_performance__high-speed_nginx_fastcgi_caching_optimization_on_raspberry_pi_5/">Nginx FastCGI Caching</a></strong> — Optimize web performance on Raspberry Pi 5 by caching dynamic FastCGI queries in RAM.</li>
-<li><strong><a href="cluster_mastery__multi-node_k3s_cluster_on_raspberry_pi_5/">Multi-Node K3s Cluster</a></strong> — Deploy a lightweight Kubernetes cluster on Raspberry Pi 5 with host-port ingress and local DNS routing.</li>
-<li><strong><a href="devops__self-hosted_github_actions_runner_with_docker_on_pi_5/">Self-Hosted GitHub Actions Runner</a></strong> — Set up a containerized self-hosted GitHub runner to automate native Docker builds.</li>
-</ul>
-<h2 id="productivity-customization">Productivity &amp; Customization<a class="headerlink" href="#productivity-customization" title="Permanent link">¶</a></h2>
-<p>Enhance your desktop usability, customize inputs, and troubleshoot old legacy components.</p>
-<ul>
-<li><strong><a href="enabling_chromium_to_sync_with_google_account/">Chromium Sync and Google Chrome ARM64</a></strong> — Compare Google Account sync options, verify the official ARM64 package, or keep Chromium with safe alternatives.</li>
-<li><strong><a href="google_chrome_arm64_raspberry_pi_update_uninstall/">Update or Uninstall Google Chrome ARM64</a></strong> — Update through APT, repair repository failures, preserve profiles, uninstall safely, or switch browsers.</li>
-<li><strong><a href="google_chrome_arm64_raspberry_pi_install_errors/">Fix Google Chrome ARM64 Errors</a></strong> — Diagnose 404, ARMHF/AMD64 mismatch, APT, startup, profile, sandbox, and Sync problems.</li>
-<li><strong><a href="raspberry_pi_chrome_arm64_chromium_firefox_benchmark/">Chrome vs Chromium vs Firefox Benchmark</a></strong> — Compare startup, PSS memory, page loads, video, stability, and Sync with one protocol.</li>
-<li><strong><a href="remapping_caps_lock_to_control/">Remapping Caps Lock to Control</a></strong> — Reconfigure input maps to optimize typing ergonomics for development.</li>
-</ul>
-<h2 id="gaming-emulation">Gaming &amp; Emulation<a class="headerlink" href="#gaming-emulation" title="Permanent link">¶</a></h2>
-<p>Turn your Raspberry Pi 5 into a high-performance retro gaming console with Vulkan hardware acceleration.</p>
-<ul>
-<li><strong><a href="retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/">PS2 &amp; Sega Saturn Emulation (Vulkan)</a></strong> — Check emulator compatibility and measure performance for the games you want to run.</li>
-</ul></div>
+<p>When a compiler error says a trait is not dyn-compatible, inspect its associated items. For mismatched opaque returns, inspect concrete branch types. For a lifetime error, inspect the erased implementation's borrows and the object bound, not only whether the outer pointer owns its wrapper.</p>
+<h2 id="verification-and-next-step">Verification and next step<a class="headerlink" href="#verification-and-next-step" title="Permanent link">¶</a></h2>
+<p>On October 10, 2026, the lesson was verified on a Raspberry Pi 4B with 64-bit user space, kernel <code>6.18.50+rpt-rpi-v8</code>, Rust and Cargo <code>1.99.0</code>, and edition 2024. Cargo check, all seven tests, formatting and debug/release output comparisons passed. The boxed branch repair returned both present and missing results; same-concrete-type opaque branches also passed. Mixed concrete array elements, incompatible opaque returns, a missing relaxed Sized bound, an associated constant on the object trait and an omitted borrowed-object lifetime failed as expected (E0308, E0277, E0038 and a lifetime diagnostic as applicable). No live sensor or dispatch benchmark is claimed.</p>
+<p>Next in the roadmap are closures and function pointers. That lesson is planned, not yet available.</p>
+<p><a href="../13_lifetimes_and_borrowed_apis/">Previous: lifetimes and borrowed APIs</a> · <a href="../">Course overview</a></p></div>
 
 
 
@@ -7508,7 +7842,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2026 22:32:34 JST">2026-10-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:15:37 JST">2026-10-10</span>
   </span>
 
     
@@ -7518,7 +7852,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 29, 2025 22:57:05 JST">2025-11-29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 13:15:37 JST">2026-10-10</span>
   </span>
 
     
@@ -7537,11 +7871,13 @@
       <h2 id="continue-learning-title">Continue learning</h2>
       <ul>
         
+          <li><a href="https://ohyaan.github.io/rust-learning/">Browse the Rust Learning guide hub</a></li>
         
-          <li><a href="../aosp/run_aaos_on_raspberry_pi/">Previous: Run Android Automotive OS on Raspberry Pi</a></li>
+        
+          <li><a href="../13_lifetimes_and_borrowed_apis/">Previous: Rust Lifetimes and Borrowed APIs on Raspberry Pi</a></li>
         
         
-          <li><a href="automated_backup_strategies/">Next: Automated Backup Strategies</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
@@ -7607,10 +7943,10 @@
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "search.share", "content.code.copy", "content.code.select", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.tracking", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "toc.follow", "toc.integrate", "header.autohide"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
       
