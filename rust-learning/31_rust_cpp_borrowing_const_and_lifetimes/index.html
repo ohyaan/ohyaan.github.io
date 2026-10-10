@@ -2898,18 +2898,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#reject-a-conflicting-access-not-just-an-unwanted-output" class="md-nav__link">
+  <a href="#change-the-requirement-keep-a-label-after-the-owner-changes" class="md-nav__link">
     <span class="md-ellipsis">
-      Reject a conflicting access, not just an unwanted output
+      Change the requirement: keep a label after the owner changes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-the-requirement-keep-a-label-after-the-owner-changes" class="md-nav__link">
+  <a href="#reject-a-conflicting-access-not-just-an-unwanted-output" class="md-nav__link">
     <span class="md-ellipsis">
-      Change the requirement: keep a label after the owner changes
+      Reject a conflicting access, not just an unwanted output
     </span>
   </a>
   
@@ -8673,6 +8673,10 @@
 </tbody>
 </table>
 <p>These are comparisons of specific APIs, not substitutes for their full language rules. Neither const nor a lifetime annotation is a physical measurement or an application correctness proof.</p>
+<h2 id="change-the-requirement-keep-a-label-after-the-owner-changes">Change the requirement: keep a label after the owner changes<a class="headerlink" href="#change-the-requirement-keep-a-label-after-the-owner-changes" title="Permanent link">¶</a></h2>
+<p>Borrowing is suitable when the caller can preserve the owner and its storage. If a report must keep the old label after its source is replaced or destroyed, give the report an owned String/std::string instead of a borrowed view. This is an explicit snapshot requirement, not “clone whenever the compiler complains.”</p>
+<p>Rust's label signature uses <a href="https://doc.rust-lang.org/reference/lifetime-elision.html">lifetime elision</a>: the one input-reference lifetime is assigned to the output reference. Writing the same relationship explicitly does not prolong the owner's life. A function cannot return a borrowed view of its local String. A C++ string_view of local character storage likewise does not become owning because the function returns it, although such a program may compile. Do not execute a dangling-view demonstration to investigate it.</p>
+<p>For a snapshot, copy while the source is valid, mutate or destroy the source, then test that the report retains its original label. Prefer a borrow for immediate inspection and an owned value for independently retained data. Shared ownership introduces another lifetime policy and should not be the default replacement for either.</p>
 <h2 id="reject-a-conflicting-access-not-just-an-unwanted-output">Reject a conflicting access, not just an unwanted output<a class="headerlink" href="#reject-a-conflicting-access-not-just-an-unwanted-output" title="Permanent link">¶</a></h2>
 <p>Save the normal Rust source and temporarily replace it with:</p>
 <div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
@@ -8700,10 +8704,6 @@
 <a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>It fails because assignment through this const reference is forbidden. Assignment through reading is a different access path and is allowed for this non-const object. Do not use const_cast to mutate a genuinely const object: a cast does not make that operation well-defined.</p>
-<h2 id="change-the-requirement-keep-a-label-after-the-owner-changes">Change the requirement: keep a label after the owner changes<a class="headerlink" href="#change-the-requirement-keep-a-label-after-the-owner-changes" title="Permanent link">¶</a></h2>
-<p>Borrowing is suitable when the caller can preserve the owner and its storage. If a report must keep the old label after its source is replaced or destroyed, give the report an owned String/std::string instead of a borrowed view. This is an explicit snapshot requirement, not “clone whenever the compiler complains.”</p>
-<p>Rust's label signature uses <a href="https://doc.rust-lang.org/reference/lifetime-elision.html">lifetime elision</a>: the one input-reference lifetime is assigned to the output reference. Writing the same relationship explicitly does not prolong the owner's life. A function cannot return a borrowed view of its local String. A C++ string_view of local character storage likewise does not become owning because the function returns it, although such a program may compile. Do not execute a dangling-view demonstration to investigate it.</p>
-<p>For a snapshot, copy while the source is valid, mutate or destroy the source, then test that the report retains its original label. Prefer a borrow for immediate inspection and an owned value for independently retained data. Shared ownership introduces another lifetime policy and should not be the default replacement for either.</p>
 <h2 id="exercises-and-verification">Exercises and verification<a class="headerlink" href="#exercises-and-verification" title="Permanent link">¶</a></h2>
 <ol>
 <li>Move the Rust observed assertion after assignment. It must fail compilation; then use the value before mutation and verify the repaired program.</li>
@@ -8737,7 +8737,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 20:51:32 JST">2026-10-10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 22:57:25 JST">2026-10-10</span>
   </span>
 
     

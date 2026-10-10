@@ -3144,6 +3144,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#selection-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selection criteria
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercises-and-verification" class="md-nav__link">
     <span class="md-ellipsis">
       Exercises and verification
@@ -8815,38 +8824,6 @@
 <p>The separate <a href="https://doc.rust-lang.org/reference/items/traits.html">trait</a> accepts a Custom that owns different fields, through a borrowed dyn Describe interface. Adding another local implementation need not modify display. An external crate can implement this public behaviour for its own type if the exposed API and Rust's <a href="https://doc.rust-lang.org/reference/items/implementations.html#trait-implementation-coherence">coherence rules</a> permit it. This example is not a plugin loader or a stable binary ABI.</p>
 <p>However, display knows only the promised describe method. It cannot extract arbitrary numeric payloads from an unknown implementation to invent a new aggregation operation. Extend the behaviour contract, require another suitable trait, or explicitly convert into validated domain data. Do not downcast everything merely to disguise a closed set as an open interface.</p>
 <p>Likewise, adding Pending to Item requires decisions in report and zero_count. Should it count as missing, remain a distinct status, or reject reporting? Define that meaning first, then update each operation. Compilation finding a missing arm is useful evidence that work remains, not a decision about the correct business rule.</p>
-<table>
-<thead>
-<tr>
-<th>Expected change</th>
-<th>Candidate</th>
-<th>Cost that remains</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>More operations over known variants</td>
-<td>Enum plus exhaustive functions; C++ Visitor</td>
-<td>Every new operation needs meaningful handling of every variant</td>
-</tr>
-<tr>
-<td>More implementations of one behaviour</td>
-<td>Trait or virtual behaviour interface</td>
-<td>New operations cannot assume unpromised payloads</td>
-</tr>
-<tr>
-<td>Both variants and operations change frequently</td>
-<td>Reconsider the domain boundary or explicit conversion</td>
-<td>Neither basic approach removes both extension costs</td>
-</tr>
-<tr>
-<td>New enum variants across a public library boundary</td>
-<td>Consider <a href="https://doc.rust-lang.org/reference/attributes/type_system.html#the-non_exhaustive-attribute">non-exhaustive API design</a></td>
-<td>Callers need a deliberate fallback and versioning policy</td>
-</tr>
-</tbody>
-</table>
-<p>These are extension and ownership choices. The fixture measures no dispatch speed, allocation cost or advantage of one language.</p>
 <h2 id="intentional-failures-incomplete-handling-is-not-an-extension">Intentional failures: incomplete handling is not an extension<a class="headerlink" href="#intentional-failures-incomplete-handling-is-not-an-extension" title="Permanent link">¶</a></h2>
 <p>This independent Rust program adds a variant without updating its operation:</p>
 <div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
@@ -8906,6 +8883,39 @@
 <a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>It cannot instantiate the abstract operation. Add the missing override with the intended meaning. The same obligation appears when a new required overload is added to a larger Visitor interface.</p>
+<h2 id="selection-criteria">Selection criteria<a class="headerlink" href="#selection-criteria" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Expected change</th>
+<th>Candidate</th>
+<th>Cost that remains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>More operations over known variants</td>
+<td>Enum plus exhaustive functions; C++ Visitor</td>
+<td>Every new operation needs meaningful handling of every variant</td>
+</tr>
+<tr>
+<td>More implementations of one behaviour</td>
+<td>Trait or virtual behaviour interface</td>
+<td>New operations cannot assume unpromised payloads</td>
+</tr>
+<tr>
+<td>Both variants and operations change frequently</td>
+<td>Reconsider the domain boundary or explicit conversion</td>
+<td>Neither basic approach removes both extension costs</td>
+</tr>
+<tr>
+<td>New enum variants across a public library boundary</td>
+<td>Consider <a href="https://doc.rust-lang.org/reference/attributes/type_system.html#the-non_exhaustive-attribute">non-exhaustive API design</a></td>
+<td>Callers need a deliberate fallback and versioning policy</td>
+</tr>
+</tbody>
+</table>
+<p>These are extension and ownership choices. The fixture measures no dispatch speed, allocation cost or advantage of one language.</p>
 <h2 id="exercises-and-verification">Exercises and verification<a class="headerlink" href="#exercises-and-verification" title="Permanent link">¶</a></h2>
 <ol>
 <li>Add an operation counting present values without changing the data definitions. Confirm that zero and negative values both count, but Missing does not.</li>
@@ -8939,7 +8949,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 22:34:00 JST">2026-10-10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 22:57:25 JST">2026-10-10</span>
   </span>
 
     

@@ -2885,18 +2885,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compile-rejection-is-a-separate-test" class="md-nav__link">
+  <a href="#change-the-requirement-release-can-fail" class="md-nav__link">
     <span class="md-ellipsis">
-      Compile rejection is a separate test
+      Change the requirement: release can fail
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-the-requirement-release-can-fail" class="md-nav__link">
+  <a href="#compile-rejection-is-a-separate-test" class="md-nav__link">
     <span class="md-ellipsis">
-      Change the requirement: release can fail
+      Compile rejection is a separate test
     </span>
   </a>
   
@@ -8683,6 +8683,10 @@
 </table>
 <p>The <a href="https://doc.rust-lang.org/reference/destructors.html">Rust destructor rules</a> separate the Drop implementation from automatic field cleanup and define drop scopes. Rust struct fields are dropped in declaration order; C++ members are destroyed in reverse construction order. Do not mechanically port a structure whose members depend on one another's destruction order. Locals in these examples do not exercise that distinction.</p>
 <p>Neither “owns a value” nor RAII means “must live on the heap.” Standard owning containers and smart pointers manage particular resources; ordinary scalar values usually need no custom destructor. C++ <a href="https://eel.is/c++draft/unique.ptr.single">unique_ptr</a> also expresses exclusive ownership and rejects copying. Do not compare idiomatic safe Rust only with unmanaged C++ pointers.</p>
+<h2 id="change-the-requirement-release-can-fail">Change the requirement: release can fail<a class="headerlink" href="#change-the-requirement-release-can-fail" title="Permanent link">¶</a></h2>
+<p>A real resource might require flushing data, sending a protocol message or committing work, any of which can fail. A destructor has no ordinary return value through which to report success to the original caller. Do not silently turn a required commit into “best effort on drop.”</p>
+<p>Use an explicit operation returning a result when the caller must observe failure; keep cleanup as a non-throwing/non-panicking fallback where practical. Define whether that operation consumes the owner, what happens after failure, and whether retry is allowed. The error-contract and construction lessons will build on that distinction.</p>
+<p>Also, cleanup is not an unconditional execution guarantee. Process abort, abrupt termination and intentional ownership leaks are outside this example's normal-return contract. Rust's safe <a href="https://doc.rust-lang.org/std/mem/fn.forget.html">mem::forget</a> demonstrates why unsafe correctness must not depend on destructors always running. C++ leaks and shared-ownership cycles can likewise prevent intended reclamation. Ownership does not prove absence of deadlocks, resource exhaustion or application errors.</p>
 <h2 id="compile-rejection-is-a-separate-test">Compile rejection is a separate test<a class="headerlink" href="#compile-rejection-is-a-separate-test" title="Permanent link">¶</a></h2>
 <p>Save the working Rust source, then use this independent, deliberately invalid program:</p>
 <div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
@@ -8716,10 +8720,6 @@
 <a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>It must fail because copying unique_ptr is deleted. These two rejections prevent different invalid operations; they do not establish that all Rust and C++ assignments have identical semantics. In particular, Rust's rejected use of <code>first</code> is not the same thing as C++'s specified moved-from state after a successful move.</p>
-<h2 id="change-the-requirement-release-can-fail">Change the requirement: release can fail<a class="headerlink" href="#change-the-requirement-release-can-fail" title="Permanent link">¶</a></h2>
-<p>A real resource might require flushing data, sending a protocol message or committing work, any of which can fail. A destructor has no ordinary return value through which to report success to the original caller. Do not silently turn a required commit into “best effort on drop.”</p>
-<p>Use an explicit operation returning a result when the caller must observe failure; keep cleanup as a non-throwing/non-panicking fallback where practical. Define whether that operation consumes the owner, what happens after failure, and whether retry is allowed. The error-contract and construction lessons will build on that distinction.</p>
-<p>Also, cleanup is not an unconditional execution guarantee. Process abort, abrupt termination and intentional ownership leaks are outside this example's normal-return contract. Rust's safe <a href="https://doc.rust-lang.org/std/mem/fn.forget.html">mem::forget</a> demonstrates why unsafe correctness must not depend on destructors always running. C++ leaks and shared-ownership cycles can likewise prevent intended reclamation. Ownership does not prove absence of deadlocks, resource exhaustion or application errors.</p>
 <h2 id="exercises-and-selection-criteria">Exercises and selection criteria<a class="headerlink" href="#exercises-and-selection-criteria" title="Permanent link">¶</a></h2>
 <ol>
 <li>Add another early return after acquisition. The successful acquisition count must still equal releases on that path; add a test rather than only inspecting stdout.</li>
@@ -8755,7 +8755,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 20:46:06 JST">2026-10-10</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 10, 2026 22:57:25 JST">2026-10-10</span>
   </span>
 
     
