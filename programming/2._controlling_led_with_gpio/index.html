@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Control LEDs with Raspberry Pi GPIO pins. Build electronic circuits, write C++ programs using gpiod, and make an LED blink programmatically.">
+        <meta name="description" content="Wire a resistor-limited LED on Raspberry Pi GPIO24, identify the correct GPIO chip, compile a C++ v2 example, and check output and cleanup safely.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>2. Controlling LED with GPIO - With Raspberry Pi</title>
+        <title>Raspberry Pi LED in C++: Safe Wiring and GPIO v2 Control - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="2. Controlling LED with GPIO - With Raspberry Pi">
-  <meta property="og:description" content="Control LEDs with Raspberry Pi GPIO pins. Build electronic circuits, write C++ programs using gpiod, and make an LED blink programmatically.">
+  <meta property="og:title" content="2. LED Output - With Raspberry Pi">
+  <meta property="og:description" content="Wire a resistor-limited LED on Raspberry Pi GPIO24, identify the correct GPIO chip, compile a C++ v2 example, and check output and cleanup safely.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/programming/2._controlling_led_with_gpio/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/programming__2._controlling_led_with_gpio.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="2. Controlling LED with GPIO">
+  <meta property="og:image:alt" content="2. LED Output">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-06-21">
+    <meta property="article:modified_time" content="2026-10-13">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="2. Controlling LED with GPIO - With Raspberry Pi">
-  <meta name="twitter:description" content="Control LEDs with Raspberry Pi GPIO pins. Build electronic circuits, write C++ programs using gpiod, and make an LED blink programmatically.">
+  <meta name="twitter:title" content="2. LED Output - With Raspberry Pi">
+  <meta name="twitter:description" content="Wire a resistor-limited LED on Raspberry Pi GPIO24, identify the correct GPIO chip, compile a C++ v2 example, and check output and cleanup safely.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/programming__2._controlling_led_with_gpio.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "2. Controlling LED with GPIO",
-    "description": "Control LEDs with Raspberry Pi GPIO pins. Build electronic circuits, write C++ programs using gpiod, and make an LED blink programmatically.",
+    "headline": "2. LED Output",
+    "description": "Wire a resistor-limited LED on Raspberry Pi GPIO24, identify the correct GPIO chip, compile a C++ v2 example, and check output and cleanup safely.",
     "url": "https://ohyaan.github.io/programming/2._controlling_led_with_gpio/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/programming/2._controlling_led_with_gpio/"},
     "image": ["https://ohyaan.github.io/images/og/pages/programming__2._controlling_led_with_gpio.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-06-21"
+    "dateModified": "2026-10-13"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "2. Controlling LED with GPIO", "item": "https://ohyaan.github.io/programming/2._controlling_led_with_gpio/"}
+      {"@type": "ListItem", "position": 2, "name": "2. LED Output", "item": "https://ohyaan.github.io/programming/2._controlling_led_with_gpio/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2-controlling-led-with-gpio" class="md-skip">
+        <a href="#2-controlling-an-led-with-gpio" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2. Controlling LED with GPIO
+              Raspberry Pi LED in C++: Safe Wiring and GPIO v2 Control
             
           </span>
         </div>
@@ -616,7 +616,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
+    Introduction
     
   </span>
   
@@ -638,7 +638,7 @@
         
   
   <span class="md-ellipsis">
-    Hardware Setup for Raspberry Pi: Complete Assembly Guide
+    Hardware Setup
     
   </span>
   
@@ -660,7 +660,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Setup: Install the OS and Connect with SSH
+    Initial Setup and First Login
     
   </span>
   
@@ -755,51 +755,7 @@
         
   
   <span class="md-ellipsis">
-    Essential Linux Commands for Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Raspberry Pi NetworkManager: nmcli Setup and Troubleshooting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Storage Management for Raspberry Pi
+    Terminal Practice
     
   </span>
   
@@ -821,7 +777,29 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Config Command: Open raspi-config and Enable SSH
+    System Settings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
     
   </span>
   
@@ -843,7 +821,29 @@
         
   
   <span class="md-ellipsis">
-    User and Permission Management for Raspberry Pi
+    Users and Permissions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage and Backups
     
   </span>
   
@@ -1678,7 +1678,7 @@
         
   
   <span class="md-ellipsis">
-    1. Programming Basics for Raspberry Pi
+    1. Development Setup
     
   </span>
   
@@ -1709,7 +1709,7 @@
           
   
   <span class="md-ellipsis">
-    2. Controlling LED with GPIO
+    2. LED Output
     
   </span>
   
@@ -1721,7 +1721,7 @@
         
   
   <span class="md-ellipsis">
-    2. Controlling LED with GPIO
+    2. LED Output
     
   </span>
   
@@ -1744,45 +1744,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#required-hardware" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Required Hardware
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-setup" class="md-nav__link">
+  <a href="#1-understand-the-three-numbering-systems" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Setup
+      1. Understand the three numbering systems
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-explanation" class="md-nav__link">
+  <a href="#2-wire-with-all-power-disconnected" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Explanation
+      2. Wire with all power disconnected
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-code" class="md-nav__link">
+  <a href="#3-identify-the-gpio-controller-and-access" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding the Code
+      3. Identify the GPIO controller and access
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#compilation-and-execution" class="md-nav__link">
+  <a href="#4-save-and-build-the-c-gpio-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Compilation and Execution
+      4. Save and build the C++ GPIO example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-apply-only-after-the-wiring-and-chip-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Apply only after the wiring and chip checks
     </span>
   </a>
   
@@ -1798,9 +1807,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-resources" class="md-nav__link">
+  <a href="#check-your-understanding-and-continue" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Resources
+      Check your understanding and continue
     </span>
   </a>
   
@@ -1826,7 +1835,7 @@
         
   
   <span class="md-ellipsis">
-    3. Controlling GPIO Input with a Tactile Switch
+    3. Button Input
     
   </span>
   
@@ -1848,7 +1857,7 @@
         
   
   <span class="md-ellipsis">
-    4. Controlling a Buzzer with PWM
+    4. Buzzer and Hardware PWM
     
   </span>
   
@@ -1870,7 +1879,7 @@
         
   
   <span class="md-ellipsis">
-    5. Controlling a Positional Servo Motor with PWM (Basic)
+    5. Positional Servo
     
   </span>
   
@@ -1892,7 +1901,7 @@
         
   
   <span class="md-ellipsis">
-    6. Controlling a Continuous Rotation Servo Motor with PWM
+    6. Continuous Servo
     
   </span>
   
@@ -8813,47 +8822,8 @@
 
 
 
-<div><h1 id="2-controlling-led-with-gpio">2. Controlling LED with GPIO<a class="headerlink" href="#2-controlling-led-with-gpio" title="Permanent link">¶</a></h1>
-<p>This guide explains how to control an LED using the General Purpose Input/Output (GPIO) pins on a Raspberry Pi. We'll use a C++ program that directly interfaces with the Linux GPIO character device interface.</p>
-<p><img alt="LED" src="../media/led.gif"></p>
-<h2 id="required-hardware">Required Hardware<a class="headerlink" href="#required-hardware" title="Permanent link">¶</a></h2>
-<ul>
-<li>Raspberry Pi (any model)</li>
-<li>LED (1)</li>
-<li>Resistor (220Ω to 330Ω)</li>
-<li>Breadboard</li>
-<li>Jumper wires</li>
-</ul>
-<h2 id="hardware-setup">Hardware Setup<a class="headerlink" href="#hardware-setup" title="Permanent link">¶</a></h2>
-<p>This guide uses GPIO pin 24 for the LED connection. Connect the components as follows:</p>
-<ol>
-<li>Connect the longer leg (anode) of the LED to GPIO 24</li>
-<li>Connect the shorter leg (cathode) of the LED through a resistor to GND (ground)</li>
-</ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Raspberry Pi
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>┌─────────┐
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│         │
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>│      GPIO 24 ────┐
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>│         │        │
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>│         │        │
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>│      GND ─────┐  │
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>│         │     │  │
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>└─────────┘     │  │
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>                R  │
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>                └──┴─┐
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a>                   LED
-</code></pre></div></td></tr></table></div>
+<div><h1 id="2-controlling-an-led-with-gpio">2. Controlling an LED with GPIO<a class="headerlink" href="#2-controlling-an-led-with-gpio" title="Permanent link">¶</a></h1>
+<p>An LED is a useful first output because you can see what the program does. Identify the physical connection and Linux GPIO chip before applying output; successful compilation alone does not check the circuit.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8863,267 +8833,298 @@
   </script>
 </div>
 
-<h2 id="code-explanation">Code Explanation<a class="headerlink" href="#code-explanation" title="Permanent link">¶</a></h2>
-<p>This program uses the Linux Character Device API to control GPIO pins. This method is efficient as it operates in kernel space.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span>
-<span class="normal"><a href="#__codelineno-1-21">21</a></span>
-<span class="normal"><a href="#__codelineno-1-22">22</a></span>
-<span class="normal"><a href="#__codelineno-1-23">23</a></span>
-<span class="normal"><a href="#__codelineno-1-24">24</a></span>
-<span class="normal"><a href="#__codelineno-1-25">25</a></span>
-<span class="normal"><a href="#__codelineno-1-26">26</a></span>
-<span class="normal"><a href="#__codelineno-1-27">27</a></span>
-<span class="normal"><a href="#__codelineno-1-28">28</a></span>
-<span class="normal"><a href="#__codelineno-1-29">29</a></span>
-<span class="normal"><a href="#__codelineno-1-30">30</a></span>
-<span class="normal"><a href="#__codelineno-1-31">31</a></span>
-<span class="normal"><a href="#__codelineno-1-32">32</a></span>
-<span class="normal"><a href="#__codelineno-1-33">33</a></span>
-<span class="normal"><a href="#__codelineno-1-34">34</a></span>
-<span class="normal"><a href="#__codelineno-1-35">35</a></span>
-<span class="normal"><a href="#__codelineno-1-36">36</a></span>
-<span class="normal"><a href="#__codelineno-1-37">37</a></span>
-<span class="normal"><a href="#__codelineno-1-38">38</a></span>
-<span class="normal"><a href="#__codelineno-1-39">39</a></span>
-<span class="normal"><a href="#__codelineno-1-40">40</a></span>
-<span class="normal"><a href="#__codelineno-1-41">41</a></span>
-<span class="normal"><a href="#__codelineno-1-42">42</a></span>
-<span class="normal"><a href="#__codelineno-1-43">43</a></span>
-<span class="normal"><a href="#__codelineno-1-44">44</a></span>
-<span class="normal"><a href="#__codelineno-1-45">45</a></span>
-<span class="normal"><a href="#__codelineno-1-46">46</a></span>
-<span class="normal"><a href="#__codelineno-1-47">47</a></span>
-<span class="normal"><a href="#__codelineno-1-48">48</a></span>
-<span class="normal"><a href="#__codelineno-1-49">49</a></span>
-<span class="normal"><a href="#__codelineno-1-50">50</a></span>
-<span class="normal"><a href="#__codelineno-1-51">51</a></span>
-<span class="normal"><a href="#__codelineno-1-52">52</a></span>
-<span class="normal"><a href="#__codelineno-1-53">53</a></span>
-<span class="normal"><a href="#__codelineno-1-54">54</a></span>
-<span class="normal"><a href="#__codelineno-1-55">55</a></span>
-<span class="normal"><a href="#__codelineno-1-56">56</a></span>
-<span class="normal"><a href="#__codelineno-1-57">57</a></span>
-<span class="normal"><a href="#__codelineno-1-58">58</a></span>
-<span class="normal"><a href="#__codelineno-1-59">59</a></span>
-<span class="normal"><a href="#__codelineno-1-60">60</a></span>
-<span class="normal"><a href="#__codelineno-1-61">61</a></span>
-<span class="normal"><a href="#__codelineno-1-62">62</a></span>
-<span class="normal"><a href="#__codelineno-1-63">63</a></span>
-<span class="normal"><a href="#__codelineno-1-64">64</a></span>
-<span class="normal"><a href="#__codelineno-1-65">65</a></span>
-<span class="normal"><a href="#__codelineno-1-66">66</a></span>
-<span class="normal"><a href="#__codelineno-1-67">67</a></span>
-<span class="normal"><a href="#__codelineno-1-68">68</a></span>
-<span class="normal"><a href="#__codelineno-1-69">69</a></span>
-<span class="normal"><a href="#__codelineno-1-70">70</a></span>
-<span class="normal"><a href="#__codelineno-1-71">71</a></span>
-<span class="normal"><a href="#__codelineno-1-72">72</a></span>
-<span class="normal"><a href="#__codelineno-1-73">73</a></span>
-<span class="normal"><a href="#__codelineno-1-74">74</a></span>
-<span class="normal"><a href="#__codelineno-1-75">75</a></span>
-<span class="normal"><a href="#__codelineno-1-76">76</a></span>
-<span class="normal"><a href="#__codelineno-1-77">77</a></span>
-<span class="normal"><a href="#__codelineno-1-78">78</a></span>
-<span class="normal"><a href="#__codelineno-1-79">79</a></span>
-<span class="normal"><a href="#__codelineno-1-80">80</a></span>
-<span class="normal"><a href="#__codelineno-1-81">81</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="cm">/**</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="cm"> * Simple LED control program using GPIO</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="cm"> *</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="cm"> * This program demonstrates basic GPIO control to blink an LED</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="cm"> * connected to a specified GPIO pin on a Raspberry Pi or similar device.</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="cm"> */</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="p">{</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kGpioChipDevice</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/dev/gpiochip0"</span><span class="p">;</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kGpioPin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="p">;</span><span class="w">          </span><span class="c1">// GPIO pin number for the LED</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kBlinkIntervalMs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span><span class="p">;</span><span class="w"> </span><span class="c1">// Blink interval in milliseconds</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kNumBlinks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">        </span><span class="c1">// Number of times to blink</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22"></a>
-<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="c1">// Open GPIO chip</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">chip_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">kGpioChipDevice</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="p">);</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chip_fd</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to open GPIO chip device"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30"></a>
-<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="c1">// Setup GPIO request</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">gpiohandle_request</span><span class="w"> </span><span class="n">req</span><span class="p">{};</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">lineoffsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">__u32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">kGpioPin</span><span class="p">);</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIOHANDLE_REQUEST_OUTPUT</span><span class="p">;</span>
-<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">consumer_label</span><span class="p">,</span><span class="w"> </span><span class="s">"simple-led"</span><span class="p">);</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37"></a>
-<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">    </span><span class="c1">// Get line handle</span>
-<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_GET_LINEHANDLE_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">req</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to get GPIO line handle"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">);</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45"></a>
-<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="w">    </span><span class="c1">// Blink the LED</span>
-<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"LED blinking started."</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-48" name="__codelineno-1-48"></a>
-<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">kNumBlinks</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">        </span><span class="c1">// Turn LED on</span>
-<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">gpiohandle_data</span><span class="w"> </span><span class="n">data</span><span class="p">{};</span>
-<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">        </span><span class="n">data</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">__u8</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<a id="__codelineno-1-54" name="__codelineno-1-54"></a>
-<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIOHANDLE_SET_LINE_VALUES_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to set GPIO line value"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-60" name="__codelineno-1-60"></a>
-<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span>
-<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">kBlinkIntervalMs</span><span class="p">));</span>
-<a id="__codelineno-1-63" name="__codelineno-1-63"></a>
-<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">        </span><span class="c1">// Turn LED off</span>
-<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">        </span><span class="n">data</span><span class="p">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">__u8</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-66" name="__codelineno-1-66"></a>
-<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIOHANDLE_SET_LINE_VALUES_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to set GPIO line value"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-72" name="__codelineno-1-72"></a>
-<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span>
-<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">kBlinkIntervalMs</span><span class="p">));</span>
-<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-76" name="__codelineno-1-76"></a>
-<a id="__codelineno-1-77" name="__codelineno-1-77"></a><span class="w">    </span><span class="c1">// Clean up resources</span>
-<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">fd</span><span class="p">);</span>
-<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">);</span>
-<a id="__codelineno-1-80" name="__codelineno-1-80"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="p">}</span>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../1._programming_basics_for_raspberry_pi/">C++ Setup</a>. You need a Pi with a 40-pin header, a low-current indicator LED, a <strong>1 kΩ series resistor</strong>, breadboard and jumper wires.</p>
+<p>The wiring below applies to the standard Pi 4/5 header. The available validation board is a Pi 4B. Pi 5 uses a different controller: identify its chip and line information rather than assuming a chip number. The program requires line offset 24 to be named <code>GPIO24</code> and refuses a mismatch.</p>
+<p>All compilation and inspection commands run on the <strong>Pi</strong>. You will first run without hardware access; adding <code>--apply</code> is a separate, deliberate step.</p>
+<h2 id="1-understand-the-three-numbering-systems">1. Understand the three numbering systems<a class="headerlink" href="#1-understand-the-three-numbering-systems" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>This lesson</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical header pin</td>
+<td>18</td>
+<td>Position on the 40-pin connector</td>
+</tr>
+<tr>
+<td>GPIO number</td>
+<td>GPIO24</td>
+<td>The signal assigned to that position</td>
+</tr>
+<tr>
+<td>Chip line offset</td>
+<td>24 on the confirmed header controller</td>
+<td>Index used by the Linux API</td>
+</tr>
+</tbody>
+</table>
+<p>Physical pin 24 is <strong>not</strong> GPIO24. It is a different signal. Check the <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio-and-the-40-pin-header">official header reference</a>, orient the board correctly and locate pin 1 before counting.</p>
+<h2 id="2-wire-with-all-power-disconnected">2. Wire with all power disconnected<a class="headerlink" href="#2-wire-with-all-power-disconnected" title="Permanent link">¶</a></h2>
+<p>Shut the Pi down, wait for shutdown, and unplug power before wiring. Remove other connections to GPIO24.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Physical pin 18 (GPIO24) ── 1 kΩ resistor ── LED anode
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>LED cathode ── Physical pin 6 (GND)
 </code></pre></div></td></tr></table></div>
-<h2 id="understanding-the-code">Understanding the Code<a class="headerlink" href="#understanding-the-code" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>Header Files</strong>:</p>
-<ul>
-<li><code>fcntl.h</code>, <code>linux/gpio.h</code>, <code>sys/ioctl.h</code> are required for accessing Linux GPIO devices</li>
-<li>Standard C++ library headers are also included</li>
-</ul>
-</li>
-<li>
-<p><strong>Constants</strong>:</p>
-<ul>
-<li><code>kGpioChipDevice</code>: Path to the GPIO chip device (usually "/dev/gpiochip0")</li>
-<li><code>kGpioPin</code>: GPIO pin number connected to the LED (24 in this example)</li>
-<li><code>kBlinkIntervalMs</code>: Blinking interval in milliseconds</li>
-<li><code>kNumBlinks</code>: Number of times to blink</li>
-</ul>
-</li>
-<li>
-<p><strong>Opening the GPIO Chip</strong>:</p>
-<ul>
-<li>The <code>open()</code> function is used to open the GPIO device file</li>
-</ul>
-</li>
-<li>
-<p><strong>Configuring the GPIO Pin</strong>:</p>
-<ul>
-<li>A <code>gpiohandle_request</code> structure is configured, setting the pin to output mode</li>
-</ul>
-</li>
-<li>
-<p><strong>Getting a Handle</strong>:</p>
-<ul>
-<li><code>ioctl()</code> is used to get a GPIO line handle</li>
-</ul>
-</li>
-<li>
-<p><strong>Blinking the LED</strong>:</p>
-<ul>
-<li>Inside a loop, <code>ioctl()</code> is used to toggle the GPIO pin value between 1 (on) and 0 (off)</li>
-<li><code>std::this_thread::sleep_for()</code> controls the blinking interval</li>
-</ul>
-</li>
-<li>
-<p><strong>Releasing Resources</strong>:</p>
-<ul>
-<li>All file descriptors are closed at the end</li>
-</ul>
-</li>
-</ol>
-<h2 id="compilation-and-execution">Compilation and Execution<a class="headerlink" href="#compilation-and-execution" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p>Save the code as <code>gpio_led.cpp</code></p>
-</li>
-<li>
-<p>Compile with GCC/G++:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>g++<span class="w"> </span>-o<span class="w"> </span>gpio_led<span class="w"> </span>gpio_led.cpp<span class="w"> </span>-std<span class="o">=</span>c++14
+<p>The anode is usually the longer lead on an untrimmed LED; the cathode often has a shorter lead/flat package edge. Use its datasheet if uncertain. The resistor can be on either side of the LED as long as it is <strong>in series</strong>, not parallel.</p>
+<p>For a red LED with an illustrative 2 V forward drop, <code>(3.3 - 2) / 1000</code> gives about 1.3 mA. Actual current depends on the LED and GPIO voltage. This conservative starting circuit may be dim; do not lower resistance without checking component/current requirements.</p>
+<div class="admonition warning">
+<p class="admonition-title">GPIO is a signal, not a power supply</p>
+<p>Never connect 5 V to GPIO24, short the output to ground, or omit the resistor. Do not substitute a high-power LED, motor or unknown module for the indicator LED.</p>
+</div>
+<p><strong>Check before power:</strong> GPIO24 → resistor → LED → ground is one series path; no wire bridges 5 V or adjacent pins. Then reconnect power and log in.</p>
+<p><img alt="An earlier LED project" src="../media/led.gif"></p>
+<p>The existing demonstration image is not a verification of your wiring or the revised code.</p>
+<h2 id="3-identify-the-gpio-controller-and-access">3. Identify the GPIO controller and access<a class="headerlink" href="#3-identify-the-gpio-controller-and-access" title="Permanent link">¶</a></h2>
+<p>If the inspection commands are absent, install <code>gpiod</code> intentionally with APT; it supplies command-line tools, not a required library for this program.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gpiod
 </code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Run with administrator privileges:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>./gpio_led
+<p>Skip installation if the tools already exist. Review APT's proposed changes before confirming.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>gpiodetect
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>gpioinfo<span class="w"> </span>--version
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>gpioinfo
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>id
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>ls<span class="w"> </span>-l<span class="w"> </span>/dev/gpiochip*
 </code></pre></div></td></tr></table></div>
-</li>
-</ol>
+<p>Find the chip exposing the header signals and its line named <code>GPIO24</code>. Check its offset and consumer/used status. On the validation Pi, <code>gpiodetect</code> reports <code>gpiochip0 [pinctrl-bcm2711] (58 lines)</code> and offset 24 is named <code>GPIO24</code>. This is a Pi 4 observation, not a universal path.</p>
+<p>With libgpiod v2 tools, the targeted inspection command is:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>gpioinfo<span class="w"> </span>-c<span class="w"> </span>gpiochip0<span class="w"> </span><span class="m">24</span>
+</code></pre></div></td></tr></table></div>
+<p>Replace the chip with yours. Older libgpiod v1 tools use different options; <code>gpioinfo --help</code> documents the installed CLI. Do not release a line used by another driver/process merely to complete this exercise.</p>
+<p>The account usually needs the actual device's group access. Use <a href="../../basic-operations/user_and_permission_management_for_raspberry_pi/">Users and Permissions</a> rather than chmodding devices or assuming root is mandatory.</p>
+<h2 id="4-save-and-build-the-c-gpio-example">4. Save and build the C++ GPIO example<a class="headerlink" href="#4-save-and-build-the-c-gpio-example" title="Permanent link">¶</a></h2>
+<p>Create a new project directory, then use nano to save the code below as <code>gpio_led.cpp</code>. The <a href="../examples/gpio_led.cpp">downloadable source</a> is the same program.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">led_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/pi-led-practice.XXXXXX"</span><span class="k">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$led_dir</span><span class="s2">"</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>nano<span class="w"> </span>gpio_led.cpp
+</code></pre></div></td></tr></table></div>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span>
+<span class="normal"><a href="#__codelineno-5-29">29</a></span>
+<span class="normal"><a href="#__codelineno-5-30">30</a></span>
+<span class="normal"><a href="#__codelineno-5-31">31</a></span>
+<span class="normal"><a href="#__codelineno-5-32">32</a></span>
+<span class="normal"><a href="#__codelineno-5-33">33</a></span>
+<span class="normal"><a href="#__codelineno-5-34">34</a></span>
+<span class="normal"><a href="#__codelineno-5-35">35</a></span>
+<span class="normal"><a href="#__codelineno-5-36">36</a></span>
+<span class="normal"><a href="#__codelineno-5-37">37</a></span>
+<span class="normal"><a href="#__codelineno-5-38">38</a></span>
+<span class="normal"><a href="#__codelineno-5-39">39</a></span>
+<span class="normal"><a href="#__codelineno-5-40">40</a></span>
+<span class="normal"><a href="#__codelineno-5-41">41</a></span>
+<span class="normal"><a href="#__codelineno-5-42">42</a></span>
+<span class="normal"><a href="#__codelineno-5-43">43</a></span>
+<span class="normal"><a href="#__codelineno-5-44">44</a></span>
+<span class="normal"><a href="#__codelineno-5-45">45</a></span>
+<span class="normal"><a href="#__codelineno-5-46">46</a></span>
+<span class="normal"><a href="#__codelineno-5-47">47</a></span>
+<span class="normal"><a href="#__codelineno-5-48">48</a></span>
+<span class="normal"><a href="#__codelineno-5-49">49</a></span>
+<span class="normal"><a href="#__codelineno-5-50">50</a></span>
+<span class="normal"><a href="#__codelineno-5-51">51</a></span>
+<span class="normal"><a href="#__codelineno-5-52">52</a></span>
+<span class="normal"><a href="#__codelineno-5-53">53</a></span>
+<span class="normal"><a href="#__codelineno-5-54">54</a></span>
+<span class="normal"><a href="#__codelineno-5-55">55</a></span>
+<span class="normal"><a href="#__codelineno-5-56">56</a></span>
+<span class="normal"><a href="#__codelineno-5-57">57</a></span>
+<span class="normal"><a href="#__codelineno-5-58">58</a></span>
+<span class="normal"><a href="#__codelineno-5-59">59</a></span>
+<span class="normal"><a href="#__codelineno-5-60">60</a></span>
+<span class="normal"><a href="#__codelineno-5-61">61</a></span>
+<span class="normal"><a href="#__codelineno-5-62">62</a></span>
+<span class="normal"><a href="#__codelineno-5-63">63</a></span>
+<span class="normal"><a href="#__codelineno-5-64">64</a></span>
+<span class="normal"><a href="#__codelineno-5-65">65</a></span>
+<span class="normal"><a href="#__codelineno-5-66">66</a></span>
+<span class="normal"><a href="#__codelineno-5-67">67</a></span>
+<span class="normal"><a href="#__codelineno-5-68">68</a></span>
+<span class="normal"><a href="#__codelineno-5-69">69</a></span>
+<span class="normal"><a href="#__codelineno-5-70">70</a></span>
+<span class="normal"><a href="#__codelineno-5-71">71</a></span>
+<span class="normal"><a href="#__codelineno-5-72">72</a></span>
+<span class="normal"><a href="#__codelineno-5-73">73</a></span>
+<span class="normal"><a href="#__codelineno-5-74">74</a></span>
+<span class="normal"><a href="#__codelineno-5-75">75</a></span>
+<span class="normal"><a href="#__codelineno-5-76">76</a></span>
+<span class="normal"><a href="#__codelineno-5-77">77</a></span>
+<span class="normal"><a href="#__codelineno-5-78">78</a></span>
+<span class="normal"><a href="#__codelineno-5-79">79</a></span>
+<span class="normal"><a href="#__codelineno-5-80">80</a></span>
+<span class="normal"><a href="#__codelineno-5-81">81</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cerrno&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;csignal&gt;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="k">volatile</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">sig_atomic_t</span><span class="w"> </span><span class="n">stopped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stopped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="p">}</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="p">{</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="p">;</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">        </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="s">"--apply"</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Usage: gpio_led /dev/gpiochipN [--apply]</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Dry run: GPIO24, physical pin 18, ten 500 ms blinks.</span><span class="se">\n</span><span class="s">"</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27"></a><span class="w">                     </span><span class="s">"Verify chip and wiring before adding --apply.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">chip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_CLOEXEC</span><span class="p">);</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chip</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Open chip: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-37" name="__codelineno-5-37"></a><span class="w">    </span><span class="n">gpio_v2_line_info</span><span class="w"> </span><span class="n">info</span><span class="p">{};</span>
+<a id="__codelineno-5-38" name="__codelineno-5-38"></a><span class="w">    </span><span class="n">info</span><span class="p">.</span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span>
+<a id="__codelineno-5-39" name="__codelineno-5-39"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_GET_LINEINFO_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-5-40" name="__codelineno-5-40"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">"GPIO24"</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-41" name="__codelineno-5-41"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Cannot confirm GPIO24 at offset 24; no line requested.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-5-42" name="__codelineno-5-42"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-5-43" name="__codelineno-5-43"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-44" name="__codelineno-5-44"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-45" name="__codelineno-5-45"></a><span class="w">    </span><span class="n">gpio_v2_line_request</span><span class="w"> </span><span class="n">request</span><span class="p">{};</span>
+<a id="__codelineno-5-46" name="__codelineno-5-46"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span>
+<a id="__codelineno-5-47" name="__codelineno-5-47"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-48" name="__codelineno-5-48"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_V2_LINE_FLAG_OUTPUT</span><span class="p">;</span>
+<a id="__codelineno-5-49" name="__codelineno-5-49"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">num_attrs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-50" name="__codelineno-5-50"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">attrs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">attr</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_V2_LINE_ATTR_ID_OUTPUT_VALUES</span><span class="p">;</span>
+<a id="__codelineno-5-51" name="__codelineno-5-51"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">attrs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">attr</span><span class="p">.</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Initially low.</span>
+<a id="__codelineno-5-52" name="__codelineno-5-52"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">attrs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">       </span><span class="c1">// Index 0 in the requested set.</span>
+<a id="__codelineno-5-53" name="__codelineno-5-53"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">consumer</span><span class="p">,</span><span class="w"> </span><span class="s">"pi-course-led"</span><span class="p">);</span>
+<a id="__codelineno-5-54" name="__codelineno-5-54"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_GET_LINE_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-55" name="__codelineno-5-55"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Request GPIO24: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-5-56" name="__codelineno-5-56"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-5-57" name="__codelineno-5-57"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-58" name="__codelineno-5-58"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-59" name="__codelineno-5-59"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">set_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">bool</span><span class="w"> </span><span class="n">high</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-60" name="__codelineno-5-60"></a><span class="w">        </span><span class="n">gpio_v2_line_values</span><span class="w"> </span><span class="n">values</span><span class="p">{};</span>
+<a id="__codelineno-5-61" name="__codelineno-5-61"></a><span class="w">        </span><span class="n">values</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-62" name="__codelineno-5-62"></a><span class="w">        </span><span class="n">values</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-63" name="__codelineno-5-63"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_LINE_SET_VALUES_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-64" name="__codelineno-5-64"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Set value: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-5-65" name="__codelineno-5-65"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-5-66" name="__codelineno-5-66"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-5-67" name="__codelineno-5-67"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-5-68" name="__codelineno-5-68"></a><span class="w">    </span><span class="p">};</span>
+<a id="__codelineno-5-69" name="__codelineno-5-69"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-5-70" name="__codelineno-5-70"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">blink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">blink</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">stopped</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">blink</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-71" name="__codelineno-5-71"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">set_value</span><span class="p">(</span><span class="nb">true</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-72" name="__codelineno-5-72"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span>
+<a id="__codelineno-5-73" name="__codelineno-5-73"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">set_value</span><span class="p">(</span><span class="nb">false</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-74" name="__codelineno-5-74"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">500</span><span class="p">));</span>
+<a id="__codelineno-5-75" name="__codelineno-5-75"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-76" name="__codelineno-5-76"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">set_value</span><span class="p">(</span><span class="nb">false</span><span class="p">))</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-5-77" name="__codelineno-5-77"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">fd</span><span class="p">);</span>
+<a id="__codelineno-5-78" name="__codelineno-5-78"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-5-79" name="__codelineno-5-79"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Line released; inspect the LED before disconnecting power.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-5-80" name="__codelineno-5-80"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-5-81" name="__codelineno-5-81"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Build and run the planning mode:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-g<span class="w"> </span>-pthread<span class="w"> </span>gpio_led.cpp<span class="w"> </span>-o<span class="w"> </span>gpio_led
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>./gpio_led<span class="w"> </span>/dev/gpiochip0
+</code></pre></div></td></tr></table></div>
+<p>Use your confirmed chip path. Without <code>--apply</code> the program prints the intended line and ten slow blinks, but does <strong>not</strong> open a GPIO device.</p>
+<h2 id="5-apply-only-after-the-wiring-and-chip-checks">5. Apply only after the wiring and chip checks<a class="headerlink" href="#5-apply-only-after-the-wiring-and-chip-checks" title="Permanent link">¶</a></h2>
+<p>The following requests GPIO24 as an output, initially low, then blinks it ten times at approximately half a second on/off:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>./gpio_led<span class="w"> </span>/dev/gpiochip0<span class="w"> </span>--apply
+</code></pre></div></td></tr></table></div>
+<p><strong>Success:</strong> the LED alternates visibly and is low before the program releases the line. Use Ctrl+C to stop normally; the signal handler sets a flag, and the main loop performs cleanup. Cleanup may take up to roughly one blink cycle.</p>
+<p>The API mask <code>1</code> selects index 0 of the <strong>requested line set</strong>, not “GPIO1”. The kernel owns the line request until its descriptor is closed. These operations occur from a userspace process; it is incorrect to call the entire program kernel-space code.</p>
+<p>This is slow visible blinking, not precise PWM. Linux scheduling can delay the sleep. Release does not guarantee the pin remains low indefinitely; reset, another consumer or forced termination can change its state. It is not a safety controller.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>"Failed to open GPIO chip device" Error</strong>:</p>
-<ul>
-<li>Ensure you're running the program with sudo privileges</li>
-<li>Verify that the GPIO device file (/dev/gpiochip0) exists</li>
-</ul>
-</li>
-<li>
-<p><strong>"Failed to get GPIO line handle" Error</strong>:</p>
-<ul>
-<li>Check that the pin number is correct</li>
-<li>Make sure no other process is using the same pin</li>
-</ul>
-</li>
-<li>
-<p><strong>LED Doesn't Light Up</strong>:</p>
-<ul>
-<li>Check your wiring</li>
-<li>Verify the LED orientation is correct</li>
-<li>Ensure the resistor value is appropriate</li>
-</ul>
-</li>
-</ol>
-<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="https://www.raspberrypi.org/documentation/usage/gpio/">Raspberry Pi GPIO Documentation</a></li>
-<li><a href="https://www.kernel.org/doc/Documentation/gpio/gpio-char.txt">Linux GPIO Character Device API Documentation</a></li>
-<li><a href="https://en.cppreference.com/w/cpp/thread">C++ Thread Support Library</a></li>
-</ul></div>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Open chip: Permission denied</code></td>
+<td>Correct path, device mode and current-session groups</td>
+</tr>
+<tr>
+<td>Cannot confirm GPIO24</td>
+<td>Wrong chip, unsupported line names or offset; stop and inspect</td>
+</tr>
+<tr>
+<td>Line request busy</td>
+<td>Existing consumer; do not forcibly take it</td>
+</tr>
+<tr>
+<td>Program works but LED stays dark</td>
+<td>Power off and check physical pin, LED polarity and series resistor</td>
+</tr>
+<tr>
+<td>LED always on</td>
+<td>Verify wiring and whether another source powers it</td>
+</tr>
+<tr>
+<td>Compiler lacks v2 definitions</td>
+<td>Current Linux headers; do not silently switch to an old incompatible example</td>
+</tr>
+</tbody>
+</table>
+<p>Compilation, planning mode, argument/error paths and chip metadata are verified separately. <strong>The revised LED circuit was not connected or physically blink-tested for this revision.</strong> Do not treat its dry run as an electrical test.</p>
+<h2 id="check-your-understanding-and-continue">Check your understanding and continue<a class="headerlink" href="#check-your-understanding-and-continue" title="Permanent link">¶</a></h2>
+<p>Can you point to GPIO24's physical pin and its Linux chip offset without confusing them? Why must the resistor be in series? What happens when the program releases a request?</p>
+<p>Next, learn <a href="../3._controlling_gpio_input_with_a_tactile_switch/">Button Input</a>.</p></div>
 
 
 
@@ -9146,7 +9147,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 13, 2026 23:49:14 JST">2026-10-13</span>
   </span>
 
     
@@ -9178,10 +9179,10 @@
           <li><a href="https://ohyaan.github.io/programming/">Browse the Programming guide hub</a></li>
         
         
-          <li><a href="../1._programming_basics_for_raspberry_pi/">Previous: 1. Programming Basics for Raspberry Pi</a></li>
+          <li><a href="../1._programming_basics_for_raspberry_pi/">Previous: 1. Development Setup</a></li>
         
         
-          <li><a href="../3._controlling_gpio_input_with_a_tactile_switch/">Next: 3. Controlling GPIO Input with a Tactile Switch</a></li>
+          <li><a href="../3._controlling_gpio_input_with_a_tactile_switch/">Next: 3. Button Input</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Read button inputs using Raspberry Pi GPIO. Learn tactile switch wiring, configure pull-up and pull-down resistors, and handle switch debouncing.">
+        <meta name="description" content="Connect a button between Raspberry Pi GPIO22 and ground, understand active-low input, and compile a C++ GPIO v2 example with explicit debounce logic.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>3. Controlling GPIO Input with a Tactile Switch - With Raspberry Pi</title>
+        <title>Raspberry Pi Button in C++: Pull-Ups and Stable-State Debouncing - With Raspberry Pi</title>
       
     
     
@@ -78,25 +78,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="3. Controlling GPIO Input with a Tactile Switch - With Raspberry Pi">
-  <meta property="og:description" content="Read button inputs using Raspberry Pi GPIO. Learn tactile switch wiring, configure pull-up and pull-down resistors, and handle switch debouncing.">
+  <meta property="og:title" content="3. Button Input - With Raspberry Pi">
+  <meta property="og:description" content="Connect a button between Raspberry Pi GPIO22 and ground, understand active-low input, and compile a C++ GPIO v2 example with explicit debounce logic.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/programming/3._controlling_gpio_input_with_a_tactile_switch/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/programming__3._controlling_gpio_input_with_a_tactile_switch.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="3. Controlling GPIO Input with a Tactile Switch">
+  <meta property="og:image:alt" content="3. Button Input">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-06-21">
+    <meta property="article:modified_time" content="2026-10-13">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="3. Controlling GPIO Input with a Tactile Switch - With Raspberry Pi">
-  <meta name="twitter:description" content="Read button inputs using Raspberry Pi GPIO. Learn tactile switch wiring, configure pull-up and pull-down resistors, and handle switch debouncing.">
+  <meta name="twitter:title" content="3. Button Input - With Raspberry Pi">
+  <meta name="twitter:description" content="Connect a button between Raspberry Pi GPIO22 and ground, understand active-low input, and compile a C++ GPIO v2 example with explicit debounce logic.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/programming__3._controlling_gpio_input_with_a_tactile_switch.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -116,8 +116,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "3. Controlling GPIO Input with a Tactile Switch",
-    "description": "Read button inputs using Raspberry Pi GPIO. Learn tactile switch wiring, configure pull-up and pull-down resistors, and handle switch debouncing.",
+    "headline": "3. Button Input",
+    "description": "Connect a button between Raspberry Pi GPIO22 and ground, understand active-low input, and compile a C++ GPIO v2 example with explicit debounce logic.",
     "url": "https://ohyaan.github.io/programming/3._controlling_gpio_input_with_a_tactile_switch/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/programming/3._controlling_gpio_input_with_a_tactile_switch/"},
     "image": ["https://ohyaan.github.io/images/og/pages/programming__3._controlling_gpio_input_with_a_tactile_switch.jpg"],
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-06-21"
+    "dateModified": "2026-10-13"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "3. Controlling GPIO Input with a Tactile Switch", "item": "https://ohyaan.github.io/programming/3._controlling_gpio_input_with_a_tactile_switch/"}
+      {"@type": "ListItem", "position": 2, "name": "3. Button Input", "item": "https://ohyaan.github.io/programming/3._controlling_gpio_input_with_a_tactile_switch/"}
     ]
   }
   </script>
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3. Controlling GPIO Input with a Tactile Switch
+              Raspberry Pi Button in C++: Pull-Ups and Stable-State Debouncing
             
           </span>
         </div>
@@ -616,7 +616,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Raspberry Pi: Complete Beginner's Guide 2026
+    Introduction
     
   </span>
   
@@ -638,7 +638,7 @@
         
   
   <span class="md-ellipsis">
-    Hardware Setup for Raspberry Pi: Complete Assembly Guide
+    Hardware Setup
     
   </span>
   
@@ -660,7 +660,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Setup: Install the OS and Connect with SSH
+    Initial Setup and First Login
     
   </span>
   
@@ -755,51 +755,7 @@
         
   
   <span class="md-ellipsis">
-    Essential Linux Commands for Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Raspberry Pi NetworkManager: nmcli Setup and Troubleshooting
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Storage Management for Raspberry Pi
+    Terminal Practice
     
   </span>
   
@@ -821,7 +777,29 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi Config Command: Open raspi-config and Enable SSH
+    System Settings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Networking
     
   </span>
   
@@ -843,7 +821,29 @@
         
   
   <span class="md-ellipsis">
-    User and Permission Management for Raspberry Pi
+    Users and Permissions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic-operations/storage_management_for_raspberry_pi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage and Backups
     
   </span>
   
@@ -1678,7 +1678,7 @@
         
   
   <span class="md-ellipsis">
-    1. Programming Basics for Raspberry Pi
+    1. Development Setup
     
   </span>
   
@@ -1700,7 +1700,7 @@
         
   
   <span class="md-ellipsis">
-    2. Controlling LED with GPIO
+    2. LED Output
     
   </span>
   
@@ -1731,7 +1731,7 @@
           
   
   <span class="md-ellipsis">
-    3. Controlling GPIO Input with a Tactile Switch
+    3. Button Input
     
   </span>
   
@@ -1743,7 +1743,7 @@
         
   
   <span class="md-ellipsis">
-    3. Controlling GPIO Input with a Tactile Switch
+    3. Button Input
     
   </span>
   
@@ -1766,72 +1766,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#required-hardware" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Required Hardware
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-setup" class="md-nav__link">
+  <a href="#1-wire-and-understand-the-button" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Setup
+      1. Wire and understand the button
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#2-verify-the-chip-and-input-line" class="md-nav__link">
     <span class="md-ellipsis">
-      How it Works
+      2. Verify the chip and input line
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-explanation" class="md-nav__link">
+  <a href="#3-save-and-compile-the-program" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Explanation
+      3. Save and compile the program
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-program-elements" class="md-nav__link">
+  <a href="#4-read-actual-button-transitions" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Program Elements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#compiling-and-running" class="md-nav__link">
-    <span class="md-ellipsis">
-      Compiling and Running
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-works-in-detail" class="md-nav__link">
-    <span class="md-ellipsis">
-      How It Works in Detail
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Considerations
+      4. Read actual button transitions
     </span>
   </a>
   
@@ -1841,6 +1814,15 @@
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-your-understanding-and-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check your understanding and continue
     </span>
   </a>
   
@@ -1866,7 +1848,7 @@
         
   
   <span class="md-ellipsis">
-    4. Controlling a Buzzer with PWM
+    4. Buzzer and Hardware PWM
     
   </span>
   
@@ -1888,7 +1870,7 @@
         
   
   <span class="md-ellipsis">
-    5. Controlling a Positional Servo Motor with PWM (Basic)
+    5. Positional Servo
     
   </span>
   
@@ -1910,7 +1892,7 @@
         
   
   <span class="md-ellipsis">
-    6. Controlling a Continuous Rotation Servo Motor with PWM
+    6. Continuous Servo
     
   </span>
   
@@ -8832,43 +8814,7 @@
 
 
 <div><h1 id="3-controlling-gpio-input-with-a-tactile-switch">3. Controlling GPIO Input with a Tactile Switch<a class="headerlink" href="#3-controlling-gpio-input-with-a-tactile-switch" title="Permanent link">¶</a></h1>
-<p>This guide explains how to use a tactile switch (push button) with the Raspberry Pi's GPIO pins. We'll use a C++ program that utilizes the Linux GPIO v2 character device interface to detect button presses.</p>
-<p><img alt="Tactile switch" src="../media/tactile_switch.jpg" width="300"></p>
-<h2 id="required-hardware">Required Hardware<a class="headerlink" href="#required-hardware" title="Permanent link">¶</a></h2>
-<ul>
-<li>Raspberry Pi (any model)</li>
-<li>Tactile switch/push button (1)</li>
-<li>Jumper wires</li>
-<li>Breadboard (optional, but recommended)</li>
-</ul>
-<h2 id="hardware-setup">Hardware Setup<a class="headerlink" href="#hardware-setup" title="Permanent link">¶</a></h2>
-<p>This guide uses GPIO pin 22 for the tact switch connection. Connect the components as follows:</p>
-<ol>
-<li>Connect one leg of the tact switch to GPIO 22</li>
-<li>Connect the other leg of the tact switch to GND (ground)</li>
-</ol>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Raspberry Pi
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>┌─────────┐
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│         │
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>│      GPIO 22 ────┐
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>│         │        │
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>│         │        │
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>│      GND ─────┐  │
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>│         │     │  │
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>└─────────┘     └──┘
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>                 │
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>              Button
-</code></pre></div></td></tr></table></div>
+<p>A push button connects or disconnects a circuit; it does not produce a reliable digital value by itself. This lesson uses an input pull-up and accepts a state only after it remains stable for a short interval.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8878,301 +8824,280 @@
   </script>
 </div>
 
-<h2 id="how-it-works">How it Works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h2>
-<p>When you press the button, it connects GPIO 22 to GND, creating a LOW signal. The program detects this state change and responds accordingly.</p>
-<p>The code uses internal pull-up resistors, so no external resistors are required. When the button is not pressed, the pin reads HIGH; when pressed, it reads LOW (active-low configuration).</p>
-<h2 id="code-explanation">Code Explanation<a class="headerlink" href="#code-explanation" title="Permanent link">¶</a></h2>
-<p>This program uses the Linux GPIO v2 Character Device API to monitor a tact switch:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span>
-<span class="normal"><a href="#__codelineno-1-21">21</a></span>
-<span class="normal"><a href="#__codelineno-1-22">22</a></span>
-<span class="normal"><a href="#__codelineno-1-23">23</a></span>
-<span class="normal"><a href="#__codelineno-1-24">24</a></span>
-<span class="normal"><a href="#__codelineno-1-25">25</a></span>
-<span class="normal"><a href="#__codelineno-1-26">26</a></span>
-<span class="normal"><a href="#__codelineno-1-27">27</a></span>
-<span class="normal"><a href="#__codelineno-1-28">28</a></span>
-<span class="normal"><a href="#__codelineno-1-29">29</a></span>
-<span class="normal"><a href="#__codelineno-1-30">30</a></span>
-<span class="normal"><a href="#__codelineno-1-31">31</a></span>
-<span class="normal"><a href="#__codelineno-1-32">32</a></span>
-<span class="normal"><a href="#__codelineno-1-33">33</a></span>
-<span class="normal"><a href="#__codelineno-1-34">34</a></span>
-<span class="normal"><a href="#__codelineno-1-35">35</a></span>
-<span class="normal"><a href="#__codelineno-1-36">36</a></span>
-<span class="normal"><a href="#__codelineno-1-37">37</a></span>
-<span class="normal"><a href="#__codelineno-1-38">38</a></span>
-<span class="normal"><a href="#__codelineno-1-39">39</a></span>
-<span class="normal"><a href="#__codelineno-1-40">40</a></span>
-<span class="normal"><a href="#__codelineno-1-41">41</a></span>
-<span class="normal"><a href="#__codelineno-1-42">42</a></span>
-<span class="normal"><a href="#__codelineno-1-43">43</a></span>
-<span class="normal"><a href="#__codelineno-1-44">44</a></span>
-<span class="normal"><a href="#__codelineno-1-45">45</a></span>
-<span class="normal"><a href="#__codelineno-1-46">46</a></span>
-<span class="normal"><a href="#__codelineno-1-47">47</a></span>
-<span class="normal"><a href="#__codelineno-1-48">48</a></span>
-<span class="normal"><a href="#__codelineno-1-49">49</a></span>
-<span class="normal"><a href="#__codelineno-1-50">50</a></span>
-<span class="normal"><a href="#__codelineno-1-51">51</a></span>
-<span class="normal"><a href="#__codelineno-1-52">52</a></span>
-<span class="normal"><a href="#__codelineno-1-53">53</a></span>
-<span class="normal"><a href="#__codelineno-1-54">54</a></span>
-<span class="normal"><a href="#__codelineno-1-55">55</a></span>
-<span class="normal"><a href="#__codelineno-1-56">56</a></span>
-<span class="normal"><a href="#__codelineno-1-57">57</a></span>
-<span class="normal"><a href="#__codelineno-1-58">58</a></span>
-<span class="normal"><a href="#__codelineno-1-59">59</a></span>
-<span class="normal"><a href="#__codelineno-1-60">60</a></span>
-<span class="normal"><a href="#__codelineno-1-61">61</a></span>
-<span class="normal"><a href="#__codelineno-1-62">62</a></span>
-<span class="normal"><a href="#__codelineno-1-63">63</a></span>
-<span class="normal"><a href="#__codelineno-1-64">64</a></span>
-<span class="normal"><a href="#__codelineno-1-65">65</a></span>
-<span class="normal"><a href="#__codelineno-1-66">66</a></span>
-<span class="normal"><a href="#__codelineno-1-67">67</a></span>
-<span class="normal"><a href="#__codelineno-1-68">68</a></span>
-<span class="normal"><a href="#__codelineno-1-69">69</a></span>
-<span class="normal"><a href="#__codelineno-1-70">70</a></span>
-<span class="normal"><a href="#__codelineno-1-71">71</a></span>
-<span class="normal"><a href="#__codelineno-1-72">72</a></span>
-<span class="normal"><a href="#__codelineno-1-73">73</a></span>
-<span class="normal"><a href="#__codelineno-1-74">74</a></span>
-<span class="normal"><a href="#__codelineno-1-75">75</a></span>
-<span class="normal"><a href="#__codelineno-1-76">76</a></span>
-<span class="normal"><a href="#__codelineno-1-77">77</a></span>
-<span class="normal"><a href="#__codelineno-1-78">78</a></span>
-<span class="normal"><a href="#__codelineno-1-79">79</a></span>
-<span class="normal"><a href="#__codelineno-1-80">80</a></span>
-<span class="normal"><a href="#__codelineno-1-81">81</a></span>
-<span class="normal"><a href="#__codelineno-1-82">82</a></span>
-<span class="normal"><a href="#__codelineno-1-83">83</a></span>
-<span class="normal"><a href="#__codelineno-1-84">84</a></span>
-<span class="normal"><a href="#__codelineno-1-85">85</a></span>
-<span class="normal"><a href="#__codelineno-1-86">86</a></span>
-<span class="normal"><a href="#__codelineno-1-87">87</a></span>
-<span class="normal"><a href="#__codelineno-1-88">88</a></span>
-<span class="normal"><a href="#__codelineno-1-89">89</a></span>
-<span class="normal"><a href="#__codelineno-1-90">90</a></span>
-<span class="normal"><a href="#__codelineno-1-91">91</a></span>
-<span class="normal"><a href="#__codelineno-1-92">92</a></span>
-<span class="normal"><a href="#__codelineno-1-93">93</a></span>
-<span class="normal"><a href="#__codelineno-1-94">94</a></span>
-<span class="normal"><a href="#__codelineno-1-95">95</a></span>
-<span class="normal"><a href="#__codelineno-1-96">96</a></span>
-<span class="normal"><a href="#__codelineno-1-97">97</a></span>
-<span class="normal"><a href="#__codelineno-1-98">98</a></span>
-<span class="normal"><a href="#__codelineno-1-99">99</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="cm">/**</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="cm"> * Simple tact switch monitoring program using GPIO v2 API</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="cm"> *</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="cm"> * This program waits for a button press on a GPIO pin</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="cm"> * and then exits when the button is pressed.</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="cm"> */</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="p">{</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kGpioChipDevice</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/dev/gpiochip0"</span><span class="p">;</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kSwitchPin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span><span class="w">       </span><span class="c1">// GPIO pin number for the tact switch</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kPollIntervalMs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="c1">// Poll interval in milliseconds</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">kConsumerLabel</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"tact-switch"</span><span class="p">;</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22"></a>
-<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="c1">// Open GPIO chip</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">chip_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">kGpioChipDevice</span><span class="p">,</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="p">);</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chip_fd</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to open GPIO chip device"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-30" name="__codelineno-1-30"></a>
-<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="c1">// Using GPIO v2 API</span>
-<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">    </span><span class="c1">// First, get the GPIO line using v2 API</span>
-<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">gpio_v2_line_request</span><span class="w"> </span><span class="n">req</span><span class="p">{};</span>
-<a id="__codelineno-1-34" name="__codelineno-1-34"></a>
-<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">    </span><span class="c1">// Configure which lines we want</span>
-<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">__u32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">kSwitchPin</span><span class="p">);</span>
-<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-38" name="__codelineno-1-38"></a>
-<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">    </span><span class="c1">// Configure line as input</span>
-<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">gpio_v2_line_config</span><span class="w"> </span><span class="n">config</span><span class="p">{};</span>
-<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">    </span><span class="n">config</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_V2_LINE_FLAG_INPUT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GPIO_V2_LINE_FLAG_BIAS_PULL_UP</span><span class="p">;</span>
-<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="w">    </span><span class="n">req</span><span class="p">.</span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config</span><span class="p">;</span>
-<a id="__codelineno-1-43" name="__codelineno-1-43"></a>
-<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="c1">// Set consumer label</span>
-<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strncpy</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">consumer</span><span class="p">,</span><span class="w"> </span><span class="n">kConsumerLabel</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">consumer</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<a id="__codelineno-1-46" name="__codelineno-1-46"></a>
-<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">    </span><span class="c1">// Request the line</span>
-<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_GET_LINE_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">req</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to get GPIO v2 line: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span>
-<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">                  </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">);</span>
-<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-55" name="__codelineno-1-55"></a>
-<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">line_fd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">fd</span><span class="p">;</span>
-<a id="__codelineno-1-57" name="__codelineno-1-57"></a>
-<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Waiting for button press on GPIO "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">kSwitchPin</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"..."</span>
-<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-60" name="__codelineno-1-60"></a>
-<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">    </span><span class="c1">// Wait for button press</span>
-<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">button_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">button_pressed</span><span class="p">)</span>
-<a id="__codelineno-1-64" name="__codelineno-1-64"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">        </span><span class="c1">// Read switch state using v2 API</span>
-<a id="__codelineno-1-66" name="__codelineno-1-66"></a><span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">gpio_v2_line_values</span><span class="w"> </span><span class="n">data</span><span class="p">{};</span>
-<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">        </span><span class="n">data</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// We want to read the first line</span>
-<a id="__codelineno-1-68" name="__codelineno-1-68"></a>
-<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">line_fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_LINE_GET_VALUES_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Failed to get GPIO line value: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span>
-<a id="__codelineno-1-72" name="__codelineno-1-72"></a><span class="w">                      </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-73" name="__codelineno-1-73"></a><span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">line_fd</span><span class="p">);</span>
-<a id="__codelineno-1-74" name="__codelineno-1-74"></a><span class="w">            </span><span class="n">close</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">);</span>
-<a id="__codelineno-1-75" name="__codelineno-1-75"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-1-76" name="__codelineno-1-76"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-77" name="__codelineno-1-77"></a>
-<a id="__codelineno-1-78" name="__codelineno-1-78"></a><span class="w">        </span><span class="c1">// Active LOW logic with pull-up resistor (0 = pressed, 1 = released)</span>
-<a id="__codelineno-1-79" name="__codelineno-1-79"></a><span class="w">        </span><span class="n">button_pressed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="n">data</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-1-80" name="__codelineno-1-80"></a>
-<a id="__codelineno-1-81" name="__codelineno-1-81"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">button_pressed</span><span class="p">)</span>
-<a id="__codelineno-1-82" name="__codelineno-1-82"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-83" name="__codelineno-1-83"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Button pressed!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-84" name="__codelineno-1-84"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-85" name="__codelineno-1-85"></a><span class="w">        </span><span class="k">else</span>
-<a id="__codelineno-1-86" name="__codelineno-1-86"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-87" name="__codelineno-1-87"></a><span class="w">            </span><span class="c1">// Small delay to reduce CPU usage</span>
-<a id="__codelineno-1-88" name="__codelineno-1-88"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span>
-<a id="__codelineno-1-89" name="__codelineno-1-89"></a><span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="n">kPollIntervalMs</span><span class="p">));</span>
-<a id="__codelineno-1-90" name="__codelineno-1-90"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-91" name="__codelineno-1-91"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-1-92" name="__codelineno-1-92"></a>
-<a id="__codelineno-1-93" name="__codelineno-1-93"></a><span class="w">    </span><span class="c1">// Clean up resources</span>
-<a id="__codelineno-1-94" name="__codelineno-1-94"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">line_fd</span><span class="p">);</span>
-<a id="__codelineno-1-95" name="__codelineno-1-95"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">chip_fd</span><span class="p">);</span>
-<a id="__codelineno-1-96" name="__codelineno-1-96"></a>
-<a id="__codelineno-1-97" name="__codelineno-1-97"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Program completed."</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-1-98" name="__codelineno-1-98"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-1-99" name="__codelineno-1-99"></a><span class="p">}</span>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../2._controlling_led_with_gpio/">LED Control</a>, including chip identification and permissions. You need a standard Pi 4/5 40-pin header, an unpowered momentary button, breadboard and wires. Do not use an unknown powered switch module.</p>
+<p>Compile and inspect on the <strong>Pi</strong>. Planning mode does not access GPIO; applying the program configures an input and pull-up. The program requires the confirmed chip's offset 22 to be named <code>GPIO22</code>.</p>
+<h2 id="1-wire-and-understand-the-button">1. Wire and understand the button<a class="headerlink" href="#1-wire-and-understand-the-button" title="Permanent link">¶</a></h2>
+<p>With the Pi shut down and all power disconnected:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Physical pin 15 (GPIO22) ── normally open button ── physical pin 6 (GND)
 </code></pre></div></td></tr></table></div>
-<h2 id="key-program-elements">Key Program Elements<a class="headerlink" href="#key-program-elements" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>GPIO Line Configuration</strong>:</p>
-<ul>
-<li>The program configures GPIO pin 22 as an input with a pull-up resistor</li>
-<li>The pull-up resistor ensures the pin reads HIGH when the button is not pressed</li>
-</ul>
-</li>
-<li>
-<p><strong>Button State Detection</strong>:</p>
-<ul>
-<li>The program polls the GPIO pin at 100ms intervals</li>
-<li>It uses active-LOW logic: 0 (LOW) means button pressed, 1 (HIGH) means button released</li>
-</ul>
-</li>
-<li>
-<p><strong>GPIO v2 API</strong>:</p>
-<ul>
-<li>Uses the newer GPIO v2 API, which provides better features compared to the older interface</li>
-<li>Includes proper error handling and resource cleanup</li>
-</ul>
-</li>
-<li>
-<p><strong>Debouncing Considerations</strong>:</p>
-<ul>
-<li>The 100ms polling interval provides basic debouncing</li>
-<li>For a production application, more sophisticated debouncing might be needed</li>
-</ul>
-</li>
-</ol>
-<h2 id="compiling-and-running">Compiling and Running<a class="headerlink" href="#compiling-and-running" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p>Save the code to a file, e.g., <code>gpio_button.cpp</code></p>
-</li>
-<li>
-<p>Compile the program:
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>g++<span class="w"> </span>-o<span class="w"> </span>gpio_button<span class="w"> </span>gpio_button.cpp<span class="w"> </span>-std<span class="o">=</span>c++11<span class="w"> </span>-pthread
+<p>A four-leg tactile switch often has two permanently connected legs on each side. Use a continuity meter with the circuit unpowered to find the two <strong>different contact groups</strong> that connect only when pressed. Connecting two legs already joined internally makes the input appear permanently pressed.</p>
+<p>Do not connect the button to 5 V. Do not configure this grounded button circuit as an output: a high output shorted through the pressed switch can damage GPIO.</p>
+<p>The internal pull-up holds the released input high. Pressing connects it to ground:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Electrical value</th>
+<th>Application meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Released</td>
+<td>High, 1</td>
+<td>Not pressed</td>
+</tr>
+<tr>
+<td>Pressed</td>
+<td>Low, 0</td>
+<td>Pressed</td>
+</tr>
+</tbody>
+</table>
+<p>This is called <strong>active-low</strong> logic. The program interprets that explicitly rather than setting the API's active-low flag. If pull-up configuration is unsupported, stop and diagnose the error; do not run with a floating input.</p>
+<p><img alt="Earlier tactile switch project" src="../media/tactile_switch.jpg" width="300"></p>
+<p>This photo is illustrative and does not identify the correct contact pairs for every switch.</p>
+<h2 id="2-verify-the-chip-and-input-line">2. Verify the chip and input line<a class="headerlink" href="#2-verify-the-chip-and-input-line" title="Permanent link">¶</a></h2>
+<p>After restoring power, use the chip from the LED lesson. With libgpiod v2 tools:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>gpioinfo<span class="w"> </span>-c<span class="w"> </span>gpiochip0<span class="w"> </span><span class="m">22</span>
 </code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>Run the program with root privileges (needed for GPIO access):
-   </p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>./gpio_button
+<p>Substitute the actual chip; older CLI versions differ. Confirm the line name, offset and lack of an existing consumer. On the available Pi 4B, offset 22 is named <code>GPIO22</code>. Do not assume the number in <code>gpiochipN</code> is the physical GPIO number.</p>
+<h2 id="3-save-and-compile-the-program">3. Save and compile the program<a class="headerlink" href="#3-save-and-compile-the-program" title="Permanent link">¶</a></h2>
+<p>Create a new project directory and save <code>gpio_button.cpp</code> using nano, or use the <a href="../examples/gpio_button.cpp">matching source download</a>.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nv">button_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/pi-button-practice.XXXXXX"</span><span class="k">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$button_dir</span><span class="s2">"</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>nano<span class="w"> </span>gpio_button.cpp
 </code></pre></div></td></tr></table></div>
-</li>
-<li>
-<p>The program will wait until you press the button, then exit.</p>
-</li>
-</ol>
-<h2 id="how-it-works-in-detail">How It Works in Detail<a class="headerlink" href="#how-it-works-in-detail" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>Internal Pull-up Resistor</strong>: The program enables an internal pull-up resistor on GPIO 22, which keeps the pin HIGH when the button is not pressed.</p>
-</li>
-<li>
-<p><strong>Ground Connection</strong>: When the button is pressed, it connects GPIO 22 to ground, pulling the pin LOW.</p>
-</li>
-<li>
-<p><strong>Detection Logic</strong>: The program constantly checks the pin value and detects when it goes LOW.</p>
-</li>
-<li>
-<p><strong>Polling Approach</strong>: This program uses polling rather than interrupts. While not as efficient, it's simpler to implement.</p>
-</li>
-</ol>
-<h2 id="advanced-considerations">Advanced Considerations<a class="headerlink" href="#advanced-considerations" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>Interrupt-based Implementation</strong>: For better efficiency, consider using GPIO interrupts instead of polling.</p>
-</li>
-<li>
-<p><strong>Debouncing</strong>: Mechanical switches often "bounce," causing multiple rapid transitions. Consider implementing a more robust debouncing algorithm.</p>
-</li>
-<li>
-<p><strong>Multiple Buttons</strong>: The GPIO v2 API supports monitoring multiple lines simultaneously. You can extend this example to handle several buttons.</p>
-</li>
-<li>
-<p><strong>Error Handling</strong>: The program includes basic error handling. In a production application, you might want more comprehensive error management.</p>
-</li>
-</ol>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span>
+<span class="normal"><a href="#__codelineno-3-51">51</a></span>
+<span class="normal"><a href="#__codelineno-3-52">52</a></span>
+<span class="normal"><a href="#__codelineno-3-53">53</a></span>
+<span class="normal"><a href="#__codelineno-3-54">54</a></span>
+<span class="normal"><a href="#__codelineno-3-55">55</a></span>
+<span class="normal"><a href="#__codelineno-3-56">56</a></span>
+<span class="normal"><a href="#__codelineno-3-57">57</a></span>
+<span class="normal"><a href="#__codelineno-3-58">58</a></span>
+<span class="normal"><a href="#__codelineno-3-59">59</a></span>
+<span class="normal"><a href="#__codelineno-3-60">60</a></span>
+<span class="normal"><a href="#__codelineno-3-61">61</a></span>
+<span class="normal"><a href="#__codelineno-3-62">62</a></span>
+<span class="normal"><a href="#__codelineno-3-63">63</a></span>
+<span class="normal"><a href="#__codelineno-3-64">64</a></span>
+<span class="normal"><a href="#__codelineno-3-65">65</a></span>
+<span class="normal"><a href="#__codelineno-3-66">66</a></span>
+<span class="normal"><a href="#__codelineno-3-67">67</a></span>
+<span class="normal"><a href="#__codelineno-3-68">68</a></span>
+<span class="normal"><a href="#__codelineno-3-69">69</a></span>
+<span class="normal"><a href="#__codelineno-3-70">70</a></span>
+<span class="normal"><a href="#__codelineno-3-71">71</a></span>
+<span class="normal"><a href="#__codelineno-3-72">72</a></span>
+<span class="normal"><a href="#__codelineno-3-73">73</a></span>
+<span class="normal"><a href="#__codelineno-3-74">74</a></span>
+<span class="normal"><a href="#__codelineno-3-75">75</a></span>
+<span class="normal"><a href="#__codelineno-3-76">76</a></span>
+<span class="normal"><a href="#__codelineno-3-77">77</a></span>
+<span class="normal"><a href="#__codelineno-3-78">78</a></span>
+<span class="normal"><a href="#__codelineno-3-79">79</a></span>
+<span class="normal"><a href="#__codelineno-3-80">80</a></span>
+<span class="normal"><a href="#__codelineno-3-81">81</a></span>
+<span class="normal"><a href="#__codelineno-3-82">82</a></span>
+<span class="normal"><a href="#__codelineno-3-83">83</a></span>
+<span class="normal"><a href="#__codelineno-3-84">84</a></span>
+<span class="normal"><a href="#__codelineno-3-85">85</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cerrno&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;csignal&gt;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstring&gt;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fcntl.h&gt;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/gpio.h&gt;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="k">volatile</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">sig_atomic_t</span><span class="w"> </span><span class="n">stopped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">stopped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="p">}</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="p">{</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">argc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">        </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="s">"--apply"</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Usage: gpio_button /dev/gpiochipN [--apply]</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Dry run: GPIO22, physical pin 15, input with pull-up.</span><span class="se">\n</span><span class="s">"</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">                     </span><span class="s">"Samples every 5 ms, accepts 25 ms stable changes for 30 s.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">);</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">chip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">O_RDONLY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">O_CLOEXEC</span><span class="p">);</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">chip</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Open chip: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">    </span><span class="n">gpio_v2_line_info</span><span class="w"> </span><span class="n">info</span><span class="p">{};</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">    </span><span class="n">info</span><span class="p">.</span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_GET_LINEINFO_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">strcmp</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s">"GPIO22"</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Cannot confirm GPIO22 at offset 22; no line requested.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="w">    </span><span class="n">gpio_v2_line_request</span><span class="w"> </span><span class="n">request</span><span class="p">{};</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">offset</span><span class="p">;</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">num_lines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="w">    </span><span class="n">request</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GPIO_V2_LINE_FLAG_INPUT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GPIO_V2_LINE_FLAG_BIAS_PULL_UP</span><span class="p">;</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strcpy</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">consumer</span><span class="p">,</span><span class="w"> </span><span class="s">"pi-course-button"</span><span class="p">);</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">chip</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_GET_LINE_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Request GPIO22: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-3-52" name="__codelineno-3-52"></a><span class="w">        </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-54" name="__codelineno-3-54"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-55" name="__codelineno-3-55"></a><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Clock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="p">;</span>
+<a id="__codelineno-3-56" name="__codelineno-3-56"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">candidate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// Electrical high = released.</span>
+<a id="__codelineno-3-57" name="__codelineno-3-57"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">stable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-3-58" name="__codelineno-3-58"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<a id="__codelineno-3-59" name="__codelineno-3-59"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<a id="__codelineno-3-60" name="__codelineno-3-60"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+<a id="__codelineno-3-61" name="__codelineno-3-61"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Release the button, then press/release. Ctrl+C stops.</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-3-62" name="__codelineno-3-62"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stopped</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">Clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-63" name="__codelineno-3-63"></a><span class="w">        </span><span class="n">gpio_v2_line_values</span><span class="w"> </span><span class="n">values</span><span class="p">{};</span>
+<a id="__codelineno-3-64" name="__codelineno-3-64"></a><span class="w">        </span><span class="n">values</span><span class="p">.</span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-65" name="__codelineno-3-65"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ioctl</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">GPIO_V2_LINE_GET_VALUES_IOCTL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-66" name="__codelineno-3-66"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Read value: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-3-67" name="__codelineno-3-67"></a><span class="w">            </span><span class="n">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<a id="__codelineno-3-68" name="__codelineno-3-68"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-3-69" name="__codelineno-3-69"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-70" name="__codelineno-3-70"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-71" name="__codelineno-3-71"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+<a id="__codelineno-3-72" name="__codelineno-3-72"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sample</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">candidate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-73" name="__codelineno-3-73"></a><span class="w">            </span><span class="n">candidate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sample</span><span class="p">;</span>
+<a id="__codelineno-3-74" name="__codelineno-3-74"></a><span class="w">            </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<a id="__codelineno-3-75" name="__codelineno-3-75"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-76" name="__codelineno-3-76"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">candidate</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">stable</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-77" name="__codelineno-3-77"></a><span class="w">            </span><span class="n">stable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">candidate</span><span class="p">;</span>
+<a id="__codelineno-3-78" name="__codelineno-3-78"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">stable</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">"Released</span><span class="se">\n</span><span class="s">"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"Pressed</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">flush</span><span class="p">;</span>
+<a id="__codelineno-3-79" name="__codelineno-3-79"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-3-80" name="__codelineno-3-80"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span>
+<a id="__codelineno-3-81" name="__codelineno-3-81"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-82" name="__codelineno-3-82"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">fd</span><span class="p">);</span>
+<a id="__codelineno-3-83" name="__codelineno-3-83"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">chip</span><span class="p">);</span>
+<a id="__codelineno-3-84" name="__codelineno-3-84"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-3-85" name="__codelineno-3-85"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-g<span class="w"> </span>-pthread<span class="w"> </span>gpio_button.cpp<span class="w"> </span>-o<span class="w"> </span>gpio_button
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>./gpio_button<span class="w"> </span>/dev/gpiochip0
+</code></pre></div></td></tr></table></div>
+<p><strong>Check:</strong> compilation succeeds and planning mode describes GPIO22, the sampling interval and debounce interval without opening the device.</p>
+<h2 id="4-read-actual-button-transitions">4. Read actual button transitions<a class="headerlink" href="#4-read-actual-button-transitions" title="Permanent link">¶</a></h2>
+<p>Only after checking the circuit and chip, apply:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>./gpio_button<span class="w"> </span>/dev/gpiochip0<span class="w"> </span>--apply
+</code></pre></div></td></tr></table></div>
+<p>Release the button first, then press and release it a few times. The program runs for 30 seconds or until Ctrl+C. <strong>Expected:</strong> each deliberate stable press prints <code>Pressed</code>, and each stable release prints <code>Released</code>. Initial release need not print because it is the initial application state.</p>
+<p>Mechanical contacts can bounce through several high/low transitions. Sampling slowly is <strong>not automatically debounce</strong>. This example instead keeps:</p>
+<ul>
+<li>A candidate state from the most recent sample.</li>
+<li>A timestamp updated whenever that candidate changes.</li>
+<li>An accepted state changed only after the candidate remains unchanged for at least 25 ms.</li>
+</ul>
+<p>Samples are taken about every 5 ms using a monotonic clock. Those are illustrative settings, not universal properties of every switch. Faster pulses can be missed; scheduling delays affect response time. For timing-critical inputs, consider kernel edge-event facilities and hardware conditioning rather than promising perfect detection.</p>
+<p>The program requests input with pull-up, checks read errors, and releases descriptors on ordinary exit. It does not grant or permanently change account permissions.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<ol>
-<li>
-<p><strong>Permission Issues</strong>: If you get "Failed to open GPIO chip device," ensure you're running the program with sudo.</p>
-</li>
-<li>
-<p><strong>Button Not Detected</strong>: Check your wiring and ensure the button connects to the correct GPIO pin and ground.</p>
-</li>
-<li>
-<p><strong>Inconsistent Behavior</strong>: If the button press detection is inconsistent, implement a better debouncing solution.</p>
-</li>
-</ol></div>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>First check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Always pressed</td>
+<td>Power off; check switch contact pairs and ground short</td>
+</tr>
+<tr>
+<td>Never pressed</td>
+<td>Correct physical pin and opposite contact groups</td>
+</tr>
+<tr>
+<td>Random transitions</td>
+<td>Pull-up accepted, common ground, wire/contact integrity</td>
+</tr>
+<tr>
+<td>Repeated messages</td>
+<td>Contact stability and debounce requirements; do not merely lengthen polling without understanding</td>
+</tr>
+<tr>
+<td>Permission error</td>
+<td>Device permissions/current groups</td>
+</tr>
+<tr>
+<td>Busy or named-line mismatch</td>
+<td>Correct chip and existing consumer; do not override another driver</td>
+</tr>
+</tbody>
+</table>
+<p>The code is compiled and its planning/error modes tested separately from hardware operation. <strong>The revised button circuit was not connected for this revision</strong>, so contact behaviour and the 25 ms setting require verification with your actual switch.</p>
+<h2 id="check-your-understanding-and-continue">Check your understanding and continue<a class="headerlink" href="#check-your-understanding-and-continue" title="Permanent link">¶</a></h2>
+<p>Why does a released input read high? How is a stable-state interval different from a slow poll? Can you identify two switch contacts that are not permanently connected?</p>
+<p>Next, learn <a href="../4._controlling_a_buzzer_with_pwm/">Hardware PWM and a Passive Buzzer</a>. Do not use this button polling loop to generate servo pulses.</p></div>
 
 
 
@@ -9195,7 +9120,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 13, 2026 23:49:14 JST">2026-10-13</span>
   </span>
 
     
@@ -9227,10 +9152,10 @@
           <li><a href="https://ohyaan.github.io/programming/">Browse the Programming guide hub</a></li>
         
         
-          <li><a href="../2._controlling_led_with_gpio/">Previous: 2. Controlling LED with GPIO</a></li>
+          <li><a href="../2._controlling_led_with_gpio/">Previous: 2. LED Output</a></li>
         
         
-          <li><a href="../4._controlling_a_buzzer_with_pwm/">Next: 4. Controlling a Buzzer with PWM</a></li>
+          <li><a href="../4._controlling_a_buzzer_with_pwm/">Next: 4. Buzzer and Hardware PWM</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
