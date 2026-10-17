@@ -1807,68 +1807,17 @@
   
   
   
-    
-    
-      
-        
-      
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2_8" >
-        
-          
-          <label class="md-nav__link" for="__nav_2_2_8" id="__nav_2_2_8_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Display Projects
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_2_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_2_8">
-            <span class="md-nav__icon md-icon"></span>
-            Display Projects
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="display-projects/ssd1306_oled_raspberry_pi_i2c_cpp/" class="md-nav__link">
+      <a href="7._ssd1306_oled_display_with_i2c/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    SSD1306 OLED
+    7. SSD1306 OLED
     
   </span>
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -8839,6 +8788,11 @@
 <td>Neutral, direction and open-loop speed</td>
 <td>Neutral observed while pulses are active before rotation</td>
 </tr>
+<tr>
+<td><a href="7._ssd1306_oled_display_with_i2c/">7. SSD1306 OLED</a></td>
+<td>I2C wiring, device access and a monochrome framebuffer</td>
+<td>Correct module and address; HELLO PI visually checked after output</td>
+</tr>
 </tbody>
 </table>
 <p>The hardware checks require your actual circuit. Dry-run output is <strong>not</strong> proof that a wire, waveform or mechanism works. Each lesson distinguishes what was software-tested from physical tests not performed for this revision.</p>
@@ -8848,20 +8802,16 @@
 <li>Button lesson: a normally open unpowered momentary switch.</li>
 <li>PWM lesson: documented low-current, 3.3 V-compatible passive piezo circuit.</li>
 <li>Servo lessons: exact documented motor type, external regulated supply and a mechanically safe bench setup.</li>
+<li>OLED lesson: a documented 3.3 V-compatible, four-pin, 128×64 SSD1306 I2C module and four wires.</li>
 </ul>
 <p>Do not buy an arbitrary “sensor kit” and assume every item can connect directly to a signal pin. Read the required voltage/current and power wiring first.</p>
 <h2 id="the-checkpoints-matter-more-than-copying-commands">The checkpoints matter more than copying commands<a class="headerlink" href="#the-checkpoints-matter-more-than-copying-commands" title="Permanent link">¶</a></h2>
 <p>Before enabling any hardware output, explain the physical pin, signal name, Linux controller and what the program does on exit. Read error messages and stop on a mismatch; do not run as root merely to avoid understanding permissions.</p>
-<p>Programs default to a no-hardware planning mode. <code>--apply</code> is an explicit choice after checks, not part of a command to paste automatically.</p>
+<p>Programs default to a no-hardware planning mode. GPIO/PWM examples use <code>--apply</code> and the OLED example uses <code>--show</code> to enable output explicitly after checks, not as commands to paste automatically.</p>
 <p>When changing a circuit, shut down and disconnect <strong>all relevant power supplies</strong>. An external motor supply can keep a circuit powered even when the Pi is unplugged.</p>
 <h2 id="if-an-exercise-fails">If an exercise fails<a class="headerlink" href="#if-an-exercise-fails" title="Permanent link">¶</a></h2>
 <p>Compile a text-only program again to confirm the software environment, then inspect the relevant device and permissions. Check wiring with power removed. Change one layer at a time.</p>
 <p>A chip path is not portable merely because the GPIO number is the same. A motor that does not move is not proof that its pulse width should be increased.</p>
-<h2 id="display-projects">Display Projects<a class="headerlink" href="#display-projects" title="Permanent link">¶</a></h2>
-<p>These optional projects branch from Development Setup; you do not need to complete the LED, button or motor lessons first.</p>
-<ul>
-<li><a href="display-projects/ssd1306_oled_raspberry_pi_i2c_cpp/">SSD1306 OLED: Your First Display</a> — Wire a 128×64 I2C panel, compile a standalone C++ example and send HELLO PI. Check the circuit and no-device dry run before enabling output.</li>
-</ul>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">¶</a></h2>
 <p>Start with <a href="1._programming_basics_for_raspberry_pi/">Development Setup</a>. After completing the course, consider <a href="../cpp-learning/">Modern C++ Masterclass</a> for language depth or <a href="../tips/">Tips</a> for project ideas. Motor feedback, watchdogs and fault-safe power control are further design work, not provided by these bench examples.</p></div>
 
@@ -8886,7 +8836,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 17, 2026 10:52:52 JST">2026-10-17</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 17, 2026 10:56:34 JST">2026-10-17</span>
   </span>
 
     
