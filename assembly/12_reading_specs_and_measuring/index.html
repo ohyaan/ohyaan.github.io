@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="ARM64 register reference for Raspberry Pi: x0-x30, w/x widths, SP and LR, with calling rules, a tested assembly lab and GDB checks you can repeat.">
+        <meta name="description" content="Review your Raspberry Pi AArch64 course, find the right architecture, ABI and tool references, and plan measurements without confusing code size with speed.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/">
+        <link rel="canonical" href="https://ohyaan.github.io/assembly/12_reading_specs_and_measuring/">
       
       
-        <link rel="prev" href="../aarch64_adrp_add_ldr_literal_address_loading/">
+        <link rel="prev" href="../11_extended_inline_assembly/">
       
       
-        <link rel="next" href="../control_flow_and_branching_in_arm64_assembly/">
+        <link rel="next" href="../../design-patterns/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>ARM64 Registers: AArch64 Guide for Raspberry Pi - With Raspberry Pi</title>
+        <title>Reading Specifications and Measuring - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="ARM64 Registers: AArch64 Guide for Raspberry Pi - With Raspberry Pi">
-  <meta property="og:description" content="ARM64 register reference for Raspberry Pi: x0-x30, w/x widths, SP and LR, with calling rules, a tested assembly lab and GDB checks you can repeat.">
+  <meta property="og:title" content="Reading Specifications and Measuring - With Raspberry Pi">
+  <meta property="og:description" content="Review your Raspberry Pi AArch64 course, find the right architecture, ABI and tool references, and plan measurements without confusing code size with speed.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__arm64_registers_and_basic_instructions.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/assembly/12_reading_specs_and_measuring/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__12_reading_specs_and_measuring.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="ARM64 Registers: AArch64 Guide for Raspberry Pi">
+  <meta property="og:image:alt" content="Reading Specifications and Measuring">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2025-11-16">
+    <meta property="article:published_time" content="2026-10-20">
   
   
     <meta property="article:modified_time" content="2026-10-20">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ARM64 Registers: AArch64 Guide for Raspberry Pi - With Raspberry Pi">
-  <meta name="twitter:description" content="ARM64 register reference for Raspberry Pi: x0-x30, w/x widths, SP and LR, with calling rules, a tested assembly lab and GDB checks you can repeat.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__arm64_registers_and_basic_instructions.jpg">
+  <meta name="twitter:title" content="Reading Specifications and Measuring - With Raspberry Pi">
+  <meta name="twitter:description" content="Review your Raspberry Pi AArch64 course, find the right architecture, ABI and tool references, and plan measurements without confusing code size with speed.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__12_reading_specs_and_measuring.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,18 +116,18 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "ARM64 Registers: AArch64 Guide for Raspberry Pi",
-    "description": "ARM64 register reference for Raspberry Pi: x0-x30, w/x widths, SP and LR, with calling rules, a tested assembly lab and GDB checks you can repeat.",
-    "url": "https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/assembly__arm64_registers_and_basic_instructions.jpg"],
+    "headline": "Reading Specifications and Measuring",
+    "description": "Review your Raspberry Pi AArch64 course, find the right architecture, ABI and tool references, and plan measurements without confusing code size with speed.",
+    "url": "https://ohyaan.github.io/assembly/12_reading_specs_and_measuring/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/12_reading_specs_and_measuring/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/assembly__12_reading_specs_and_measuring.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2025-11-16",
+    "datePublished": "2026-10-20",
     "dateModified": "2026-10-20"
   }
   </script>
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "ARM64 Registers: AArch64 Guide for Raspberry Pi", "item": "https://ohyaan.github.io/assembly/arm64_registers_and_basic_instructions/"}
+      {"@type": "ListItem", "position": 2, "name": "Reading Specifications and Measuring", "item": "https://ohyaan.github.io/assembly/12_reading_specs_and_measuring/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#arm64-registers-aarch64-guide-for-raspberry-pi" class="md-skip">
+        <a href="#reading-specifications-and-measuring" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ARM64 Registers: AArch64 Guide for Raspberry Pi
+              Reading Specifications and Measuring
             
           </span>
         </div>
@@ -3205,14 +3205,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -3261,12 +3253,446 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1: Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1: Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../01_tools_and_first_program/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
+    Tools and Your First AArch64 Program
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_registers_and_integer_operations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Registers and Integer Operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_flags_branches_and_loops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Flags, Branches and Loops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2: Memory and Functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2: Memory and Functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_memory_arrays_and_loads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory, Arrays and Loads
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_addresses_and_relocations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Addresses and Relocations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_functions_stack_and_abi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions, Stack and the ABI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3: Integration and Debugging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3: Integration and Debugging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_calling_assembly_from_c_and_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Calling Assembly from C and C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_debugging_with_gdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging with GDB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_checked_array_project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Checked Array Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4: Advanced Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4: Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_neon_with_scalar_tails/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NEON and Scalar Tails
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_extended_inline_assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended Inline Assembly
     
   </span>
   
@@ -3297,7 +3723,7 @@
           
   
   <span class="md-ellipsis">
-    ARM64 Registers: AArch64 Guide for Raspberry Pi
+    Reading Specifications and Measuring
     
   </span>
   
@@ -3309,7 +3735,7 @@
         
   
   <span class="md-ellipsis">
-    ARM64 Registers: AArch64 Guide for Raspberry Pi
+    Reading Specifications and Measuring
     
   </span>
   
@@ -3332,144 +3758,72 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#general-purpose-registers" class="md-nav__link">
+  <a href="#a-reference-map-not-one-universal-manual" class="md-nav__link">
     <span class="md-ellipsis">
-      General-Purpose Registers
+      A reference map, not one universal manual
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#special-registers" class="md-nav__link">
+  <a href="#final-course-review" class="md-nav__link">
     <span class="md-ellipsis">
-      Special Registers
+      Final course review
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#simd-and-floating-point-registers" class="md-nav__link">
+  <a href="#design-a-measurement-before-running-it" class="md-nav__link">
     <span class="md-ellipsis">
-      SIMD and Floating-Point Registers
+      Design a measurement before running it
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#data-movement-instructions" class="md-nav__link">
+  <a href="#what-this-course-does-not-cover" class="md-nav__link">
     <span class="md-ellipsis">
-      Data Movement Instructions
+      What this course does not cover
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#arithmetic-instructions" class="md-nav__link">
+  <a href="#choose-a-next-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Arithmetic Instructions
+      Choose a next project
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#logical-instructions" class="md-nav__link">
+  <a href="#check-your-understanding" class="md-nav__link">
     <span class="md-ellipsis">
-      Logical Instructions
+      Check your understanding
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#memory-access-instructions" class="md-nav__link">
+  <a href="#continue-the-course" class="md-nav__link">
     <span class="md-ellipsis">
-      Memory Access Instructions
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#practical-example-simple-calculator" class="md-nav__link">
-    <span class="md-ellipsis">
-      Practical Example: Simple Calculator
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#read-the-compilers-register-choices" class="md-nav__link">
-    <span class="md-ellipsis">
-      Read the compiler's register choices
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#debug-a-register-value-in-gdb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Debug a register value in GDB
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frequent-mistakes-and-their-cause" class="md-nav__link">
-    <span class="md-ellipsis">
-      Frequent mistakes and their cause
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#faq" class="md-nav__link">
-    <span class="md-ellipsis">
-      FAQ
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-guides" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related guides
+      Continue the course
     </span>
   </a>
   
@@ -3484,133 +3838,9 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control Flow and Branching in Arm64 Assembly
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Functions and Stack Management in Arm64 Assembly
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Inline Assembly in C++ on Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Interfacing with C++ and GPIO Control
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../neon_simd_vector_programming_on_arm64/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    NEON SIMD Vector Programming on Arm64
-    
-  </span>
-  
-
-      </a>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -8918,8 +9148,8 @@
 
 
 
-<div><h1 id="arm64-registers-aarch64-guide-for-raspberry-pi">ARM64 Registers: AArch64 Guide for Raspberry Pi<a class="headerlink" href="#arm64-registers-aarch64-guide-for-raspberry-pi" title="Permanent link">¶</a></h1>
-<p>Use this page as an ARM64 register reference, then verify the rules with a small program on a 64-bit Raspberry Pi. The key distinction is between what a register can hold and what a calling convention promises when a function is called.</p>
+<div><h1 id="reading-specifications-and-measuring">Reading Specifications and Measuring<a class="headerlink" href="#reading-specifications-and-measuring" title="Permanent link">¶</a></h1>
+<p>Finish by separating architectural behavior, call rules, assembler syntax and Linux services. Then decide what evidence would be needed before claiming an optimization.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8929,593 +9159,89 @@
   </script>
 </div>
 
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>AArch64 has 31 general-purpose registers, named <code>x0</code>–<code>x30</code> for 64-bit operations and <code>w0</code>–<code>w30</code> for 32-bit operations. A <code>wN</code> name refers to the low part of <code>xN</code>, not another independent register. <strong>Writing <code>wN</code> clears the upper half of <code>xN</code>.</strong></p>
+<div class="admonition example">
+<p class="admonition-title">Course examples on GitHub</p>
+<p><a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly/app/array-report">Review the checked project</a> · <a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly">CMake build instructions</a>.
+This lesson reviews existing examples; it does not add an automatic benchmark.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../11_extended_inline_assembly/">extended inline assembly</a>, or return here after the core project if you are postponing advanced topics.</p>
+<p><strong>Outcome:</strong> find the right authority for a question, explain the course's boundaries and design a fair comparison. No new benchmark or persistent process is required in this lesson.</p>
+<h2 id="a-reference-map-not-one-universal-manual">A reference map, not one universal manual<a class="headerlink" href="#a-reference-map-not-one-universal-manual" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Your question</th>
-<th>Go directly to</th>
+<th>Question</th>
+<th>Authority</th>
+<th>What to check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Which registers hold arguments or survive calls?</td>
-<td><a href="#register-overview-table">Register overview</a></td>
+<td>Instruction operands and behavior</td>
+<td><a href="https://developer.arm.com/documentation">Arm architecture documentation</a></td>
+<td>ISA version, width, flags and required features</td>
 </tr>
 <tr>
-<td>Why did a pointer or upper 32 bits disappear?</td>
-<td><a href="#64-bit-vs-32-bit-access">64-bit vs 32-bit access</a></td>
+<td>Arguments, return values, preservation</td>
+<td><a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst">AAPCS64</a></td>
+<td>Actual signature and platform ABI</td>
 </tr>
 <tr>
-<td>What are SP, PC and XZR?</td>
-<td><a href="#special-registers">Special registers</a></td>
+<td>GNU directive or relocation spelling</td>
+<td><a href="https://sourceware.org/binutils/docs/as/AArch64_002dDependent.html">GNU as AArch64</a></td>
+<td>Target and assembler version</td>
 </tr>
 <tr>
-<td>Why does a large immediate fail to assemble?</td>
-<td><a href="#data-movement-instructions">Data movement</a></td>
+<td>ELF symbol or relocation result</td>
+<td>readelf, objdump and linker documentation</td>
+<td>Object before linking and executable after linking</td>
 </tr>
 <tr>
-<td>Can I run an example and inspect actual values?</td>
-<td><a href="#practical-example-simple-calculator">Build the register lab</a></td>
+<td>Inline operand constraints</td>
+<td><a href="https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html">GCC extended asm</a></td>
+<td>Compiler-visible inputs, outputs and effects</td>
 </tr>
 <tr>
-<td>Why does a value change after BL?</td>
-<td><a href="#frequent-mistakes-and-their-cause">Frequent mistakes</a></td>
+<td>Debugger operation</td>
+<td><a href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/">GDB documentation</a></td>
+<td>Selected binary, symbols and execution state</td>
+</tr>
+<tr>
+<td>Kernel service number</td>
+<td>Target Linux headers and syscall documentation</td>
+<td>Architecture-specific entry convention</td>
 </tr>
 </tbody>
 </table>
-<p>New to assembly? First complete the <a href="../introduction_to_arm64_assembly_on_raspberry_pi/">AArch64 introduction</a>. This page concerns ordinary Linux user-space functions, not bare-metal boot code or privileged system-register programming.</p>
-<h2 id="general-purpose-registers">General-Purpose Registers<a class="headerlink" href="#general-purpose-registers" title="Permanent link">¶</a></h2>
-<h3 id="register-overview-table">Register Overview Table<a class="headerlink" href="#register-overview-table" title="Permanent link">¶</a></h3>
-<p>The table summarizes ordinary integer/pointer calls under the <a href="https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst">AAPCS64 base calling convention</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Register</th>
-<th>Usual boundary role</th>
-<th>Keep a live value across a call?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>x0</code>–<code>x7</code></td>
-<td>Arguments; scalar integer/pointer results usually in <code>x0</code></td>
-<td>Save it yourself</td>
-</tr>
-<tr>
-<td><code>x8</code></td>
-<td>Indirect-result location</td>
-<td>Save it yourself</td>
-</tr>
-<tr>
-<td><code>x9</code>–<code>x15</code></td>
-<td>Temporaries</td>
-<td>Save it yourself</td>
-</tr>
-<tr>
-<td><code>x16</code>, <code>x17</code> (<code>IP0</code>, <code>IP1</code>)</td>
-<td>Linker/call temporaries</td>
-<td>Save it yourself</td>
-</tr>
-<tr>
-<td><code>x18</code></td>
-<td>Platform-defined</td>
-<td>Avoid in portable hand-written code</td>
-</tr>
-<tr>
-<td><code>x19</code>–<code>x28</code></td>
-<td>Callee-preserved values</td>
-<td>The callee must restore what it changes</td>
-</tr>
-<tr>
-<td><code>x29</code> (<code>FP</code>)</td>
-<td>Frame pointer when used</td>
-<td>Callee-preserved</td>
-</tr>
-<tr>
-<td><code>x30</code> (<code>LR</code>)</td>
-<td>Return address</td>
-<td>A nested call overwrites it</td>
-</tr>
-</tbody>
-</table>
-<p>These are boundary rules, not hardware restrictions on all uses inside a function. Aggregate, floating-point and vector arguments/results have additional rules; do not infer every C/C++ signature from this simplified table.</p>
-<p>The caller saves a caller-saved value if it is still needed. The callee restores callee-saved registers that it changes. A non-leaf routine must protect its incoming return address before another <code>bl</code>.</p>
-<h3 id="64-bit-vs-32-bit-access">64-bit vs 32-bit Access<a class="headerlink" href="#64-bit-vs-32-bit-access" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Result or effect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>mov x0, #-1</code></td>
-<td>All 64 bits of <code>x0</code> become 1</td>
-</tr>
-<tr>
-<td><code>mov w0, #0x1234</code></td>
-<td><code>x0</code> becomes <code>0x0000000000001234</code></td>
-</tr>
-<tr>
-<td><code>mov w0, #-1</code></td>
-<td><code>x0</code> becomes <code>0x00000000ffffffff</code>, not a sign-extended 64-bit −1</td>
-</tr>
-<tr>
-<td><code>sxtw x0, w0</code></td>
-<td>Sign-extend the low 32 bits into 64 bits</td>
-</tr>
-<tr>
-<td><code>str w0, [x1]</code></td>
-<td>Store four bytes; it does not write a destination register</td>
-</tr>
-<tr>
-<td><code>str x0, [x1]</code></td>
-<td>Store eight bytes</td>
-</tr>
-</tbody>
-</table>
-<p>Use 64-bit registers for pointers in this 64-bit Linux example. A <code>wN</code> destination is not a harmless abbreviation for <code>xN</code>. The lab below tests zero-extension directly.</p>
-<h2 id="special-registers">Special Registers<a class="headerlink" href="#special-registers" title="Permanent link">¶</a></h2>
-<h3 id="stack-pointer-sp">Stack Pointer (SP)<a class="headerlink" href="#stack-pointer-sp" title="Permanent link">¶</a></h3>
-<p><code>sp</code> names the stack pointer, not an extra freely interchangeable <code>x31</code>. Keep it 16-byte aligned in these functions and allocate frames in multiples of 16. The lab's nested function uses a 16-byte frame to save <code>x29</code> and <code>x30</code>, then restores both and the original stack pointer before returning.</p>
-<h3 id="program-counter-pc">Program Counter (PC)<a class="headerlink" href="#program-counter-pc" title="Permanent link">¶</a></h3>
-<p>The PC identifies the current instruction. It is not an ordinary destination such as <code>x0</code>. Read it in GDB as <code>$pc</code>; use branch instructions to change control flow and <code>adr</code>/<code>adrp</code> for appropriate address construction. See <a href="../aarch64_adrp_add_ldr_literal_address_loading/">ADRP, ADD and LDR address loading</a> for relocations and position-independent code.</p>
-<h3 id="zero-register-xzr-wzr">Zero Register (XZR / WZR)<a class="headerlink" href="#zero-register-xzr-wzr" title="Permanent link">¶</a></h3>
-<p>A zero-register source reads as zero; writes to it discard the result. Register encoding 31 means SP or the zero register depending on the instruction and operand position. Do not substitute <code>sp</code> and <code>xzr</code> just because they share an encoding.</p>
-<h2 id="simd-and-floating-point-registers">SIMD and Floating-Point Registers<a class="headerlink" href="#simd-and-floating-point-registers" title="Permanent link">¶</a></h2>
-<p>The separate SIMD/FP bank has 32 entries, <code>v0</code>–<code>v31</code>. Names such as <code>q0</code>, <code>d0</code> and <code>s0</code> select widths within that bank; <code>d0</code> does not refer to general-purpose <code>x0</code>.</p>
-<p>For ordinary base-ABI calls, <code>v0</code>–<code>v7</code> carry FP/SIMD arguments and results. Only the low 64 bits of <code>v8</code>–<code>v15</code> are callee-preserved; do not assume an entire 128-bit vector survives. SVE and SME add separate requirements outside this introductory reference.</p>
-<p>Continue with <a href="../neon_simd_vector_programming_on_arm64/">NEON SIMD</a> after learning function boundaries and checking the instructions supported by your actual CPU.</p>
-<h2 id="data-movement-instructions">Data Movement Instructions<a class="headerlink" href="#data-movement-instructions" title="Permanent link">¶</a></h2>
-<p><code>mov</code> is an assembler alias for several encodings, not a promise to fit every integer in one instruction. For example, an arbitrary <code>mov x0, #0x123456789abcdef0</code> cannot be assumed to assemble as written.</p>
-<p>For a known 64-bit constant, <code>movz</code> initializes one 16-bit chunk and zeros the others; <code>movk</code> replaces one chunk while keeping the rest. The complete four-instruction sequence in <code>constant_demo</code> below is a copyable example. <code>movn</code> supplies the complemented form.</p>
-<p>A literal-pool pseudo-instruction such as <code>ldr x0, =constant</code> is a different assembler facility. It can produce a memory load; it is not interchangeable with every <code>mov</code> for instruction counts or relocation behaviour. Check actual output with <code>objdump</code>, and consult the <a href="https://sourceware.org/binutils/docs/as/AArch64_002dDependent.html">GNU assembler AArch64 documentation</a>.</p>
-<h2 id="arithmetic-instructions">Arithmetic Instructions<a class="headerlink" href="#arithmetic-instructions" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Instruction</th>
-<th>Read it as</th>
-<th>Important distinction</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>add x0, x0, x1</code></td>
-<td>Add two 64-bit values</td>
-<td>Does not set NZCV flags</td>
-</tr>
-<tr>
-<td><code>adds x0, x0, x1</code></td>
-<td>Add and set flags</td>
-<td>Useful before a conditional decision</td>
-</tr>
-<tr>
-<td><code>sub x0, x0, x1</code></td>
-<td>Subtract</td>
-<td>Operand order matters</td>
-</tr>
-<tr>
-<td><code>mul x0, x0, x2</code></td>
-<td>Multiply, keeping the low result</td>
-<td>Not an overflow check</td>
-</tr>
-<tr>
-<td><code>sdiv</code> / <code>udiv</code></td>
-<td>Signed / unsigned division</td>
-<td>Choose the interpretation deliberately</td>
-</tr>
-<tr>
-<td><code>cmp x0, x1</code></td>
-<td>Compare by setting flags</td>
-<td>No general-purpose result is retained</td>
-</tr>
-</tbody>
-</table>
-<p>Do not rely on condition flags surviving a function call. Learn signed versus unsigned branch conditions in <a href="../control_flow_and_branching_in_arm64_assembly/">control flow and branching</a>.</p>
-<h2 id="logical-instructions">Logical Instructions<a class="headerlink" href="#logical-instructions" title="Permanent link">¶</a></h2>
-<p><code>and</code>, <code>orr</code> and <code>eor</code> combine bits. <code>lsl</code> shifts left, <code>lsr</code> shifts right with zero fill and <code>asr</code> shifts right with sign fill. The <code>w</code>/<code>x</code> operand width still matters.</p>
-<p>Not every logical immediate is encodable. If the assembler rejects a bit mask, check its encoding or construct the value in a temporary register; do not assume a syntactically plausible constant is a valid instruction.</p>
-<h2 id="memory-access-instructions">Memory Access Instructions<a class="headerlink" href="#memory-access-instructions" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Form</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ldr x0, [x1]</code></td>
-<td>Load eight bytes from the address in <code>x1</code></td>
-</tr>
-<tr>
-<td><code>ldr w0, [x1]</code></td>
-<td>Load four bytes and zero the upper half of <code>x0</code></td>
-</tr>
-<tr>
-<td><code>ldrsw x0, [x1]</code></td>
-<td>Load four bytes and sign-extend to 64 bits</td>
-</tr>
-<tr>
-<td><code>str x0, [x1, #8]</code></td>
-<td>Store eight bytes at address <code>x1 + 8</code></td>
-</tr>
-<tr>
-<td><code>ldp</code> / <code>stp</code></td>
-<td>Load/store a pair</td>
-</tr>
-</tbody>
-</table>
-<p>In <code>[sp, #-16]!</code>, the base is updated before the access. In <code>[sp], #16</code>, it is updated afterwards. The lab uses these forms as a matched stack allocation/restoration pair.</p>
-<p>A register holding an integer is not automatically a valid address. Only dereference accessible memory of the required size. The lab receives pointers to actual C objects instead of inventing addresses.</p>
-<h2 id="practical-example-simple-calculator">Practical Example: Simple Calculator<a class="headerlink" href="#practical-example-simple-calculator" title="Permanent link">¶</a></h2>
-<p>This register lab calls six small assembly functions from C. It checks width changes, a large constant, arithmetic, a nested call and signed/unsigned loads. It performs no GPIO access, privileged instructions, background processing or benchmarks.</p>
-<h3 id="1-check-the-native-environment">1. Check the native environment<a class="headerlink" href="#1-check-the-native-environment" title="Permanent link">¶</a></h3>
-<p>Run these commands <strong>on the Pi</strong>:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>getconf<span class="w"> </span>LONG_BIT
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>gcc<span class="w"> </span>-dumpmachine
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>gcc<span class="w"> </span>--version
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>as<span class="w"> </span>--version
-</code></pre></div></td></tr></table></div>
-<p>For this native route, expect <code>aarch64</code>, <code>64</code> and an AArch64 compiler target. A 64-bit-capable board or kernel alone does not prove that the installed userspace/compiler is 64-bit. If the tools are missing, follow <a href="../introduction_to_arm64_assembly_on_raspberry_pi/">the introduction's environment setup</a>.</p>
-<p>Create a fresh practice directory, then save the next two files there:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">if</span><span class="w"> </span><span class="nv">lab_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/arm64-register-lab.XXXXXX"</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$lab_dir</span><span class="s2">"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="k">else</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Could not create the practice directory"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">fi</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="2-save-register_labs">2. Save register_lab.S<a class="headerlink" href="#2-save-register_labs" title="Permanent link">¶</a></h3>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span>
-<span class="normal"><a href="#__codelineno-2-33">33</a></span>
-<span class="normal"><a href="#__codelineno-2-34">34</a></span>
-<span class="normal"><a href="#__codelineno-2-35">35</a></span>
-<span class="normal"><a href="#__codelineno-2-36">36</a></span>
-<span class="normal"><a href="#__codelineno-2-37">37</a></span>
-<span class="normal"><a href="#__codelineno-2-38">38</a></span>
-<span class="normal"><a href="#__codelineno-2-39">39</a></span>
-<span class="normal"><a href="#__codelineno-2-40">40</a></span>
-<span class="normal"><a href="#__codelineno-2-41">41</a></span>
-<span class="normal"><a href="#__codelineno-2-42">42</a></span>
-<span class="normal"><a href="#__codelineno-2-43">43</a></span>
-<span class="normal"><a href="#__codelineno-2-44">44</a></span>
-<span class="normal"><a href="#__codelineno-2-45">45</a></span>
-<span class="normal"><a href="#__codelineno-2-46">46</a></span>
-<span class="normal"><a href="#__codelineno-2-47">47</a></span>
-<span class="normal"><a href="#__codelineno-2-48">48</a></span>
-<span class="normal"><a href="#__codelineno-2-49">49</a></span>
-<span class="normal"><a href="#__codelineno-2-50">50</a></span>
-<span class="normal"><a href="#__codelineno-2-51">51</a></span>
-<span class="normal"><a href="#__codelineno-2-52">52</a></span>
-<span class="normal"><a href="#__codelineno-2-53">53</a></span>
-<span class="normal"><a href="#__codelineno-2-54">54</a></span>
-<span class="normal"><a href="#__codelineno-2-55">55</a></span>
-<span class="normal"><a href="#__codelineno-2-56">56</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// register_lab.S</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="na">.text</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="na">.p2align</span><span class="w"> </span><span class="mi">2</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="na">.global</span><span class="w"> </span><span class="no">width_demo</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="na">.type</span><span class="w"> </span><span class="no">width_demo</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="nl">width_demo:</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#-1</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">w0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x1234</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="na">.size</span><span class="w"> </span><span class="no">width_demo</span><span class="p">,</span><span class="w"> </span><span class="no">.-width_demo</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a>
-<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="na">.global</span><span class="w"> </span><span class="no">constant_demo</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="na">.type</span><span class="w"> </span><span class="no">constant_demo</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="nl">constant_demo:</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span><span class="nf">movz</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">xdef0</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="nf">movk</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x9abc</span><span class="p">,</span><span class="w"> </span><span class="no">lsl</span><span class="w"> </span><span class="mi">#16</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="nf">movk</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x5678</span><span class="p">,</span><span class="w"> </span><span class="no">lsl</span><span class="w"> </span><span class="mi">#32</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">    </span><span class="nf">movk</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="no">x1234</span><span class="p">,</span><span class="w"> </span><span class="no">lsl</span><span class="w"> </span><span class="mi">#48</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="na">.size</span><span class="w"> </span><span class="no">constant_demo</span><span class="p">,</span><span class="w"> </span><span class="no">.-constant_demo</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22"></a>
-<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="na">.global</span><span class="w"> </span><span class="no">scaled_sum</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="na">.type</span><span class="w"> </span><span class="no">scaled_sum</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="nl">scaled_sum:</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">    </span><span class="nf">mul</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="na">.size</span><span class="w"> </span><span class="no">scaled_sum</span><span class="p">,</span><span class="w"> </span><span class="no">.-scaled_sum</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30"></a>
-<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="na">.global</span><span class="w"> </span><span class="no">nested_sum</span>
-<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="na">.type</span><span class="w"> </span><span class="no">nested_sum</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="nl">nested_sum:</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">    </span><span class="nf">stp</span><span class="w"> </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">,</span><span class="w"> </span><span class="mi">#-16</span><span class="p">]!</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">sp</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">    </span><span class="nf">bl</span><span class="w"> </span><span class="no">scaled_sum</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
-<a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">    </span><span class="nf">ldp</span><span class="w"> </span><span class="no">x29</span><span class="p">,</span><span class="w"> </span><span class="no">x30</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">sp</span><span class="p">],</span><span class="w"> </span><span class="mi">#16</span>
-<a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="na">.size</span><span class="w"> </span><span class="no">nested_sum</span><span class="p">,</span><span class="w"> </span><span class="no">.-nested_sum</span>
-<a id="__codelineno-2-41" name="__codelineno-2-41"></a>
-<a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="na">.global</span><span class="w"> </span><span class="no">load_word_demo</span>
-<a id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="na">.type</span><span class="w"> </span><span class="no">load_word_demo</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="nl">load_word_demo:</span>
-<a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="w">    </span><span class="nf">ldr</span><span class="w"> </span><span class="no">w0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">]</span>
-<a id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="na">.size</span><span class="w"> </span><span class="no">load_word_demo</span><span class="p">,</span><span class="w"> </span><span class="no">.-load_word_demo</span>
-<a id="__codelineno-2-48" name="__codelineno-2-48"></a>
-<a id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="na">.global</span><span class="w"> </span><span class="no">load_signed_word_demo</span>
-<a id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="na">.type</span><span class="w"> </span><span class="no">load_signed_word_demo</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
-<a id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="nl">load_signed_word_demo:</span>
-<a id="__codelineno-2-52" name="__codelineno-2-52"></a><span class="w">    </span><span class="nf">ldrsw</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">]</span>
-<a id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="na">.size</span><span class="w"> </span><span class="no">load_signed_word_demo</span><span class="p">,</span><span class="w"> </span><span class="no">.-load_signed_word_demo</span>
-<a id="__codelineno-2-55" name="__codelineno-2-55"></a>
-<a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="na">.section</span><span class="w"> </span><span class="no">.note.GNU-stack</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="nv">%progbits</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="3-save-register_labc">3. Save register_lab.c<a class="headerlink" href="#3-save-register_labc" title="Permanent link">¶</a></h3>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span>
-<span class="normal"><a href="#__codelineno-3-15">15</a></span>
-<span class="normal"><a href="#__codelineno-3-16">16</a></span>
-<span class="normal"><a href="#__codelineno-3-17">17</a></span>
-<span class="normal"><a href="#__codelineno-3-18">18</a></span>
-<span class="normal"><a href="#__codelineno-3-19">19</a></span>
-<span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span>
-<span class="normal"><a href="#__codelineno-3-31">31</a></span>
-<span class="normal"><a href="#__codelineno-3-32">32</a></span>
-<span class="normal"><a href="#__codelineno-3-33">33</a></span>
-<span class="normal"><a href="#__codelineno-3-34">34</a></span>
-<span class="normal"><a href="#__codelineno-3-35">35</a></span>
-<span class="normal"><a href="#__codelineno-3-36">36</a></span>
-<span class="normal"><a href="#__codelineno-3-37">37</a></span>
-<span class="normal"><a href="#__codelineno-3-38">38</a></span>
-<span class="normal"><a href="#__codelineno-3-39">39</a></span>
-<span class="normal"><a href="#__codelineno-3-40">40</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cm">/* register_lab.c */</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;inttypes.h&gt;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">width_demo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">constant_demo</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">scaled_sum</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">nested_sum</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">load_word_demo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">);</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="k">extern</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="nf">load_signed_word_demo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="p">);</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="k">_Static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s">"Use a 64-bit userspace and compiler"</span><span class="p">);</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14"></a>
-<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="p">{</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">unsigned_word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UINT32_MAX</span><span class="p">;</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">signed_word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">width_demo</span><span class="p">();</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constant_demo</span><span class="p">();</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scaled_sum</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nested_sum</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">zero_load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_word_demo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unsigned_word</span><span class="p">);</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">signed_load</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_signed_word_demo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">signed_word</span><span class="p">);</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25"></a>
-<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UINT64_C</span><span class="p">(</span><span class="mh">0x1234</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">        </span><span class="n">constant</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UINT64_C</span><span class="p">(</span><span class="mh">0x123456789abcdef0</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">90</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">nested</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">91</span><span class="w"> </span><span class="o">||</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">        </span><span class="n">zero_load</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UINT64_C</span><span class="p">(</span><span class="mh">0xffffffff</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">signed_load</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">        </span><span class="n">fputs</span><span class="p">(</span><span class="s">"Register lab check failed</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="p">);</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"w/x: 0x%016"</span><span class="w"> </span><span class="n">PRIx64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">);</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"constant: 0x%016"</span><span class="w"> </span><span class="n">PRIx64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">constant</span><span class="p">);</span>
-<a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"scaled_sum: %"</span><span class="w"> </span><span class="n">PRIu64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span>
-<a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"nested_sum: %"</span><span class="w"> </span><span class="n">PRIu64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">nested</span><span class="p">);</span>
-<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"zero_extended_load: 0x%016"</span><span class="w"> </span><span class="n">PRIx64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">zero_load</span><span class="p">);</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"signed_load: %"</span><span class="w"> </span><span class="n">PRId64</span><span class="w"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">signed_load</span><span class="p">);</span>
-<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="4-build-run-and-inspect">4. Build, run and inspect<a class="headerlink" href="#4-build-run-and-inspect" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>gcc<span class="w"> </span>-std<span class="o">=</span>c11<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-g<span class="w"> </span>-O0<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span>register_lab.c<span class="w"> </span>register_lab.S<span class="w"> </span>-o<span class="w"> </span>register_lab
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>./register_lab
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>objdump<span class="w"> </span>-d<span class="w"> </span>register_lab<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'/&lt;width_demo&gt;:/,+5p'</span>
-</code></pre></div></td></tr></table></div>
-<p>Expected program output:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>w/x: 0x0000000000001234
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>constant: 0x123456789abcdef0
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>scaled_sum: 90
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>nested_sum: 91
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>zero_extended_load: 0x00000000ffffffff
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a>signed_load: -1
-</code></pre></div></td></tr></table></div>
-<p>The program returns zero only when all six values match. It exits immediately after printing; there is no demo loop to leave running. If your result differs, keep the diagnostic output and check the actual files and executable before editing the expected values.</p>
-<h2 id="read-the-compilers-register-choices">Read the compiler's register choices<a class="headerlink" href="#read-the-compilers-register-choices" title="Permanent link">¶</a></h2>
-<p>For comparison, save this independent function as <code>sum.c</code>. It is not an extra source file to link into the lab:</p>
-<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="cm">/* sum.c */</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">c_scaled_sum</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">scale</span><span class="p">)</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="p">{</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scale</span><span class="p">;</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>gcc<span class="w"> </span>-S<span class="w"> </span>-O0<span class="w"> </span>-fno-omit-frame-pointer<span class="w"> </span>sum.c<span class="w"> </span>-o<span class="w"> </span>sum-O0.s
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>gcc<span class="w"> </span>-S<span class="w"> </span>-O2<span class="w"> </span>-fno-omit-frame-pointer<span class="w"> </span>sum.c<span class="w"> </span>-o<span class="w"> </span>sum-O2.s
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'/c_scaled_sum:/,/\.size/p'</span><span class="w"> </span>sum-O0.s
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'/c_scaled_sum:/,/\.size/p'</span><span class="w"> </span>sum-O2.s
-</code></pre></div></td></tr></table></div>
-<p>Compare the code instead of requiring a particular register allocation. Optimized output may avoid a frame or combine work; compiler versions and flags can change the shape. Instruction count alone is not a performance measurement.</p>
-<h2 id="debug-a-register-value-in-gdb">Debug a register value in GDB<a class="headerlink" href="#debug-a-register-value-in-gdb" title="Permanent link">¶</a></h2>
-<p>Build the lab with <code>-g -O0</code>, then:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>gdb<span class="w"> </span>./register_lab
-</code></pre></div></td></tr></table></div>
-<p>At the GDB prompt, use these <strong>debugger commands</strong>, not shell commands:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span>
-<span class="normal"><a href="#__codelineno-9-7">7</a></span>
-<span class="normal"><a href="#__codelineno-9-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>break *width_demo
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>run
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>x/3i $pc
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>stepi
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a>info registers x0
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>stepi
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a>info registers x0
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a>quit
-</code></pre></div></td></tr></table></div>
-<p>At the exact function-entry breakpoint, the first step executes <code>mov x0, #-1</code>; inspect <code>0xffffffffffffffff</code>. The second executes the <code>w0</code> write; inspect <code>0x1234</code>. These are two views of the same physical register, not a copy between separate banks. GDB's formatting can omit leading zeros.</p>
-<p>If you quit while the lab is paused, confirm termination of that debugged process. See <a href="../functions_and_stack_management_in_arm64_assembly/">functions and stack management</a> to investigate the matched frame around <code>bl</code>.</p>
-<h2 id="frequent-mistakes-and-their-cause">Frequent mistakes and their cause<a class="headerlink" href="#frequent-mistakes-and-their-cause" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>Check</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Immediate cannot be moved by a single instruction</td>
-<td>Use the explicit <code>movz</code>/<code>movk</code> sequence and inspect disassembly</td>
-</tr>
-<tr>
-<td>A pointer lost its high bits</td>
-<td>Look for a write through its <code>wN</code> alias</td>
-</tr>
-<tr>
-<td>A value changed after a call</td>
-<td>Check whether its register was caller-saved</td>
-</tr>
-<tr>
-<td>A nested function returns to the wrong instruction</td>
-<td>Check saving/restoring LR and matching stack updates</td>
-</tr>
-<tr>
-<td>An instruction rejects an operand width</td>
-<td>Use a legal <code>w</code> or <code>x</code> form; operand names are not interchangeable</td>
-</tr>
-<tr>
-<td>Assembler reports unknown instructions/registers</td>
-<td>Check the compiler target and 32-bit versus 64-bit environment</td>
-</tr>
-<tr>
-<td>Undefined reference to main</td>
-<td>Link the C driver, not just the assembly functions</td>
-</tr>
-<tr>
-<td>GDB cannot start the inferior</td>
-<td>Check debugger/ptrace permissions; do not globally weaken them as a first fix</td>
-</tr>
-</tbody>
-</table>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
-<p>Use the register table at function boundaries, distinguish <code>wN</code> from <code>xN</code>, and inspect real output rather than trusting plausible-looking snippets. Registers, stack memory and address calculations are different concepts; each becomes clearer when you stop at one instruction and predict its effect.</p>
-<h3 id="practice-before-continuing">Practice before continuing<a class="headerlink" href="#practice-before-continuing" title="Permanent link">¶</a></h3>
-<p>Predict what happens if <code>width_demo</code> writes <code>w0, #-1</code> instead of <code>w0, #0x1234</code>. In a practice copy, try the change and observe the lab's deliberate failure. Restore the original source afterwards.</p>
-<details class="tip">
-<summary>Hint and expected result</summary>
-<p>The result would be 0x00000000ffffffff, not a 64-bit −1. The driver still expects 0x1234, so it must return a nonzero status. A failing check here confirms a changed contract; do not hide it by deleting validation.</p>
-</details>
-<h3 id="verification-scope">Verification scope<a class="headerlink" href="#verification-scope" title="Permanent link">¶</a></h3>
-<p>Verified on 20 October 2026 on a Raspberry Pi 4B running 64-bit Raspberry Pi OS (Debian 13), kernel <code>6.18.50+rpt-rpi-v8</code>, GCC 14.2.0 and GNU Binutils 2.44. The complete lab compiled with the warning flags above and produced all six expected results. Disassembly and GDB stepping confirmed the two <code>x0</code> values; both compiler-output examples compiled successfully. All test processes exited or were explicitly terminated after inspection.</p>
-<p>This is a functional exercise, not a speed test or proof that assembly is faster than C. No GPIO, system configuration or kernel settings were changed.</p>
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
-<p>Continue with <a href="../aarch64_adrp_add_ldr_literal_address_loading/">ADRP, ADD and LDR address loading</a>, then <a href="../control_flow_and_branching_in_arm64_assembly/">control flow</a> and <a href="../functions_and_stack_management_in_arm64_assembly/">functions/stack management</a>. The <a href="../">assembly learning path</a> keeps the sequence together.</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="is-x0-always-an-argument-register">Is x0 always an argument register?<a class="headerlink" href="#is-x0-always-an-argument-register" title="Permanent link">¶</a></h3>
-<p>No. Its boundary role does not prevent a routine from reusing it after the incoming value is no longer needed.</p>
-<h3 id="should-hand-written-code-use-x18">Should hand-written code use x18?<a class="headerlink" href="#should-hand-written-code-use-x18" title="Permanent link">¶</a></h3>
-<p>Avoid it in portable examples; its platform role is not universal scratch storage.</p>
-<h3 id="does-every-function-need-a-frame-pointer">Does every function need a frame pointer?<a class="headerlink" href="#does-every-function-need-a-frame-pointer" title="Permanent link">¶</a></h3>
-<p>No. The lab's leaf functions do not need one; its nested example deliberately creates a frame and protects the return address.</p>
-<h3 id="why-does-writing-w0-change-x0">Why does writing w0 change x0?<a class="headerlink" href="#why-does-writing-w0-change-x0" title="Permanent link">¶</a></h3>
-<p>They name different widths of one register. A 32-bit destination write clears the upper 32 bits; signed extension requires an appropriate operation.</p>
-<h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
+<p>A function call, Linux system call and assembler pseudo-instruction are different layers. A plausible instruction mnemonic does not prove a legal immediate or a valid memory address.</p>
+<h2 id="final-course-review">Final course review<a class="headerlink" href="#final-course-review" title="Permanent link">¶</a></h2>
+<p>Before considering speed, reproduce these explanations:</p>
 <ul>
-<li><a href="../introduction_to_arm64_assembly_on_raspberry_pi/">AArch64 introduction</a></li>
-<li><a href="../aarch64_adrp_add_ldr_literal_address_loading/">Address loading: ADRP, ADD and LDR</a></li>
-<li><a href="../control_flow_and_branching_in_arm64_assembly/">Control flow and branching</a></li>
-<li><a href="../functions_and_stack_management_in_arm64_assembly/">Functions and stack management</a></li>
-<li><a href="../">AArch64 and Arm64 Assembly learning path</a></li>
-</ul></div>
+<li><strong>Foundations:</strong> assemble/link/run independently; distinguish _start from a C-callable function; predict x/w alias effects; choose signed or unsigned conditions.</li>
+<li><strong>Memory and calls:</strong> distinguish address from contents; state a valid array range; inspect a relocation; save a live value and LR across a nested call; restore SP.</li>
+<li><strong>Integration:</strong> match a C/C++ declaration to assembly; observe a failure in GDB; run the report against empty, boundary and mixed-sign fixtures.</li>
+<li><strong>Advanced:</strong> handle every vector tail; explain inline operands; distinguish a functional check from a measurement.</li>
+</ul>
+<p>If one is unclear, return to that part rather than adding more instructions to an unexplained program.</p>
+<h2 id="design-a-measurement-before-running-it">Design a measurement before running it<a class="headerlink" href="#design-a-measurement-before-running-it" title="Permanent link">¶</a></h2>
+<p>Use the report or vector lesson as a candidate, but first match its C reference contract. Define input sizes, generation, aliasing, tail behavior and exact expected output. Build both with recorded compiler/options. Inspect whether the compiler vectorized the reference.</p>
+<p>Separate preparation, allocation and output from the region under comparison. Prevent the compiler from removing the work by consuming verified results. Choose a finite repetition count and show the distribution over repeated trials, not a single favorable number.</p>
+<p>Record board/OS/compiler, CPU temperature/throttling, relevant CPU policy and background activity. Distinguish warm/cold cache conditions. Do not change governors or disable services merely to make a tutorial look faster.</p>
+<p>No timing loop is supplied here: the course verifies correctness without leaving CPU work running. Use the separate <a href="../../tips/raspberry_pi_benchmark_power_temperature_storage_network_ai/">benchmark planning guide</a> when you actually need a measurement.</p>
+<h2 id="what-this-course-does-not-cover">What this course does not cover<a class="headerlink" href="#what-this-course-does-not-cover" title="Permanent link">¶</a></h2>
+<p>This is a foundation in native Linux AArch64 user-space programming, not an exhaustive ISA specification. Atomics and the memory model, exception levels, MMU/page tables, kernel entry, SVE/SME, full floating-point behavior and production unwind metadata need separate study.</p>
+<p>Do not use the ordinary load/store exercises as device-I/O guidance. Follow <a href="../../programming/">C++ Hardware Programming</a> for kernel-supported peripherals, or <a href="../../os-development/">OS Development</a> for the distinct bare-metal learning path.</p>
+<h2 id="choose-a-next-project">Choose a next project<a class="headerlink" href="#choose-a-next-project" title="Permanent link">¶</a></h2>
+<p>Extend the array report with an explicit empty minimum/maximum policy, or expose a bounded byte-transform function to C++. First write fixtures, then state overflow and error policies, then implement. Only profile if the application has a measurable unmet requirement.</p>
+<h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
+<p>Which source answers 'may x19 change after a call', and which answers 'does this immediate encode'? Why does fewer instructions not prove less time?</p>
+<details class="tip">
+<summary>Compare your reasoning</summary>
+<p>The call-preservation question belongs to the ABI; the encoding question belongs to the architecture/assembler rules. Runtime also depends on dependencies, memory behavior, compiler output and the measured workload.</p>
+</details>
+<h2 id="continue-the-course">Continue the course<a class="headerlink" href="#continue-the-course" title="Permanent link">¶</a></h2>
+<p><a href="../11_extended_inline_assembly/">Previous: Extended Inline Assembly</a> · <a href="../">Course roadmap</a></p></div>
 
 
 
@@ -9538,7 +9264,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 22:43:49 JST">2026-10-20</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9548,7 +9274,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 16, 2025 15:25:01 JST">2025-11-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9570,10 +9296,10 @@
           <li><a href="https://ohyaan.github.io/assembly/">Browse the Assembly guide hub</a></li>
         
         
-          <li><a href="../aarch64_adrp_add_ldr_literal_address_loading/">Previous: AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi</a></li>
+          <li><a href="../11_extended_inline_assembly/">Previous: Extended Inline Assembly</a></li>
         
         
-          <li><a href="../control_flow_and_branching_in_arm64_assembly/">Next: Control Flow and Branching in Arm64 Assembly</a></li>
+          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>

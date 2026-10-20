@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn NEON SIMD vector programming on Raspberry Pi. Master parallel data processing, floating-point operations, and optimize performance for image processing.">
+        <meta name="description" content="Use GCC extended inline assembly on Raspberry Pi with declared operands and clobbers, test optimized builds and explain when a separate function is clearer.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/assembly/neon_simd_vector_programming_on_arm64/">
+        <link rel="canonical" href="https://ohyaan.github.io/assembly/11_extended_inline_assembly/">
       
       
-        <link rel="prev" href="../introduction_to_arm64_assembly_on_raspberry_pi/">
+        <link rel="prev" href="../10_neon_with_scalar_tails/">
       
       
-        <link rel="next" href="../../design-patterns/">
+        <link rel="next" href="../12_reading_specs_and_measuring/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>NEON SIMD Vector Programming on Arm64 - With Raspberry Pi</title>
+        <title>Extended Inline Assembly - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="NEON SIMD Vector Programming on Arm64 - With Raspberry Pi">
-  <meta property="og:description" content="Learn NEON SIMD vector programming on Raspberry Pi. Master parallel data processing, floating-point operations, and optimize performance for image processing.">
+  <meta property="og:title" content="Extended Inline Assembly - With Raspberry Pi">
+  <meta property="og:description" content="Use GCC extended inline assembly on Raspberry Pi with declared operands and clobbers, test optimized builds and explain when a separate function is clearer.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/assembly/neon_simd_vector_programming_on_arm64/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__neon_simd_vector_programming_on_arm64.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/assembly/11_extended_inline_assembly/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__11_extended_inline_assembly.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="NEON SIMD Vector Programming on Arm64">
+  <meta property="og:image:alt" content="Extended Inline Assembly">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-06-21">
+    <meta property="article:published_time" content="2026-10-20">
   
   
-    <meta property="article:modified_time" content="2026-10-03">
+    <meta property="article:modified_time" content="2026-10-20">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NEON SIMD Vector Programming on Arm64 - With Raspberry Pi">
-  <meta name="twitter:description" content="Learn NEON SIMD vector programming on Raspberry Pi. Master parallel data processing, floating-point operations, and optimize performance for image processing.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__neon_simd_vector_programming_on_arm64.jpg">
+  <meta name="twitter:title" content="Extended Inline Assembly - With Raspberry Pi">
+  <meta name="twitter:description" content="Use GCC extended inline assembly on Raspberry Pi with declared operands and clobbers, test optimized builds and explain when a separate function is clearer.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__11_extended_inline_assembly.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "NEON SIMD Vector Programming on Arm64",
-    "description": "Learn NEON SIMD vector programming on Raspberry Pi. Master parallel data processing, floating-point operations, and optimize performance for image processing.",
-    "url": "https://ohyaan.github.io/assembly/neon_simd_vector_programming_on_arm64/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/neon_simd_vector_programming_on_arm64/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/assembly__neon_simd_vector_programming_on_arm64.jpg"],
+    "headline": "Extended Inline Assembly",
+    "description": "Use GCC extended inline assembly on Raspberry Pi with declared operands and clobbers, test optimized builds and explain when a separate function is clearer.",
+    "url": "https://ohyaan.github.io/assembly/11_extended_inline_assembly/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/11_extended_inline_assembly/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/assembly__11_extended_inline_assembly.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-06-21",
-    "dateModified": "2026-10-03"
+    "datePublished": "2026-10-20",
+    "dateModified": "2026-10-20"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "NEON SIMD Vector Programming on Arm64", "item": "https://ohyaan.github.io/assembly/neon_simd_vector_programming_on_arm64/"}
+      {"@type": "ListItem", "position": 2, "name": "Extended Inline Assembly", "item": "https://ohyaan.github.io/assembly/11_extended_inline_assembly/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#neon-simd-vector-programming-on-arm64" class="md-skip">
+        <a href="#extended-inline-assembly" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NEON SIMD Vector Programming on Arm64
+              Extended Inline Assembly
             
           </span>
         </div>
@@ -3205,14 +3205,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -3261,12 +3253,59 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1: Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1: Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../01_tools_and_first_program/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
+    Tools and Your First AArch64 Program
     
   </span>
   
@@ -3284,11 +3323,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../02_registers_and_integer_operations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ARM64 Registers: AArch64 Guide for Raspberry Pi
+    Registers and Integer Operations
     
   </span>
   
@@ -3306,11 +3345,88 @@
   
   
     <li class="md-nav__item">
-      <a href="../control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../03_flags_branches_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Control Flow and Branching in Arm64 Assembly
+    Flags, Branches and Loops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2: Memory and Functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2: Memory and Functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_memory_arrays_and_loads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory, Arrays and Loads
     
   </span>
   
@@ -3328,11 +3444,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../05_addresses_and_relocations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Functions and Stack Management in Arm64 Assembly
+    Addresses and Relocations
     
   </span>
   
@@ -3350,11 +3466,88 @@
   
   
     <li class="md-nav__item">
-      <a href="../inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
+      <a href="../06_functions_stack_and_abi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Inline Assembly in C++ on Raspberry Pi
+    Functions, Stack and the ABI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3: Integration and Debugging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3: Integration and Debugging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_calling_assembly_from_c_and_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Calling Assembly from C and C++
     
   </span>
   
@@ -3372,11 +3565,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../08_debugging_with_gdb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Interfacing with C++ and GPIO Control
+    Debugging with GDB
     
   </span>
   
@@ -3394,11 +3587,90 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../09_checked_array_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
+    A Checked Array Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4: Advanced Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4: Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_neon_with_scalar_tails/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NEON and Scalar Tails
     
   </span>
   
@@ -3429,7 +3701,7 @@
           
   
   <span class="md-ellipsis">
-    NEON SIMD Vector Programming on Arm64
+    Extended Inline Assembly
     
   </span>
   
@@ -3441,7 +3713,7 @@
         
   
   <span class="md-ellipsis">
-    NEON SIMD Vector Programming on Arm64
+    Extended Inline Assembly
     
   </span>
   
@@ -3464,54 +3736,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#neon-register-architecture" class="md-nav__link">
+  <a href="#describe-every-observable-effect" class="md-nav__link">
     <span class="md-ellipsis">
-      NEON Register Architecture
+      Describe every observable effect
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#essential-neon-instructions" class="md-nav__link">
+  <a href="#build-a-small-checked-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Essential NEON Instructions
+      Build a small checked example
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-project-image-grayscale-conversion" class="md-nav__link">
+  <a href="#know-when-this-model-stops-being-sufficient" class="md-nav__link">
     <span class="md-ellipsis">
-      Practical Project: Image Grayscale Conversion
+      Know when this model stops being sufficient
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#performance-comparison-c-vs-neon" class="md-nav__link">
+  <a href="#prefer-the-simplest-correct-boundary" class="md-nav__link">
     <span class="md-ellipsis">
-      Performance Comparison (C++ vs NEON)
+      Prefer the simplest correct boundary
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#check-your-understanding" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      Check your understanding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continue-the-course" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continue the course
     </span>
   </a>
   
@@ -3520,6 +3801,36 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_reading_specs_and_measuring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading Specifications and Measuring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -8828,10 +9139,8 @@
 
 
 
-<div><h1 id="neon-simd-vector-programming-on-arm64">NEON SIMD Vector Programming on Arm64<a class="headerlink" href="#neon-simd-vector-programming-on-arm64" title="Permanent link">¶</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi 3, 4, and 5 support NEON SIMD instructions, which operate on multiple data elements in one instruction. This tutorial covers vector registers and examples for numeric and image-processing code. Measure each routine against its scalar version.</p>
-<p>In this tutorial, you will learn the fundamentals of NEON SIMD programming, understand its register architecture, and write a practical assembly program that speeds up an image grayscale conversion task.</p>
+<div><h1 id="extended-inline-assembly">Extended Inline Assembly<a class="headerlink" href="#extended-inline-assembly" title="Permanent link">¶</a></h1>
+<p>Inline assembly has two contracts: the processor instructions and the compiler's model of their effects. Start with one register-only expression before adding memory or control flow.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8841,385 +9150,128 @@
   </script>
 </div>
 
-<h2 id="neon-register-architecture">NEON Register Architecture<a class="headerlink" href="#neon-register-architecture" title="Permanent link">¶</a></h2>
-<p>NEON provides a dedicated set of registers that are separate from the general-purpose registers (<code>x0</code>-<code>x30</code>).</p>
-<h3 id="vector-registers-v0-v31">Vector Registers (<code>v0</code> - <code>v31</code>)<a class="headerlink" href="#vector-registers-v0-v31" title="Permanent link">¶</a></h3>
-<p>There are 32 vector registers, named <code>v0</code> through <code>v31</code>. Each register is <strong>128 bits</strong> wide.
-These registers can be viewed as containing vectors of smaller data types:</p>
-<ul>
-<li><strong>16 bytes</strong> (8-bit elements): <code>16b</code></li>
-<li><strong>8 halfwords</strong> (16-bit elements): <code>8h</code></li>
-<li><strong>4 words</strong> (32-bit elements): <code>4s</code></li>
-<li><strong>2 doublewords</strong> (64-bit elements): <code>2d</code></li>
-</ul>
-<p>For example, <code>v0.16b</code> refers to the register <code>v0</code> treated as a vector of 16 unsigned/signed 8-bit bytes. Similarly, <code>v1.4s</code> refers to <code>v1</code> treated as a vector of 4 32-bit single-precision floats or integers.</p>
-<h3 id="register-mapping-scalar-views">Register Mapping (Scalar Views)<a class="headerlink" href="#register-mapping-scalar-views" title="Permanent link">¶</a></h3>
-<p>You can also access the lower bits of the vector registers as scalar registers for individual calculations:</p>
-<ul>
-<li><strong>B0-B31</strong>: 8-bit scalar</li>
-<li><strong>H0-H31</strong>: 16-bit scalar</li>
-<li><strong>S0-S31</strong>: 32-bit scalar (commonly used for single-precision floats)</li>
-<li><strong>D0-D31</strong>: 64-bit scalar (commonly used for double-precision floats)</li>
-</ul>
-<h2 id="essential-neon-instructions">Essential NEON Instructions<a class="headerlink" href="#essential-neon-instructions" title="Permanent link">¶</a></h2>
-<p>NEON instructions typically follow a naming convention that indicates the data type and vector layout.</p>
-<h3 id="load-and-store">Load and Store<a class="headerlink" href="#load-and-store" title="Permanent link">¶</a></h3>
-<p>Unlike general-purpose <code>ldr</code> and <code>str</code>, NEON uses structured load and store instructions to read from and write to memory:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nf">ld1</span><span class="w">     </span><span class="p">{</span><span class="no">v0.16b</span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">]</span><span class="w">         </span><span class="c1">// Load 16 consecutive bytes from address in x0 into v0</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nf">st1</span><span class="w">     </span><span class="p">{</span><span class="no">v0.16b</span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">]</span><span class="w">         </span><span class="c1">// Store 16 bytes from v0 to address in x1</span>
+<div class="admonition example">
+<p class="admonition-title">Course examples on GitHub</p>
+<p><a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly/app/inline-assembly">Open this lesson's sample files</a> · <a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly">CMake build instructions</a>.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../10_neon_with_scalar_tails/">NEON and scalar tails</a>. Basic C++ is needed; use the separate-function interop lesson first if declarations or fixed-width types are unfamiliar.</p>
+<p><strong>Outcome:</strong> describe inputs, outputs and clobbers of a GCC extended-asm statement and test it at multiple optimization levels. Use a fresh directory on the Pi.</p>
+<h2 id="describe-every-observable-effect">Describe every observable effect<a class="headerlink" href="#describe-every-observable-effect" title="Permanent link">¶</a></h2>
+<p>The format is <code>asm(template : outputs : inputs : clobbers)</code>. Operand constraints tell the compiler where values may live and whether an operand is read, written or both. Merely naming a register in a string does not inform the optimizer about an undeclared effect.</p>
+<p>For the example below, <code>"=r"</code> declares a register output and <code>"r"</code> declares each input. <code>%x[name]</code> requests the 64-bit register spelling. The single ADD reads its inputs before writing the output, so an output sharing an input register is allowed.</p>
+<h2 id="build-a-small-checked-example">Build a small checked example<a class="headerlink" href="#build-a-small-checked-example" title="Permanent link">¶</a></h2>
+<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// file: inline.cpp</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;limits&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">add_inline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="p">{</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="p">(</span><span class="s">"add %x[out], %x[left], %x[right]"</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w"> </span><span class="s">"=r"</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="p">{</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">values</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">()};</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">values</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">values</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">add_inline</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"PASS inline: 16 unsigned input pairs</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p>You can also load multiple registers to interleave or structure data:
-</p><div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nf">ld3</span><span class="w">     </span><span class="p">{</span><span class="no">v0.16b</span><span class="p">,</span><span class="w"> </span><span class="no">v1.16b</span><span class="p">,</span><span class="w"> </span><span class="no">v2.16b</span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">]</span><span class="w">  </span><span class="c1">// De-interleave RGB data into separate registers</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-O0<span class="w"> </span>inline.cpp<span class="w"> </span>-o<span class="w"> </span>inline-O0
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>./inline-O0
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-O2<span class="w"> </span>inline.cpp<span class="w"> </span>-o<span class="w"> </span>inline-O2
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>./inline-O2
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-O3<span class="w"> </span>inline.cpp<span class="w"> </span>-o<span class="w"> </span>inline-O3
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>./inline-O3
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>objdump<span class="w"> </span>-d<span class="w"> </span>inline-O2<span class="w"> </span><span class="p">|</span><span class="w"> </span>less
 </code></pre></div></td></tr></table></div>
-<h3 id="vector-arithmetic">Vector Arithmetic<a class="headerlink" href="#vector-arithmetic" title="Permanent link">¶</a></h3>
-<p>NEON provides parallel math instructions for vectors:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nf">fadd</span><span class="w">    </span><span class="no">v0.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v1.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v2.4s</span><span class="w">    </span><span class="c1">// Parallel float addition: v0[i] = v1[i] + v2[i] for i=0..3</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nf">add</span><span class="w">     </span><span class="no">v0.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v1.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v2.8h</span><span class="w">    </span><span class="c1">// Parallel 16-bit integer addition</span>
+<p>Every run should print:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>PASS inline: 16 unsigned input pairs
 </code></pre></div></td></tr></table></div>
-<h3 id="vector-multiplication-and-accumulation">Vector Multiplication and Accumulation<a class="headerlink" href="#vector-multiplication-and-accumulation" title="Permanent link">¶</a></h3>
-<p>For DSP and matrix operations:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nf">fmul</span><span class="w">    </span><span class="no">v0.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v1.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v2.4s</span><span class="w">    </span><span class="c1">// Parallel float multiplication</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nf">fmla</span><span class="w">    </span><span class="no">v0.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v1.4s</span><span class="p">,</span><span class="w"> </span><span class="no">v2.4s</span><span class="w">    </span><span class="c1">// Parallel multiply-accumulate: v0 = v0 + (v1 * v2)</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="practical-project-image-grayscale-conversion">Practical Project: Image Grayscale Conversion<a class="headerlink" href="#practical-project-image-grayscale-conversion" title="Permanent link">¶</a></h2>
-<p>To see NEON SIMD in action, let's write a function that converts an array of RGB24 image pixels to 8-bit grayscale pixels.</p>
-<p>The formula to compute grayscale value $Y$ from Red ($R$), Green ($G$), and Blue ($B$) components is:
-$$Y = 0.299R + 0.587G + 0.114B$$</p>
-<p>For integer performance, we can approximate this using fixed-point arithmetic:
-$$Y = \frac{77R + 150G + 29B}{256} = (77R + 150G + 29B) \gg 8$$</p>
-<h3 id="neon-implementation-grayscale_neons">NEON Implementation (<code>grayscale_neon.S</code>)<a class="headerlink" href="#neon-implementation-grayscale_neons" title="Permanent link">¶</a></h3>
-<p>Create a file named <code>grayscale_neon.S</code>:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span>
-<span class="normal"><a href="#__codelineno-4-34">34</a></span>
-<span class="normal"><a href="#__codelineno-4-35">35</a></span>
-<span class="normal"><a href="#__codelineno-4-36">36</a></span>
-<span class="normal"><a href="#__codelineno-4-37">37</a></span>
-<span class="normal"><a href="#__codelineno-4-38">38</a></span>
-<span class="normal"><a href="#__codelineno-4-39">39</a></span>
-<span class="normal"><a href="#__codelineno-4-40">40</a></span>
-<span class="normal"><a href="#__codelineno-4-41">41</a></span>
-<span class="normal"><a href="#__codelineno-4-42">42</a></span>
-<span class="normal"><a href="#__codelineno-4-43">43</a></span>
-<span class="normal"><a href="#__codelineno-4-44">44</a></span>
-<span class="normal"><a href="#__codelineno-4-45">45</a></span>
-<span class="normal"><a href="#__codelineno-4-46">46</a></span>
-<span class="normal"><a href="#__codelineno-4-47">47</a></span>
-<span class="normal"><a href="#__codelineno-4-48">48</a></span>
-<span class="normal"><a href="#__codelineno-4-49">49</a></span>
-<span class="normal"><a href="#__codelineno-4-50">50</a></span>
-<span class="normal"><a href="#__codelineno-4-51">51</a></span>
-<span class="normal"><a href="#__codelineno-4-52">52</a></span>
-<span class="normal"><a href="#__codelineno-4-53">53</a></span>
-<span class="normal"><a href="#__codelineno-4-54">54</a></span>
-<span class="normal"><a href="#__codelineno-4-55">55</a></span>
-<span class="normal"><a href="#__codelineno-4-56">56</a></span>
-<span class="normal"><a href="#__codelineno-4-57">57</a></span>
-<span class="normal"><a href="#__codelineno-4-58">58</a></span>
-<span class="normal"><a href="#__codelineno-4-59">59</a></span>
-<span class="normal"><a href="#__codelineno-4-60">60</a></span>
-<span class="normal"><a href="#__codelineno-4-61">61</a></span>
-<span class="normal"><a href="#__codelineno-4-62">62</a></span>
-<span class="normal"><a href="#__codelineno-4-63">63</a></span>
-<span class="normal"><a href="#__codelineno-4-64">64</a></span>
-<span class="normal"><a href="#__codelineno-4-65">65</a></span>
-<span class="normal"><a href="#__codelineno-4-66">66</a></span>
-<span class="normal"><a href="#__codelineno-4-67">67</a></span>
-<span class="normal"><a href="#__codelineno-4-68">68</a></span>
-<span class="normal"><a href="#__codelineno-4-69">69</a></span>
-<span class="normal"><a href="#__codelineno-4-70">70</a></span>
-<span class="normal"><a href="#__codelineno-4-71">71</a></span>
-<span class="normal"><a href="#__codelineno-4-72">72</a></span>
-<span class="normal"><a href="#__codelineno-4-73">73</a></span>
-<span class="normal"><a href="#__codelineno-4-74">74</a></span>
-<span class="normal"><a href="#__codelineno-4-75">75</a></span>
-<span class="normal"><a href="#__codelineno-4-76">76</a></span>
-<span class="normal"><a href="#__codelineno-4-77">77</a></span>
-<span class="normal"><a href="#__codelineno-4-78">78</a></span>
-<span class="normal"><a href="#__codelineno-4-79">79</a></span>
-<span class="normal"><a href="#__codelineno-4-80">80</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1">// grayscale_neon.S</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1">// Converts RGB24 pixels to Grayscale using NEON SIMD</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="na">.global</span><span class="w"> </span><span class="no">grayscale_neon</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="na">.align</span><span class="w"> </span><span class="mi">4</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="c1">// Function Signature:</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="c1">// void grayscale_neon(const uint8_t* src, uint8_t* dest, int num_pixels);</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1">// x0: src pointer (RGBRGB...)</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="c1">// x1: dest pointer (YYYY...)</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="c1">// x2: num_pixels</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="nl">grayscale_neon:</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="c1">// Coefficients for fixed-point math: R=77, G=150, B=29</span>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="c1">// Load coefficients into scalar elements of v3</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">w3</span><span class="p">,</span><span class="w"> </span><span class="mi">#77</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">w4</span><span class="p">,</span><span class="w"> </span><span class="mi">#150</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">w5</span><span class="p">,</span><span class="w"> </span><span class="mi">#29</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="nf">dup</span><span class="w">     </span><span class="no">v3.8h</span><span class="p">,</span><span class="w"> </span><span class="no">w3</span><span class="w">           </span><span class="c1">// Duplicate Red coeff to all lanes of v3</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">    </span><span class="nf">dup</span><span class="w">     </span><span class="no">v4.8h</span><span class="p">,</span><span class="w"> </span><span class="no">w4</span><span class="w">           </span><span class="c1">// Duplicate Green coeff to all lanes of v4</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">    </span><span class="nf">dup</span><span class="w">     </span><span class="no">v5.8h</span><span class="p">,</span><span class="w"> </span><span class="no">w5</span><span class="w">           </span><span class="c1">// Duplicate Blue coeff to all lanes of v5</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23"></a>
-<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="nl">loop_pixels:</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">    </span><span class="c1">// Check if we have at least 8 pixels left to process</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">    </span><span class="nf">cmp</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="mi">#8</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">    </span><span class="nf">blt</span><span class="w">     </span><span class="no">scalar_cleanup</span><span class="w">      </span><span class="c1">// If less than 8, handle remainder with scalar code</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28"></a>
-<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">    </span><span class="c1">// Load 8 RGB pixels (24 bytes total)</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">    </span><span class="c1">// ld3 de-interleaves the RGB triplets into 3 separate registers:</span>
-<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">    </span><span class="c1">// v0.8b = R0..R7, v1.8b = G0..G7, v2.8b = B0..B7</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">    </span><span class="nf">ld3</span><span class="w">     </span><span class="p">{</span><span class="no">v0.8b</span><span class="p">,</span><span class="w"> </span><span class="no">v1.8b</span><span class="p">,</span><span class="w"> </span><span class="no">v2.8b</span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">],</span><span class="w"> </span><span class="mi">#24</span>
-<a id="__codelineno-4-33" name="__codelineno-4-33"></a>
-<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">    </span><span class="c1">// Widening shift: convert 8-bit unsigned integers to 16-bit</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">    </span><span class="nf">uxtl</span><span class="w">    </span><span class="no">v0.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v0.8b</span><span class="w">        </span><span class="c1">// R0..R7 -&gt; 16-bit in v0</span>
-<a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="w">    </span><span class="nf">uxtl</span><span class="w">    </span><span class="no">v1.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v1.8b</span><span class="w">        </span><span class="c1">// G0..G7 -&gt; 16-bit in v1</span>
-<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">    </span><span class="nf">uxtl</span><span class="w">    </span><span class="no">v2.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v2.8b</span><span class="w">        </span><span class="c1">// B0..B7 -&gt; 16-bit in v2</span>
-<a id="__codelineno-4-38" name="__codelineno-4-38"></a>
-<a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="w">    </span><span class="c1">// Multiply Red by 77</span>
-<a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">    </span><span class="nf">umul</span><span class="w">    </span><span class="no">v6.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v0.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v3.8h</span><span class="w"> </span><span class="c1">// v6 = R * 77</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41"></a>
-<a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="w">    </span><span class="c1">// Multiply-Accumulate Green: v6 += G * 150</span>
-<a id="__codelineno-4-43" name="__codelineno-4-43"></a><span class="w">    </span><span class="nf">umla</span><span class="w">    </span><span class="no">v6.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v1.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v4.8h</span>
-<a id="__codelineno-4-44" name="__codelineno-4-44"></a>
-<a id="__codelineno-4-45" name="__codelineno-4-45"></a><span class="w">    </span><span class="c1">// Multiply-Accumulate Blue: v6 += B * 29</span>
-<a id="__codelineno-4-46" name="__codelineno-4-46"></a><span class="w">    </span><span class="nf">umla</span><span class="w">    </span><span class="no">v6.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v2.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v5.8h</span>
-<a id="__codelineno-4-47" name="__codelineno-4-47"></a>
-<a id="__codelineno-4-48" name="__codelineno-4-48"></a><span class="w">    </span><span class="c1">// Divide by 256 using right shift by 8 bits</span>
-<a id="__codelineno-4-49" name="__codelineno-4-49"></a><span class="w">    </span><span class="nf">ushr</span><span class="w">    </span><span class="no">v6.8h</span><span class="p">,</span><span class="w"> </span><span class="no">v6.8h</span><span class="p">,</span><span class="w"> </span><span class="mi">#8</span><span class="w">    </span><span class="c1">// v6 = v6 &gt;&gt; 8</span>
-<a id="__codelineno-4-50" name="__codelineno-4-50"></a>
-<a id="__codelineno-4-51" name="__codelineno-4-51"></a><span class="w">    </span><span class="c1">// Narrow 16-bit back to 8-bit bytes</span>
-<a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="w">    </span><span class="nf">xtn</span><span class="w">     </span><span class="no">v6.8b</span><span class="p">,</span><span class="w"> </span><span class="no">v6.8h</span><span class="w">        </span><span class="c1">// Convert v6.8h to v6.8b</span>
-<a id="__codelineno-4-53" name="__codelineno-4-53"></a>
-<a id="__codelineno-4-54" name="__codelineno-4-54"></a><span class="w">    </span><span class="c1">// Store 8 grayscale bytes to dest</span>
-<a id="__codelineno-4-55" name="__codelineno-4-55"></a><span class="w">    </span><span class="nf">st1</span><span class="w">     </span><span class="p">{</span><span class="no">v6.8b</span><span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">],</span><span class="w"> </span><span class="mi">#8</span>
-<a id="__codelineno-4-56" name="__codelineno-4-56"></a>
-<a id="__codelineno-4-57" name="__codelineno-4-57"></a><span class="w">    </span><span class="c1">// Decrement pixel counter by 8</span>
-<a id="__codelineno-4-58" name="__codelineno-4-58"></a><span class="w">    </span><span class="nf">sub</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="mi">#8</span>
-<a id="__codelineno-4-59" name="__codelineno-4-59"></a><span class="w">    </span><span class="nf">b</span><span class="w">       </span><span class="no">loop_pixels</span>
-<a id="__codelineno-4-60" name="__codelineno-4-60"></a>
-<a id="__codelineno-4-61" name="__codelineno-4-61"></a><span class="nl">scalar_cleanup:</span>
-<a id="__codelineno-4-62" name="__codelineno-4-62"></a><span class="w">    </span><span class="c1">// Process remaining pixels individually (if any)</span>
-<a id="__codelineno-4-63" name="__codelineno-4-63"></a><span class="w">    </span><span class="nf">cbz</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">done</span>
-<a id="__codelineno-4-64" name="__codelineno-4-64"></a>
-<a id="__codelineno-4-65" name="__codelineno-4-65"></a><span class="nl">scalar_loop:</span>
-<a id="__codelineno-4-66" name="__codelineno-4-66"></a><span class="w">    </span><span class="nf">ldrb</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">        </span><span class="c1">// Read R</span>
-<a id="__codelineno-4-67" name="__codelineno-4-67"></a><span class="w">    </span><span class="nf">ldrb</span><span class="w">    </span><span class="no">w7</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">        </span><span class="c1">// Read G</span>
-<a id="__codelineno-4-68" name="__codelineno-4-68"></a><span class="w">    </span><span class="nf">ldrb</span><span class="w">    </span><span class="no">w8</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x0</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">        </span><span class="c1">// Read B</span>
-<a id="__codelineno-4-69" name="__codelineno-4-69"></a>
-<a id="__codelineno-4-70" name="__codelineno-4-70"></a><span class="w">    </span><span class="nf">mul</span><span class="w">     </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="no">w3</span><span class="w">          </span><span class="c1">// R * 77</span>
-<a id="__codelineno-4-71" name="__codelineno-4-71"></a><span class="w">    </span><span class="nf">madd</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="no">w7</span><span class="p">,</span><span class="w"> </span><span class="no">w4</span><span class="p">,</span><span class="w"> </span><span class="no">w6</span><span class="w">      </span><span class="c1">// + G * 150</span>
-<a id="__codelineno-4-72" name="__codelineno-4-72"></a><span class="w">    </span><span class="nf">madd</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="no">w8</span><span class="p">,</span><span class="w"> </span><span class="no">w5</span><span class="p">,</span><span class="w"> </span><span class="no">w6</span><span class="w">      </span><span class="c1">// + B * 29</span>
-<a id="__codelineno-4-73" name="__codelineno-4-73"></a><span class="w">    </span><span class="nf">lsr</span><span class="w">     </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="mi">#8</span><span class="w">          </span><span class="c1">// &gt;&gt; 8</span>
-<a id="__codelineno-4-74" name="__codelineno-4-74"></a>
-<a id="__codelineno-4-75" name="__codelineno-4-75"></a><span class="w">    </span><span class="nf">strb</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">        </span><span class="c1">// Store Y</span>
-<a id="__codelineno-4-76" name="__codelineno-4-76"></a><span class="w">    </span><span class="nf">sub</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
-<a id="__codelineno-4-77" name="__codelineno-4-77"></a><span class="w">    </span><span class="nf">cbnz</span><span class="w">    </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">scalar_loop</span>
-<a id="__codelineno-4-78" name="__codelineno-4-78"></a>
-<a id="__codelineno-4-79" name="__codelineno-4-79"></a><span class="nl">done:</span>
-<a id="__codelineno-4-80" name="__codelineno-4-80"></a><span class="w">    </span><span class="nf">ret</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="performance-comparison-c-vs-neon">Performance Comparison (C++ vs NEON)<a class="headerlink" href="#performance-comparison-c-vs-neon" title="Permanent link">¶</a></h2>
-<p>To evaluate the speedup, we can wrap our NEON assembly function in a C++ benchmark program.</p>
-<h3 id="benchmark-harness-benchmarkcpp">Benchmark Harness (<code>benchmark.cpp</code>)<a class="headerlink" href="#benchmark-harness-benchmarkcpp" title="Permanent link">¶</a></h3>
-<p>Create <code>benchmark.cpp</code>:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span>
-<span class="normal"><a href="#__codelineno-5-13">13</a></span>
-<span class="normal"><a href="#__codelineno-5-14">14</a></span>
-<span class="normal"><a href="#__codelineno-5-15">15</a></span>
-<span class="normal"><a href="#__codelineno-5-16">16</a></span>
-<span class="normal"><a href="#__codelineno-5-17">17</a></span>
-<span class="normal"><a href="#__codelineno-5-18">18</a></span>
-<span class="normal"><a href="#__codelineno-5-19">19</a></span>
-<span class="normal"><a href="#__codelineno-5-20">20</a></span>
-<span class="normal"><a href="#__codelineno-5-21">21</a></span>
-<span class="normal"><a href="#__codelineno-5-22">22</a></span>
-<span class="normal"><a href="#__codelineno-5-23">23</a></span>
-<span class="normal"><a href="#__codelineno-5-24">24</a></span>
-<span class="normal"><a href="#__codelineno-5-25">25</a></span>
-<span class="normal"><a href="#__codelineno-5-26">26</a></span>
-<span class="normal"><a href="#__codelineno-5-27">27</a></span>
-<span class="normal"><a href="#__codelineno-5-28">28</a></span>
-<span class="normal"><a href="#__codelineno-5-29">29</a></span>
-<span class="normal"><a href="#__codelineno-5-30">30</a></span>
-<span class="normal"><a href="#__codelineno-5-31">31</a></span>
-<span class="normal"><a href="#__codelineno-5-32">32</a></span>
-<span class="normal"><a href="#__codelineno-5-33">33</a></span>
-<span class="normal"><a href="#__codelineno-5-34">34</a></span>
-<span class="normal"><a href="#__codelineno-5-35">35</a></span>
-<span class="normal"><a href="#__codelineno-5-36">36</a></span>
-<span class="normal"><a href="#__codelineno-5-37">37</a></span>
-<span class="normal"><a href="#__codelineno-5-38">38</a></span>
-<span class="normal"><a href="#__codelineno-5-39">39</a></span>
-<span class="normal"><a href="#__codelineno-5-40">40</a></span>
-<span class="normal"><a href="#__codelineno-5-41">41</a></span>
-<span class="normal"><a href="#__codelineno-5-42">42</a></span>
-<span class="normal"><a href="#__codelineno-5-43">43</a></span>
-<span class="normal"><a href="#__codelineno-5-44">44</a></span>
-<span class="normal"><a href="#__codelineno-5-45">45</a></span>
-<span class="normal"><a href="#__codelineno-5-46">46</a></span>
-<span class="normal"><a href="#__codelineno-5-47">47</a></span>
-<span class="normal"><a href="#__codelineno-5-48">48</a></span>
-<span class="normal"><a href="#__codelineno-5-49">49</a></span>
-<span class="normal"><a href="#__codelineno-5-50">50</a></span>
-<span class="normal"><a href="#__codelineno-5-51">51</a></span>
-<span class="normal"><a href="#__codelineno-5-52">52</a></span>
-<span class="normal"><a href="#__codelineno-5-53">53</a></span>
-<span class="normal"><a href="#__codelineno-5-54">54</a></span>
-<span class="normal"><a href="#__codelineno-5-55">55</a></span>
-<span class="normal"><a href="#__codelineno-5-56">56</a></span>
-<span class="normal"><a href="#__codelineno-5-57">57</a></span>
-<span class="normal"><a href="#__codelineno-5-58">58</a></span>
-<span class="normal"><a href="#__codelineno-5-59">59</a></span>
-<span class="normal"><a href="#__codelineno-5-60">60</a></span>
-<span class="normal"><a href="#__codelineno-5-61">61</a></span>
-<span class="normal"><a href="#__codelineno-5-62">62</a></span>
-<span class="normal"><a href="#__codelineno-5-63">63</a></span>
-<span class="normal"><a href="#__codelineno-5-64">64</a></span>
-<span class="normal"><a href="#__codelineno-5-65">65</a></span>
-<span class="normal"><a href="#__codelineno-5-66">66</a></span>
-<span class="normal"><a href="#__codelineno-5-67">67</a></span>
-<span class="normal"><a href="#__codelineno-5-68">68</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;random&gt;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">grayscale_neon</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">);</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="p">}</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="c1">// Standard C++ implementation (Scalar CPU)</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="kt">void</span><span class="w"> </span><span class="n">grayscale_cpp</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">uint8_t</span><span class="o">*</span><span class="w"> </span><span class="n">dest</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">];</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span>
-<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span>
-<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">        </span><span class="n">dest</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">77</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">150</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">29</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
-<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="p">}</span>
-<a id="__codelineno-5-19" name="__codelineno-5-19"></a>
-<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_pixels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1920</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1080</span><span class="p">;</span><span class="w"> </span><span class="c1">// Full HD resolution (2.07 Million Pixels)</span>
-<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">src</span><span class="p">(</span><span class="n">num_pixels</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
-<a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dest_cpp</span><span class="p">(</span><span class="n">num_pixels</span><span class="p">);</span>
-<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dest_neon</span><span class="p">(</span><span class="n">num_pixels</span><span class="p">);</span>
-<a id="__codelineno-5-25" name="__codelineno-5-25"></a>
-<a id="__codelineno-5-26" name="__codelineno-5-26"></a><span class="w">    </span><span class="c1">// Initialize source with random color values</span>
-<a id="__codelineno-5-27" name="__codelineno-5-27"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">mt19937</span><span class="w"> </span><span class="nf">rng</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
-<a id="__codelineno-5-28" name="__codelineno-5-28"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-29" name="__codelineno-5-29"></a><span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rng</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
-<a id="__codelineno-5-30" name="__codelineno-5-30"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-31" name="__codelineno-5-31"></a>
-<a id="__codelineno-5-32" name="__codelineno-5-32"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Benchmarking RGB24 to Grayscale on "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">num_pixels</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" pixels..."</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-33" name="__codelineno-5-33"></a>
-<a id="__codelineno-5-34" name="__codelineno-5-34"></a><span class="w">    </span><span class="c1">// 1. C++ Scalar Benchmark</span>
-<a id="__codelineno-5-35" name="__codelineno-5-35"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<a id="__codelineno-5-36" name="__codelineno-5-36"></a><span class="w">    </span><span class="n">grayscale_cpp</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dest_cpp</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">);</span>
-<a id="__codelineno-5-37" name="__codelineno-5-37"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<a id="__codelineno-5-38" name="__codelineno-5-38"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">milli</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cpp_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
-<a id="__codelineno-5-39" name="__codelineno-5-39"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"C++ Scalar Time: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">cpp_time</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ms"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-40" name="__codelineno-5-40"></a>
-<a id="__codelineno-5-41" name="__codelineno-5-41"></a><span class="w">    </span><span class="c1">// 2. NEON Assembly Benchmark</span>
-<a id="__codelineno-5-42" name="__codelineno-5-42"></a><span class="w">    </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<a id="__codelineno-5-43" name="__codelineno-5-43"></a><span class="w">    </span><span class="n">grayscale_neon</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">dest_neon</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">);</span>
-<a id="__codelineno-5-44" name="__codelineno-5-44"></a><span class="w">    </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<a id="__codelineno-5-45" name="__codelineno-5-45"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">milli</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neon_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
-<a id="__codelineno-5-46" name="__codelineno-5-46"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"NEON SIMD Time:  "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">neon_time</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ms"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-47" name="__codelineno-5-47"></a>
-<a id="__codelineno-5-48" name="__codelineno-5-48"></a><span class="w">    </span><span class="c1">// Verify correctness</span>
-<a id="__codelineno-5-49" name="__codelineno-5-49"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">correct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<a id="__codelineno-5-50" name="__codelineno-5-50"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_pixels</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-51" name="__codelineno-5-51"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dest_cpp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">dest_neon</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-52" name="__codelineno-5-52"></a><span class="w">            </span><span class="n">correct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<a id="__codelineno-5-53" name="__codelineno-5-53"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Mismatch at index "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span>
-<a id="__codelineno-5-54" name="__codelineno-5-54"></a><span class="w">                      </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">": C++="</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">dest_cpp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span>
-<a id="__codelineno-5-55" name="__codelineno-5-55"></a><span class="w">                      </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">", NEON="</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">dest_neon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-56" name="__codelineno-5-56"></a><span class="w">            </span><span class="k">break</span><span class="p">;</span>
-<a id="__codelineno-5-57" name="__codelineno-5-57"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-5-58" name="__codelineno-5-58"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-59" name="__codelineno-5-59"></a>
-<a id="__codelineno-5-60" name="__codelineno-5-60"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">correct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-61" name="__codelineno-5-61"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Verification PASSED!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-62" name="__codelineno-5-62"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Speedup Factor:  "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">cpp_time</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">neon_time</span><span class="p">.</span><span class="n">count</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"x"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-63" name="__codelineno-5-63"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-5-64" name="__codelineno-5-64"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Verification FAILED!"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-5-65" name="__codelineno-5-65"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-5-66" name="__codelineno-5-66"></a>
-<a id="__codelineno-5-67" name="__codelineno-5-67"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-5-68" name="__codelineno-5-68"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="compiling-and-running">Compiling and Running<a class="headerlink" href="#compiling-and-running" title="Permanent link">¶</a></h3>
-<p>Compile the code leveraging the native compiler optimizations on your Raspberry Pi:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Compile assembly and C++ helper</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>g++<span class="w"> </span>-O3<span class="w"> </span>-o<span class="w"> </span>benchmark<span class="w"> </span>benchmark.cpp<span class="w"> </span>grayscale_neon.S
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="c1"># Run the benchmark</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>./benchmark
-</code></pre></div></td></tr></table></div>
-<h3 id="typical-results">Typical Results<a class="headerlink" href="#typical-results" title="Permanent link">¶</a></h3>
-<p>On a <strong>Raspberry Pi 4</strong>, you can expect results similar to the following:
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>Benchmarking RGB24 to Grayscale on 2073600 pixels...
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>C++ Scalar Time: 18.2 ms
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>NEON SIMD Time:  4.3 ms
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>Verification PASSED!
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a>Speedup Factor:  4.23x
-</code></pre></div></td></tr></table></div>
-<p>With NEON SIMD, the execution time is reduced by over <strong>75%</strong>, demonstrating the massive performance gains achievable through vectorization.</p>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>NEON SIMD is an indispensable tool for low-level performance optimization on ARM-based devices. By vectorizing calculations, you bypass the CPU memory latency and instruction dispatch bottlenecks of single-threaded loops.</p>
-<p>The next tutorial covers <strong>Inline Assembly in C++</strong>, including operands, constraints, and clobbered registers.</p></div>
+<p>No flags clobber is needed for this ADD form because it does not set NZCV. No memory clobber is needed because the statement accesses no memory. Its result is used, so volatile is not required simply to force a useless operation to remain.</p>
+<h2 id="know-when-this-model-stops-being-sufficient">Know when this model stops being sufficient<a class="headerlink" href="#know-when-this-model-stops-being-sufficient" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>New question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read and overwrite one operand</td>
+<td>Does it need a read/write constraint?</td>
+</tr>
+<tr>
+<td>Write an output before reading all inputs</td>
+<td>Is early-clobber required?</td>
+</tr>
+<tr>
+<td>Change NZCV</td>
+<td>Is the flags clobber declared?</td>
+</tr>
+<tr>
+<td>Read or write pointed-to storage</td>
+<td>Which memory effects are represented?</td>
+</tr>
+<tr>
+<td>Call another function</td>
+<td>Are stack, LR and all call effects modeled?</td>
+</tr>
+<tr>
+<td>Communicate between threads/devices</td>
+<td>Which language and hardware ordering rules apply?</td>
+</tr>
+</tbody>
+</table>
+<p>Do not hide a function call inside an otherwise register-only template. A compiler memory clobber is not a CPU memory barrier, and volatile is not a synchronization policy. See the <a href="https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html">GCC extended-asm documentation</a> before extending the contract.</p>
+<h2 id="prefer-the-simplest-correct-boundary">Prefer the simplest correct boundary<a class="headerlink" href="#prefer-the-simplest-correct-boundary" title="Permanent link">¶</a></h2>
+<p>C++ <code>a + b</code> already expresses this unsigned operation. Inline asm here teaches constraints; it is not an optimization recommendation. For multiple blocks, calls or a reusable algorithm, a separate .S function with explicit tests is often easier to inspect.</p>
+<p>If optimized builds disagree, investigate constraints and undefined behavior before disabling optimization. Passing three builds is useful evidence, not proof that an incomplete constraint set is valid.</p>
+<h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
+<p>Why is adding volatile not a repair for a missing output or memory effect?</p>
+<details class="tip">
+<summary>Compare your reasoning</summary>
+<p>Volatile does not declare the missing dependency or access. The compiler still needs an accurate operand/clobber contract to generate correct surrounding code.</p>
+</details>
+<h2 id="continue-the-course">Continue the course<a class="headerlink" href="#continue-the-course" title="Permanent link">¶</a></h2>
+<p><a href="../10_neon_with_scalar_tails/">Previous: NEON and Scalar Tails</a> · <a href="../">Course roadmap</a> · <a href="../12_reading_specs_and_measuring/">Next: Reading Specifications and Measuring</a></p></div>
 
 
 
@@ -9242,7 +9294,7 @@ $$Y = \frac{77R + 150G + 29B}{256} = (77R + 150G + 29B) \gg 8$$</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9252,7 +9304,7 @@ $$Y = \frac{77R + 150G + 29B}{256} = (77R + 150G + 29B) \gg 8$$</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9274,10 +9326,10 @@ $$Y = \frac{77R + 150G + 29B}{256} = (77R + 150G + 29B) \gg 8$$</p>
           <li><a href="https://ohyaan.github.io/assembly/">Browse the Assembly guide hub</a></li>
         
         
-          <li><a href="../introduction_to_arm64_assembly_on_raspberry_pi/">Previous: Arm64 Assembly on Raspberry Pi: AArch64 Tutorial</a></li>
+          <li><a href="../10_neon_with_scalar_tails/">Previous: NEON and Scalar Tails</a></li>
         
         
-          <li><a href="../../design-patterns/">Next: Design Patterns</a></li>
+          <li><a href="../12_reading_specs_and_measuring/">Next: Reading Specifications and Measuring</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>

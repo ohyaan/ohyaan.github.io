@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn Arm64 assembly on Raspberry Pi OS with a working AArch64 hello-world program, build commands, Linux system calls, GDB debugging, and next steps.">
+        <meta name="description" content="Build AArch64 decisions and bounded loops on Raspberry Pi, distinguish signed and unsigned comparisons, and test zero and boundary inputs explicitly.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/assembly/introduction_to_arm64_assembly_on_raspberry_pi/">
+        <link rel="canonical" href="https://ohyaan.github.io/assembly/03_flags_branches_and_loops/">
       
       
-        <link rel="prev" href="../interfacing_with_c%2B%2B_and_gpio_control/">
+        <link rel="prev" href="../02_registers_and_integer_operations/">
       
       
-        <link rel="next" href="../neon_simd_vector_programming_on_arm64/">
+        <link rel="next" href="../04_memory_arrays_and_loads/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Arm64 Assembly on Raspberry Pi: AArch64 Tutorial - With Raspberry Pi</title>
+        <title>Flags, Branches and Loops - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Arm64 Assembly on Raspberry Pi: AArch64 Tutorial - With Raspberry Pi">
-  <meta property="og:description" content="Learn Arm64 assembly on Raspberry Pi OS with a working AArch64 hello-world program, build commands, Linux system calls, GDB debugging, and next steps.">
+  <meta property="og:title" content="Flags, Branches and Loops - With Raspberry Pi">
+  <meta property="og:description" content="Build AArch64 decisions and bounded loops on Raspberry Pi, distinguish signed and unsigned comparisons, and test zero and boundary inputs explicitly.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/assembly/introduction_to_arm64_assembly_on_raspberry_pi/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__introduction_to_arm64_assembly_on_raspberry_pi.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/assembly/03_flags_branches_and_loops/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__03_flags_branches_and_loops.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Arm64 Assembly on Raspberry Pi: AArch64 Tutorial">
+  <meta property="og:image:alt" content="Flags, Branches and Loops">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2025-11-16">
+    <meta property="article:published_time" content="2026-10-20">
   
   
-    <meta property="article:modified_time" content="2026-09-27">
+    <meta property="article:modified_time" content="2026-10-20">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Arm64 Assembly on Raspberry Pi: AArch64 Tutorial - With Raspberry Pi">
-  <meta name="twitter:description" content="Learn Arm64 assembly on Raspberry Pi OS with a working AArch64 hello-world program, build commands, Linux system calls, GDB debugging, and next steps.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__introduction_to_arm64_assembly_on_raspberry_pi.jpg">
+  <meta name="twitter:title" content="Flags, Branches and Loops - With Raspberry Pi">
+  <meta name="twitter:description" content="Build AArch64 decisions and bounded loops on Raspberry Pi, distinguish signed and unsigned comparisons, and test zero and boundary inputs explicitly.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__03_flags_branches_and_loops.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Arm64 Assembly on Raspberry Pi: AArch64 Tutorial",
-    "description": "Learn Arm64 assembly on Raspberry Pi OS with a working AArch64 hello-world program, build commands, Linux system calls, GDB debugging, and next steps.",
-    "url": "https://ohyaan.github.io/assembly/introduction_to_arm64_assembly_on_raspberry_pi/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/introduction_to_arm64_assembly_on_raspberry_pi/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/assembly__introduction_to_arm64_assembly_on_raspberry_pi.jpg"],
+    "headline": "Flags, Branches and Loops",
+    "description": "Build AArch64 decisions and bounded loops on Raspberry Pi, distinguish signed and unsigned comparisons, and test zero and boundary inputs explicitly.",
+    "url": "https://ohyaan.github.io/assembly/03_flags_branches_and_loops/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/03_flags_branches_and_loops/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/assembly__03_flags_branches_and_loops.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2025-11-16",
-    "dateModified": "2026-09-27"
+    "datePublished": "2026-10-20",
+    "dateModified": "2026-10-20"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Arm64 Assembly on Raspberry Pi: AArch64 Tutorial", "item": "https://ohyaan.github.io/assembly/introduction_to_arm64_assembly_on_raspberry_pi/"}
+      {"@type": "ListItem", "position": 2, "name": "Flags, Branches and Loops", "item": "https://ohyaan.github.io/assembly/03_flags_branches_and_loops/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#arm64-assembly-on-raspberry-pi-aarch64-tutorial" class="md-skip">
+        <a href="#flags-branches-and-loops" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
+              Flags, Branches and Loops
             
           </span>
         </div>
@@ -3205,14 +3205,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -3259,14 +3251,63 @@
                 
   
   
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1: Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1: Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../01_tools_and_first_program/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
+    Tools and Your First AArch64 Program
     
   </span>
   
@@ -3284,99 +3325,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../02_registers_and_integer_operations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ARM64 Registers: AArch64 Guide for Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control Flow and Branching in Arm64 Assembly
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Functions and Stack Management in Arm64 Assembly
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../inline_assembly_in_c%2B%2B_on_raspberry_pi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Inline Assembly in C++ on Raspberry Pi
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Interfacing with C++ and GPIO Control
+    Registers and Integer Operations
     
   </span>
   
@@ -3407,7 +3360,7 @@
           
   
   <span class="md-ellipsis">
-    Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
+    Flags, Branches and Loops
     
   </span>
   
@@ -3419,7 +3372,7 @@
         
   
   <span class="md-ellipsis">
-    Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
+    Flags, Branches and Loops
     
   </span>
   
@@ -3442,90 +3395,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-arm64aarch64" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Arm64/AArch64?
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-environment-setup" class="md-nav__link">
+  <a href="#flags-and-branch-conditions" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Environment Setup
+      Flags and branch conditions
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hello-world-in-arm64-assembly" class="md-nav__link">
+  <a href="#trace-a-finite-loop" class="md-nav__link">
     <span class="md-ellipsis">
-      Hello World in Arm64 Assembly
+      Trace a finite loop
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-instructions-overview" class="md-nav__link">
+  <a href="#failure-and-recovery" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic Instructions Overview
+      Failure and recovery
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#a-more-complex-example-sum-of-numbers" class="md-nav__link">
+  <a href="#part-1-checkpoint" class="md-nav__link">
     <span class="md-ellipsis">
-      A More Complex Example: Sum of Numbers
+      Part 1 checkpoint
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#debugging-assembly-programs" class="md-nav__link">
+  <a href="#check-your-understanding" class="md-nav__link">
     <span class="md-ellipsis">
-      Debugging Assembly Programs
+      Check your understanding
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#makefile-for-assembly-projects" class="md-nav__link">
+  <a href="#continue-the-course" class="md-nav__link">
     <span class="md-ellipsis">
-      Makefile for Assembly Projects
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-call-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      System Call Reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conclusion
+      Continue the course
     </span>
   </a>
   
@@ -3540,6 +3466,61 @@
 
               
             
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2: Memory and Functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2: Memory and Functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
               
                 
   
@@ -3547,16 +3528,310 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon_simd_vector_programming_on_arm64/" class="md-nav__link">
+      <a href="../04_memory_arrays_and_loads/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    NEON SIMD Vector Programming on Arm64
+    Memory, Arrays and Loads
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_addresses_and_relocations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Addresses and Relocations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_functions_stack_and_abi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions, Stack and the ABI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3: Integration and Debugging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3: Integration and Debugging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_calling_assembly_from_c_and_cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Calling Assembly from C and C++
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_debugging_with_gdb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging with GDB
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_checked_array_project/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Checked Array Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4: Advanced Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4: Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_neon_with_scalar_tails/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NEON and Scalar Tails
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_extended_inline_assembly/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extended Inline Assembly
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_reading_specs_and_measuring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading Specifications and Measuring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -8864,22 +9139,8 @@
 
 
 
-<div><h1 id="arm64-assembly-on-raspberry-pi-aarch64-tutorial">Arm64 Assembly on Raspberry Pi: AArch64 Tutorial<a class="headerlink" href="#arm64-assembly-on-raspberry-pi-aarch64-tutorial" title="Permanent link">¶</a></h1>
-<p>Arm64 assembly on Raspberry Pi uses the AArch64 instruction set when the board runs a 64-bit operating system. This tutorial verifies the environment, builds a working Linux hello-world program with GNU tools, explains registers and system calls, and shows how to single-step the result in GDB.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Quick start</p>
-<p>Confirm that <code>uname -m</code> prints <code>aarch64</code>, install <code>build-essential</code> and <code>gdb</code>, then assemble with <code>as</code> and link with <code>ld</code>. If the command prints <code>armv7l</code>, these 64-bit examples will not assemble as written.</p>
-</div>
-<p>This page covers Linux user-space assembly. Bare-metal code uses the same instruction set but has a different entry environment, memory map, exception setup, and output path. For that route, use the <a href="../../os-development/">Raspberry Pi OS development series</a> after learning the registers and calling convention here.</p>
-<p>Learning AArch64 assembly is useful when you want to:</p>
-<ul>
-<li><strong>Direct Hardware Control</strong>: Access GPIO, memory-mapped peripherals, and system resources without abstraction layers</li>
-<li><strong>Performance Optimization</strong>: Write critical code sections that execute faster than compiler-generated code</li>
-<li><strong>Deeper Understanding</strong>: Gain insight into how processors execute instructions, manage memory, and handle function calls</li>
-<li><strong>Embedded Systems Development</strong>: Essential knowledge for bare-metal programming and operating system development</li>
-<li><strong>Debugging Skills</strong>: Better understand crashes, stack traces, and low-level behavior of your programs</li>
-</ul>
-<p>The examples assume basic command-line familiarity. Follow the complete <a href="../">AArch64 and Arm64 learning path</a> for registers, address loading, functions, C++ integration, GPIO, and NEON SIMD.</p>
+<div><h1 id="flags-branches-and-loops">Flags, Branches and Loops<a class="headerlink" href="#flags-branches-and-loops" title="Permanent link">¶</a></h1>
+<p>A branch is a decision over a precisely defined condition, not an implicit C comparison. Build a bounded sum and show why signed and unsigned tests differ.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8889,19 +9150,45 @@
   </script>
 </div>
 
-<h2 id="what-is-arm64aarch64">What is Arm64/AArch64?<a class="headerlink" href="#what-is-arm64aarch64" title="Permanent link">¶</a></h2>
-<p>Arm64 is the common Linux platform name for AArch64, Arm's 64-bit execution state and instruction set. Key differences from 32-bit Arm include:</p>
-<ul>
-<li><strong>64-bit Registers</strong>: 31 general-purpose 64-bit registers (x0-x30) plus special registers</li>
-<li><strong>Larger Address Space</strong>: Can address up to 2^64 bytes of memory (16 exabytes)</li>
-<li><strong>Simplified Instruction Set</strong>: Removed some legacy 32-bit instructions, added new powerful instructions</li>
-<li><strong>Better Performance</strong>: More registers reduce memory access, improved SIMD (NEON) capabilities</li>
-<li><strong>Uniform Instruction Encoding</strong>: All instructions are 32-bits wide, simplifying instruction fetch</li>
-</ul>
-<h2 id="development-environment-setup">Development Environment Setup<a class="headerlink" href="#development-environment-setup" title="Permanent link">¶</a></h2>
-<h3 id="required-tools">Required Tools<a class="headerlink" href="#required-tools" title="Permanent link">¶</a></h3>
-<p>Raspberry Pi OS (64-bit) includes all necessary tools for assembly development:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<div class="admonition example">
+<p class="admonition-title">Course examples on GitHub</p>
+<p><a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly/app/branches">Open this lesson's sample files</a> · <a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly">CMake build instructions</a>.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../02_registers_and_integer_operations/">registers and integer operations</a>. You know the leaf-function contract and can link a C driver. Run this lesson in its own practice directory on the Pi.</p>
+<p><strong>Outcome:</strong> trace a loop, handle an empty input, and distinguish <code>b.lt</code> from <code>b.lo</code>.</p>
+<h2 id="flags-and-branch-conditions">Flags and branch conditions<a class="headerlink" href="#flags-and-branch-conditions" title="Permanent link">¶</a></h2>
+<p><code>cmp x0, x1</code> computes subtraction flags without retaining the arithmetic result. N, Z, C and V describe its negative/zero/carry/overflow properties. Signed decisions combine N and V; unsigned decisions use carry and zero. The same bit pattern can therefore produce different decisions.</p>
+<table>
+<thead>
+<tr>
+<th>Decision after CMP</th>
+<th>Branch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Equal / not equal</td>
+<td><code>b.eq</code> / <code>b.ne</code></td>
+</tr>
+<tr>
+<td>Signed less / greater or equal</td>
+<td><code>b.lt</code> / <code>b.ge</code></td>
+</tr>
+<tr>
+<td>Unsigned lower / higher or same</td>
+<td><code>b.lo</code> / <code>b.hs</code></td>
+</tr>
+<tr>
+<td>Unsigned higher / lower or same</td>
+<td><code>b.hi</code> / <code>b.ls</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>cbz</code> and <code>cbnz</code> test a register directly. <code>subs</code> changes flags; plain <code>sub</code> does not. Put a conditional branch after the flag-producing instruction it depends on, not after an intervening call.</p>
+<h2 id="trace-a-finite-loop">Trace a finite loop<a class="headerlink" href="#trace-a-finite-loop" title="Permanent link">¶</a></h2>
+<p><code>sum_to_n(n)</code> adds n down to 1. Its practical input contract is n &lt;= 1000; the driver tests only within that bound. It is not a constant-time algorithm for arbitrary 64-bit input.</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
@@ -8920,599 +9207,108 @@
 <span class="normal"><a href="#__codelineno-0-17">17</a></span>
 <span class="normal"><a href="#__codelineno-0-18">18</a></span>
 <span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Verify you're running 64-bit OS</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Should output: aarch64</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1"># Confirm the Debian userspace architecture</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>dpkg<span class="w"> </span>--print-architecture
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1"># Should output: arm64</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="c1"># Check if assembler and linker are installed</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>which<span class="w"> </span>as
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a>which<span class="w"> </span>ld
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="c1"># Install build-essential if not already present</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>gdb
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span>
+<span class="normal"><a href="#__codelineno-0-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// file: branches.S</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="na">.text</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="na">.global</span><span class="w"> </span><span class="no">sum_to_n</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="na">.type</span><span class="w"> </span><span class="no">sum_to_n</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nl">sum_to_n:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="nf">cbz</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">.Ldone</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="nl">.Lloop:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="nf">subs</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="nf">b.ne</span><span class="w"> </span><span class="no">.Lloop</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="nl">.Ldone:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="nf">mov</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="na">.size</span><span class="w"> </span><span class="no">sum_to_n</span><span class="p">,</span><span class="w"> </span><span class="no">.-sum_to_n</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="c1"># Verify installation</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a>as<span class="w"> </span>--version
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a>ld<span class="w"> </span>--version
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>gdb<span class="w"> </span>--version
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="na">.global</span><span class="w"> </span><span class="no">signed_less</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="na">.type</span><span class="w"> </span><span class="no">signed_less</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="nl">signed_less:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">    </span><span class="nf">cmp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">    </span><span class="nf">cset</span><span class="w"> </span><span class="no">w0</span><span class="p">,</span><span class="w"> </span><span class="no">lt</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="na">.size</span><span class="w"> </span><span class="no">signed_less</span><span class="p">,</span><span class="w"> </span><span class="no">.-signed_less</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="na">.global</span><span class="w"> </span><span class="no">unsigned_less</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="na">.type</span><span class="w"> </span><span class="no">unsigned_less</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="nl">unsigned_less:</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">    </span><span class="nf">cmp</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="w">    </span><span class="nf">cset</span><span class="w"> </span><span class="no">w0</span><span class="p">,</span><span class="w"> </span><span class="no">lo</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="na">.size</span><span class="w"> </span><span class="no">unsigned_less</span><span class="p">,</span><span class="w"> </span><span class="no">.-unsigned_less</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="na">.section</span><span class="w"> </span><span class="no">.note.GNU-stack</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="nv">%progbits</span>
 </code></pre></div></td></tr></table></div>
-<p>Tool versions vary with the Raspberry Pi OS release. The architecture checks matter more than matching version numbers copied from another system.</p>
-<h3 id="creating-your-first-assembly-project">Creating Your First Assembly Project<a class="headerlink" href="#creating-your-first-assembly-project" title="Permanent link">¶</a></h3>
-<p>Let's create a dedicated directory for assembly projects:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/assembly-projects
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>~/assembly-projects
+<p><code>cset</code> materializes a condition as 0 or 1; it does not introduce a new comparison. For n=3, the (remaining, accumulator) pairs after the additions are (3,3), (2,5), (1,6).</p>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">/* file: branches.c */</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">sum_to_n</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">signed_less</span><span class="p">(</span><span class="kt">int64_t</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">unsigned_less</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">inputs</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">};</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">inputs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">        </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sum_to_n</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">signed_less</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">        </span><span class="n">unsigned_less</span><span class="p">(</span><span class="n">UINT64_MAX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">        </span><span class="n">signed_less</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">unsigned_less</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="n">puts</span><span class="p">(</span><span class="s">"PASS branches: empty, bounded loop, signed and unsigned"</span><span class="p">);</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="hello-world-in-arm64-assembly">Hello World in Arm64 Assembly<a class="headerlink" href="#hello-world-in-arm64-assembly" title="Permanent link">¶</a></h2>
-<p>Our first program will print "Hello, Arm64!\n" to the console using Linux system calls.</p>
-<p>Create a file named <code>hello.s</code>:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// hello.s - Hello World in Arm64 assembly</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1">// Demonstrates basic program structure and system calls</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="na">.global</span><span class="w"> </span><span class="no">_start</span><span class="w">          </span><span class="c1">// Entry point for the linker</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="na">.section</span><span class="w"> </span><span class="no">.data</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="nl">msg:</span><span class="w">    </span><span class="na">.ascii</span><span class="w"> </span><span class="s">"Hello, Arm64!\n"</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="nf">len</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="no">msg</span><span class="w">           </span><span class="c1">// Calculate message length</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="nl">_start:</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="c1">// write(1, msg, len) - syscall number 64</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">      </span><span class="c1">// File descriptor: 1 = stdout</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">msg</span><span class="w">    </span><span class="c1">// Address of message</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="c1">#len    // Length of message</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#64</span><span class="w">     </span><span class="c1">// Syscall number for write</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span><span class="w">          </span><span class="c1">// Supervisor call (invoke syscall)</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18"></a>
-<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">    </span><span class="c1">// exit(0) - syscall number 93</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="w">      </span><span class="c1">// Exit status: 0 = success</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#93</span><span class="w">     </span><span class="c1">// Syscall number for exit</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span><span class="w">          </span><span class="c1">// Invoke syscall</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>gcc<span class="w"> </span>-std<span class="o">=</span>c11<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-g<span class="w"> </span>-O0<span class="w"> </span>branches.c<span class="w"> </span>branches.S<span class="w"> </span>-o<span class="w"> </span>branches
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>./branches
 </code></pre></div></td></tr></table></div>
-<h3 id="understanding-the-code">Understanding the Code<a class="headerlink" href="#understanding-the-code" title="Permanent link">¶</a></h3>
-<p>Let's break down each section:</p>
-<p><strong>Directives:</strong>
-- <code>.global _start</code>: Makes <code>_start</code> visible to the linker as the program entry point
-- <code>.section .data</code>: Defines the data section for initialized variables
-- <code>.section .text</code>: Defines the text section for executable code</p>
-<p><strong>Data Section:</strong>
-- <code>msg: .ascii "Hello, Arm64!\n"</code>: Declares a string without null termination
-- <code>len = . - msg</code>: Calculates message length (current position minus message start)</p>
-<p><strong>Registers Used:</strong>
-- <code>x0</code> - <code>x7</code>: Used for passing arguments to system calls and functions
-- <code>x8</code>: System call number
-- Other registers will be explained in detail in the next tutorial</p>
-<p><strong>System Calls:</strong>
-- <code>write(fd, buffer, count)</code>: Syscall 64 writes data to a file descriptor
-  - <code>x0</code>: File descriptor (1 = stdout)
-  - <code>x1</code>: Pointer to buffer
-  - <code>x2</code>: Number of bytes to write
-  - <code>x8</code>: Syscall number
-  - <code>svc #0</code>: Supervisor call instruction</p>
-<ul>
-<li><code>exit(status)</code>: Syscall 93 terminates the program<ul>
-<li><code>x0</code>: Exit status code</li>
-<li><code>x8</code>: Syscall number</li>
-</ul>
-</li>
-</ul>
-<h3 id="assembling-and-linking">Assembling and Linking<a class="headerlink" href="#assembling-and-linking" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Assemble: convert assembly code to object file</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>as<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w"> </span>hello.s
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Link: create executable from object file</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>ld<span class="w"> </span>-o<span class="w"> </span>hello<span class="w"> </span>hello.o
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c1"># Run the program</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a>./hello
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>PASS branches: empty, bounded loop, signed and unsigned
 </code></pre></div></td></tr></table></div>
-<p><strong>Output:</strong>
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>Hello, Arm64!
-</code></pre></div></td></tr></table></div>
-<h3 id="verifying-the-binary">Verifying the Binary<a class="headerlink" href="#verifying-the-binary" title="Permanent link">¶</a></h3>
-<p>You can inspect the generated binary:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Display file information</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>file<span class="w"> </span>hello
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1"># Show ELF header and sections</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>readelf<span class="w"> </span>-h<span class="w"> </span>hello
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c1"># Disassemble the executable</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a>objdump<span class="w"> </span>-d<span class="w"> </span>hello
-</code></pre></div></td></tr></table></div>
-<p><strong>Output:</strong>
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>hello: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, not stripped
-</code></pre></div></td></tr></table></div>
-<h2 id="basic-instructions-overview">Basic Instructions Overview<a class="headerlink" href="#basic-instructions-overview" title="Permanent link">¶</a></h2>
-<p>Here are a few basic instructions to get started (detailed coverage in the next tutorial):</p>
-<h3 id="data-movement">Data Movement<a class="headerlink" href="#data-movement" title="Permanent link">¶</a></h3>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#42</span><span class="w">         </span><span class="c1">// Move immediate value 42 to x0</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nf">mov</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">          </span><span class="c1">// Copy value from x0 to x1</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nf">ldr</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">msg</span><span class="w">        </span><span class="c1">// Load address of msg into x0</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="arithmetic-operations">Arithmetic Operations<a class="headerlink" href="#arithmetic-operations" title="Permanent link">¶</a></h3>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="w">      </span><span class="c1">// x0 = x1 + x2</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nf">sub</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#10</span><span class="w">     </span><span class="c1">// x0 = x1 - 10</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="comments">Comments<a class="headerlink" href="#comments" title="Permanent link">¶</a></h3>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1">// Single-line comment (C++ style)</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="cm">/* Multi-line comment</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="cm">   (C style) */</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="a-more-complex-example-sum-of-numbers">A More Complex Example: Sum of Numbers<a class="headerlink" href="#a-more-complex-example-sum-of-numbers" title="Permanent link">¶</a></h2>
-<p>Let's write a program that calculates the sum of numbers from 1 to 10:</p>
-<p>Create <code>sum.s</code>:</p>
-<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span>
-<span class="normal"><a href="#__codelineno-10-13">13</a></span>
-<span class="normal"><a href="#__codelineno-10-14">14</a></span>
-<span class="normal"><a href="#__codelineno-10-15">15</a></span>
-<span class="normal"><a href="#__codelineno-10-16">16</a></span>
-<span class="normal"><a href="#__codelineno-10-17">17</a></span>
-<span class="normal"><a href="#__codelineno-10-18">18</a></span>
-<span class="normal"><a href="#__codelineno-10-19">19</a></span>
-<span class="normal"><a href="#__codelineno-10-20">20</a></span>
-<span class="normal"><a href="#__codelineno-10-21">21</a></span>
-<span class="normal"><a href="#__codelineno-10-22">22</a></span>
-<span class="normal"><a href="#__codelineno-10-23">23</a></span>
-<span class="normal"><a href="#__codelineno-10-24">24</a></span>
-<span class="normal"><a href="#__codelineno-10-25">25</a></span>
-<span class="normal"><a href="#__codelineno-10-26">26</a></span>
-<span class="normal"><a href="#__codelineno-10-27">27</a></span>
-<span class="normal"><a href="#__codelineno-10-28">28</a></span>
-<span class="normal"><a href="#__codelineno-10-29">29</a></span>
-<span class="normal"><a href="#__codelineno-10-30">30</a></span>
-<span class="normal"><a href="#__codelineno-10-31">31</a></span>
-<span class="normal"><a href="#__codelineno-10-32">32</a></span>
-<span class="normal"><a href="#__codelineno-10-33">33</a></span>
-<span class="normal"><a href="#__codelineno-10-34">34</a></span>
-<span class="normal"><a href="#__codelineno-10-35">35</a></span>
-<span class="normal"><a href="#__codelineno-10-36">36</a></span>
-<span class="normal"><a href="#__codelineno-10-37">37</a></span>
-<span class="normal"><a href="#__codelineno-10-38">38</a></span>
-<span class="normal"><a href="#__codelineno-10-39">39</a></span>
-<span class="normal"><a href="#__codelineno-10-40">40</a></span>
-<span class="normal"><a href="#__codelineno-10-41">41</a></span>
-<span class="normal"><a href="#__codelineno-10-42">42</a></span>
-<span class="normal"><a href="#__codelineno-10-43">43</a></span>
-<span class="normal"><a href="#__codelineno-10-44">44</a></span>
-<span class="normal"><a href="#__codelineno-10-45">45</a></span>
-<span class="normal"><a href="#__codelineno-10-46">46</a></span>
-<span class="normal"><a href="#__codelineno-10-47">47</a></span>
-<span class="normal"><a href="#__codelineno-10-48">48</a></span>
-<span class="normal"><a href="#__codelineno-10-49">49</a></span>
-<span class="normal"><a href="#__codelineno-10-50">50</a></span>
-<span class="normal"><a href="#__codelineno-10-51">51</a></span>
-<span class="normal"><a href="#__codelineno-10-52">52</a></span>
-<span class="normal"><a href="#__codelineno-10-53">53</a></span>
-<span class="normal"><a href="#__codelineno-10-54">54</a></span>
-<span class="normal"><a href="#__codelineno-10-55">55</a></span>
-<span class="normal"><a href="#__codelineno-10-56">56</a></span>
-<span class="normal"><a href="#__codelineno-10-57">57</a></span>
-<span class="normal"><a href="#__codelineno-10-58">58</a></span>
-<span class="normal"><a href="#__codelineno-10-59">59</a></span>
-<span class="normal"><a href="#__codelineno-10-60">60</a></span>
-<span class="normal"><a href="#__codelineno-10-61">61</a></span>
-<span class="normal"><a href="#__codelineno-10-62">62</a></span>
-<span class="normal"><a href="#__codelineno-10-63">63</a></span>
-<span class="normal"><a href="#__codelineno-10-64">64</a></span>
-<span class="normal"><a href="#__codelineno-10-65">65</a></span>
-<span class="normal"><a href="#__codelineno-10-66">66</a></span>
-<span class="normal"><a href="#__codelineno-10-67">67</a></span>
-<span class="normal"><a href="#__codelineno-10-68">68</a></span>
-<span class="normal"><a href="#__codelineno-10-69">69</a></span>
-<span class="normal"><a href="#__codelineno-10-70">70</a></span>
-<span class="normal"><a href="#__codelineno-10-71">71</a></span>
-<span class="normal"><a href="#__codelineno-10-72">72</a></span>
-<span class="normal"><a href="#__codelineno-10-73">73</a></span>
-<span class="normal"><a href="#__codelineno-10-74">74</a></span>
-<span class="normal"><a href="#__codelineno-10-75">75</a></span>
-<span class="normal"><a href="#__codelineno-10-76">76</a></span>
-<span class="normal"><a href="#__codelineno-10-77">77</a></span>
-<span class="normal"><a href="#__codelineno-10-78">78</a></span>
-<span class="normal"><a href="#__codelineno-10-79">79</a></span>
-<span class="normal"><a href="#__codelineno-10-80">80</a></span>
-<span class="normal"><a href="#__codelineno-10-81">81</a></span>
-<span class="normal"><a href="#__codelineno-10-82">82</a></span>
-<span class="normal"><a href="#__codelineno-10-83">83</a></span>
-<span class="normal"><a href="#__codelineno-10-84">84</a></span>
-<span class="normal"><a href="#__codelineno-10-85">85</a></span>
-<span class="normal"><a href="#__codelineno-10-86">86</a></span>
-<span class="normal"><a href="#__codelineno-10-87">87</a></span>
-<span class="normal"><a href="#__codelineno-10-88">88</a></span>
-<span class="normal"><a href="#__codelineno-10-89">89</a></span>
-<span class="normal"><a href="#__codelineno-10-90">90</a></span>
-<span class="normal"><a href="#__codelineno-10-91">91</a></span>
-<span class="normal"><a href="#__codelineno-10-92">92</a></span>
-<span class="normal"><a href="#__codelineno-10-93">93</a></span>
-<span class="normal"><a href="#__codelineno-10-94">94</a></span>
-<span class="normal"><a href="#__codelineno-10-95">95</a></span>
-<span class="normal"><a href="#__codelineno-10-96">96</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1">// sum.s - Calculate sum of 1 to 10</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="na">.global</span><span class="w"> </span><span class="no">_start</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="na">.section</span><span class="w"> </span><span class="no">.data</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="nl">result_msg:</span><span class="w"> </span><span class="na">.ascii</span><span class="w"> </span><span class="s">"Sum: "</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="nf">result_len</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="no">result_msg</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="nl">newline:</span><span class="w">    </span><span class="na">.ascii</span><span class="w"> </span><span class="s">"\n"</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="na">.section</span><span class="w"> </span><span class="no">.bss</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="nl">buffer:</span><span class="w">     </span><span class="na">.skip</span><span class="w"> </span><span class="mi">20</span><span class="w">    </span><span class="c1">// Buffer for number to string conversion</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12"></a>
-<a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="na">.section</span><span class="w"> </span><span class="no">.text</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="nl">_start:</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="w">      </span><span class="c1">// sum = 0</span>
-<a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">      </span><span class="c1">// i = 1</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17"></a>
-<a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="nl">loop:</span>
-<a id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="w">  </span><span class="c1">// sum += i</span>
-<a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">  </span><span class="c1">// i++</span>
-<a id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="w">    </span><span class="nf">cmp</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#11</span><span class="w">     </span><span class="c1">// Compare i with 11</span>
-<a id="__codelineno-10-22" name="__codelineno-10-22"></a><span class="w">    </span><span class="nf">b.lt</span><span class="w">    </span><span class="no">loop</span><span class="w">        </span><span class="c1">// Branch if i &lt; 11</span>
-<a id="__codelineno-10-23" name="__codelineno-10-23"></a>
-<a id="__codelineno-10-24" name="__codelineno-10-24"></a><span class="w">    </span><span class="c1">// x0 now contains the sum (55)</span>
-<a id="__codelineno-10-25" name="__codelineno-10-25"></a>
-<a id="__codelineno-10-26" name="__codelineno-10-26"></a><span class="w">    </span><span class="c1">// Print "Sum: "</span>
-<a id="__codelineno-10-27" name="__codelineno-10-27"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">     </span><span class="c1">// Save sum</span>
-<a id="__codelineno-10-28" name="__codelineno-10-28"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">      </span><span class="c1">// stdout</span>
-<a id="__codelineno-10-29" name="__codelineno-10-29"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">result_msg</span>
-<a id="__codelineno-10-30" name="__codelineno-10-30"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="c1">#result_len</span>
-<a id="__codelineno-10-31" name="__codelineno-10-31"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#64</span><span class="w">     </span><span class="c1">// write syscall</span>
-<a id="__codelineno-10-32" name="__codelineno-10-32"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span>
-<a id="__codelineno-10-33" name="__codelineno-10-33"></a>
-<a id="__codelineno-10-34" name="__codelineno-10-34"></a><span class="w">    </span><span class="c1">// Convert number to string and print</span>
-<a id="__codelineno-10-35" name="__codelineno-10-35"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x10</span><span class="w">     </span><span class="c1">// Restore sum</span>
-<a id="__codelineno-10-36" name="__codelineno-10-36"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">buffer</span>
-<a id="__codelineno-10-37" name="__codelineno-10-37"></a><span class="w">    </span><span class="nf">bl</span><span class="w">      </span><span class="no">num_to_str</span><span class="w">  </span><span class="c1">// Call conversion function</span>
-<a id="__codelineno-10-38" name="__codelineno-10-38"></a>
-<a id="__codelineno-10-39" name="__codelineno-10-39"></a><span class="w">    </span><span class="c1">// Print the number</span>
-<a id="__codelineno-10-40" name="__codelineno-10-40"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">      </span><span class="c1">// stdout</span>
-<a id="__codelineno-10-41" name="__codelineno-10-41"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">buffer</span>
-<a id="__codelineno-10-42" name="__codelineno-10-42"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x10</span><span class="w">     </span><span class="c1">// Length returned in x10</span>
-<a id="__codelineno-10-43" name="__codelineno-10-43"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#64</span><span class="w">     </span><span class="c1">// write syscall</span>
-<a id="__codelineno-10-44" name="__codelineno-10-44"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span>
-<a id="__codelineno-10-45" name="__codelineno-10-45"></a>
-<a id="__codelineno-10-46" name="__codelineno-10-46"></a><span class="w">    </span><span class="c1">// Print newline</span>
-<a id="__codelineno-10-47" name="__codelineno-10-47"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
-<a id="__codelineno-10-48" name="__codelineno-10-48"></a><span class="w">    </span><span class="nf">ldr</span><span class="w">     </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="err">=</span><span class="no">newline</span>
-<a id="__codelineno-10-49" name="__codelineno-10-49"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
-<a id="__codelineno-10-50" name="__codelineno-10-50"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#64</span>
-<a id="__codelineno-10-51" name="__codelineno-10-51"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span>
-<a id="__codelineno-10-52" name="__codelineno-10-52"></a>
-<a id="__codelineno-10-53" name="__codelineno-10-53"></a><span class="w">    </span><span class="c1">// Exit</span>
-<a id="__codelineno-10-54" name="__codelineno-10-54"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span>
-<a id="__codelineno-10-55" name="__codelineno-10-55"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x8</span><span class="p">,</span><span class="w"> </span><span class="mi">#93</span>
-<a id="__codelineno-10-56" name="__codelineno-10-56"></a><span class="w">    </span><span class="nf">svc</span><span class="w">     </span><span class="mi">#0</span>
-<a id="__codelineno-10-57" name="__codelineno-10-57"></a>
-<a id="__codelineno-10-58" name="__codelineno-10-58"></a><span class="c1">// Function: Convert number in x0 to ASCII string at x1</span>
-<a id="__codelineno-10-59" name="__codelineno-10-59"></a><span class="c1">// Returns: length in x10</span>
-<a id="__codelineno-10-60" name="__codelineno-10-60"></a><span class="nl">num_to_str:</span>
-<a id="__codelineno-10-61" name="__codelineno-10-61"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">#0</span><span class="w">     </span><span class="c1">// digit count</span>
-<a id="__codelineno-10-62" name="__codelineno-10-62"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x2</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="w">      </span><span class="c1">// save start address</span>
-<a id="__codelineno-10-63" name="__codelineno-10-63"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="mi">#10</span><span class="w">     </span><span class="c1">// divisor</span>
-<a id="__codelineno-10-64" name="__codelineno-10-64"></a>
-<a id="__codelineno-10-65" name="__codelineno-10-65"></a><span class="w">    </span><span class="c1">// Handle 0 specially</span>
-<a id="__codelineno-10-66" name="__codelineno-10-66"></a><span class="w">    </span><span class="nf">cbnz</span><span class="w">    </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">convert</span>
-<a id="__codelineno-10-67" name="__codelineno-10-67"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">w4</span><span class="p">,</span><span class="w"> </span><span class="c1">#'0'</span>
-<a id="__codelineno-10-68" name="__codelineno-10-68"></a><span class="w">    </span><span class="nf">strb</span><span class="w">    </span><span class="no">w4</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">]</span>
-<a id="__codelineno-10-69" name="__codelineno-10-69"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span>
-<a id="__codelineno-10-70" name="__codelineno-10-70"></a><span class="w">    </span><span class="nf">ret</span>
-<a id="__codelineno-10-71" name="__codelineno-10-71"></a>
-<a id="__codelineno-10-72" name="__codelineno-10-72"></a><span class="nl">convert:</span>
-<a id="__codelineno-10-73" name="__codelineno-10-73"></a><span class="w">    </span><span class="nf">cbz</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">reverse</span><span class="w"> </span><span class="c1">// If x0 == 0, done dividing</span>
-<a id="__codelineno-10-74" name="__codelineno-10-74"></a><span class="w">    </span><span class="nf">udiv</span><span class="w">    </span><span class="no">x4</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x3</span><span class="w">  </span><span class="c1">// x4 = x0 / 10</span>
-<a id="__codelineno-10-75" name="__codelineno-10-75"></a><span class="w">    </span><span class="nf">msub</span><span class="w">    </span><span class="no">x5</span><span class="p">,</span><span class="w"> </span><span class="no">x4</span><span class="p">,</span><span class="w"> </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="w">  </span><span class="c1">// x5 = x0 - (x4 * 10) = remainder</span>
-<a id="__codelineno-10-76" name="__codelineno-10-76"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">x5</span><span class="p">,</span><span class="w"> </span><span class="no">x5</span><span class="p">,</span><span class="w"> </span><span class="c1">#'0'    // Convert to ASCII</span>
-<a id="__codelineno-10-77" name="__codelineno-10-77"></a><span class="w">    </span><span class="nf">strb</span><span class="w">    </span><span class="no">w5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x1</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">    </span><span class="c1">// Store and increment pointer</span>
-<a id="__codelineno-10-78" name="__codelineno-10-78"></a><span class="w">    </span><span class="nf">add</span><span class="w">     </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="no">x10</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">    </span><span class="c1">// Increment count</span>
-<a id="__codelineno-10-79" name="__codelineno-10-79"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x4</span><span class="w">          </span><span class="c1">// x0 = quotient</span>
-<a id="__codelineno-10-80" name="__codelineno-10-80"></a><span class="w">    </span><span class="nf">b</span><span class="w">       </span><span class="no">convert</span>
-<a id="__codelineno-10-81" name="__codelineno-10-81"></a>
-<a id="__codelineno-10-82" name="__codelineno-10-82"></a><span class="nl">reverse:</span>
-<a id="__codelineno-10-83" name="__codelineno-10-83"></a><span class="w">    </span><span class="c1">// Reverse the string (digits are backwards)</span>
-<a id="__codelineno-10-84" name="__codelineno-10-84"></a><span class="w">    </span><span class="nf">mov</span><span class="w">     </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x2</span><span class="w">      </span><span class="c1">// start</span>
-<a id="__codelineno-10-85" name="__codelineno-10-85"></a><span class="w">    </span><span class="nf">sub</span><span class="w">     </span><span class="no">x4</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">#1</span><span class="w">  </span><span class="c1">// end</span>
-<a id="__codelineno-10-86" name="__codelineno-10-86"></a><span class="nl">reverse_loop:</span>
-<a id="__codelineno-10-87" name="__codelineno-10-87"></a><span class="w">    </span><span class="nf">cmp</span><span class="w">     </span><span class="no">x3</span><span class="p">,</span><span class="w"> </span><span class="no">x4</span>
-<a id="__codelineno-10-88" name="__codelineno-10-88"></a><span class="w">    </span><span class="nf">b.ge</span><span class="w">    </span><span class="no">done</span>
-<a id="__codelineno-10-89" name="__codelineno-10-89"></a><span class="w">    </span><span class="nf">ldrb</span><span class="w">    </span><span class="no">w5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x3</span><span class="p">]</span><span class="w">    </span><span class="c1">// Load from start</span>
-<a id="__codelineno-10-90" name="__codelineno-10-90"></a><span class="w">    </span><span class="nf">ldrb</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x4</span><span class="p">]</span><span class="w">    </span><span class="c1">// Load from end</span>
-<a id="__codelineno-10-91" name="__codelineno-10-91"></a><span class="w">    </span><span class="nf">strb</span><span class="w">    </span><span class="no">w6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x3</span><span class="p">],</span><span class="w"> </span><span class="mi">#1</span><span class="w">    </span><span class="c1">// Store end at start, increment</span>
-<a id="__codelineno-10-92" name="__codelineno-10-92"></a><span class="w">    </span><span class="nf">strb</span><span class="w">    </span><span class="no">w5</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">x4</span><span class="p">],</span><span class="w"> </span><span class="mi">#-1</span><span class="w">   </span><span class="c1">// Store start at end, decrement</span>
-<a id="__codelineno-10-93" name="__codelineno-10-93"></a><span class="w">    </span><span class="nf">b</span><span class="w">       </span><span class="no">reverse_loop</span>
-<a id="__codelineno-10-94" name="__codelineno-10-94"></a>
-<a id="__codelineno-10-95" name="__codelineno-10-95"></a><span class="nl">done:</span>
-<a id="__codelineno-10-96" name="__codelineno-10-96"></a><span class="w">    </span><span class="nf">ret</span>
-</code></pre></div></td></tr></table></div>
-<p>Build and run:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>as<span class="w"> </span>-o<span class="w"> </span>sum.o<span class="w"> </span>sum.s
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>ld<span class="w"> </span>-o<span class="w"> </span>sum<span class="w"> </span>sum.o
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>./sum
-</code></pre></div></td></tr></table></div>
-<p><strong>Output:</strong>
-</p><div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>Sum: 55
-</code></pre></div></td></tr></table></div>
-<p>This example demonstrates:
-- <strong>Loop structures</strong> with conditional branching (<code>b.lt</code>)
-- <strong>Function calls</strong> using <code>bl</code> (branch with link)
-- <strong>Comparison</strong> using <code>cmp</code>
-- <strong>Conditional branches</strong> for control flow
-- More complex register usage</p>
-<p>The details of these instructions and control flow will be covered in later tutorials.</p>
-<h2 id="debugging-assembly-programs">Debugging Assembly Programs<a class="headerlink" href="#debugging-assembly-programs" title="Permanent link">¶</a></h2>
-<p>GDB (GNU Debugger) is invaluable for assembly development:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
-<span class="normal"><a href="#__codelineno-13-2">2</a></span>
-<span class="normal"><a href="#__codelineno-13-3">3</a></span>
-<span class="normal"><a href="#__codelineno-13-4">4</a></span>
-<span class="normal"><a href="#__codelineno-13-5">5</a></span>
-<span class="normal"><a href="#__codelineno-13-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Assemble with debug symbols</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a>as<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>hello.o<span class="w"> </span>hello.s
-<a id="__codelineno-13-3" name="__codelineno-13-3"></a>ld<span class="w"> </span>-o<span class="w"> </span>hello<span class="w"> </span>hello.o
-<a id="__codelineno-13-4" name="__codelineno-13-4"></a>
-<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="c1"># Start GDB</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6"></a>gdb<span class="w"> </span>./hello
-</code></pre></div></td></tr></table></div>
-<p><strong>Useful GDB Commands:</strong></p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span>
-<span class="normal"><a href="#__codelineno-14-3">3</a></span>
-<span class="normal"><a href="#__codelineno-14-4">4</a></span>
-<span class="normal"><a href="#__codelineno-14-5">5</a></span>
-<span class="normal"><a href="#__codelineno-14-6">6</a></span>
-<span class="normal"><a href="#__codelineno-14-7">7</a></span>
-<span class="normal"><a href="#__codelineno-14-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>(gdb) break _start      # Set breakpoint at _start
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>(gdb) run               # Run the program
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a>(gdb) stepi             # Execute one instruction
-<a id="__codelineno-14-4" name="__codelineno-14-4"></a>(gdb) info registers    # Show all register values
-<a id="__codelineno-14-5" name="__codelineno-14-5"></a>(gdb) x/s $x1           # Examine memory at address in x1 as string
-<a id="__codelineno-14-6" name="__codelineno-14-6"></a>(gdb) x/10i $pc         # Show next 10 instructions
-<a id="__codelineno-14-7" name="__codelineno-14-7"></a>(gdb) disassemble       # Show disassembly of current function
-<a id="__codelineno-14-8" name="__codelineno-14-8"></a>(gdb) quit              # Exit GDB
-</code></pre></div></td></tr></table></div>
-<p><strong>Example Debug Session:</strong></p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span>
-<span class="normal"><a href="#__codelineno-15-13">13</a></span>
-<span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span>
-<span class="normal"><a href="#__codelineno-15-16">16</a></span>
-<span class="normal"><a href="#__codelineno-15-17">17</a></span>
-<span class="normal"><a href="#__codelineno-15-18">18</a></span>
-<span class="normal"><a href="#__codelineno-15-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>$<span class="w"> </span>gdb<span class="w"> </span>./hello
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">break</span><span class="w"> </span>_start
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>Breakpoint<span class="w"> </span><span class="m">1</span><span class="w"> </span>at<span class="w"> </span>0x400078
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>run
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a>Starting<span class="w"> </span>program:<span class="w"> </span>/home/pi/assembly-projects/hello<span class="w"> </span>
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a>
-<a id="__codelineno-15-7" name="__codelineno-15-7"></a>Breakpoint<span class="w"> </span><span class="m">1</span>,<span class="w"> </span>0x0000000000400078<span class="w"> </span><span class="k">in</span><span class="w"> </span>_start<span class="w"> </span><span class="o">()</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>info<span class="w"> </span>registers<span class="w"> </span>x0<span class="w"> </span>x1<span class="w"> </span>x8
-<a id="__codelineno-15-9" name="__codelineno-15-9"></a>x0<span class="w">             </span>0x0<span class="w">                 </span><span class="m">0</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10"></a>x1<span class="w">             </span>0x0<span class="w">                 </span><span class="m">0</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11"></a>x8<span class="w">             </span>0x0<span class="w">                 </span><span class="m">0</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>stepi
-<a id="__codelineno-15-13" name="__codelineno-15-13"></a>0x000000000040007c<span class="w"> </span><span class="k">in</span><span class="w"> </span>_start<span class="w"> </span><span class="o">()</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span>info<span class="w"> </span>registers<span class="w"> </span>x0
-<a id="__codelineno-15-15" name="__codelineno-15-15"></a>x0<span class="w">             </span>0x1<span class="w">                 </span><span class="m">1</span>
-<a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="o">(</span>gdb<span class="o">)</span><span class="w"> </span><span class="k">continue</span>
-<a id="__codelineno-15-17" name="__codelineno-15-17"></a>Continuing.
-<a id="__codelineno-15-18" name="__codelineno-15-18"></a>Hello,<span class="w"> </span>Arm64!
-<a id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="o">[</span>Inferior<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>process<span class="w"> </span><span class="m">1234</span><span class="o">)</span><span class="w"> </span>exited<span class="w"> </span>normally<span class="o">]</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="makefile-for-assembly-projects">Makefile for Assembly Projects<a class="headerlink" href="#makefile-for-assembly-projects" title="Permanent link">¶</a></h2>
-<p>Create a <code>Makefile</code> to simplify building:</p>
-<div class="language-makefile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-16-10">10</a></span>
-<span class="normal"><a href="#__codelineno-16-11">11</a></span>
-<span class="normal"><a href="#__codelineno-16-12">12</a></span>
-<span class="normal"><a href="#__codelineno-16-13">13</a></span>
-<span class="normal"><a href="#__codelineno-16-14">14</a></span>
-<span class="normal"><a href="#__codelineno-16-15">15</a></span>
-<span class="normal"><a href="#__codelineno-16-16">16</a></span>
-<span class="normal"><a href="#__codelineno-16-17">17</a></span>
-<span class="normal"><a href="#__codelineno-16-18">18</a></span>
-<span class="normal"><a href="#__codelineno-16-19">19</a></span>
-<span class="normal"><a href="#__codelineno-16-20">20</a></span>
-<span class="normal"><a href="#__codelineno-16-21">21</a></span>
-<span class="normal"><a href="#__codelineno-16-22">22</a></span>
-<span class="normal"><a href="#__codelineno-16-23">23</a></span>
-<span class="normal"><a href="#__codelineno-16-24">24</a></span>
-<span class="normal"><a href="#__codelineno-16-25">25</a></span>
-<span class="normal"><a href="#__codelineno-16-26">26</a></span>
-<span class="normal"><a href="#__codelineno-16-27">27</a></span>
-<span class="normal"><a href="#__codelineno-16-28">28</a></span>
-<span class="normal"><a href="#__codelineno-16-29">29</a></span>
-<span class="normal"><a href="#__codelineno-16-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c"># Makefile for Arm64 assembly projects</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a>
-<a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="nv">AS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>as
-<a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="nv">LD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ld
-<a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="nv">ASFLAGS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>-g
-<a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="nv">LDFLAGS</span><span class="w"> </span><span class="o">=</span>
-<a id="__codelineno-16-7" name="__codelineno-16-7"></a>
-<a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="c"># Default target</span>
-<a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="nf">all</span><span class="o">:</span><span class="w"> </span><span class="n">hello</span> <span class="n">sum</span>
-<a id="__codelineno-16-10" name="__codelineno-16-10"></a>
-<a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="c"># Build hello</span>
-<a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="nf">hello</span><span class="o">:</span><span class="w"> </span><span class="n">hello</span>.<span class="n">o</span>
-<a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">    </span><span class="k">$(</span>LD<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LDFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;
-<a id="__codelineno-16-14" name="__codelineno-16-14"></a>
-<a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="nf">hello.o</span><span class="o">:</span><span class="w"> </span><span class="n">hello</span>.<span class="n">s</span>
-<a id="__codelineno-16-16" name="__codelineno-16-16"></a><span class="w">    </span><span class="k">$(</span>AS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ASFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;
-<a id="__codelineno-16-17" name="__codelineno-16-17"></a>
-<a id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="c"># Build sum</span>
-<a id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="nf">sum</span><span class="o">:</span><span class="w"> </span><span class="n">sum</span>.<span class="n">o</span>
-<a id="__codelineno-16-20" name="__codelineno-16-20"></a><span class="w">    </span><span class="k">$(</span>LD<span class="k">)</span><span class="w"> </span><span class="k">$(</span>LDFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;
-<a id="__codelineno-16-21" name="__codelineno-16-21"></a>
-<a id="__codelineno-16-22" name="__codelineno-16-22"></a><span class="nf">sum.o</span><span class="o">:</span><span class="w"> </span><span class="n">sum</span>.<span class="n">s</span>
-<a id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="w">    </span><span class="k">$(</span>AS<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ASFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>$&lt;
-<a id="__codelineno-16-24" name="__codelineno-16-24"></a>
-<a id="__codelineno-16-25" name="__codelineno-16-25"></a><span class="c"># Clean build artifacts</span>
-<a id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="nf">clean</span><span class="o">:</span>
-<a id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="w">    </span>rm<span class="w"> </span>-f<span class="w"> </span>*.o<span class="w"> </span>hello<span class="w"> </span>sum
-<a id="__codelineno-16-28" name="__codelineno-16-28"></a>
-<a id="__codelineno-16-29" name="__codelineno-16-29"></a><span class="c"># Phony targets</span>
-<a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">all</span> <span class="n">clean</span>
-</code></pre></div></td></tr></table></div>
-<p>Usage:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span>
-<span class="normal"><a href="#__codelineno-17-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>make<span class="w">          </span><span class="c1"># Build all programs</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a>make<span class="w"> </span>hello<span class="w">    </span><span class="c1"># Build only hello</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3"></a>make<span class="w"> </span>clean<span class="w">    </span><span class="c1"># Remove all build artifacts</span>
-</code></pre></div></td></tr></table></div>
-<h2 id="system-call-reference">System Call Reference<a class="headerlink" href="#system-call-reference" title="Permanent link">¶</a></h2>
-<p>Here are the most common system calls you'll use in assembly programming:</p>
-<table>
-<thead>
-<tr>
-<th>Syscall</th>
-<th>Number</th>
-<th>Arguments</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>read</code></td>
-<td>63</td>
-<td><code>x0</code>=fd, <code>x1</code>=buf, <code>x2</code>=count</td>
-<td>Read from file descriptor</td>
-</tr>
-<tr>
-<td><code>write</code></td>
-<td>64</td>
-<td><code>x0</code>=fd, <code>x1</code>=buf, <code>x2</code>=count</td>
-<td>Write to file descriptor</td>
-</tr>
-<tr>
-<td><code>open</code></td>
-<td>56</td>
-<td><code>x0</code>=filename, <code>x1</code>=flags, <code>x2</code>=mode</td>
-<td>Open file</td>
-</tr>
-<tr>
-<td><code>close</code></td>
-<td>57</td>
-<td><code>x0</code>=fd</td>
-<td>Close file descriptor</td>
-</tr>
-<tr>
-<td><code>exit</code></td>
-<td>93</td>
-<td><code>x0</code>=status</td>
-<td>Terminate process</td>
-</tr>
-<tr>
-<td><code>brk</code></td>
-<td>214</td>
-<td><code>x0</code>=addr</td>
-<td>Change data segment size</td>
-</tr>
-</tbody>
-</table>
-<p>For a complete list, see <code>/usr/include/asm-generic/unistd.h</code> or search for "Linux arm64 syscall table".</p>
-<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
-<p>Now that you have your development environment set up and understand basic assembly program structure, the next tutorial will cover:</p>
-<ul>
-<li><strong>Registers in Detail</strong>: Complete explanation of all 31 general-purpose registers (x0-x30)</li>
-<li><strong>Special Registers</strong>: SP, LR, PC, XZR and their purposes</li>
-<li><strong>Register Naming</strong>: Understanding x vs w registers, when to use each</li>
-<li><strong>AAPCS64 Calling Convention</strong>: How registers are used for function calls</li>
-<li><strong>SIMD/FP Registers</strong>: v0-v31 for floating-point and vector operations</li>
-<li><strong>Data Movement Instructions</strong>: mov, movz, movk, movn with immediate encoding</li>
-<li><strong>Arithmetic Operations</strong>: add, sub, mul, div, and their variants</li>
-<li><strong>Logical Operations</strong>: and, orr, eor, bic, shifts and rotations</li>
-<li><strong>Memory Access Instructions</strong>: ldr, str, ldp, stp with addressing modes</li>
-</ul>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>You've learned how to set up an Arm64 assembly development environment on Raspberry Pi and written your first assembly programs. We covered:</p>
-<ul>
-<li>What Arm64/AArch64 is and why it's important for Raspberry Pi</li>
-<li>Installing and verifying development tools (assembler, linker, debugger)</li>
-<li>Basic program structure with sections (.data, .bss, .text)</li>
-<li>System calls for I/O operations (write, exit)</li>
-<li>Assembly and linking process</li>
-<li>Simple loop and function call examples</li>
-<li>Debugging with GDB</li>
-<li>Building with Makefiles</li>
-</ul>
-<p>Assembly language provides unprecedented control over the processor and is essential for understanding computer architecture at a fundamental level. While modern compilers generate excellent code, knowing assembly enables you to optimize critical sections, debug complex issues, and work on systems programming projects.</p>
-<p>Continue with the <a href="../arm64_registers_and_basic_instructions/">ARM64 register and instruction guide</a>, then use the <a href="../aarch64_adrp_add_ldr_literal_address_loading/">AArch64 address-loading guide</a> when compiler output introduces <code>ADRP</code>, <code>ADD</code>, or literal loads.</p></div>
+<h2 id="failure-and-recovery">Failure and recovery<a class="headerlink" href="#failure-and-recovery" title="Permanent link">¶</a></h2>
+<p>If zero hangs, check the guard before the loop: decrementing zero wraps to a huge count. Interrupt an unintended run with Ctrl+C and fix the guard; do not wait for wraparound. If signed cases fail, inspect the condition mnemonic rather than changing the C prototype. Returning 0 from <code>main</code> is success; a function returning comparison 0 means false.</p>
+<h2 id="part-1-checkpoint">Part 1 checkpoint<a class="headerlink" href="#part-1-checkpoint" title="Permanent link">¶</a></h2>
+<p>Explain process entry versus function return, draw the x/w alias relationship and trace n=0 and n=3. Add an n=2 test (expected sum 3) and comparison cases where the operands are equal. Predict each result before running.</p>
+<h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
+<p>Why does UINT64_MAX compare above 1 while the signed value −1 compares below 1?</p>
+<details class="tip">
+<summary>Compare your reasoning</summary>
+<p>Both can use all-one bits, but the comparison interpretation differs. Unsigned lower uses carry rules; signed less uses N and V. Equality is independent of that choice.</p>
+</details>
+<h2 id="continue-the-course">Continue the course<a class="headerlink" href="#continue-the-course" title="Permanent link">¶</a></h2>
+<p><a href="../02_registers_and_integer_operations/">Previous: Registers and Integer Operations</a> · <a href="../">Course roadmap</a> · <a href="../04_memory_arrays_and_loads/">Next: Memory, Arrays and Loads</a></p></div>
 
 
 
@@ -9535,7 +9331,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 27, 2026 10:10:25 JST">2026-09-27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9545,7 +9341,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 16, 2025 15:25:01 JST">2025-11-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9567,10 +9363,10 @@
           <li><a href="https://ohyaan.github.io/assembly/">Browse the Assembly guide hub</a></li>
         
         
-          <li><a href="../interfacing_with_c%2B%2B_and_gpio_control/">Previous: Interfacing with C++ and GPIO Control</a></li>
+          <li><a href="../02_registers_and_integer_operations/">Previous: Registers and Integer Operations</a></li>
         
         
-          <li><a href="../neon_simd_vector_programming_on_arm64/">Next: NEON SIMD Vector Programming on Arm64</a></li>
+          <li><a href="../04_memory_arrays_and_loads/">Next: Memory, Arrays and Loads</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>

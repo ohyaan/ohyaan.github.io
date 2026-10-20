@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Master inline assembly in C++ on Raspberry Pi. Learn how to write assembly within C++ code, bind variables, use constraints, and optimize critical paths.">
+        <meta name="description" content="Connect AArch64 assembly to C and C++ on Raspberry Pi using explicit contracts, fixed-width types, C linkage and checked object-file build steps.">
       
       
       
-        <link rel="canonical" href="https://ohyaan.github.io/assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/">
+        <link rel="canonical" href="https://ohyaan.github.io/assembly/07_calling_assembly_from_c_and_cpp/">
       
       
-        <link rel="prev" href="../functions_and_stack_management_in_arm64_assembly/">
+        <link rel="prev" href="../06_functions_stack_and_abi/">
       
       
-        <link rel="next" href="../interfacing_with_c%2B%2B_and_gpio_control/">
+        <link rel="next" href="../08_debugging_with_gdb/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../feed_rss_created.xml">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Inline Assembly in C++ on Raspberry Pi - With Raspberry Pi</title>
+        <title>Calling Assembly from C and C++ - With Raspberry Pi</title>
       
     
     
@@ -78,26 +78,26 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Inline Assembly in C++ on Raspberry Pi - With Raspberry Pi">
-  <meta property="og:description" content="Master inline assembly in C++ on Raspberry Pi. Learn how to write assembly within C++ code, bind variables, use constraints, and optimize critical paths.">
+  <meta property="og:title" content="Calling Assembly from C and C++ - With Raspberry Pi">
+  <meta property="og:description" content="Connect AArch64 assembly to C and C++ on Raspberry Pi using explicit contracts, fixed-width types, C linkage and checked object-file build steps.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://ohyaan.github.io/assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/">
-  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__inline_assembly_in_c%2B%2B_on_raspberry_pi.jpg">
+  <meta property="og:url" content="https://ohyaan.github.io/assembly/07_calling_assembly_from_c_and_cpp/">
+  <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/assembly__07_calling_assembly_from_c_and_cpp.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Inline Assembly in C++ on Raspberry Pi">
+  <meta property="og:image:alt" content="Calling Assembly from C and C++">
   <meta property="og:site_name" content="With Raspberry Pi">
   
-    <meta property="article:published_time" content="2026-06-21">
+    <meta property="article:published_time" content="2026-10-20">
   
   
-    <meta property="article:modified_time" content="2026-10-03">
+    <meta property="article:modified_time" content="2026-10-20">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Inline Assembly in C++ on Raspberry Pi - With Raspberry Pi">
-  <meta name="twitter:description" content="Master inline assembly in C++ on Raspberry Pi. Learn how to write assembly within C++ code, bind variables, use constraints, and optimize critical paths.">
-  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__inline_assembly_in_c%2B%2B_on_raspberry_pi.jpg">
+  <meta name="twitter:title" content="Calling Assembly from C and C++ - With Raspberry Pi">
+  <meta name="twitter:description" content="Connect AArch64 assembly to C and C++ on Raspberry Pi using explicit contracts, fixed-width types, C linkage and checked object-file build steps.">
+  <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/assembly__07_calling_assembly_from_c_and_cpp.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
   <meta name="msvalidate.01" content="BingSiteAuth">
@@ -116,19 +116,19 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Inline Assembly in C++ on Raspberry Pi",
-    "description": "Master inline assembly in C++ on Raspberry Pi. Learn how to write assembly within C++ code, bind variables, use constraints, and optimize critical paths.",
-    "url": "https://ohyaan.github.io/assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/",
-    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/"},
-    "image": ["https://ohyaan.github.io/images/og/pages/assembly__inline_assembly_in_c%2B%2B_on_raspberry_pi.jpg"],
+    "headline": "Calling Assembly from C and C++",
+    "description": "Connect AArch64 assembly to C and C++ on Raspberry Pi using explicit contracts, fixed-width types, C linkage and checked object-file build steps.",
+    "url": "https://ohyaan.github.io/assembly/07_calling_assembly_from_c_and_cpp/",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/assembly/07_calling_assembly_from_c_and_cpp/"},
+    "image": ["https://ohyaan.github.io/images/og/pages/assembly__07_calling_assembly_from_c_and_cpp.jpg"],
     "author": {"@type": "Organization", "name": "With Raspberry Pi"},
     "publisher": {
       "@type": "Organization",
       "name": "With Raspberry Pi",
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
-    "datePublished": "2026-06-21",
-    "dateModified": "2026-10-03"
+    "datePublished": "2026-10-20",
+    "dateModified": "2026-10-20"
   }
   </script>
   <script type="application/ld+json">
@@ -137,7 +137,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Inline Assembly in C++ on Raspberry Pi", "item": "https://ohyaan.github.io/assembly/inline_assembly_in_c%2B%2B_on_raspberry_pi/"}
+      {"@type": "ListItem", "position": 2, "name": "Calling Assembly from C and C++", "item": "https://ohyaan.github.io/assembly/07_calling_assembly_from_c_and_cpp/"}
     ]
   }
   </script>
@@ -162,7 +162,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#inline-assembly-in-c-on-raspberry-pi" class="md-skip">
+        <a href="#calling-assembly-from-c-and-c" class="md-skip">
           Skip to content
         </a>
       
@@ -198,7 +198,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Inline Assembly in C++ on Raspberry Pi
+              Calling Assembly from C and C++
             
           </span>
         </div>
@@ -3205,14 +3205,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
       
@@ -3261,12 +3253,59 @@
   
   
   
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_2" id="__nav_2_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1: Foundations
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1: Foundations
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../aarch64_adrp_add_ldr_literal_address_loading/" class="md-nav__link">
+      <a href="../01_tools_and_first_program/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    AArch64 ADRP, ADD, and LDR: Address Loading on Raspberry Pi
+    Tools and Your First AArch64 Program
     
   </span>
   
@@ -3284,11 +3323,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../arm64_registers_and_basic_instructions/" class="md-nav__link">
+      <a href="../02_registers_and_integer_operations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ARM64 Registers: AArch64 Guide for Raspberry Pi
+    Registers and Integer Operations
     
   </span>
   
@@ -3306,11 +3345,88 @@
   
   
     <li class="md-nav__item">
-      <a href="../control_flow_and_branching_in_arm64_assembly/" class="md-nav__link">
+      <a href="../03_flags_branches_and_loops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Control Flow and Branching in Arm64 Assembly
+    Flags, Branches and Loops
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_3" id="__nav_2_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2: Memory and Functions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2: Memory and Functions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_memory_arrays_and_loads/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory, Arrays and Loads
     
   </span>
   
@@ -3328,11 +3444,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../functions_and_stack_management_in_arm64_assembly/" class="md-nav__link">
+      <a href="../05_addresses_and_relocations/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Functions and Stack Management in Arm64 Assembly
+    Addresses and Relocations
     
   </span>
   
@@ -3342,6 +3458,85 @@
   
 
               
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_functions_stack_and_abi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions, Stack and the ABI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_4" id="__nav_2_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3: Integration and Debugging
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3: Integration and Debugging
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -3363,7 +3558,7 @@
           
   
   <span class="md-ellipsis">
-    Inline Assembly in C++ on Raspberry Pi
+    Calling Assembly from C and C++
     
   </span>
   
@@ -3375,7 +3570,7 @@
         
   
   <span class="md-ellipsis">
-    Inline Assembly in C++ on Raspberry Pi
+    Calling Assembly from C and C++
     
   </span>
   
@@ -3398,72 +3593,63 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-vs-extended-syntax" class="md-nav__link">
+  <a href="#define-the-contract-first" class="md-nav__link">
     <span class="md-ellipsis">
-      Basic vs. Extended Syntax
+      Define the contract first
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#operands-and-constraints" class="md-nav__link">
+  <a href="#call-the-same-object-from-c" class="md-nav__link">
     <span class="md-ellipsis">
-      Operands and Constraints
+      Call the same object from C++
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#common-constraints-for-arm64" class="md-nav__link">
+  <a href="#diagnose-the-right-layer" class="md-nav__link">
     <span class="md-ellipsis">
-      Common Constraints for Arm64
+      Diagnose the right layer
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-example-1-high-resolution-timer" class="md-nav__link">
+  <a href="#where-hardware-fits" class="md-nav__link">
     <span class="md-ellipsis">
-      Practical Example 1: High-Resolution Timer
+      Where hardware fits
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-example-2-vector-math-simd-inline" class="md-nav__link">
+  <a href="#check-your-understanding" class="md-nav__link">
     <span class="md-ellipsis">
-      Practical Example 2: Vector Math (SIMD Inline)
+      Check your understanding
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#best-practices-and-pitfalls" class="md-nav__link">
+  <a href="#continue-the-course" class="md-nav__link">
     <span class="md-ellipsis">
-      Best Practices and Pitfalls
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conclusion
+      Continue the course
     </span>
   </a>
   
@@ -3485,11 +3671,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../interfacing_with_c%2B%2B_and_gpio_control/" class="md-nav__link">
+      <a href="../08_debugging_with_gdb/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Interfacing with C++ and GPIO Control
+    Debugging with GDB
     
   </span>
   
@@ -3507,11 +3693,88 @@
   
   
     <li class="md-nav__item">
-      <a href="../introduction_to_arm64_assembly_on_raspberry_pi/" class="md-nav__link">
+      <a href="../09_checked_array_project/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Arm64 Assembly on Raspberry Pi: AArch64 Tutorial
+    A Checked Array Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_5" id="__nav_2_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4: Advanced Topics
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4: Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_neon_with_scalar_tails/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NEON and Scalar Tails
     
   </span>
   
@@ -3529,16 +3792,46 @@
   
   
     <li class="md-nav__item">
-      <a href="../neon_simd_vector_programming_on_arm64/" class="md-nav__link">
+      <a href="../11_extended_inline_assembly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    NEON SIMD Vector Programming on Arm64
+    Extended Inline Assembly
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_reading_specs_and_measuring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reading Specifications and Measuring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -8846,11 +9139,8 @@
 
 
 
-<div><h1 id="inline-assembly-in-c-on-raspberry-pi">Inline Assembly in C++ on Raspberry Pi<a class="headerlink" href="#inline-assembly-in-c-on-raspberry-pi" title="Permanent link">¶</a></h1>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>While writing pure assembly files (<code>.s</code> or <code>.S</code>) is useful for stand-alone routines, there are times when you want to execute a few low-level CPU instructions directly inside your C++ code. Writing a full assembly function for simple actions (like reading a hardware register or invoking a specific instruction) adds unnecessary function call overhead.</p>
-<p>This is where <strong>inline assembly</strong> comes in. GCC and Clang (the compilers used on Raspberry Pi OS) support extended assembly syntax that allows you to embed Arm64 assembly instructions directly within your C++ functions. </p>
-<p>In this tutorial, you will learn the syntax of inline assembly, how to bind C++ variables to assembly registers, and how to write safe, optimized inline assembly code.</p>
+<div><h1 id="calling-assembly-from-c-and-c">Calling Assembly from C and C++<a class="headerlink" href="#calling-assembly-from-c-and-c" title="Permanent link">¶</a></h1>
+<p>Let C or C++ handle input and reporting while a small assembly function implements one explicit contract. Link the same assembly object to both callers.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -8860,186 +9150,68 @@
   </script>
 </div>
 
-<h2 id="basic-vs-extended-syntax">Basic vs. Extended Syntax<a class="headerlink" href="#basic-vs-extended-syntax" title="Permanent link">¶</a></h2>
-<p>The C++ keyword for inline assembly is <code>asm</code> (or <code>__asm__</code>). There are two types of inline assembly: <strong>Basic</strong> and <strong>Extended</strong>.</p>
-<h3 id="basic-inline-assembly">Basic Inline Assembly<a class="headerlink" href="#basic-inline-assembly" title="Permanent link">¶</a></h3>
-<p>Basic inline assembly is simple but limited. It only executes instructions and cannot interact with C++ variables safely:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">__asm__</span><span class="p">(</span><span class="s">"yield"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Tell the CPU to yield execution to other threads</span>
+<div class="admonition example">
+<p class="admonition-title">Course examples on GitHub</p>
+<p><a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly/app/c-cpp-interop">Open this lesson's sample files</a> · <a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/arm64-assembly">CMake build instructions</a>.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Complete <a href="../06_functions_stack_and_abi/">functions and the ABI</a>. Basic C declarations are needed here; the optional C++ caller uses only a wrapper and C linkage.</p>
+<p><strong>Outcome:</strong> build separate objects and distinguish a link-name problem from an ABI or bounds problem. Work in a fresh directory on the Pi.</p>
+<h2 id="define-the-contract-first">Define the contract first<a class="headerlink" href="#define-the-contract-first" title="Permanent link">¶</a></h2>
+<p><code>add_u64(a, b)</code> returns their sum modulo 2^64. It has no pointers, allocation, exceptions or hardware access. Fixed-width types make the intended widths explicit; they do not automatically fix an incorrect assembly implementation.</p>
+<div class="language-asm highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// file: interop.S</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="na">.text</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="na">.global</span><span class="w"> </span><span class="no">add_u64</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="na">.type</span><span class="w"> </span><span class="no">add_u64</span><span class="p">,</span><span class="w"> </span><span class="nv">%function</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nl">add_u64:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x0</span><span class="p">,</span><span class="w"> </span><span class="no">x1</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="nf">ret</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="na">.size</span><span class="w"> </span><span class="no">add_u64</span><span class="p">,</span><span class="w"> </span><span class="no">.-add_u64</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="na">.section</span><span class="w"> </span><span class="no">.note.GNU-stack</span><span class="p">,</span><span class="s">""</span><span class="p">,</span><span class="nv">%progbits</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="extended-inline-assembly">Extended Inline Assembly<a class="headerlink" href="#extended-inline-assembly" title="Permanent link">¶</a></h3>
-<p>To read from or write to C++ variables, you must use <strong>Extended asm</strong>. Extended assembly uses the following structure:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="s">"assembly code"</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="n">operands</span><span class="w">        </span><span class="cm">/* Optional */</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">operands</span><span class="w">         </span><span class="cm">/* Optional */</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">clobbered</span><span class="w"> </span><span class="n">registers</span><span class="w">    </span><span class="cm">/* Optional */</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="p">);</span>
+<div class="language-c highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">/* file: interop.c */</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">extern</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">add_u64</span><span class="p">(</span><span class="kt">uint64_t</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="p">);</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">add_u64</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">add_u64</span><span class="p">(</span><span class="n">UINT64_MAX</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="n">puts</span><span class="p">(</span><span class="s">"PASS C linkage: unsigned wrap is specified"</span><span class="p">);</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<ul>
-<li><code>__volatile__</code> (or <code>volatile</code>): Prevents the compiler from optimizing out, moving, or deleting the assembly block. Always use it if your assembly has side effects (like reading hardware states or modifying system memory).</li>
-</ul>
-<h2 id="operands-and-constraints">Operands and Constraints<a class="headerlink" href="#operands-and-constraints" title="Permanent link">¶</a></h2>
-<p>To pass values between C++ and assembly, you specify operands. The compiler automatically maps C++ variables to available CPU registers based on <strong>constraints</strong>.</p>
-<h3 id="syntax-example">Syntax Example<a class="headerlink" href="#syntax-example" title="Permanent link">¶</a></h3>
-<p>Let's look at a function that adds two integers using inline assembly:</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
 <span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span>
-<span class="normal"><a href="#__codelineno-2-7">7</a></span>
-<span class="normal"><a href="#__codelineno-2-8">8</a></span>
-<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">add_asm</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">        </span><span class="s">"add %w0, %w1, %w2"</span><span class="w">  </span><span class="c1">// Assembly instruction</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w">      </span><span class="c1">// Output operand (%0)</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w">   </span><span class="c1">// Input operands (%1 and %2)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="p">);</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>gcc<span class="w"> </span>-g<span class="w"> </span>-c<span class="w"> </span>interop.S<span class="w"> </span>-o<span class="w"> </span>interop.o
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>gcc<span class="w"> </span>-std<span class="o">=</span>c11<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-g<span class="w"> </span>-c<span class="w"> </span>interop.c<span class="w"> </span>-o<span class="w"> </span>interop-c.o
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>gcc<span class="w"> </span>interop-c.o<span class="w"> </span>interop.o<span class="w"> </span>-o<span class="w"> </span>interop-c
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>./interop-c
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>nm<span class="w"> </span>interop.o
 </code></pre></div></td></tr></table></div>
-<h3 id="how-to-read-this">How to read this:<a class="headerlink" href="#how-to-read-this" title="Permanent link">¶</a></h3>
-<ol>
-<li><strong>Instruction Template</strong>: <code>"add %w0, %w1, %w2"</code>
-    *   <code>%0</code>, <code>%1</code>, <code>%2</code> refer to the operands listed below the code.
-    *   The <code>w</code> prefix (e.g., <code>%w0</code>) tells the compiler to use 32-bit registers (<code>w0</code>-<code>w30</code>) instead of 64-bit ones (<code>x0</code>-<code>x30</code>), matching the size of <code>int</code> variables.</li>
-<li><strong>Output Operands</strong>: <code>: "=r" (result)</code>
-    *   <code>=</code> indicates that this variable is write-only.
-    *   <code>r</code> indicates that the variable must be placed in a general-purpose register.
-    *   <code>(result)</code> binds the C++ variable <code>result</code> to <code>%0</code>.</li>
-<li><strong>Input Operands</strong>: <code>: "r" (a), "r" (b)</code>
-    *   <code>r</code> indicates that inputs <code>a</code> and <code>b</code> must be loaded into general-purpose registers.
-    *   <code>a</code> is bound to <code>%1</code>, and <code>b</code> is bound to <code>%2</code>.</li>
-</ol>
-<h2 id="common-constraints-for-arm64">Common Constraints for Arm64<a class="headerlink" href="#common-constraints-for-arm64" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Constraint</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>"r"</code></td>
-<td>Register</td>
-<td>General-purpose register (<code>x0</code>-<code>x30</code> or <code>w0</code>-<code>w30</code>)</td>
-</tr>
-<tr>
-<td><code>"w"</code></td>
-<td>Register</td>
-<td>SIMD/Vector/Floating-point register (<code>v0</code>-<code>v31</code> or <code>s0</code>/<code>d0</code> variants)</td>
-</tr>
-<tr>
-<td><code>"I"</code></td>
-<td>Immediate</td>
-<td>Integer constant suitable for arithmetic instructions</td>
-</tr>
-<tr>
-<td><code>"m"</code></td>
-<td>Memory</td>
-<td>Memory operand (allows direct memory referencing)</td>
-</tr>
-<tr>
-<td><code>"+"</code></td>
-<td>Modifier</td>
-<td>Operand is both read from and written to</td>
-</tr>
-<tr>
-<td><code>"="</code></td>
-<td>Modifier</td>
-<td>Operand is write-only</td>
-</tr>
-</tbody>
-</table>
-<h2 id="practical-example-1-high-resolution-timer">Practical Example 1: High-Resolution Timer<a class="headerlink" href="#practical-example-1-high-resolution-timer" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi's Arm64 cores have a built-in virtual counter register (<code>CNTVCT_EL0</code>) that counts clock cycles at a fixed system frequency. We can read this 64-bit register using a single <code>mrs</code> instruction.</p>
-<div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span>
-<span class="normal"><a href="#__codelineno-3-15">15</a></span>
-<span class="normal"><a href="#__codelineno-3-16">16</a></span>
-<span class="normal"><a href="#__codelineno-3-17">17</a></span>
-<span class="normal"><a href="#__codelineno-3-18">18</a></span>
-<span class="normal"><a href="#__codelineno-3-19">19</a></span>
-<span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span>
-<span class="normal"><a href="#__codelineno-3-31">31</a></span>
-<span class="normal"><a href="#__codelineno-3-32">32</a></span>
-<span class="normal"><a href="#__codelineno-3-33">33</a></span>
-<span class="normal"><a href="#__codelineno-3-34">34</a></span>
-<span class="normal"><a href="#__codelineno-3-35">35</a></span>
-<span class="normal"><a href="#__codelineno-3-36">36</a></span>
-<span class="normal"><a href="#__codelineno-3-37">37</a></span>
-<span class="normal"><a href="#__codelineno-3-38">38</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">get_system_counter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">        </span><span class="s">"mrs %0, cntvct_el0"</span><span class="w"> </span><span class="c1">// Read virtual counter system register into %0</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="w"> </span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="w">         </span><span class="c1">// Output: %0 -&gt; val</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="p">);</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="p">}</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">get_counter_frequency</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">        </span><span class="s">"mrs %0, cntfrq_el0"</span><span class="w"> </span><span class="c1">// Read system counter frequency</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"=r"</span><span class="w"> </span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="p">);</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="p">}</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_system_counter</span><span class="p">();</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_counter_frequency</span><span class="p">();</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25"></a>
-<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">    </span><span class="c1">// Simulate some work</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000000</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29"></a>
-<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_system_counter</span><span class="p">();</span>
-<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">freq</span><span class="p">;</span>
-<a id="__codelineno-3-32" name="__codelineno-3-32"></a>
-<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Counter Frequency: "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">freq</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" Hz"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Ticks elapsed:      "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Time elapsed:       "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1000.0</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" ms"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-3-36" name="__codelineno-3-36"></a>
-<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="p">}</span>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>PASS C linkage: unsigned wrap is specified
 </code></pre></div></td></tr></table></div>
-<h2 id="practical-example-2-vector-math-simd-inline">Practical Example 2: Vector Math (SIMD Inline)<a class="headerlink" href="#practical-example-2-vector-math-simd-inline" title="Permanent link">¶</a></h2>
-<p>You can also use NEON registers in inline assembly. Let's write a function that multiplies four floats simultaneously using the vector registers.</p>
+<p>The symbol table should expose <code>add_u64</code>. The compiler checks declarations at C call sites; it does not prove that the assembly agrees.</p>
+<h2 id="call-the-same-object-from-c">Call the same object from C++<a class="headerlink" href="#call-the-same-object-from-c" title="Permanent link">¶</a></h2>
+<p>Save this <strong>alternative driver</strong>; it has its own main, so do not link both drivers together.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
@@ -9050,69 +9222,67 @@
 <span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
 <span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">vector_multiply</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">        </span><span class="s">"ld1 {v0.4s}, [%1]</span><span class="se">\n\t</span><span class="s">"</span><span class="w">     </span><span class="c1">// Load array 'a' into v0 (4 single-precision floats)</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">        </span><span class="s">"ld1 {v1.4s}, [%2]</span><span class="se">\n\t</span><span class="s">"</span><span class="w">     </span><span class="c1">// Load array 'b' into v1</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="s">"fmul v2.4s, v0.4s, v1.4s</span><span class="se">\n\t</span><span class="s">"</span><span class="w"> </span><span class="c1">// v2 = v0 * v1</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">        </span><span class="s">"st1 {v2.4s}, [%0]"</span><span class="w">         </span><span class="c1">// Store v2 to 'result'</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">        </span><span class="o">:</span><span class="w">                           </span><span class="c1">// No direct outputs bound via operand mapping (handled via memory)</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">data</span><span class="p">()),</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">data</span><span class="p">()),</span><span class="w"> </span><span class="s">"r"</span><span class="w"> </span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">data</span><span class="p">())</span><span class="w"> </span><span class="c1">// Inputs %0, %1, %2</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="s">"v0"</span><span class="p">,</span><span class="w"> </span><span class="s">"v1"</span><span class="p">,</span><span class="w"> </span><span class="s">"v2"</span><span class="p">,</span><span class="w"> </span><span class="s">"memory"</span><span class="w"> </span><span class="c1">// Clobber list: tell compiler we overwrote these registers and memory</span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="p">);</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="p">}</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">1.5f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">2.5f</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0f</span><span class="p">};</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">10.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">20.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">30.0f</span><span class="p">,</span><span class="w"> </span><span class="mf">40.0f</span><span class="p">};</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a>
-<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">    </span><span class="n">vector_multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22"></a>
-<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"SIMD Multiplication Result:"</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" * "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">" = "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27"></a>
-<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="p">}</span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1">// file: interop.cpp</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;limits&gt;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">extern</span><span class="w"> </span><span class="s">"C"</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">add_u64</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="p">{</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">add_u64</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">||</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">        </span><span class="n">add_u64</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint64_t</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">(),</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"PASS C++ linkage: same assembly object</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="the-clobber-list-explained">The Clobber List Explained<a class="headerlink" href="#the-clobber-list-explained" title="Permanent link">¶</a></h3>
-<p>At the end of the <code>vector_multiply</code> block, we specified <code>"v0", "v1", "v2", "memory"</code>.
-This is the <strong>Clobber List</strong>. It tells the compiler:
-1.  We manually changed <code>v0</code>, <code>v1</code>, and <code>v2</code>. If the compiler was holding important variables in those registers, it must save them elsewhere before our block executes.
-2.  We modified <code>"memory"</code>. This forces the compiler to write cached variables back to RAM before our assembly block runs and reload them afterward, preventing pointer optimization issues.</p>
-<h2 id="best-practices-and-pitfalls">Best Practices and Pitfalls<a class="headerlink" href="#best-practices-and-pitfalls" title="Permanent link">¶</a></h2>
-<ol>
-<li><strong>Don't Overuse It</strong>: Compilers are excellent at optimizing code. Write inline assembly only when standard C++ cannot generate the specific CPU instruction you need (like <code>mrs</code>, <code>clz</code>, or cache control instructions).</li>
-<li><strong>Mark Clobbers Accurately</strong>: Forgetting to list a modified register in the clobber list is one of the hardest bugs to trace. The compiler will assume the register was untouched and may use corrupted values.</li>
-<li><strong>Understand Register Prefixes</strong>: In Arm64, using <code>%0</code> defaults to 64-bit <code>x</code> registers. For 32-bit types (like <code>int</code>), use the <code>w</code> modifier: <code>%w0</code>. For floating-point/vector registers, specify size suffixes or elements.</li>
-<li><strong>Use <code>__volatile__</code></strong>: If your block is reading status registers or memory-mapped hardware, <code>__volatile__</code> is critical. Otherwise, the compiler might think the code is redundant and optimize it away.</li>
-</ol>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
-<p>Inline assembly is a bridge between C++ and low-level hardware control. It allows you to write clean C++ while retaining the ability to execute performance-critical CPU operations natively on your Raspberry Pi.</p>
-<p>The assembly series covers standalone programs, C++ integration, NEON operations, and inline assembly. Keep a working example and its disassembly for reference when using these techniques in a project.</p></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>g++<span class="w"> </span>-std<span class="o">=</span>c++17<span class="w"> </span>-Wall<span class="w"> </span>-Wextra<span class="w"> </span>-Wpedantic<span class="w"> </span>-Werror<span class="w"> </span>-g<span class="w"> </span>interop.cpp<span class="w"> </span>interop.o<span class="w"> </span>-o<span class="w"> </span>interop-cpp
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>./interop-cpp
+</code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>PASS C++ linkage: same assembly object
+</code></pre></div></td></tr></table></div>
+<p><code>extern "C"</code> controls language linkage; it does not transform an arbitrary class into a portable layout or make exceptions safe across hand-written frames. Keep the boundary simple. A member function's implicit object argument, struct return and varargs need their own ABI analysis, not a copied integer example.</p>
+<h2 id="diagnose-the-right-layer">Diagnose the right layer<a class="headerlink" href="#diagnose-the-right-layer" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Inspect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undefined reference</td>
+<td>Exact symbol spelling, C++ mangling, missing object</td>
+</tr>
+<tr>
+<td>Multiple definition of main</td>
+<td>Only one alternative driver per executable</td>
+</tr>
+<tr>
+<td>Correct link, wrong result</td>
+<td>Signature, widths, argument order and preservation</td>
+</tr>
+<tr>
+<td>Crash with pointers</td>
+<td>Accessible storage, lifetime and length contract</td>
+</tr>
+<tr>
+<td>Exec format error</td>
+<td>Object and executable target architecture</td>
+</tr>
+</tbody>
+</table>
+<p>Do not add <code>sudo</code> to fix a link error. Do not add device addresses or memory mapping to establish basic interoperability.</p>
+<h2 id="where-hardware-fits">Where hardware fits<a class="headerlink" href="#where-hardware-fits" title="Permanent link">¶</a></h2>
+<p>GPIO register maps vary by SoC and controller. A Linux user-space assembly course is not a reason to bypass kernel interfaces. After this course, use the separate <a href="../../programming/">C++ Hardware Programming course</a> for wiring, line ownership and safe kernel-supported access. The old mixed GPIO/ABI lesson is replaced by this explicit, hardware-independent boundary.</p>
+<h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
+<p>Why can a C++ declaration with the wrong type still link to this assembly symbol?</p>
+<details class="tip">
+<summary>Compare your reasoning</summary>
+<p>The linker matches symbol names, not the full source-level contract of a hand-written assembly body. Matching names are necessary but do not prove widths or semantics.</p>
+</details>
+<h2 id="continue-the-course">Continue the course<a class="headerlink" href="#continue-the-course" title="Permanent link">¶</a></h2>
+<p><a href="../06_functions_stack_and_abi/">Previous: Functions, Stack and the ABI</a> · <a href="../">Course roadmap</a> · <a href="../08_debugging_with_gdb/">Next: Debugging with GDB</a></p></div>
 
 
 
@@ -9135,7 +9305,7 @@ This is the <strong>Clobber List</strong>. It tells the compiler:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9145,7 +9315,7 @@ This is the <strong>Clobber List</strong>. It tells the compiler:
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 20, 2026 23:07:58 JST">2026-10-20</span>
   </span>
 
     
@@ -9167,10 +9337,10 @@ This is the <strong>Clobber List</strong>. It tells the compiler:
           <li><a href="https://ohyaan.github.io/assembly/">Browse the Assembly guide hub</a></li>
         
         
-          <li><a href="../functions_and_stack_management_in_arm64_assembly/">Previous: Functions and Stack Management in Arm64 Assembly</a></li>
+          <li><a href="../06_functions_stack_and_abi/">Previous: Functions, Stack and the ABI</a></li>
         
         
-          <li><a href="../interfacing_with_c%2B%2B_and_gpio_control/">Next: Interfacing with C++ and GPIO Control</a></li>
+          <li><a href="../08_debugging_with_gdb/">Next: Debugging with GDB</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
