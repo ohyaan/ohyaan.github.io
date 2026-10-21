@@ -91,7 +91,7 @@
     <meta property="article:published_time" content="2025-11-24">
   
   
-    <meta property="article:modified_time" content="2026-06-21">
+    <meta property="article:modified_time" content="2026-10-21">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -128,7 +128,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-24",
-    "dateModified": "2026-06-21"
+    "dateModified": "2026-10-21"
   }
   </script>
   <script type="application/ld+json">
@@ -9142,6 +9142,11 @@
 <div><h1 id="inheritance-polymorphism">Inheritance &amp; Polymorphism<a class="headerlink" href="#inheritance-polymorphism" title="Permanent link">¶</a></h1>
 <p>Inheritance and polymorphism are the two pillars of object-oriented code reuse and abstraction. Inheritance allows a new class to inherit attributes and behaviors from an existing class, while polymorphism enables treated objects of different types to be interacted with through a unified interface.</p>
 <hr>
+<div class="admonition example">
+<p class="admonition-title">Runnable examples on GitHub</p>
+<p><a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/cpp-learning/lessons/part2/3.inheritance">This lesson's examples and original blocks</a> · <a href="https://github.com/ohyaan/with-raspberry-pi-examples/tree/main/cpp-learning">CMake build and test instructions</a>.
+The README distinguishes executable examples, explanation-only fragments and optional compiler/library features.</p>
+</div>
 <h2 id="1-inheritance-basics">1. Inheritance Basics<a class="headerlink" href="#1-inheritance-basics" title="Permanent link">¶</a></h2>
 <p>In C++, you inherit from a base class using a colon syntax. The inheritance mode (<code>public</code>, <code>protected</code>, or <code>private</code>) determines how the inherited members are exposed to the outside world.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
@@ -9313,8 +9318,8 @@
 </code></pre></div></td></tr></table></div>
 <hr>
 <h2 id="4-the-critical-rule-of-virtual-destructors">4. The Critical Rule of Virtual Destructors<a class="headerlink" href="#4-the-critical-rule-of-virtual-destructors" title="Permanent link">¶</a></h2>
-<p>If a class has at least one virtual function, its <strong>destructor must be declared virtual</strong>.</p>
-<p>If you delete a derived object using a pointer to its base class, and the base class has a non-virtual destructor, only the base class destructor is executed. The derived class's destructor is bypassed, leading to <strong>Undefined Behavior</strong> and major memory/resource leaks.</p>
+<p>If objects will be deleted polymorphically through this base interface, give the base a <strong>virtual destructor</strong>. Merely having another virtual function does not itself require a virtual destructor in every design; a design may instead prevent deletion through the base.</p>
+<p>In the ordinary deletion example below, deleting Derived through BadBase with a non-virtual destructor is <strong>undefined behavior</strong>. No particular destructor output is guaranteed. Treat the block as a counterexample to read, not a program to run; it is excluded from the GitHub example tests. See the <a href="https://eel.is/c++draft/expr.delete">C++ delete rules</a>.</p>
 <div class="language-cpp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
@@ -9465,7 +9470,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 21, 2026 21:03:53 JST">2026-06-21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 21, 2026 23:01:55 JST">2026-10-21</span>
   </span>
 
     
