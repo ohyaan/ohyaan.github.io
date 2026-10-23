@@ -1,0 +1,82 @@
+.network-lab {
+  --lab-blue: #1976b9;
+  --lab-soft: rgba(25, 118, 185, .09);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .6rem;
+  padding: 1rem;
+  margin: 1.2rem 0;
+  background: var(--md-default-bg-color);
+}
+.network-diagram { max-width: 100%; overflow-x: auto; margin: 1rem 0; border: 1px solid var(--md-default-fg-color--lighter); border-radius: .4rem; background: #fff; color: #222; }
+.network-diagram:focus-visible { outline: 3px solid #1976b9; outline-offset: 3px; }
+.network-diagram .mermaid { padding: .75rem; }
+.network-diagram svg { display: block; margin: 0 auto; }
+.network-diagram--sequence svg, .network-diagram--wide svg { min-width: 26rem; }
+.network-diagram--multi svg { min-width: 38rem; }
+.network-lab h3 { margin: 0 0 .5rem; }
+[data-md-color-scheme="slate"] .network-lab { --lab-blue: #90caf9; --lab-soft: rgba(144, 202, 249, .09); }
+.network-lab p { margin: .5rem 0; }
+.network-lab button {
+  font: inherit;
+  padding: .35rem .6rem;
+  border: 1px solid var(--md-default-fg-color--light);
+  border-radius: .3rem;
+  cursor: pointer;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+.network-lab button:hover { background: var(--lab-soft); }
+.network-lab button:focus-visible, .network-lab input:focus-visible {
+  outline: 3px solid var(--lab-blue);
+  outline-offset: 3px;
+}
+.network-lab button[aria-pressed="true"], .network-lab .network-next {
+  background: #176aa5;
+  border-color: #176aa5;
+  color: white;
+}
+.network-lab button[aria-pressed="true"]:hover, .network-lab .network-next:hover { background: #135b8e; }
+.network-lab button:disabled { opacity: .5; cursor: default; }
+.network-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: .7rem 0; }
+.network-controls label { display: flex; align-items: center; gap: .35rem; }
+.network-stack { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin: .7rem 0 0; }
+.network-layers { display: grid; gap: .3rem; }
+.network-layer { padding: .35rem .6rem; border: 1px solid var(--md-default-fg-color--lighter); border-left: 4px solid var(--lab-blue); border-radius: .3rem; background: var(--lab-soft); }
+.network-layer strong, .network-layer span { display: block; }
+.network-layer span { font-size: .72rem; }
+.network-layer.network-base { border-left-color: var(--md-default-fg-color--light); background: transparent; }
+.network-note { align-self: center; }
+.network-note strong { color: var(--lab-blue); }
+.network-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.network-panel { min-width: 0; padding: .7rem; border: 1px solid var(--md-default-fg-color--lighter); border-radius: .4rem; }
+.network-panel h3 { margin: 0 0 .5rem; }
+.network-wire { position: relative; height: 2.3rem; margin: .6rem 0 .25rem; border-top: 2px dashed var(--md-default-fg-color--light); }
+.network-packet { position: absolute; top: .2rem; right: 0; padding: .1rem .4rem; border-radius: .3rem; background: #176aa5; color: white; font-weight: 700; }
+.network-packet.is-lost { background: #a33725; right: 35%; }
+.network-packet.is-moving { animation: network-travel .65s ease-out; }
+.network-packet.is-lost.is-moving { animation-name: network-loss; }
+.network-row { display: grid; grid-template-columns: 4.8rem 1fr; align-items: center; gap: .4rem; min-height: 2.3rem; }
+.network-row-label { font-size: .72rem; }
+.network-values { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem; min-height: 1.8rem; }
+.network-chip { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; border-radius: .3rem; background: #176aa5; color: white; font-size: .85rem; font-weight: 700; }
+.network-chip-2 { background: #7553a8; }
+.network-chip-3 { background: #2d7253; }
+.network-chip.is-waiting { background: transparent; color: var(--md-default-fg-color); border: 2px dashed var(--md-default-fg-color--light); }
+.network-app { padding: .2rem 0; }
+.network-app.is-stream { gap: 0; }
+.network-app.is-stream .network-chip { border-radius: 0; }
+.network-app.is-stream .network-chip:first-child { border-radius: .3rem 0 0 .3rem; }
+.network-app.is-stream .network-chip:last-child { border-radius: 0 .3rem .3rem 0; }
+.network-empty { color: var(--md-default-fg-color--light); }
+.network-result { min-height: 2.5rem; font-weight: 600; }
+.network-caption { font-size: .72rem; color: var(--md-default-fg-color--light); }
+@keyframes network-travel { from { right: 70%; opacity: .2; } to { right: 0; opacity: 1; } }
+@keyframes network-loss { from { right: 70%; opacity: .2; } to { right: 35%; opacity: 1; } }
+@media (max-width: 600px) {
+  .network-stack, .network-comparison { grid-template-columns: 1fr; }
+  .network-lab { padding: .65rem; }
+  .network-row { grid-template-columns: 4.2rem 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .network-packet.is-moving, .network-packet.is-lost.is-moving { animation: none; }
+}
