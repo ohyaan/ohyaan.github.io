@@ -93,7 +93,7 @@
     <meta property="article:published_time" content="2026-08-02">
   
   
-    <meta property="article:modified_time" content="2026-08-06">
+    <meta property="article:modified_time" content="2026-10-26">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -130,7 +130,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-08-02",
-    "dateModified": "2026-08-06"
+    "dateModified": "2026-10-26"
   }
   </script>
   <script type="application/ld+json">
@@ -7844,6 +7844,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#where-are-you-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where are you now?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choose-a-connection-method" class="md-nav__link">
     <span class="md-ellipsis">
       Choose a connection method
@@ -7853,108 +7862,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#headless-connection-map" class="md-nav__link">
+  <a href="#keep-a-recovery-route" class="md-nav__link">
     <span class="md-ellipsis">
-      Headless connection map
+      Keep a recovery route
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-1-ethernet-and-ssh" class="md-nav__link">
+  <a href="#check-your-route-before-continuing" class="md-nav__link">
     <span class="md-ellipsis">
-      Path 1: Ethernet and SSH
+      Check your route before continuing
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-2-wi-fi-and-ssh" class="md-nav__link">
+  <a href="#references-and-scope" class="md-nav__link">
     <span class="md-ellipsis">
-      Path 2: Wi-Fi and SSH
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-3-ssh-over-one-usb-cable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path 3: SSH over one USB cable
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-4-raspberry-pi-connect" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path 4: Raspberry Pi Connect
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-5-tailscale" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path 5: Tailscale
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-6-vnc-or-graphical-access" class="md-nav__link">
-    <span class="md-ellipsis">
-      Path 6: VNC or graphical access
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#build-a-stable-network-identity" class="md-nav__link">
-    <span class="md-ellipsis">
-      Build a stable network identity
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#secure-ssh-baseline" class="md-nav__link">
-    <span class="md-ellipsis">
-      Secure SSH baseline
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#safe-remote-network-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Safe remote network changes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-order" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting order
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#faq" class="md-nav__link">
-    <span class="md-ellipsis">
-      FAQ
+      References and scope
     </span>
   </a>
   
@@ -10430,55 +10358,8 @@
 
 
 <div><h1 id="raspberry-pi-headless-and-networking-guide-2026">Raspberry Pi Headless and Networking Guide 2026<a class="headerlink" href="#raspberry-pi-headless-and-networking-guide-2026" title="Permanent link">¶</a></h1>
-<p>A headless Raspberry Pi has no permanently attached monitor or keyboard. The best connection method depends on where the Pi is, whether it has network access, and whether you need a terminal or a full desktop. This hub compares the supported paths and links to a tested setup for each one.</p>
-<h2 id="choose-a-connection-method">Choose a connection method<a class="headerlink" href="#choose-a-connection-method" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Situation</th>
-<th>First choice</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Same LAN, Ethernet available</td>
-<td>Ethernet + SSH</td>
-<td>Fewest Wi-Fi and discovery variables</td>
-</tr>
-<tr>
-<td>Same LAN, Wi-Fi only</td>
-<td>Imager Wi-Fi setup + SSH</td>
-<td>Credentials and SSH key are applied before first boot</td>
-</tr>
-<tr>
-<td>No usable LAN or captive portal</td>
-<td>USB Gadget Mode + SSH</td>
-<td>One data cable creates a private USB network</td>
-</tr>
-<tr>
-<td>Remote access over the internet</td>
-<td>Raspberry Pi Connect or Tailscale</td>
-<td>No direct SSH port forwarding required</td>
-</tr>
-<tr>
-<td>Remote graphical desktop</td>
-<td>Raspberry Pi Connect screen sharing or VNC over a private network</td>
-<td>Desktop access without exposing VNC publicly</td>
-</tr>
-<tr>
-<td>IoT clients need their own Wi-Fi</td>
-<td>NetworkManager hotspot or routed AP</td>
-<td>The Pi can provide DHCP and optional internet sharing</td>
-</tr>
-<tr>
-<td>Recovery after network failure</td>
-<td>Local console, spare known-good storage, or USB Gadget</td>
-<td>Provides a path that does not depend on the failed LAN setup</td>
-</tr>
-</tbody>
-</table>
-<p>For a new installation, start with Raspberry Pi Imager and configure a unique username, hostname, locale, Wi-Fi, and an SSH public key before writing the storage device.</p>
+<p><strong>Choose the guide for your current stage:</strong> installing without a monitor, fixing a failed connection, or reaching an already working Pi remotely. Headless means no permanently attached monitor or keyboard; it does not require Wi-Fi, a static IP, or a graphical desktop.</p>
+<p>This page is a route map, not another installation tutorial. Each route below has one main procedure so you do not need to repeat setup in several articles.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -10488,181 +10369,34 @@
   </script>
 </div>
 
-<h2 id="headless-connection-map">Headless connection map<a class="headerlink" href="#headless-connection-map" title="Permanent link">¶</a></h2>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">8</a></span>
-<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>Raspberry Pi Imager
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>├── Ethernet configured by DHCP
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>│   └── SSH → static DHCP lease or NetworkManager profile
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>├── Wi-Fi credentials configured
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>│   └── SSH → Tailscale or Raspberry Pi Connect
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>├── USB Gadget enabled
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>│   └── USB Ethernet → SSH → optional host internet sharing
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>└── Desktop image
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>    └── Connect screen sharing or VNC over a private network
-</code></pre></div></td></tr></table></div>
-<p>Keep at least one recovery method outside the normal connection chain. For example, do not make Tailscale your only recovery path if changing NetworkManager could also remove internet access.</p>
-<h2 id="path-1-ethernet-and-ssh">Path 1: Ethernet and SSH<a class="headerlink" href="#path-1-ethernet-and-ssh" title="Permanent link">¶</a></h2>
-<p>Ethernet is the simplest baseline because DHCP normally configures it automatically. In Imager, enable SSH with public-key authentication and set a hostname such as <code>pi-lab-01</code>.</p>
-<p>After first boot, try:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ssh<span class="w"> </span>your-user@pi-lab-01.local
-</code></pre></div></td></tr></table></div>
-<p>If mDNS is unavailable, find the lease in your router or use the device address supplied by your network administrator. Avoid broad network scans on networks you do not own or administer.</p>
-<p>Once connected, verify the active profile and route:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>ip<span class="w"> </span>route
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>resolvectl<span class="w"> </span>status
-</code></pre></div></td></tr></table></div>
-<p>Continue with <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">Raspberry Pi networking on Trixie</a> for static addresses, DNS, routes, and safe remote changes.</p>
-<h2 id="path-2-wi-fi-and-ssh">Path 2: Wi-Fi and SSH<a class="headerlink" href="#path-2-wi-fi-and-ssh" title="Permanent link">¶</a></h2>
-<p>Configure SSID, password, Wi-Fi country, username, hostname, and SSH key in Imager. The country setting matters because allowed channels and transmit behaviour differ by regulatory domain.</p>
-<p>After boot:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
-</code></pre></div></td></tr></table></div>
-<p>If Wi-Fi fails, check the exact connection profile instead of immediately editing old <code>wpa_supplicant.conf</code> examples:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>NetworkManager<span class="w"> </span>--no-pager
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>rfkill<span class="w"> </span>list
-</code></pre></div></td></tr></table></div>
-<p>See the <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">headless first-boot guide</a> for Imager and SSH-key steps.</p>
-<p>If the first connection fails, use the <a href="../raspberry_pi_headless_setup_troubleshooter/">interactive headless setup troubleshooter</a> to select the observed symptom and generate a safe boot, DHCP, mDNS, SSH, key, or USB diagnostic path.</p>
-<h2 id="path-3-ssh-over-one-usb-cable">Path 3: SSH over one USB cable<a class="headerlink" href="#path-3-ssh-over-one-usb-cable" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi OS Trixie images include the <code>rpi-usb-gadget</code> workflow on supported boards. The Pi appears as a USB Ethernet adapter, allowing SSH without joining Wi-Fi or discovering a LAN address.</p>
-<p>Use this for travel, workshops, provisioning, and recovery. The USB port must support device/OTG mode, and the host port must provide adequate power or the Pi needs a separate supported power arrangement.</p>
-<p>Follow <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode: SSH over USB</a> for model, port, Windows driver, macOS/Linux sharing, and troubleshooting details.</p>
-<p>USB networking and USB mass-storage emulation are different functions. If you need the Pi to appear as a flash drive, use the <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/">USB OTG mass-storage guide</a> and follow its single-writer safety rules.</p>
-<h2 id="path-4-raspberry-pi-connect">Path 4: Raspberry Pi Connect<a class="headerlink" href="#path-4-raspberry-pi-connect" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi Connect provides remote shell and, on supported desktop configurations, screen sharing through a browser-mediated service. It is useful when you do not control the upstream router.</p>
-<p>Use account multi-factor authentication, review enrolled devices, and remove devices that are retired or reimaged. For current setup and remote update workflows, see <a href="../raspberry_pi_connect_remote_updates_complete_guide/">Raspberry Pi Connect and remote updates</a>.</p>
-<p>Connect should complement, not replace, local recovery. A damaged boot filesystem or broken network profile cannot be repaired through a service the Pi cannot reach.</p>
-<h2 id="path-5-tailscale">Path 5: Tailscale<a class="headerlink" href="#path-5-tailscale" title="Permanent link">¶</a></h2>
-<p>Tailscale creates a private overlay network and is a good fit for SSH, dashboards, and administration across locations. It avoids exposing port 22 directly on the public internet.</p>
-<p>Apply least-privilege access controls, enable account MFA, review device keys, and keep the Pi patched. Follow <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">secure remote access with Tailscale</a>.</p>
-<h2 id="path-6-vnc-or-graphical-access">Path 6: VNC or graphical access<a class="headerlink" href="#path-6-vnc-or-graphical-access" title="Permanent link">¶</a></h2>
-<p>Use graphical access only when the workload requires the desktop. A Lite installation plus SSH usually needs fewer packages, less RAM, and less network bandwidth.</p>
-<p>Do not expose VNC directly to the internet. Place it behind a private VPN or use Raspberry Pi Connect screen sharing. See <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">remote desktop and VNC optimisation</a>.</p>
-<h2 id="build-a-stable-network-identity">Build a stable network identity<a class="headerlink" href="#build-a-stable-network-identity" title="Permanent link">¶</a></h2>
-<h3 id="hostname">Hostname<a class="headerlink" href="#hostname" title="Permanent link">¶</a></h3>
-<p>Use a unique hostname per device:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>hostnamectl<span class="w"> </span>hostname
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>hostname<span class="w"> </span>pi-lab-01
-</code></pre></div></td></tr></table></div>
-<p>Reconnect after changing it. Update inventory, monitoring, and SSH host-key records deliberately rather than ignoring a host-key warning.</p>
-<h3 id="addressing">Addressing<a class="headerlink" href="#addressing" title="Permanent link">¶</a></h3>
-<p>Prefer a DHCP reservation on the router when you control it. This keeps address policy central and reduces the risk of duplicate addresses. Use a device-side static profile when the deployment requires it and the address is coordinated with the network administrator.</p>
-<h3 id="time-and-dns">Time and DNS<a class="headerlink" href="#time-and-dns" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>timedatectl<span class="w"> </span>status
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>resolvectl<span class="w"> </span>status
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>getent<span class="w"> </span>hosts<span class="w"> </span>raspberrypi.com
-</code></pre></div></td></tr></table></div>
-<p>Correct time is required for TLS, package repositories, logs, and many authentication systems.</p>
-<h2 id="secure-ssh-baseline">Secure SSH baseline<a class="headerlink" href="#secure-ssh-baseline" title="Permanent link">¶</a></h2>
-<ol>
-<li>Use a unique non-default username.</li>
-<li>Use a passphrase-protected SSH key.</li>
-<li>Test key login in a second session before disabling passwords.</li>
-<li>Disable root SSH login.</li>
-<li>Restrict administrative access at the firewall or private-network layer.</li>
-<li>Keep a local recovery path.</li>
-</ol>
-<p>Check the effective server configuration:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-t
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-T<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'passwordauthentication|permitrootlogin|pubkeyauthentication'</span>
-</code></pre></div></td></tr></table></div>
-<p>Apply the full <a href="../raspberry_pi_security_hardening_complete_guide/">Raspberry Pi security hardening checklist</a> after basic connectivity works.</p>
-<h2 id="safe-remote-network-changes">Safe remote network changes<a class="headerlink" href="#safe-remote-network-changes" title="Permanent link">¶</a></h2>
-<p>Before changing a NetworkManager profile over SSH:</p>
-<ol>
-<li>Save the current profile.</li>
-<li>Keep an existing session open.</li>
-<li>Schedule an automatic rollback where possible.</li>
-<li>Change one interface or route at a time.</li>
-<li>Verify the new path from a second terminal.</li>
-</ol>
-<p>Export a profile without secrets for comparison:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>nmcli<span class="w"> </span>--show-secrets<span class="w"> </span>no<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Wired connection 1"</span>
-</code></pre></div></td></tr></table></div>
-<p>For a remote static-IP change, consider a temporary rollback job before cycling the connection. Remove it only after the new connection has been verified.</p>
-<h2 id="troubleshooting-order">Troubleshooting order<a class="headerlink" href="#troubleshooting-order" title="Permanent link">¶</a></h2>
-<p>Work from the physical layer upward:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-9-10">10</a></span>
-<span class="normal"><a href="#__codelineno-9-11">11</a></span>
-<span class="normal"><a href="#__codelineno-9-12">12</a></span>
-<span class="normal"><a href="#__codelineno-9-13">13</a></span>
-<span class="normal"><a href="#__codelineno-9-14">14</a></span>
-<span class="normal"><a href="#__codelineno-9-15">15</a></span>
-<span class="normal"><a href="#__codelineno-9-16">16</a></span>
-<span class="normal"><a href="#__codelineno-9-17">17</a></span>
-<span class="normal"><a href="#__codelineno-9-18">18</a></span>
-<span class="normal"><a href="#__codelineno-9-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c1"># 1. Hardware and link</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>ip<span class="w"> </span>-brief<span class="w"> </span>link
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>ethtool<span class="w"> </span>eth0<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'Link detected|Speed'</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="c1"># 2. Addresses and routes</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a>ip<span class="w"> </span>route
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a>
-<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1"># 3. NetworkManager state</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
-<a id="__codelineno-9-11" name="__codelineno-9-11"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
-<a id="__codelineno-9-12" name="__codelineno-9-12"></a>
-<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="c1"># 4. DNS and time</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14"></a>resolvectl<span class="w"> </span>status
-<a id="__codelineno-9-15" name="__codelineno-9-15"></a>timedatectl<span class="w"> </span>status
-<a id="__codelineno-9-16" name="__codelineno-9-16"></a>
-<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="c1"># 5. Service and firewall</span>
-<a id="__codelineno-9-18" name="__codelineno-9-18"></a>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
-<a id="__codelineno-9-19" name="__codelineno-9-19"></a>sudo<span class="w"> </span>nft<span class="w"> </span>list<span class="w"> </span>ruleset
-</code></pre></div></td></tr></table></div>
-<p>Test the failing layer rather than changing DNS, firewall, and interface configuration at the same time.</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="what-is-the-easiest-raspberry-pi-headless-setup">What is the easiest Raspberry Pi headless setup?<a class="headerlink" href="#what-is-the-easiest-raspberry-pi-headless-setup" title="Permanent link">¶</a></h3>
-<p>Use Raspberry Pi Imager to configure a username, hostname, Wi-Fi if needed, and an SSH public key. Ethernet plus SSH is the simplest network path; USB Gadget Mode is useful when no LAN is available.</p>
-<h3 id="do-i-need-a-static-ip-for-ssh">Do I need a static IP for SSH?<a class="headerlink" href="#do-i-need-a-static-ip-for-ssh" title="Permanent link">¶</a></h3>
-<p>No. A hostname with mDNS or a DHCP reservation is often sufficient. Use a static address only when the deployment requires one and the address is outside or reserved within the DHCP plan.</p>
-<h3 id="should-i-open-port-22-on-my-router">Should I open port 22 on my router?<a class="headerlink" href="#should-i-open-port-22-on-my-router" title="Permanent link">¶</a></h3>
-<p>Usually no. Prefer a private overlay network such as Tailscale or a managed remote-access service such as Raspberry Pi Connect.</p>
-<h3 id="can-usb-gadget-mode-power-a-raspberry-pi-5">Can USB Gadget Mode power a Raspberry Pi 5?<a class="headerlink" href="#can-usb-gadget-mode-power-a-raspberry-pi-5" title="Permanent link">¶</a></h3>
-<p>The correct USB-C port supports gadget mode, but host ports vary in available power. Use a supported power arrangement and monitor for undervoltage or link drops; do not assume every laptop port can power the board and peripherals reliably.</p>
-<h3 id="which-guide-should-i-read-next">Which guide should I read next?<a class="headerlink" href="#which-guide-should-i-read-next" title="Permanent link">¶</a></h3>
+<h2 id="where-are-you-now">Where are you now?<a class="headerlink" href="#where-are-you-now" title="Permanent link">¶</a></h2>
 <ul>
-<li>New installation: <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless setup with Imager and SSH</a></li>
-<li>Network profiles: <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">NetworkManager and nmcli</a></li>
-<li>Wi-Fi clients for a project: <a href="../raspberry_pi_wifi_access_point_setup__complete_hotspot_configuration_guide/">Raspberry Pi access point</a></li>
-<li>No LAN available: <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode</a></li>
-<li>Internet administration: <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale</a> or <a href="../raspberry_pi_connect_remote_updates_complete_guide/">Raspberry Pi Connect</a></li>
-</ul></div>
+<li><strong>First Raspberry Pi, with or without a monitor:</strong> <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/">Initial setup and first login</a>. Choose an OS, write a card, sign in and check updates/reconnection.</li>
+<li><strong>Installing without a monitor:</strong> <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Headless setup with Imager and SSH</a>. Prepare credentials on the client, then prove the first LAN login. Pi 5 owners can also use the <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/">power and boot checklist</a>.</li>
+<li><strong>You tried connecting and it failed:</strong> <a href="../raspberry_pi_headless_setup_troubleshooter/">Headless setup troubleshooter</a>. Select the observed error rather than starting over or rewriting the card.</li>
+<li><strong>Local login already works; you need another access method:</strong> <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">Choose Connect, VNC, RDP or SSH</a>. Match the method to a terminal, existing desktop or separate graphical login.</li>
+</ul>
+<p><strong>Already logged in? Do not reimage.</strong> Network profiles, remote access and applications are changes to an existing installation, not reasons to repeat first boot.</p>
+<h2 id="choose-a-connection-method">Choose a connection method<a class="headerlink" href="#choose-a-connection-method" title="Permanent link">¶</a></h2>
+<h3 id="on-the-same-local-network">On the same local network<a class="headerlink" href="#on-the-same-local-network" title="Permanent link">¶</a></h3>
+<p>For a first terminal connection, use <strong>Ethernet + SSH</strong> when the board has Ethernet and a router/cable is available. DHCP supplies the address; a known router lease or working <code>.local</code> name is enough. <strong>Wi-Fi + SSH</strong> is the alternative when the model supports the intended wireless network. Both use the same <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/#step-2-configure-raspberry-pi-imager">headless installation procedure</a>.</p>
+<p>For a working Pi that needs a different Wi-Fi profile, route or DNS setting, use <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">NetworkManager and nmcli</a>. If you control the router and need a stable address, consider a DHCP reservation before configuring a device-side <a href="../static_ip_configuration_on_raspberry_pi_os/">static IP</a>. Avoid addresses that can conflict with the DHCP pool.</p>
+<h3 id="without-a-usable-lan">Without a usable LAN<a class="headerlink" href="#without-a-usable-lan" title="Permanent link">¶</a></h3>
+<p>Use <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">SSH over USB Gadget Mode</a> <strong>only after checking its board, OS, data-port, cable and power requirements</strong>. A USB-C connector alone does not establish compatibility. This is a separate provisioning path, not a fallback address to try on every Pi.</p>
+<p>USB Ethernet also does not automatically give the Pi internet access; host sharing is a separate step. USB mass-storage emulation is a different function with <a href="../raspberry_pi_as_usb_otg_device_mass_storage_emulation/">its own single-writer precautions</a>.</p>
+<h3 id="away-from-home">Away from home<a class="headerlink" href="#away-from-home" title="Permanent link">¶</a></h3>
+<p>First establish local access. Then choose <a href="../raspberry_pi_connect_complete_guide__secure_browser-based_remote_access/">Raspberry Pi Connect</a> for a browser terminal/supported desktop, or <a href="../secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Tailscale</a> for private access to SSH and other services. Both depend on working networking and their own account/service setup.</p>
+<p>A home LAN address is not normally reachable directly from another location. Router port forwarding is not a required beginner step. Neither a cloud connection nor a VPN can recover a Pi that cannot boot or reach its network.</p>
+<h3 id="when-you-need-a-desktop">When you need a desktop<a class="headerlink" href="#when-you-need-a-desktop" title="Permanent link">¶</a></h3>
+<p>Start with the <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">remote-access method chooser</a>, then follow the selected service's procedure. Lite has no graphical desktop to share; enabling SSH or installing a viewer does not create one. For a blank VNC image, use <a href="../secure_vnc_raspberry_pi_os_wayland_headless/">the existing-session and headless VNC checklist</a>, not the OS installation steps again.</p>
+<h2 id="keep-a-recovery-route">Keep a recovery route<a class="headerlink" href="#keep-a-recovery-route" title="Permanent link">¶</a></h2>
+<p>Before changing a working connection, identify how you will recover: local keyboard/display, another independently verified interface, or a prepared recovery method supported by your board. A spare unconfigured cable is not yet a recovery route.</p>
+<p>Keep the original session open and test a new connection from a second terminal. That session alone is not protection against a broken network profile. Use the <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">networking lesson</a> for the specific change and rollback conditions. Do not change address, DNS, SSH policy and firewall together.</p>
+<p>For a new installation, verify login before proceeding to <a href="../raspberry_pi_security_hardening_complete_guide/">security hardening</a>. Advanced access-policy changes are not prerequisites for proving first boot.</p>
+<h2 id="check-your-route-before-continuing">Check your route before continuing<a class="headerlink" href="#check-your-route-before-continuing" title="Permanent link">¶</a></h2>
+<p>Can you name the stage you are in and the result you expect? A successful hostname lookup, SSH login and desktop capture are different outcomes. If you have a concrete error, go directly to the <a href="../raspberry_pi_headless_setup_troubleshooter/">troubleshooter</a>; if SSH already works, continue with <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/">safe terminal practice</a>.</p>
+<h2 id="references-and-scope">References and scope<a class="headerlink" href="#references-and-scope" title="Permanent link">¶</a></h2>
+<p>The <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">official getting-started guide</a> covers installation, and the <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html">official remote-access overview</a> distinguishes terminal, desktop and file access. This route map does not claim a fresh installation or validation of every service or board. Follow the requirements and verification scope in the selected procedure.</p></div>
 
 
 
@@ -10685,7 +10419,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 6, 2026 21:10:00 JST">2026-08-06</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 26, 2026 20:41:22 JST">2026-10-26</span>
   </span>
 
     

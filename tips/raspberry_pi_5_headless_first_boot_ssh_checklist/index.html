@@ -93,7 +93,7 @@
     <meta property="article:published_time" content="2026-09-29">
   
   
-    <meta property="article:modified_time" content="2026-09-29">
+    <meta property="article:modified_time" content="2026-10-26">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -130,7 +130,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-09-29",
-    "dateModified": "2026-09-29"
+    "dateModified": "2026-10-26"
   }
   </script>
   <script type="application/ld+json">
@@ -7655,27 +7655,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-prepare-imager-before-connecting-power" class="md-nav__link">
+  <a href="#prepare-and-boot-once" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Prepare Imager before connecting power
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-boot-with-a-simple-network-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Boot with a simple network path
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-find-the-pi-and-connect" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Find the Pi and connect
+      Prepare and boot once
     </span>
   </a>
   
@@ -7700,18 +7682,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#faq" class="md-nav__link">
+  <a href="#continue-from-here" class="md-nav__link">
     <span class="md-ellipsis">
-      FAQ
+      Continue from here
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#continue-from-here" class="md-nav__link">
+  <a href="#verification-scope" class="md-nav__link">
     <span class="md-ellipsis">
-      Continue from here
+      Verification scope
     </span>
   </a>
   
@@ -10357,44 +10339,8 @@
 
 
 <div><h1 id="raspberry-pi-5-headless-setup-first-boot-and-ssh-checklist">Raspberry Pi 5 Headless Setup: First Boot and SSH Checklist<a class="headerlink" href="#raspberry-pi-5-headless-setup-first-boot-and-ssh-checklist" title="Permanent link">¶</a></h1>
-<p>To set up a Raspberry Pi 5 without a monitor, configure a user, network, hostname, and SSH key in Raspberry Pi Imager <strong>before</strong> writing the card. For the first boot, Ethernet is the easiest way to separate a boot problem from a Wi-Fi problem. Connect the Pi 5 to a suitable USB-C power supply, wait for provisioning, then SSH to the hostname or the address shown by your router.</p>
-<p>This Pi 5 checklist focuses on the first connection and the failures that are easy to confuse. For all models and longer-term remote-access choices, use the <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">general headless setup guide</a>.</p>
-<h2 id="pi-5-first-boot-checklist">Pi 5 first-boot checklist<a class="headerlink" href="#pi-5-first-boot-checklist" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Check</th>
-<th>What to do</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Boot media</td>
-<td>Write and verify a current Raspberry Pi OS image with Imager. Start with microSD if you have not yet confirmed another boot device.</td>
-</tr>
-<tr>
-<td>Power</td>
-<td>Prefer the official 27 W USB-C supply. The Pi 5 is specified for 5 V at 5 A; a 5 V at 3 A supply limits power available to USB peripherals.</td>
-</tr>
-<tr>
-<td>Network</td>
-<td>Connect Ethernet before power-up for the first test, or configure Wi-Fi SSID, password, and country in Imager.</td>
-</tr>
-<tr>
-<td>Account</td>
-<td>Create your own username and password in Imager. There is no universal <code>pi</code> / <code>raspberry</code> login.</td>
-</tr>
-<tr>
-<td>Remote access</td>
-<td>Enable SSH in Imager and supply your <strong>public</strong> key. Keep the private key on your computer.</td>
-</tr>
-<tr>
-<td>First connection</td>
-<td>Try <code>ssh your-user@pi5-lab.local</code>; if name lookup fails, use the router's DHCP address.</td>
-</tr>
-</tbody>
-</table>
-<p>The <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">official getting-started guide</a> documents Imager customisation, the Pi 5 power recommendation, and headless first boot.</p>
+<p>For Raspberry Pi 5 headless setup, prepare Raspberry Pi OS and SSH in Imager, then boot with suitable power and a simple network path. <strong>Use this page for the Pi 5-specific power, storage and boot checks; use the <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">shared headless procedure</a> for account, key and SSH steps.</strong> You do not need to install twice.</p>
+<p>If you already have a working SSH login, skip first-boot preparation. If a connection attempt failed, use the <a href="../raspberry_pi_headless_setup_troubleshooter/">symptom-based troubleshooter</a> rather than rewriting the card.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -10404,107 +10350,48 @@
   </script>
 </div>
 
-<h2 id="1-prepare-imager-before-connecting-power">1. Prepare Imager before connecting power<a class="headerlink" href="#1-prepare-imager-before-connecting-power" title="Permanent link">¶</a></h2>
-<p>Install <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a> on another computer. Select <strong>Raspberry Pi 5</strong>, Raspberry Pi OS 64-bit (Lite for terminal-only use, Desktop if you need a graphical session), and the intended storage device. Check its name and capacity before writing; Imager will erase it.</p>
-<p>In Imager's customisation screens:</p>
+<h2 id="pi-5-first-boot-checklist">Pi 5 first-boot checklist<a class="headerlink" href="#pi-5-first-boot-checklist" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Power:</strong> the official 27 W USB-C supply is the recommended baseline. A suitable 5 V / 3 A supply can boot a Pi 5, but USB peripheral power is restricted; it is not the same budget as a detected 5 V / 5 A supply. Leave unnecessary USB drives and other high-draw peripherals disconnected for this first test.</li>
+<li><strong>Boot media:</strong> select <strong>Raspberry Pi 5</strong> in Imager and use a supported image. Start with verified microSD if NVMe/USB boot has not already worked. Do not add storage-boot configuration while also diagnosing networking.</li>
+<li><strong>Network:</strong> connect Ethernet to the router before power-up when available, or configure the intended Wi-Fi network in Imager. Ethernet removes Wi-Fi provisioning variables; it does not bypass guest-network isolation.</li>
+<li><strong>Account and SSH:</strong> create your own account and enable SSH in Imager. Keep the account password for administration even when using a public key for SSH.</li>
+<li><strong>Boot indication:</strong> observe the power-button/status LEDs and storage activity. Interpret an actual repeating pattern using the model's documented codes, not colour alone.</li>
+</ul>
+<p>The <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#power-supply">official hardware documentation</a> explains power budgets; the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html#led-behaviour">LED behaviour reference</a> explains model-specific signals. A lit power indicator alone does not prove Linux, DHCP or SSH is ready.</p>
+<p><strong>Outcome:</strong> separate a Pi 5 power/boot problem from a network, name-discovery or SSH-authentication failure, then follow one matching procedure.</p>
+<h2 id="prepare-and-boot-once">Prepare and boot once<a class="headerlink" href="#prepare-and-boot-once" title="Permanent link">¶</a></h2>
 <ol>
-<li>Set a unique hostname, for example <code>pi5-lab</code>.</li>
-<li>Create a username and strong password.</li>
-<li>Set locale, time zone, and keyboard layout.</li>
-<li>If using Wi-Fi, enter the exact SSID and password and select the correct Wi-Fi country.</li>
-<li>Enable SSH with public-key authentication. Paste the contents of your <code>.pub</code> file, never the private-key file.</li>
-<li>Write the image and allow Imager to verify it.</li>
+<li>Follow <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/#step-1-create-an-ssh-key">Steps 1–2 of the headless procedure</a> on the <strong>client computer</strong>. Select your Pi 5, image and card; configure the account, network and SSH key. Back up required data and identify the storage carefully: writing erases it.</li>
+<li>Allow Imager's verification to finish. Safely remove the card, insert it into the unpowered Pi 5 and attach Ethernet if selected.</li>
+<li>Apply the appropriate supply last. If the board is in standby, use the power button according to the <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">official first-boot guidance</a>. Allow initial provisioning to finish; do not repeatedly interrupt power.</li>
+<li>Continue to <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/#step-4-connect-over-ssh">find the Pi and connect</a>. Use the hostname/account you actually configured, or the known router DHCP lease, and verify host identity before accepting a key.</li>
 </ol>
-<p>If you need a new key on a Linux or macOS client, run <code>ssh-keygen -t ed25519</code> and show <code>~/.ssh/id_ed25519.pub</code>. Windows OpenSSH users can do the same in PowerShell. Imager's <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html">official remote-access instructions</a> describe the SSH setting.</p>
-<h2 id="2-boot-with-a-simple-network-path">2. Boot with a simple network path<a class="headerlink" href="#2-boot-with-a-simple-network-path" title="Permanent link">¶</a></h2>
-<p>Insert the verified microSD card, attach Ethernet to your router if available, and connect the Pi 5 power supply last. Leave USB drives and other high-draw peripherals disconnected for this first test. Initial setup can take longer than a normal reboot; the <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">official first-boot guidance</a> recommends checking the status LED if the Pi has not booted within five minutes.</p>
-<p>Pi 5 status LEDs are integrated with the power button. A red light can indicate low-power standby, while green flashing indicates storage activity; a repeating flash pattern can indicate a boot fault. Read the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html#led-behaviour">model-specific LED and warning-code table</a> before diagnosing a pattern by colour alone.</p>
-<h2 id="3-find-the-pi-and-connect">3. Find the Pi and connect<a class="headerlink" href="#3-find-the-pi-and-connect" title="Permanent link">¶</a></h2>
-<p>On another computer on the same LAN, try the hostname you set in Imager:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>ssh<span class="w"> </span>your-user@pi5-lab.local
-</code></pre></div></td></tr></table></div>
-<p>If <code>.local</code> fails, inspect your router's DHCP client list for <code>pi5-lab</code>, then connect to the assigned address:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ssh<span class="w"> </span>your-user@192.168.1.42
-</code></pre></div></td></tr></table></div>
-<p>Replace the example address with the real lease. A working IP connection with a failing <code>.local</code> name points to mDNS discovery, not necessarily a Pi boot problem. Check your client's mDNS support and whether both devices are on the same LAN.</p>
+<p>Choosing Lite gives you a terminal, not a graphical desktop. Connect/VNC setup is a later, separate task.</p>
 <h2 id="if-ssh-fails-identify-the-layer-first">If SSH fails, identify the layer first<a class="headerlink" href="#if-ssh-fails-identify-the-layer-first" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>First check</th>
-<th>Next action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No DHCP lease and no storage activity</td>
-<td>Power, card seating, image verification, LED pattern</td>
-<td>Test the verified microSD image with Ethernet and minimal peripherals.</td>
-</tr>
-<tr>
-<td>Lease exists, hostname fails</td>
-<td>Name resolution</td>
-<td>SSH to the numeric IP; fix mDNS separately.</td>
-</tr>
-<tr>
-<td>Connection times out</td>
-<td>Address, LAN isolation, Wi-Fi credentials</td>
-<td>Confirm the client and Pi are on the same reachable network.</td>
-</tr>
-<tr>
-<td>Connection refused</td>
-<td>SSH service setting</td>
-<td>Recheck that SSH was enabled in Imager.</td>
-</tr>
-<tr>
-<td>Permission denied</td>
-<td>Imager username and public key</td>
-<td>Use the created username and the matching client private key.</td>
-</tr>
-<tr>
-<td>Host key changed</td>
-<td>Device identity</td>
-<td>If you reimaged the Pi, verify the new fingerprint before removing an old known-hosts entry.</td>
-</tr>
-</tbody>
-</table>
-<p>Use the <a href="../raspberry_pi_headless_setup_troubleshooter/">interactive headless troubleshooter</a> for a more detailed path. If you used Wi-Fi, repeat the first-boot test over Ethernet before changing several settings at once.</p>
+<h3 id="no-lease-and-no-convincing-boot-activity">No lease and no convincing boot activity<a class="headerlink" href="#no-lease-and-no-convincing-boot-activity" title="Permanent link">¶</a></h3>
+<p>Recheck the supply, intended image, verified card and documented LED pattern. Do not rewrite network files before establishing whether the board booted. If NVMe/USB is involved, return to a known verified microSD baseline before changing several variables together. A missing DHCP lease alone is not proof of a boot failure.</p>
+<h3 id="lease-exists-but-the-hostname-fails">Lease exists but the hostname fails<a class="headerlink" href="#lease-exists-but-the-hostname-fails" title="Permanent link">¶</a></h3>
+<p>Use the known lease address with the configured username. If that works, investigate client mDNS/network discovery rather than changing SSH or reinstalling Raspberry Pi OS.</p>
+<h3 id="timeout-refused-connection-or-rejected-key">Timeout, refused connection or rejected key<a class="headerlink" href="#timeout-refused-connection-or-rejected-key" title="Permanent link">¶</a></h3>
+<p>These do not mean the same thing. The <a href="../raspberry_pi_headless_setup_troubleshooter/">headless troubleshooter</a> distinguishes route/filtering, service/listener and account/key failures. Network policy can also cause a rejection; an error message alone is not a complete diagnosis. Keep host-key verification enabled.</p>
+<p>For local recovery, inspect the board with a keyboard/display if available. Do not guess a USB fallback address or assume a laptop's USB port provides sufficient power for the Pi 5.</p>
 <h2 id="verify-the-first-login">Verify the first login<a class="headerlink" href="#verify-the-first-login" title="Permanent link">¶</a></h2>
-<p>After SSH works, check the board, OS, connection, and power history:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\0'</span><span class="w"> </span>&lt;/proc/device-tree/model
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>cat<span class="w"> </span>/etc/os-release
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>ip<span class="w"> </span>route
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>vcgencmd<span class="w"> </span>get_throttled
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>systemctl<span class="w"> </span>--failed
+<p>Follow <a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/#step-5-verify-the-installation">the shared post-login checks</a>: confirm the intended hostname/OS, active interface, route and SSH startup, then make a second connection.</p>
+<p>If you suspect a power problem, run this read-only inspection <strong>on the Pi</strong>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>vcgencmd<span class="w"> </span>get_throttled
 </code></pre></div></td></tr></table></div>
-<p>Update the OS through APT, then reconnect after reboot:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>sudo<span class="w"> </span>reboot
-</code></pre></div></td></tr></table></div>
-<p>If a new Trixie installation requests your account password for <code>sudo</code>, use the password you created in Imager. SSH-key login and administrator authentication are separate. For Wi-Fi profiles and static addresses after first boot, follow the <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">NetworkManager guide</a>.</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="can-i-use-raspberry-pi-os-lite-and-connect-with-ssh">Can I use Raspberry Pi OS Lite and connect with SSH?<a class="headerlink" href="#can-i-use-raspberry-pi-os-lite-and-connect-with-ssh" title="Permanent link">¶</a></h3>
-<p>Yes. Lite is appropriate when you only need a terminal. VNC requires a graphical desktop; add one deliberately if you need screen sharing.</p>
-<h3 id="does-the-pi-5-need-5-v-at-5-a-just-to-boot">Does the Pi 5 need 5 V at 5 A just to boot?<a class="headerlink" href="#does-the-pi-5-need-5-v-at-5-a-just-to-boot" title="Permanent link">¶</a></h3>
-<p>The <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html">Raspberry Pi hardware documentation</a> says a good 5 V at 3 A supply can boot the Pi 5, but the available USB peripheral current is limited. The official 27 W supply is the recommended baseline for this checklist.</p>
-<h3 id="should-i-put-ssh-or-wpa_supplicantconf-on-the-boot-partition">Should I put <code>ssh</code> or <code>wpa_supplicant.conf</code> on the boot partition?<a class="headerlink" href="#should-i-put-ssh-or-wpa_supplicantconf-on-the-boot-partition" title="Permanent link">¶</a></h3>
-<p>For a new current Raspberry Pi OS image, use Imager customisation for the account, SSH, and network. It keeps the steps together and avoids mixing old boot-file recipes with the current OS.</p>
+<p>Use <a href="../raspberry_pi_get_throttled_undervoltage/">the get_throttled decoder</a> to separate current flags from recorded history. This command is not a measurement of available USB power, and a zero result is not a guarantee for every future workload.</p>
+<p>Complete <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/#5-update-raspberry-pi-os-then-reconnect">updates and reconnection</a> only after checking recovery and automatic SSH startup. Do not reboot remotely just to test an unresolved power fault.</p>
 <h2 id="continue-from-here">Continue from here<a class="headerlink" href="#continue-from-here" title="Permanent link">¶</a></h2>
 <ul>
-<li><a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">General headless setup for all Raspberry Pi models</a></li>
-<li><a href="../raspberry_pi_headless_networking_2026_hub/">Headless networking and remote-access options</a></li>
-<li><a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">Raspberry Pi 5 NVMe boot setup</a></li>
-</ul></div>
+<li><strong>Working terminal:</strong> <a href="../../basic-operations/">Basic Operations</a>.</li>
+<li><strong>Need a desktop or access from outside home:</strong> <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">Choose the remote-access method</a>.</li>
+<li><strong>Need different connectivity:</strong> <a href="../raspberry_pi_headless_networking_2026_hub/">Headless connection route map</a>.</li>
+<li><strong>Ready to change boot storage:</strong> <a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">Pi 5 NVMe boot</a>, after the basic login is reliable.</li>
+</ul>
+<h2 id="verification-scope">Verification scope<a class="headerlink" href="#verification-scope" title="Permanent link">¶</a></h2>
+<p>This checklist uses the primary Raspberry Pi documentation above. It does <strong>not</strong> claim a new Pi 5 card write, power test, LED observation or first-boot trial for this revision. The site's available test board is a Pi 4B; shell syntax and rendered links do not establish Pi 5 hardware behaviour.</p></div>
 
 
 
@@ -10527,7 +10414,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="September 29, 2026 19:12:51 JST">2026-09-29</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 26, 2026 20:41:22 JST">2026-10-26</span>
   </span>
 
     
