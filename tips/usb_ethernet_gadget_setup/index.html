@@ -93,7 +93,7 @@
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-10-27">
+    <meta property="article:modified_time" content="2026-10-28">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -130,7 +130,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-10-27"
+    "dateModified": "2026-10-28"
   }
   </script>
   <script type="application/ld+json">
@@ -8324,9 +8324,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-assign-a-stable-address-with-networkmanager" class="md-nav__link">
+  <a href="#4-assign-an-address-on-the-pi" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Assign a Stable Address with NetworkManager
+      4. Assign an Address on the Pi
     </span>
   </a>
   
@@ -10529,19 +10529,27 @@
 <a id="__codelineno-6-4" name="__codelineno-6-4"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'dwc2|g_ether|usb0'</span>
 </code></pre></div></td></tr></table></div>
 <p><code>usb0</code> may exist only after the gadget is bound; check the actual interface name with <code>ip -brief link</code> if it differs. A UDC state such as <code>configured</code> indicates a configured USB connection, not successful IP or SSH access. A built-in driver may not appear in <code>lsmod</code>. If the host sees no device, use the <a href="../raspberry_pi_usb_gadget_usb0_missing_troubleshooting/">layer-by-layer diagnostic</a> before changing addressing.</p>
-<h2 id="4-assign-a-stable-address-with-networkmanager">4. Assign a Stable Address with NetworkManager<a class="headerlink" href="#4-assign-a-stable-address-with-networkmanager" title="Permanent link">¶</a></h2>
+<p><a id="4-assign-a-stable-address-with-networkmanager"></a></p>
+<h2 id="4-assign-an-address-on-the-pi">4. Assign an Address on the Pi<a class="headerlink" href="#4-assign-an-address-on-the-pi" title="Permanent link">¶</a></h2>
 <p>On the <strong>Pi</strong>, first inspect existing links and profiles:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
 <span class="normal"><a href="#__codelineno-7-2">2</a></span>
 <span class="normal"><a href="#__codelineno-7-3">3</a></span>
 <span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
 <a id="__codelineno-7-2" name="__codelineno-7-2"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
 <a id="__codelineno-7-3" name="__codelineno-7-3"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
 <a id="__codelineno-7-4" name="__codelineno-7-4"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
 <a id="__codelineno-7-5" name="__codelineno-7-5"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL.NM-MANAGED,GENERAL.STATE<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>usb0
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>udevadm<span class="w"> </span>info<span class="w"> </span>--query<span class="o">=</span>property<span class="w"> </span>--path<span class="o">=</span>/sys/class/net/usb0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(DEVTYPE|NM_UNMANAGED)='</span>
 </code></pre></div></td></tr></table></div>
-<p>The next example assumes the Pi's verified gadget interface is <code>usb0</code>, the subnet is free on both machines, and there is no existing profile named <code>usb-gadget</code>. If another profile already manages this interface, stop and inspect it; do not add a competing profile or modify an unrelated connection. Use a different unique profile name if necessary and substitute it consistently below.</p>
+<p>The next examples assume the Pi's verified gadget interface is <code>usb0</code> and the subnet is free on both machines. If another profile already manages this interface, stop and inspect it; do not add a competing profile or modify an unrelated connection.</p>
+<p><strong>Check whether NetworkManager manages the device.</strong> On the site's Debian 13-based Pi 4B, <code>usb0</code> appeared as <code>unmanaged</code> and its udev properties included <code>NM_UNMANAGED=1</code>. The installed udev rule marks devices with <code>DEVTYPE=gadget</code> unmanaged. An offline-valid NetworkManager profile alone therefore would not activate this Pi's interface. Do not assume all Raspberry Pi OS versions or local configurations use the same rule.</p>
+<h3 id="if-networkmanager-manages-the-gadget">If NetworkManager manages the gadget<a class="headerlink" href="#if-networkmanager-manages-the-gadget" title="Permanent link">¶</a></h3>
+<p>The profile example requires <code>GENERAL.NM-MANAGED: yes</code> and no existing profile named <code>usb-gadget</code>. Use a different unique name if necessary and substitute it consistently below.</p>
 <p>Create and explicitly activate this <strong>new Pi profile</strong>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
@@ -10570,53 +10578,68 @@
 <a id="__codelineno-8-13" name="__codelineno-8-13"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
 </code></pre></div></td></tr></table></div>
 <p>The profile is intentionally not set to autoconnect during the trial. Verify which connection is active and confirm that the unrelated default route is still as expected. The USB profile should not supply a default route; <code>ipv4.never-default</code> prevents NetworkManager assigning one through this profile. After a reboot you must explicitly reactivate this trial profile unless you deliberately change its startup policy after testing recovery.</p>
-<h2 id="5-configure-the-host-computer">5. Configure the Host Computer<a class="headerlink" href="#5-configure-the-host-computer" title="Permanent link">¶</a></h2>
-<p>The host-side name is not necessarily <code>usb0</code>. On a <strong>Linux host</strong>, compare <code>ip -brief link</code>, <code>nmcli device status</code>, and, if installed, <code>lsusb</code> before and after connecting the gadget. If the Pi is already running and the cable also supplies power, do not disconnect it just to make a comparison. Inspect the actual USB device and its network interface in the host's device manager or system logs. A name beginning with <code>enx</code> alone does not prove it is your Pi.</p>
-<p>After identifying the new USB Ethernet interface, inspect its properties. Replace the placeholder with the <strong>verified host interface name</strong>, not the Pi's <code>usb0</code> by assumption:</p>
+<h3 id="if-networkmanager-reports-unmanaged">If NetworkManager reports unmanaged<a class="headerlink" href="#if-networkmanager-reports-unmanaged" title="Permanent link">¶</a></h3>
+<p>For a temporary test, if <code>usb0</code> is the verified gadget interface and has no existing address or active manager, record its original link state and add just the test address on the <strong>Pi</strong>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
 <span class="normal"><a href="#__codelineno-9-2">2</a></span>
 <span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nv">HOST_IF</span><span class="o">=</span>REPLACE_WITH_VERIFIED_USB_INTERFACE
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>nmcli<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>udevadm<span class="w"> </span>info<span class="w"> </span>--query<span class="o">=</span>property<span class="w"> </span>--path<span class="o">=</span><span class="s2">"/sys/class/net/</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.7.2/24<span class="w"> </span>dev<span class="w"> </span>usb0
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span>usb0<span class="w"> </span>up
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span>usb0
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
 </code></pre></div></td></tr></table></div>
-<p><code>udevadm</code> is available on typical systemd Linux installations; it identifies device properties, not proof of the remote Pi's identity. If the interface is absent, the placeholder is unchanged, its identity is unclear, or it already has a working active profile, <strong>stop here</strong>. Confirm the intended device and recovery path before using administrator commands. Taking over the wrong interface can interrupt the host's network connection.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Linux with NetworkManager</label><label for="__tabbed_1_2">Linux temporary configuration</label><label for="__tabbed_1_3">macOS</label><label for="__tabbed_1_4">Windows</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">6</a></span>
-<span class="normal"><a href="#__codelineno-10-7">7</a></span>
-<span class="normal"><a href="#__codelineno-10-8">8</a></span>
-<span class="normal"><a href="#__codelineno-10-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Run only after replacing and verifying HOST_IF above.</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>add<span class="w"> </span><span class="nb">type</span><span class="w"> </span>ethernet<span class="w"> </span>ifname<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>con-name<span class="w"> </span>raspberry-pi-usb<span class="w"> </span>connection.autoconnect<span class="w"> </span>no<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.7.1/24<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span>ipv4.never-default<span class="w"> </span>yes<span class="w"> </span>ipv6.method<span class="w"> </span>disabled
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span>id<span class="w"> </span>raspberry-pi-usb<span class="w"> </span>ifname<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
+<p>This changes the running network state but does not create a NetworkManager profile or survive reboot. It does not set a default gateway. Leave other interfaces and routes alone. To finish, verify that this exact address is still the one you added, then remove it:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>del<span class="w"> </span><span class="m">192</span>.168.7.2/24<span class="w"> </span>dev<span class="w"> </span>usb0
 </code></pre></div></td></tr></table></div>
-<p>This creates and activates a host profile, changing network state. First confirm no profile already uses the name <code>raspberry-pi-usb</code> and no active connection needs the device. Activation can replace the existing active connection on that device; <code>never-default</code> does not prevent takeover. It stays manual after reboot until you deliberately change autoconnect.</p>
-</div>
-<div class="tabbed-block">
+<p>Restore the recorded link state only when no other connection needs the interface. If you changed the example subnet, remove the exact address and prefix you actually added. For unattended operation, first choose and test one persistent network-management method with a separate recovery path; do not combine competing managers.</p>
+<h2 id="5-configure-the-host-computer">5. Configure the Host Computer<a class="headerlink" href="#5-configure-the-host-computer" title="Permanent link">¶</a></h2>
+<p>The host-side name is not necessarily <code>usb0</code>. On a <strong>Linux host</strong>, compare <code>ip -brief link</code>, <code>nmcli device status</code>, and, if installed, <code>lsusb</code> before and after connecting the gadget. If the Pi is already running and the cable also supplies power, do not disconnect it just to make a comparison. Inspect the actual USB device and its network interface in the host's device manager or system logs. A name beginning with <code>enx</code> alone does not prove it is your Pi.</p>
+<p>After identifying the new USB Ethernet interface, inspect its properties. Replace the placeholder with the <strong>verified host interface name</strong>, not the Pi's <code>usb0</code> by assumption:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
 <span class="normal"><a href="#__codelineno-11-2">2</a></span>
 <span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Use the same verified HOST_IF; this changes live state without an NM profile.</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.7.1/24<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span><span class="w"> </span>up
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nv">HOST_IF</span><span class="o">=</span>REPLACE_WITH_VERIFIED_USB_INTERFACE
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>nmcli<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>udevadm<span class="w"> </span>info<span class="w"> </span>--query<span class="o">=</span>property<span class="w"> </span>--path<span class="o">=</span><span class="s2">"/sys/class/net/</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
+</code></pre></div></td></tr></table></div>
+<p><code>udevadm</code> is available on typical systemd Linux installations; it identifies device properties, not proof of the remote Pi's identity. If the interface is absent, the placeholder is unchanged, its identity is unclear, or it already has an active profile, <strong>stop and inspect it first</strong>. Confirm the intended device and recovery path before changing anything. Taking over the wrong interface can interrupt the host's network connection.</p>
+<p>An enumerated USB device can still show <code>NO-CARRIER</code> until the gadget and host network interfaces are brought up. USB enumeration, link carrier, IP addressing and SSH are separate checks; see the <a href="../raspberry_pi_usb_gadget_usb0_missing_troubleshooting/">diagnostic guide</a> if the expected state does not appear.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Linux with NetworkManager</label><label for="__tabbed_1_2">Linux temporary configuration</label><label for="__tabbed_1_3">macOS</label><label for="__tabbed_1_4">Windows</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span>
+<span class="normal"><a href="#__codelineno-12-8">8</a></span>
+<span class="normal"><a href="#__codelineno-12-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Run only after replacing and verifying HOST_IF above.</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>add<span class="w"> </span><span class="nb">type</span><span class="w"> </span>ethernet<span class="w"> </span>ifname<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>con-name<span class="w"> </span>raspberry-pi-usb<span class="w"> </span>connection.autoconnect<span class="w"> </span>no<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.7.1/24<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span>ipv4.never-default<span class="w"> </span>yes<span class="w"> </span>ipv6.method<span class="w"> </span>disabled
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span>id<span class="w"> </span>raspberry-pi-usb<span class="w"> </span>ifname<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>ip<span class="w"> </span>-4<span class="w"> </span>route
+</code></pre></div></td></tr></table></div>
+<p>This creates and activates a host profile, changing network state. First confirm no profile already uses the name <code>raspberry-pi-usb</code> and no unrelated connection needs the device. NetworkManager may automatically start a DHCP profile when the verified gadget link appears. If you deliberately replace that USB-only profile, record its name, UUID and settings first so you can restore it; do not delete it. Activation replaces the current connection on that device, and <code>never-default</code> does not prevent takeover. The new profile stays manual after reboot until you deliberately change autoconnect.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="c1"># Use the same verified HOST_IF; this changes live state without an NM profile.</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>sudo<span class="w"> </span>ip<span class="w"> </span>address<span class="w"> </span>add<span class="w"> </span><span class="m">192</span>.168.7.1/24<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>sudo<span class="w"> </span>ip<span class="w"> </span>link<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span><span class="w"> </span>up
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address<span class="w"> </span>show<span class="w"> </span>dev<span class="w"> </span><span class="s2">"</span><span class="nv">$HOST_IF</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Do not mix this with a NetworkManager-managed profile on the same interface. Record the prior link state. Remove only the address you added when finished, and restore the original link state deliberately.</p>
 </div>
@@ -10630,13 +10653,13 @@
 </div>
 <h2 id="6-test-and-connect-with-ssh">6. Test and Connect with SSH<a class="headerlink" href="#6-test-and-connect-with-ssh" title="Permanent link">¶</a></h2>
 <p>From a <strong>Linux or macOS host</strong>:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">192</span>.168.7.2
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>ssh<span class="w"> </span>your-user@192.168.7.2
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">192</span>.168.7.2
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>ssh<span class="w"> </span>your-user@192.168.7.2
 </code></pre></div></td></tr></table></div>
 <p>In Windows PowerShell, use <code>ping -n 3 192.168.7.2</code>; the SSH command is the same when the OpenSSH client is available.</p>
 <p>If Avahi is installed and multicast DNS is permitted on both ends, this may also work:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>ssh<span class="w"> </span>your-user@your-pi-hostname.local
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>ssh<span class="w"> </span>your-user@your-pi-hostname.local
 </code></pre></div></td></tr></table></div>
 <p>Replace <code>your-user</code> and the hostname with the values configured on the Pi. Verify its SSH host key through a trusted independent path before accepting it. Use the numeric address for troubleshooting because <code>.local</code> name resolution is a separate service. A ping failure alone does not prove SSH is unavailable; filtering can block ICMP.</p>
 <h2 id="optional-share-the-hosts-internet-connection">Optional: Share the Host's Internet Connection<a class="headerlink" href="#optional-share-the-hosts-internet-connection" title="Permanent link">¶</a></h2>
@@ -10661,23 +10684,23 @@
 <p>Run <code>ip address</code> on both ends, confirm the <code>/24</code> prefix, temporarily inspect firewall rules, and make sure only one connection profile manages each interface.</p>
 <h3 id="the-pi-repeatedly-disconnects">The Pi repeatedly disconnects<a class="headerlink" href="#the-pi-repeatedly-disconnects" title="Permanent link">¶</a></h3>
 <p>Suspect power or cable quality first. A Pi 4 should not rely on an underpowered laptop port. Check for undervoltage messages:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>vcgencmd<span class="w"> </span>get_throttled
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>voltage
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>vcgencmd<span class="w"> </span>get_throttled
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>voltage
 </code></pre></div></td></tr></table></div>
 <h2 id="reproducible-link-test">Reproducible Link Test<a class="headerlink" href="#reproducible-link-test" title="Permanent link">¶</a></h2>
 <p>This optional measurement requires <code>iperf3</code> on both machines. Install it only if needed, and record the model, cable, host OS, and CPU load. The server listens until stopped; run it on a trusted private link and stop it with Ctrl+C after the client finishes:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span>
-<span class="normal"><a href="#__codelineno-15-4">4</a></span>
-<span class="normal"><a href="#__codelineno-15-5">5</a></span>
-<span class="normal"><a href="#__codelineno-15-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c1"># Raspberry Pi</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a>iperf3<span class="w"> </span>--server<span class="w"> </span>--bind<span class="w"> </span><span class="m">192</span>.168.7.2
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="c1"># Host</span>
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a>iperf3<span class="w"> </span>--client<span class="w"> </span><span class="m">192</span>.168.7.2<span class="w"> </span>--time<span class="w"> </span><span class="m">30</span><span class="w"> </span>--get-server-output
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">192</span>.168.7.2
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># Raspberry Pi</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>iperf3<span class="w"> </span>--server<span class="w"> </span>--bind<span class="w"> </span><span class="m">192</span>.168.7.2
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="c1"># Host</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a>iperf3<span class="w"> </span>--client<span class="w"> </span><span class="m">192</span>.168.7.2<span class="w"> </span>--time<span class="w"> </span><span class="m">30</span><span class="w"> </span>--get-server-output
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">192</span>.168.7.2
 </code></pre></div></td></tr></table></div>
 <p>Use the Pi's actual verified USB address for <code>--bind</code> and the client target if you chose a different subnet. Binding limits which local address the server listens on; stop it after the test. Do not publish a single throughput value without the cable type, Pi model, host controller, and test duration.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
@@ -10696,7 +10719,10 @@
 <li><a href="../raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">Raspberry Pi Headless Setup Guide</a></li>
 </ul>
 <h2 id="verification-scope">Verification scope<a class="headerlink" href="#verification-scope" title="Permanent link">¶</a></h2>
-<p>On 27 October 2026, read-only inspection of the site's Raspberry Pi 4B running Raspberry Pi OS based on Debian 13 (kernel <code>6.18.50+rpt-rpi-v8</code>) found NetworkManager 1.52.1 and no registered UDC in its current configuration. NetworkManager's offline profile generation accepted the example properties on that Pi and on the Linux host; it did not create or activate a profile. No boot files, network profiles, services or cables were changed. This revision did <strong>not</strong> exercise an actual USB gadget, host enumeration, static-IP activation, reboot, recovery or throughput. The commands are syntax-checked; follow the official model and host documentation and validate your own setup with a recovery path.</p></div>
+<p>On 27 October 2026, read-only inspection of the site's Raspberry Pi 4B running Raspberry Pi OS based on Debian 13 (kernel <code>6.18.50+rpt-rpi-v8</code>) found NetworkManager 1.52.1 and no registered UDC in its then-current configuration. NetworkManager's offline profile generation accepted the example properties on that Pi and on the Linux host; it did not create or activate a profile.</p>
+<p>On 28 October, the manual boot settings were enabled and the Pi was connected to the Linux host. One connection powered the Pi but produced no host USB device and the Pi reported <code>not attached</code>; with another cable, the host identified a Raspberry Pi USB Gadget and the Pi's UDC reported <code>configured</code>. The Pi reported <code>throttled=0x0</code> after that boot. This confirms enumeration on the tested connection, not the root cause of the first failure or sustained power stability. The Pi's <code>usb0</code> was initially down and NetworkManager reported it unmanaged; the host interface also initially had no carrier or IP.</p>
+<p>For a <strong>temporary</strong> link test, <code>ip</code> brought the unmanaged Pi interface up with <code>192.168.77.2/30</code>. On the host, the verified USB Ethernet interface was assigned <code>192.168.77.1/30</code> using a non-autoconnecting, non-default-route NetworkManager profile. NetworkManager had automatically started a DHCP profile on that USB device; the test deliberately switched only that device to the temporary profile, leaving the existing host Ethernet and Pi Wi-Fi default routes in place. The test subnet differs from the illustrative <code>192.168.7.0/24</code> commands above.</p>
+<p>The host received three ping replies and opened SSH over the USB link. For host identity, the connection used the Pi's previously verified Wi-Fi host key through OpenSSH's <code>HostKeyAlias</code>, and explicitly selected the USB source address. That validates a terminal login on this particular Pi and host; it does not establish sustained throughput, unattended startup, recovery after reboot or compatibility with other hosts.</p></div>
 
 
 
@@ -10719,7 +10745,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 27, 2026 21:33:21 JST">2026-10-27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 28, 2026 17:13:30 JST">2026-10-28</span>
   </span>
 
     
