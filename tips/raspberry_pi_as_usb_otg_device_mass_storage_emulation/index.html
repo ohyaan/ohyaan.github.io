@@ -8343,6 +8343,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#finish-the-trial-and-restore-your-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Finish the trial and restore your setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#host-operating-system-behaviour" class="md-nav__link">
     <span class="md-ellipsis">
       Host operating-system behaviour
@@ -10452,6 +10461,14 @@
 
 <div><h1 id="raspberry-pi-usb-otg-mass-storage-gadget">Raspberry Pi USB OTG Mass-Storage Gadget<a class="headerlink" href="#raspberry-pi-usb-otg-mass-storage-gadget" title="Permanent link">¶</a></h1>
 <p>A Raspberry Pi USB mass-storage gadget appears to a host computer as a flash drive backed by an image file or block device on the Pi. The critical rule is that the host and Raspberry Pi must not mount the same writable filesystem at the same time. Two independent writers can corrupt it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Protect existing data and remote access</p>
+<p>Formatting destroys the selected image's contents. This example creates a new private trial directory; never substitute an existing file or device. Keep a separate local console or verified Wi-Fi/Ethernet connection: a standalone mass-storage gadget and USB Ethernet cannot both own the same UDC. Do not disconnect a cable that powers a running Pi.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Verification scope</p>
+<p>This is a documentation and safety review against the <a href="https://docs.kernel.org/usb/mass-storage.html">Linux mass-storage gadget documentation</a>. USB mass-storage enumeration, host eject and writable recovery have not been tested on this site's Pi or host. The previous USB Ethernet test does not verify this workflow.</p>
+</div>
 <p>If your goal is SSH or file transfer over a network, use the supported Trixie <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode for SSH</a> instead. Mass-storage emulation is for appliances, test fixtures, virtual media, and controlled file-exchange workflows.</p>
 <h2 id="choose-the-safer-design">Choose the safer design<a class="headerlink" href="#choose-the-safer-design" title="Permanent link">¶</a></h2>
 <table>
@@ -10521,107 +10538,116 @@
 <a id="__codelineno-0-4" name="__codelineno-0-4"></a>Linux USB gadget driver on Raspberry Pi
 <a id="__codelineno-0-5" name="__codelineno-0-5"></a>    │
 <a id="__codelineno-0-6" name="__codelineno-0-6"></a>    ▼
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>/srv/usb-gadget/disk.img
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>$image
 <a id="__codelineno-0-8" name="__codelineno-0-8"></a>    │
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a>    └── FAT filesystem mounted by either host OR Pi, never both writable
 </code></pre></div></td></tr></table></div>
 <p>The image file is not a synchronisation layer. The kernel exports its blocks to the host, which expects exclusive control of filesystem metadata and caches.</p>
 <h2 id="step-1-enable-peripheral-mode">Step 1: enable peripheral mode<a class="headerlink" href="#step-1-enable-peripheral-mode" title="Permanent link">¶</a></h2>
-<p>Back up the firmware configuration:</p>
+<p>First inspect the controller, active gadgets and configuration. An empty controller directory needs model-specific setup; a built-in driver may not appear in <code>lsmod</code>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>-a<span class="w"> </span>/boot/firmware/config.txt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span>/boot/firmware/config.txt.backup-<span class="k">$(</span>date<span class="w"> </span>+%F<span class="k">)</span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ls<span class="w"> </span>-1<span class="w"> </span>/sys/class/udc
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>cat<span class="w"> </span>/sys/class/udc/*/state<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'dwc2|g_ether|g_mass_storage'</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>cat<span class="w"> </span>/proc/cmdline
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>grep<span class="w"> </span>-nE<span class="w"> </span><span class="s1">'dwc2|otg_mode'</span><span class="w"> </span>/boot/firmware/config.txt
 </code></pre></div></td></tr></table></div>
-<p>Add the device-controller overlay:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="na">dtoverlay</span><span class="o">=</span><span class="s">dwc2,dr_mode=peripheral</span>
-</code></pre></div></td></tr></table></div>
-<p>Reboot and confirm the controller/driver state:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>reboot
-</code></pre></div></td></tr></table></div>
-<p>After reconnecting:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>dwc2
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'dwc2|usb|gadget'</span>
-</code></pre></div></td></tr></table></div>
-<p>Do not add multiple conflicting gadget frameworks at boot. The modern Trixie <code>rpi-usb-gadget</code> Ethernet workflow and a manual mass-storage function both need control of the USB device controller.</p>
+<p>If the controller is absent, consult the <a href="../raspberry_pi_usb_gadget_usb0_missing_troubleshooting/">diagnostic guide</a> and the board-specific <a href="../usb_ethernet_gadget_setup/#before-changing-boot-or-network-settings">manual setup and backup procedure</a>. Do not add duplicate or conflicting boot settings. Make changes and reboot only with a verified independent recovery route.</p>
+<p><strong>Stop if another gadget owns the controller or <code>g_mass_storage</code> is already loaded.</strong> The supported <code>rpi-usb-gadget</code> Ethernet workflow and this standalone mass-storage gadget compete for the UDC. Module and ConfigFS inspection can help identify the owner; a module-based gadget may not appear in ConfigFS. Never unload an unrelated gadget or disconnect your only route to the Pi. This guide does not switch off or restore a package-managed Ethernet gadget for you.</p>
 <h2 id="step-2-create-a-disposable-backing-image">Step 2: create a disposable backing image<a class="headerlink" href="#step-2-create-a-disposable-backing-image" title="Permanent link">¶</a></h2>
-<p>Install FAT tools and create a sparse 1 GiB image:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dosfstools
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">0750</span><span class="w"> </span>/srv/usb-gadget
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>sudo<span class="w"> </span>truncate<span class="w"> </span>-s<span class="w"> </span>1G<span class="w"> </span>/srv/usb-gadget/disk.img
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>sudo<span class="w"> </span>mkfs.vfat<span class="w"> </span>-F<span class="w"> </span><span class="m">32</span><span class="w"> </span>-n<span class="w"> </span>PI_GADGET<span class="w"> </span>/srv/usb-gadget/disk.img
+<p>On the Pi, install <code>dosfstools</code> if <code>mkfs.vfat</code> is unavailable. The following creates a <strong>new private directory</strong> under your home directory and an image inside it. It does not reuse the old fixed <code>/srv/usb-gadget/disk.img</code> path. Run these commands in one shell and save the printed directory path; after reconnecting you must deliberately restore the variables to that exact path.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nv">trial_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/usb-storage-trial.XXXXXX"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">image</span><span class="o">=</span><span class="s2">"</span><span class="nv">$trial_dir</span><span class="s2">/disk.img"</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nv">mount_dir</span><span class="o">=</span><span class="s2">"</span><span class="nv">$trial_dir</span><span class="s2">/mount"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Trial directory: %s\nImage: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$trial_dir</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>mkdir<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>truncate<span class="w"> </span>-s<span class="w"> </span>1G<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<p>This example puts one FAT filesystem directly in the image without a partition table. That is easy to test across common host operating systems.</p>
+<p>If any command fails, stop. Before formatting, independently check the printed path is inside the newly created private directory, the image is a new disposable regular file and nothing has mounted or exported it. <code>mkfs.vfat</code> overwrites filesystem data; <strong>never run it on an existing image or block device</strong>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkfs.vfat<span class="w"> </span>-F<span class="w"> </span><span class="m">32</span><span class="w"> </span>-n<span class="w"> </span>PI_GADGET<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>This places one FAT filesystem directly in the image without a partition table. Do not reuse this block to reset an existing image: rerunning the format destroys its content.</p>
 <p>Confirm its type:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>file<span class="w"> </span>/srv/usb-gadget/disk.img
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>file<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="step-3-add-initial-files-on-the-pi">Step 3: add initial files on the Pi<a class="headerlink" href="#step-3-add-initial-files-on-the-pi" title="Permanent link">¶</a></h2>
 <p>The image is not yet exported, so mount it locally:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span>
-<span class="normal"><a href="#__codelineno-7-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>/mnt/usb-gadget
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop<span class="w"> </span>/srv/usb-gadget/disk.img<span class="w"> </span>/mnt/usb-gadget
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s1">'Raspberry Pi USB gadget test'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span>sudo<span class="w"> </span>tee<span class="w"> </span>/mnt/usb-gadget/README.txt
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a>sync
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/usb-gadget
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>findmnt<span class="w"> </span>-M<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>sudo<span class="w"> </span>losetup<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>Continue only if the exact mountpoint is mounted from a loop device associated with this trial image. If either check fails, stop; do not write to an unintended directory. Then add the test file and unmount:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s1">'Raspberry Pi USB gadget test'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">/README.txt"</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>sync
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>sudo<span class="w"> </span>umount<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Verify it is unmounted before exporting:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>findmnt<span class="w"> </span>/srv/usb-gadget/disk.img
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>losetup<span class="w"> </span>-j<span class="w"> </span>/srv/usb-gadget/disk.img
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>findmnt<span class="w"> </span>--target<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>losetup<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<p><code>findmnt</code> should show no active filesystem mount.</p>
+<p><code>findmnt --target</code> may show the enclosing filesystem even when the trial mount is gone; check whether the exact <strong>TARGET</strong> is <code>$mount_dir</code>. Inspect any loop devices reported by <code>losetup -j</code> and their mountpoints with <code>findmnt</code>; stop if the image is still mounted or ownership is unclear. Do not detach a loop device belonging to another workload.</p>
 <h2 id="step-4-export-read-only-first">Step 4: export read-only first<a class="headerlink" href="#step-4-export-read-only-first" title="Permanent link">¶</a></h2>
-<p>Load the mass-storage gadget with the backing image read-only:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>modprobe<span class="w"> </span>g_mass_storage<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span><span class="nv">file</span><span class="o">=</span>/srv/usb-gadget/disk.img<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span><span class="nv">removable</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span><span class="nv">ro</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">  </span><span class="nv">stall</span><span class="o">=</span><span class="m">0</span>
+<p>Before loading, recheck that <code>$image</code> is the recorded trial file, it is not locally mounted, no other process modifies it, the UDC is free, and <code>g_mass_storage</code> is not already loaded. A successful <code>modprobe</code> on an already-loaded module does not guarantee that new parameters were applied. Only then load the module for this trial:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>modprobe<span class="w"> </span>g_mass_storage<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span><span class="s2">"file=</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">  </span><span class="nv">removable</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">  </span><span class="nv">ro</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span><span class="nv">stall</span><span class="o">=</span><span class="m">0</span>
 </code></pre></div></td></tr></table></div>
 <p>Connect the data cable to the correct device-mode port. The host should detect a drive named <code>PI_GADGET</code>.</p>
 <p>Inspect the Pi log:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-100
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>g_mass_storage
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-100
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>g_mass_storage
 </code></pre></div></td></tr></table></div>
-<p>Read-only mode proves enumeration and file visibility without allowing the host to change the filesystem.</p>
+<p><code>ro=1</code> requests host-side read-only access; confirm enumeration, media visibility and the actual backing file and read-only state before drawing conclusions. See the <a href="https://docs.kernel.org/usb/mass-storage.html">kernel documentation</a> for LUN state and eject behavior. Do not modify the backing image while it is exported, even when the host is read-only.</p>
 <h2 id="step-5-detach-safely">Step 5: detach safely<a class="headerlink" href="#step-5-detach-safely" title="Permanent link">¶</a></h2>
-<p>Eject the drive in the host operating system first. Then remove the gadget function on the Pi:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>g_mass_storage
+<p>Eject the drive in the host operating system first. Identify the active gadget and confirm it is the one loaded for this trial. Only then remove that module on the Pi; never unload an existing gadget owned by another service:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>g_mass_storage
 </code></pre></div></td></tr></table></div>
 <p>Confirm the module is gone before mounting the image locally:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>g_mass_storage<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop<span class="w"> </span>/srv/usb-gadget/disk.img<span class="w"> </span>/mnt/usb-gadget
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>g_mass_storage<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
 </code></pre></div></td></tr></table></div>
-<p>After local changes:</p>
+<p>Stop if the module is still present, its backing file remains in use, or ownership is unclear. The <code>lsmod</code> output alone does not prove a built-in or independently configured gadget is detached. Once detachment is confirmed, mount the trial image again and verify the exact mountpoint and loop device as in Step 3 before making any local changes:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-o<span class="w"> </span>loop<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>findmnt<span class="w"> </span>-M<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>sudo<span class="w"> </span>losetup<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>After local changes, unmount and verify the image is no longer mounted before any new export:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
 <span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sync
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a>sudo<span class="w"> </span>umount<span class="w"> </span>/mnt/usb-gadget
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>sudo<span class="w"> </span>umount<span class="w"> </span><span class="s2">"</span><span class="nv">$mount_dir</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Then export again.</p>
 <h2 id="writable-host-access">Writable host access<a class="headerlink" href="#writable-host-access" title="Permanent link">¶</a></h2>
-<p>Only enable writable export after the read-only workflow is reliable:</p>
+<p>Only enable writable export after the read-only workflow is reliable, its gadget has been detached, and the image is unmounted and not owned by another process. The following is an alternative new load, not an update to an already loaded module:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
 <span class="normal"><a href="#__codelineno-14-2">2</a></span>
 <span class="normal"><a href="#__codelineno-14-3">3</a></span>
 <span class="normal"><a href="#__codelineno-14-4">4</a></span>
 <span class="normal"><a href="#__codelineno-14-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>sudo<span class="w"> </span>modprobe<span class="w"> </span>g_mass_storage<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">  </span><span class="nv">file</span><span class="o">=</span>/srv/usb-gadget/disk.img<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">  </span><span class="s2">"file=</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">  </span><span class="nv">removable</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">  </span><span class="nv">ro</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">  </span><span class="nv">stall</span><span class="o">=</span><span class="m">0</span>
@@ -10635,7 +10661,7 @@
 <li>Remove <code>g_mass_storage</code> on the Pi.</li>
 <li>Run a filesystem check before local reuse when the host disconnected unexpectedly.</li>
 </ol>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>fsck.vfat<span class="w"> </span>-n<span class="w"> </span>/srv/usb-gadget/disk.img
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>fsck.vfat<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Use <code>-n</code> for a non-modifying first inspection. Back up the image before attempting repair.</p>
 <h2 id="read-only-appliance-pattern">Read-only appliance pattern<a class="headerlink" href="#read-only-appliance-pattern" title="Permanent link">¶</a></h2>
@@ -10643,10 +10669,8 @@
 <p>Workflow:</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>Detach gadget → mount image on Pi → update → unmount → verify → export read-only
 </code></pre></div></td></tr></table></div>
-<p>Record a checksum after building:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sha256sum<span class="w"> </span>/srv/usb-gadget/disk.img<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w">  </span>sudo<span class="w"> </span>tee<span class="w"> </span>/srv/usb-gadget/disk.img.sha256
+<p>After detaching the gadget and unmounting the image, record a checksum:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sha256sum<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$trial_dir</span><span class="s2">/disk.img.sha256"</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="do-not-export-the-active-root-filesystem">Do not export the active root filesystem<a class="headerlink" href="#do-not-export-the-active-root-filesystem" title="Permanent link">¶</a></h2>
 <p>Never point <code>g_mass_storage</code> at a mounted root partition or another filesystem the Pi is actively using. A host OS may write partition metadata, indexing files, recycle-bin data, or repair information without an obvious prompt.</p>
@@ -10662,6 +10686,9 @@
 <li>Expose health/status separately from the mass-storage filesystem.</li>
 </ul>
 <p>Configfs supports composite and more controlled gadgets, but increases implementation responsibility. Use it when you need multiple functions or stable descriptors, not merely because an old tutorial uses it.</p>
+<h2 id="finish-the-trial-and-restore-your-setup">Finish the trial and restore your setup<a class="headerlink" href="#finish-the-trial-and-restore-your-setup" title="Permanent link">¶</a></h2>
+<p>Eject the host drive, verify the trial gadget is detached and the trial image is unmounted, and inspect any loop devices before cleanup. Keep the recorded trial directory until you have verified it contains only your disposable test files; remove those specific files and the empty trial directory only when no process uses them. This page does not automatically delete images or backups.</p>
+<p>If you deliberately changed boot configuration or another service, use the independently verified console or network route to restore only your recorded changes. Verify the previous connection and its expected boot behavior separately; unloading <code>g_mass_storage</code> does not automatically restore USB Ethernet.</p>
 <h2 id="host-operating-system-behaviour">Host operating-system behaviour<a class="headerlink" href="#host-operating-system-behaviour" title="Permanent link">¶</a></h2>
 <p>Windows, macOS, and Linux can all add metadata to writable removable media. Examples include indexing databases, recycle-bin directories, or desktop metadata. Design the application to ignore unrelated files and never assume that only your payload changes.</p>
 <p>Host write caching also means “copy complete” is not the same as “safe to unplug.” Require a proper eject.</p>
@@ -10680,8 +10707,8 @@
 <h3 id="the-host-asks-to-format-the-drive">The host asks to format the drive<a class="headerlink" href="#the-host-asks-to-format-the-drive" title="Permanent link">¶</a></h3>
 <p>Do not accept immediately. Detach safely and inspect the image:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>file<span class="w"> </span>/srv/usb-gadget/disk.img
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>fsck.vfat<span class="w"> </span>-n<span class="w"> </span>/srv/usb-gadget/disk.img
+<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>file<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>fsck.vfat<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$image</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Confirm that you exported the correct file and that local/host concurrent access never occurred.</p>
 <h3 id="files-disappear-or-the-filesystem-becomes-corrupt">Files disappear or the filesystem becomes corrupt<a class="headerlink" href="#files-disappear-or-the-filesystem-becomes-corrupt" title="Permanent link">¶</a></h3>
