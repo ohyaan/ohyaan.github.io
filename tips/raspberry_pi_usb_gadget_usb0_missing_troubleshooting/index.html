@@ -8223,6 +8223,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-was-tested" class="md-nav__link">
+    <span class="md-ellipsis">
+      What was tested
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-guides" class="md-nav__link">
     <span class="md-ellipsis">
       Related guides
@@ -10390,6 +10399,16 @@
 <td>Inspect the host's USB and network-device views.</td>
 </tr>
 <tr>
+<td><code>usb0</code> exists but NetworkManager says unmanaged</td>
+<td>Network management</td>
+<td>Check device management and udev properties before creating a profile.</td>
+</tr>
+<tr>
+<td>Connection stops working after a reboot</td>
+<td>Interface name or temporary addressing</td>
+<td>Identify the host interface again and inspect addresses and profiles.</td>
+</tr>
+<tr>
 <td>Network adapter exists, no usable address</td>
 <td>DHCP, sharing, or manual profile</td>
 <td>Inspect addresses on both sides.</td>
@@ -10407,7 +10426,7 @@
 </tbody>
 </table>
 <h2 id="1-check-the-cable-and-connector">1. Check the cable and connector<a class="headerlink" href="#1-check-the-cable-and-connector" title="Permanent link">¶</a></h2>
-<p>A charging cable can power the Pi while carrying no USB data. Test with a known working data cable and a direct host connection before adding hubs. On a Zero-family board, use the micro-USB connector labelled <strong>USB</strong>, not <strong>PWR IN</strong>. Other boards have different device-capable ports; consult the <a href="https://www.raspberrypi.com/news/usb-gadget-mode-in-raspberry-pi-os-ssh-over-usb/">official USB gadget announcement and compatibility details</a> rather than assuming a USB-A host port can become a device.</p>
+<p>A charging cable can power the Pi while carrying no USB data. Test with a known working data cable and a direct host connection when it can supply sufficient power. If it cannot, consult the <a href="https://www.raspberrypi.com/news/usb-gadget-mode-in-raspberry-pi-os-ssh-over-usb/">official USB gadget power guidance</a> for a suitable powered hub; do not improvise multiple power sources. On a Zero-family board, use the micro-USB connector labelled <strong>USB</strong>, not <strong>PWR IN</strong>. Other boards have different device-capable ports; consult the same guidance rather than assuming a USB-A host port can become a device.</p>
 <p>If the Pi repeatedly disconnects or reboots, inspect power as well as software:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>vcgencmd<span class="w"> </span>get_throttled
@@ -10476,6 +10495,7 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3"></a>nmcli<span class="w"> </span>device<span class="w"> </span>status
 </code></pre></div></td></tr></table></div>
 <p>The host-side network name might be <code>enx...</code>, not <code>usb0</code>. On macOS, inspect USB devices in System Information and network services in System Settings. On Windows, inspect Device Manager for the new USB and network device; use the official package's documented driver procedure when required.</p>
+<p>Do not disconnect a cable solely for comparison if it also powers a running Pi. Instead, inspect host USB properties and system logs. An enumerated gadget can still lack carrier or an IP address; those are separate checks. After reboot, identify the device again: on our Pi 4B test the host's <code>enx...</code> interface name changed, so a profile bound to the old name no longer matched. A name alone does not prove device identity; see the <a href="../usb_ethernet_gadget_setup/#5-configure-the-host-computer">manual guide's host identification and profile steps</a>.</p>
 <p>If the host sees USB but no network interface, resolve the host driver or gadget-function problem before configuring DHCP. The supported package negotiates the host's Ethernet function; manually switching between unrelated gadget recipes can obscure the original failure.</p>
 <h2 id="5-diagnose-addresses-then-ssh">5. Diagnose addresses, then SSH<a class="headerlink" href="#5-diagnose-addresses-then-ssh" title="Permanent link">¶</a></h2>
 <p>On the Pi, inspect <strong>all</strong> interfaces rather than assuming their name:</p>
@@ -10485,11 +10505,19 @@
 <a id="__codelineno-7-2" name="__codelineno-7-2"></a>ip<span class="w"> </span>route
 <a id="__codelineno-7-3" name="__codelineno-7-3"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span>--active
 </code></pre></div></td></tr></table></div>
+<p>If the expected Pi interface exists but no NetworkManager profile activates it, inspect its management state and udev properties, replacing <code>usb0</code> only if you have verified a different gadget interface:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL.NM-MANAGED,GENERAL.STATE<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>usb0
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>udevadm<span class="w"> </span>info<span class="w"> </span>--query<span class="o">=</span>property<span class="w"> </span>--path<span class="o">=</span>/sys/class/net/usb0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(DEVTYPE|NM_UNMANAGED)='</span>
+</code></pre></div></td></tr></table></div>
+<p>On the site's manually configured Pi 4B, NetworkManager reported <code>usb0</code> as unmanaged and udev reported <code>NM_UNMANAGED=1</code>; creating a profile alone would not bring it up. This is an observed configuration, not a rule for every image or for the supported package. The <a href="https://networkmanager.dev/docs/api/1.44.4/NetworkManager.html">NetworkManager documentation</a> describes the udev property. For the manual path, the <a href="../usb_ethernet_gadget_setup/#4-assign-an-address-on-the-pi">temporary address procedure</a> provides a reversible test. Do not apply it over an active package-managed setup or another network manager.</p>
 <p>Inspect the host's USB Ethernet address as well. For a manual static setup, both ends need addresses on the intended subnet. For package-managed Trixie setup, use the package's documented DHCP/internet-sharing arrangement; do not layer the manual guide's static profile on top without a plan. The official package documents <code>10.12.194.1</code> as a fallback when host sharing is disabled, not a universal address for every gadget.</p>
 <p>If numeric addressing works, try SSH with the username you created:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>ssh<span class="w"> </span>your-user@PI_USB_ADDRESS
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>ssh<span class="w"> </span>your-user@PI_USB_ADDRESS
 </code></pre></div></td></tr></table></div>
 <p><code>Connection refused</code> means something different from a timeout or <code>Permission denied</code>. Use the <a href="../raspberry_pi_headless_setup_troubleshooter/">headless troubleshooter</a> to diagnose the observed SSH error. After a fix, reconnect once and confirm the link survives a planned reboot before making USB your normal recovery path.</p>
+<h2 id="what-was-tested">What was tested<a class="headerlink" href="#what-was-tested" title="Permanent link">¶</a></h2>
+<p>On 28 October 2026, a Pi 4B running Debian 13-based Raspberry Pi OS and a Linux host were tested with the manual <code>dwc2</code>/<code>g_ether</code> setup. One connection powered the Pi without host enumeration; a different cable enumerated successfully, but the cause of the first failure was not established. With temporary static IP addresses, ping and host-key-verified SSH worked. After reboot, the Pi's temporary IP was gone and the host interface name changed; manually updating the settings restored SSH. See the <a href="../usb_ethernet_gadget_setup/#verification-scope">full verification scope</a>. The package-managed path, other boards, Windows and macOS were not tested in this experiment.</p>
 <h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">Trixie USB Gadget Mode and SSH over USB</a></li>
