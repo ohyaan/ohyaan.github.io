@@ -10554,6 +10554,10 @@
 </tbody>
 </table>
 <p>Raspberry Pi OS 6.2 disables passwordless <code>sudo</code> by default on new installations. Upgraded systems can retain their prior behavior, so verify rather than assume. Before changing remote access, keep the current session open and prepare Ethernet, <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget Mode</a>, or a local console.</p>
+<div class="admonition note">
+<p class="admonition-title">Verification scope</p>
+<p>On the site's Pi 4B, a new SSH connection using an already trusted host key and public-key-only authentication succeeded; the SSH service was active and the Wi-Fi default route remained in place. The steps below for creating keys, changing SSH policy, enabling UFW, and recovery were <strong>not</strong> executed on that Pi. Check your own OS, accounts and recovery path before making changes.</p>
+</div>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -10669,50 +10673,61 @@
 <p>Confirm no files, timers, cron jobs, or services depend on it before deletion.</p>
 <h2 id="harden-ssh-without-locking-yourself-out">Harden SSH without locking yourself out<a class="headerlink" href="#harden-ssh-without-locking-yourself-out" title="Permanent link">¶</a></h2>
 <h3 id="1-install-a-client-key">1. Install a client key<a class="headerlink" href="#1-install-a-client-key" title="Permanent link">¶</a></h3>
-<p>On the client computer:</p>
+<p>On the <strong>client computer</strong>, first inspect your existing keys and SSH configuration. Reuse an appropriate existing key if it meets your policy; do not overwrite a key used elsewhere. If creating a separate key, choose a unique path that does not already exist, including its <code>.pub</code> file. <code>ssh-keygen</code> prompts before overwriting an existing key: answer <strong>no</strong> if uncertain. Keep the private key and passphrase private.</p>
+<p>For example, after checking that both paths are unused:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
 <span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>ssh-copy-id<span class="w"> </span>&lt;user&gt;@&lt;pi-address&gt;
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a>ssh<span class="w"> </span>&lt;user&gt;@&lt;pi-address&gt;
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>ls<span class="w"> </span>-la<span class="w"> </span>~/.ssh
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>~/.ssh/pi_security_ed25519
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/pi_security_ed25519.pub<span class="w"> </span>YOUR_USER@YOUR_PI
 </code></pre></div></td></tr></table></div>
-<p>Open a second independent session and verify key authentication. Keep the original session connected.</p>
-<h3 id="2-audit-effective-server-settings">2. Audit effective server settings<a class="headerlink" href="#2-audit-effective-server-settings" title="Permanent link">¶</a></h3>
+<p>Replace the example identity, account and address with your own. Before accepting an unfamiliar host key, verify its fingerprint through a trusted independent route; a changed host key needs investigation, not a disabled check. <code>ssh-copy-id</code> changes the target account's authorized keys; use it only for the intended account and server.</p>
+<p>Keep the original session connected. From the client, open a <strong>new independent</strong> session that cannot fall back to account-password or keyboard-interactive authentication:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-T<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span><span class="s1">'^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|pubkeyauthentication|allowusers|maxauthtries) '</span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">ControlPath</span><span class="o">=</span>none<span class="w"> </span>-o<span class="w"> </span><span class="nv">PreferredAuthentications</span><span class="o">=</span>publickey<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span>-o<span class="w"> </span><span class="nv">PasswordAuthentication</span><span class="o">=</span>no<span class="w"> </span>-o<span class="w"> </span><span class="nv">KbdInteractiveAuthentication</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>-i<span class="w"> </span>~/.ssh/pi_security_ed25519<span class="w"> </span>YOUR_USER@YOUR_PI
+</code></pre></div></td></tr></table></div>
+<p>You may still be prompted for the <em>private key's passphrase</em>. If the connection fails, stop and diagnose before disabling any server authentication. If several keys or an agent are in use, inspect <code>ssh -v</code> output and confirm the intended public-key fingerprint was accepted; redact sensitive details before sharing logs. Test every required administrator and automation identity, not just one login. The <a href="https://man.openbsd.org/ssh_config">OpenSSH client documentation</a> describes authentication and connection sharing.</p>
+<h3 id="2-audit-effective-server-settings">2. Audit effective server settings<a class="headerlink" href="#2-audit-effective-server-settings" title="Permanent link">¶</a></h3>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-T<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span><span class="s1">'^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|pubkeyauthentication|allowusers|maxauthtries) '</span>
 </code></pre></div></td></tr></table></div>
 <p>Package updates may change supported algorithms and defaults. Do not paste a fixed cipher/MAC list from an old guide unless a compatibility policy requires it and current <code>sshd</code> supports it.</p>
 <h3 id="3-use-a-drop-in">3. Use a drop-in<a class="headerlink" href="#3-use-a-drop-in" title="Permanent link">¶</a></h3>
-<p>Create <code>/etc/ssh/sshd_config.d/20-hardening.conf</code>:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span>
-<span class="normal"><a href="#__codelineno-12-4">4</a></span>
-<span class="normal"><a href="#__codelineno-12-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>PermitRootLogin no
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>PubkeyAuthentication yes
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a>PasswordAuthentication no
-<a id="__codelineno-12-4" name="__codelineno-12-4"></a>KbdInteractiveAuthentication no
-<a id="__codelineno-12-5" name="__codelineno-12-5"></a>MaxAuthTries 3
-</code></pre></div></td></tr></table></div>
-<p>Add <code>AllowUsers &lt;user&gt;</code> only after inventorying every legitimate SSH account and automation identity.</p>
-<p>Validate before reload:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<p>Before editing, inspect existing includes and drop-ins, their order, and any <code>Match</code> rules. OpenSSH generally uses the first obtained value for each setting, so a later drop-in may not override an earlier one. Back up the configuration securely and record the exact previous state; do not overwrite an existing drop-in. See <a href="https://man.openbsd.org/sshd_config">OpenSSH server configuration</a>.</p>
+<p>Only after confirming an independent recovery path and all required key logins, create a <strong>new, unused</strong> drop-in in the applicable included directory. For example, if <code>20-hardening.conf</code> does not already exist and the include order makes it effective:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
 <span class="normal"><a href="#__codelineno-13-2">2</a></span>
 <span class="normal"><a href="#__codelineno-13-3">3</a></span>
-<span class="normal"><a href="#__codelineno-13-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-t
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>ssh
-<a id="__codelineno-13-3" name="__codelineno-13-3"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-T<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span><span class="s1">'^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|pubkeyauthentication|maxauthtries) '</span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>PermitRootLogin no
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>PubkeyAuthentication yes
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>PasswordAuthentication no
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>KbdInteractiveAuthentication no
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>MaxAuthTries 3
 </code></pre></div></td></tr></table></div>
-<p>Test a third new connection. If it fails, use the still-open original session to restore the drop-in.</p>
-<p>Changing port 22 reduces background log noise but is not a substitute for key authentication, firewall policy, or updates.</p>
-<h2 id="inventory-network-exposure">Inventory network exposure<a class="headerlink" href="#inventory-network-exposure" title="Permanent link">¶</a></h2>
+<p>Add <code>AllowUsers &lt;user&gt;</code> only after inventorying every legitimate SSH account and automation identity.</p>
+<p>Validate syntax and inspect effective policy <strong>before</strong> reload. <code>sshd -t</code> checks syntax, not whether your login or intended settings will work:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
 <span class="normal"><a href="#__codelineno-14-2">2</a></span>
-<span class="normal"><a href="#__codelineno-14-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a>systemctl<span class="w"> </span>--type<span class="o">=</span>service<span class="w"> </span>--state<span class="o">=</span>running
+<span class="normal"><a href="#__codelineno-14-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-t
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>sudo<span class="w"> </span>sshd<span class="w"> </span>-T<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">  </span><span class="s1">'^(permitrootlogin|passwordauthentication|kbdinteractiveauthentication|pubkeyauthentication|maxauthtries) '</span>
+</code></pre></div></td></tr></table></div>
+<p>If effective values differ from the plan, stop; inspect include order. Where <code>Match</code> rules apply, check the intended user, client address and hostname with <code>sshd -T -C</code> using the values for that connection; a plain <code>-T</code> is not sufficient. Only when syntax, effective policy, recovery and key tests are satisfactory, reload:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>ssh
+</code></pre></div></td></tr></table></div>
+<p>Test another independent key-only connection. Keep the original session open. If it fails, use the verified local recovery path or existing session to restore the exact prior configuration, validate it with <code>sshd -t</code>, reload and retest. An existing session may itself be interrupted, so it is not a substitute for independent recovery.</p>
+<p>Changing port 22 reduces background log noise but is not a substitute for key authentication, firewall policy, or updates.</p>
+<h2 id="inventory-network-exposure">Inventory network exposure<a class="headerlink" href="#inventory-network-exposure" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>ip<span class="w"> </span>-brief<span class="w"> </span>address
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>systemctl<span class="w"> </span>--type<span class="o">=</span>service<span class="w"> </span>--state<span class="o">=</span>running
 </code></pre></div></td></tr></table></div>
 <p>For every listener, document:</p>
 <ul>
@@ -10726,72 +10741,79 @@
 <p>Bind admin dashboards to localhost or a private VPN when possible. Do not expose SSH, VNC, databases, Docker APIs, or management interfaces directly to the public internet without a specific design.</p>
 <h2 id="disable-an-unused-service-safely">Disable an unused service safely<a class="headerlink" href="#disable-an-unused-service-safely" title="Permanent link">¶</a></h2>
 <p>Inspect the service and reverse dependencies:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>example.service
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>example.service
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>example.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>example.service
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>example.service
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>example.service
 </code></pre></div></td></tr></table></div>
 <p>Disable only when the hardware and application do not require it:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
-<span class="normal"><a href="#__codelineno-16-2">2</a></span>
-<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>example.service
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
-<a id="__codelineno-16-3" name="__codelineno-16-3"></a>systemctl<span class="w"> </span>--failed
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>example.service
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>systemctl<span class="w"> </span>--failed
 </code></pre></div></td></tr></table></div>
 <p>Record rollback:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>example.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>example.service
 </code></pre></div></td></tr></table></div>
 <h2 id="configure-ufw-around-required-access">Configure UFW around required access<a class="headerlink" href="#configure-ufw-around-required-access" title="Permanent link">¶</a></h2>
-<p>Install UFW:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
-<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-18-2" name="__codelineno-18-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw
-</code></pre></div></td></tr></table></div>
-<p>Before enabling it remotely, allow the current SSH path. For LAN-only SSH, replace the example subnet with the actual management subnet:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span>
-<span class="normal"><a href="#__codelineno-19-3">3</a></span>
-<span class="normal"><a href="#__codelineno-19-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
-<a id="__codelineno-19-3" name="__codelineno-19-3"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.1.0/24<span class="w"> </span>to<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">22</span><span class="w"> </span>proto<span class="w"> </span>tcp
-<a id="__codelineno-19-4" name="__codelineno-19-4"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>show<span class="w"> </span>added
-</code></pre></div></td></tr></table></div>
-<p>Enable while the recovery session remains available:</p>
+<p>First inventory the current SSH client address, actual listening port, IPv4/IPv6 paths, required application ports and existing firewall rules. Use a local console or other independently verified recovery path: changing a default policy or enabling UFW can interrupt SSH. Do not reset UFW or replace an existing firewall policy blindly. If UFW is already installed, inspect its existing status and rules before changing it:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
-<span class="normal"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>verbose
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>verbose
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>show<span class="w"> </span>added
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup
 </code></pre></div></td></tr></table></div>
-<p>Open a new SSH session and test required application ports from an allowed and, where possible, denied client. Do not blindly allow ports based on an application tutorial; expose only the interface and client range required.</p>
+<p>If UFW is not installed and your network plan calls for it, install it only after checking the system's existing firewall manager:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ufw
+</code></pre></div></td></tr></table></div>
+<p>The following is an <strong>example for a new, deliberately planned UFW setup</strong>, not a safe copy-and-paste rule for every Pi. Before applying it, replace the subnet and port with the actual client path and account for any existing rules, IPv6 and required services. Default-policy changes can take effect immediately on an active firewall. UFW rules normally apply across interfaces unless constrained; review your complete policy. The <a href="https://manpages.ubuntu.com/manpages/noble/man8/ufw.8.html">UFW manual</a> discusses remote management.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">192</span>.168.1.0/24<span class="w"> </span>to<span class="w"> </span>any<span class="w"> </span>port<span class="w"> </span><span class="m">22</span><span class="w"> </span>proto<span class="w"> </span>tcp
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>show<span class="w"> </span>added
+</code></pre></div></td></tr></table></div>
+<p>Only after checking the planned rules and verifying an independent recovery route, enable UFW if it is not already enabled. Enabling or changing policy can interrupt an existing SSH session:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>status<span class="w"> </span>verbose
+</code></pre></div></td></tr></table></div>
+<p>Open a new independent SSH session and test required application ports from an allowed and, where possible, denied client. Record which exact rules you added and the previous policy so you can reverse only your changes from the recovery console. Do not blindly allow ports based on an application tutorial; expose only the interface and client range required.</p>
 <p>Docker and other container/network frameworks can create packet-filter rules that interact with UFW. Verify the actual path from another machine rather than assuming <code>ufw status</code> describes every effective rule.</p>
 <h2 id="add-login-rate-protection-where-useful">Add login-rate protection where useful<a class="headerlink" href="#add-login-rate-protection-where-useful" title="Permanent link">¶</a></h2>
 <p>Fail2ban can respond to repeated failures, but key-only SSH and limited network reach are stronger primary controls.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
-<span class="normal"><a href="#__codelineno-21-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>fail2ban
-<a id="__codelineno-21-2" name="__codelineno-21-2"></a>sudo<span class="w"> </span>fail2ban-client<span class="w"> </span>status
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>fail2ban
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>sudo<span class="w"> </span>fail2ban-client<span class="w"> </span>status
 </code></pre></div></td></tr></table></div>
 <p>Create local jail overrides under <code>/etc/fail2ban/jail.d/</code>; do not edit packaged defaults. Confirm the journal/backend and actual SSH log entries before enabling a jail, then test from a disposable client without banning the only admin address.</p>
 <h2 id="enable-automatic-security-updates">Enable automatic security updates<a class="headerlink" href="#enable-automatic-security-updates" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
-<span class="normal"><a href="#__codelineno-22-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>unattended-upgrades<span class="w"> </span>apt-listchanges
-<a id="__codelineno-22-2" name="__codelineno-22-2"></a>sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>-plow<span class="w"> </span>unattended-upgrades
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>unattended-upgrades<span class="w"> </span>apt-listchanges
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>sudo<span class="w"> </span>dpkg-reconfigure<span class="w"> </span>-plow<span class="w"> </span>unattended-upgrades
 </code></pre></div></td></tr></table></div>
 <p>Inspect timers and dry-run diagnostics:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
-<span class="normal"><a href="#__codelineno-23-2">2</a></span>
-<span class="normal"><a href="#__codelineno-23-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>systemctl<span class="w"> </span>list-timers<span class="w"> </span><span class="s1">'apt-*'</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2"></a>sudo<span class="w"> </span>unattended-upgrade<span class="w"> </span>--dry-run<span class="w"> </span>--debug
-<a id="__codelineno-23-3" name="__codelineno-23-3"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>unattended-upgrades<span class="w"> </span>--since<span class="w"> </span><span class="s1">'7 days ago'</span><span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>systemctl<span class="w"> </span>list-timers<span class="w"> </span><span class="s1">'apt-*'</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>sudo<span class="w"> </span>unattended-upgrade<span class="w"> </span>--dry-run<span class="w"> </span>--debug
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>unattended-upgrades<span class="w"> </span>--since<span class="w"> </span><span class="s1">'7 days ago'</span><span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <p>Automatic reboot may be inappropriate for a production service. Define maintenance windows, health checks, rollback, and notification instead of copying a universal reboot time.</p>
 <h2 id="protect-secrets-and-permissions">Protect secrets and permissions<a class="headerlink" href="#protect-secrets-and-permissions" title="Permanent link">¶</a></h2>
 <p>Find potentially unsafe private-key permissions in known application paths rather than crawling pseudo-filesystems blindly:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>find<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh"</span><span class="w"> </span>/etc/ssh<span class="w"> </span>-xdev<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-printf<span class="w"> </span><span class="s1">'%m %u:%g %p\n'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>find<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh"</span><span class="w"> </span>/etc/ssh<span class="w"> </span>-xdev<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-printf<span class="w"> </span><span class="s1">'%m %u:%g %p\n'</span>
 </code></pre></div></td></tr></table></div>
 <p>Typical SSH permissions:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
-<span class="normal"><a href="#__codelineno-25-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh"</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh/authorized_keys"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh"</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.ssh/authorized_keys"</span>
 </code></pre></div></td></tr></table></div>
 <p>For services:</p>
 <ul>
@@ -10804,37 +10826,37 @@
 <p>Check repository history as well as the current file when removing an accidentally committed secret.</p>
 <h2 id="constrain-custom-systemd-services">Constrain custom systemd services<a class="headerlink" href="#constrain-custom-systemd-services" title="Permanent link">¶</a></h2>
 <p>Inspect the unit and its security score:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
-<span class="normal"><a href="#__codelineno-26-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>my-app.service
-<a id="__codelineno-26-2" name="__codelineno-26-2"></a>systemd-analyze<span class="w"> </span>security<span class="w"> </span>my-app.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
+<span class="normal"><a href="#__codelineno-29-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>my-app.service
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a>systemd-analyze<span class="w"> </span>security<span class="w"> </span>my-app.service
 </code></pre></div></td></tr></table></div>
 <p>Options to evaluate in a test environment include:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
-<span class="normal"><a href="#__codelineno-27-2">2</a></span>
-<span class="normal"><a href="#__codelineno-27-3">3</a></span>
-<span class="normal"><a href="#__codelineno-27-4">4</a></span>
-<span class="normal"><a href="#__codelineno-27-5">5</a></span>
-<span class="normal"><a href="#__codelineno-27-6">6</a></span>
-<span class="normal"><a href="#__codelineno-27-7">7</a></span>
-<span class="normal"><a href="#__codelineno-27-8">8</a></span>
-<span class="normal"><a href="#__codelineno-27-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">[Service]</span>
-<a id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="na">User</span><span class="o">=</span><span class="s">my-app</span>
-<a id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="na">Group</span><span class="o">=</span><span class="s">my-app</span>
-<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">yes</span>
-<a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="na">PrivateTmp</span><span class="o">=</span><span class="s">yes</span>
-<a id="__codelineno-27-6" name="__codelineno-27-6"></a><span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
-<a id="__codelineno-27-7" name="__codelineno-27-7"></a><span class="na">ProtectHome</span><span class="o">=</span><span class="s">yes</span>
-<a id="__codelineno-27-8" name="__codelineno-27-8"></a><span class="na">ReadWritePaths</span><span class="o">=</span><span class="s">/var/lib/my-app</span>
-<a id="__codelineno-27-9" name="__codelineno-27-9"></a><span class="na">CapabilityBoundingSet</span><span class="o">=</span>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span>
+<span class="normal"><a href="#__codelineno-30-5">5</a></span>
+<span class="normal"><a href="#__codelineno-30-6">6</a></span>
+<span class="normal"><a href="#__codelineno-30-7">7</a></span>
+<span class="normal"><a href="#__codelineno-30-8">8</a></span>
+<span class="normal"><a href="#__codelineno-30-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="k">[Service]</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="na">User</span><span class="o">=</span><span class="s">my-app</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="na">Group</span><span class="o">=</span><span class="s">my-app</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">yes</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a><span class="na">PrivateTmp</span><span class="o">=</span><span class="s">yes</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6"></a><span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7"></a><span class="na">ProtectHome</span><span class="o">=</span><span class="s">yes</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8"></a><span class="na">ReadWritePaths</span><span class="o">=</span><span class="s">/var/lib/my-app</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9"></a><span class="na">CapabilityBoundingSet</span><span class="o">=</span>
 </code></pre></div></td></tr></table></div>
 <p>Do not paste the entire block into every service. A GPIO, camera, network, or storage application may need specific devices, capabilities, home paths, or writable directories. Add one constraint, test normal operation and restart/recovery, then continue.</p>
 <h2 id="logging-and-detection">Logging and detection<a class="headerlink" href="#logging-and-detection" title="Permanent link">¶</a></h2>
 <p>Keep useful logs bounded rather than disabling them:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
-<span class="normal"><a href="#__codelineno-28-2">2</a></span>
-<span class="normal"><a href="#__codelineno-28-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>journalctl<span class="w"> </span>--disk-usage
-<a id="__codelineno-28-2" name="__codelineno-28-2"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>--verify
-<a id="__codelineno-28-3" name="__codelineno-28-3"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-p<span class="w"> </span>warning<span class="w"> </span>--since<span class="w"> </span><span class="s1">'24 hours ago'</span><span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>journalctl<span class="w"> </span>--disk-usage
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>--verify
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-p<span class="w"> </span>warning<span class="w"> </span>--since<span class="w"> </span><span class="s1">'24 hours ago'</span><span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <p>Review:</p>
 <ul>
