@@ -10394,7 +10394,15 @@
 
 <div><h1 id="raspberry-pi-ai-hat-plus-2-complete-guide-local-llms-and-vlms">Raspberry Pi AI HAT Plus 2 Complete Guide: Local LLMs and VLMs<a class="headerlink" href="#raspberry-pi-ai-hat-plus-2-complete-guide-local-llms-and-vlms" title="Permanent link">¶</a></h1>
 <p>The Raspberry Pi AI HAT+ 2 adds a Hailo-10H accelerator and 8GB of dedicated memory to Raspberry Pi 5. Unlike the original AI HAT+, it can run supported large language models (LLMs), vision-language models (VLMs), and computer-vision pipelines locally without sending prompts or images to a cloud service.</p>
-<p>This guide installs the official Hailo software path on Raspberry Pi OS Trixie, verifies the NPU, runs a model through the <code>hailo-ollama</code> API, and adds Open WebUI as an optional browser interface.</p>
+<p>This guide follows the official Hailo software path on Raspberry Pi OS Trixie: verify the NPU, then run a supported model through the <code>hailo-ollama</code> API. Docker, Open WebUI, and automatic startup are optional; you can stop after the first successful API response.</p>
+<div class="admonition note">
+<p class="admonition-title">Verification scope</p>
+<p>This guide was reviewed against the <a href="https://www.raspberrypi.com/documentation/computers/ai.html">Raspberry Pi AI software documentation</a> and <a href="https://docs.openwebui.com/getting-started/quick-start/">Open WebUI documentation</a>. The site's available test machine is a Pi 4B; these Pi 5, Hailo-10H, model, Docker and VLM steps have <strong>not</strong> been verified on the required hardware. Package versions and supported models can change.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Updates, downloads and network exposure</p>
+<p>OS upgrades and reboots can interrupt services; make a backup, plan a maintenance window and keep a recovery route. Package and model downloads require internet access and storage even if inference runs locally. Check listening interfaces and authentication before allowing any other computer to access the backend or UI.</p>
+</div>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -10447,7 +10455,7 @@
 </tr>
 </tbody>
 </table>
-<p>The two Hailo packages cannot coexist. If you are replacing an older AI Kit or AI HAT+, remove its software before installing the Hailo-10H stack.</p>
+<p>The Hailo-8 and Hailo-10 stacks conflict. If replacing older hardware, inventory the installed packages, dependent applications and recovery plan; follow the current official migration instructions rather than blindly removing packages.</p>
 <h2 id="hardware-and-software-requirements">Hardware and software requirements<a class="headerlink" href="#hardware-and-software-requirements" title="Permanent link">¶</a></h2>
 <ul>
 <li>Raspberry Pi 5</li>
@@ -10468,25 +10476,27 @@
 <li>Secure the HAT using the supplied spacers and screws.</li>
 <li>Reconnect power and boot Raspberry Pi OS.</li>
 </ol>
-<p>Update the operating system:</p>
+<p>First identify the OS, architecture and available storage:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade<span class="w"> </span>-y
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>reboot
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>uname<span class="w"> </span>-m
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(PRETTY_NAME|VERSION_CODENAME)='</span><span class="w"> </span>/etc/os-release
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>df<span class="w"> </span>-h<span class="w"> </span>/<span class="w"> </span>/var
 </code></pre></div></td></tr></table></div>
-<p>Confirm that the host is 64-bit Trixie:</p>
+<p>Expect <code>aarch64</code> and <code>VERSION_CODENAME=trixie</code>. Check the <a href="https://www.raspberrypi.com/documentation/computers/ai.html">official setup</a> for current requirements. If updates are required, review the proposed changes and preserve a recovery path before applying them. Reboot only in a planned maintenance window:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(PRETTY_NAME|VERSION_CODENAME)='</span><span class="w"> </span>/etc/os-release
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>apt<span class="w"> </span>list<span class="w"> </span>--upgradable
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
 </code></pre></div></td></tr></table></div>
-<p>Expect <code>aarch64</code> and <code>VERSION_CODENAME=trixie</code>.</p>
+<p>Follow the package manager's outcome and reboot if required. An upgrade may affect existing services; do not combine it with an unplanned OS migration.</p>
 <h2 id="2-install-the-hailo-10h-runtime">2. Install the Hailo-10H runtime<a class="headerlink" href="#2-install-the-hailo-10h-runtime" title="Permanent link">¶</a></h2>
 <p>Install the driver and software metapackage:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dkms<span class="w"> </span>hailo-h10-all
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>dkms<span class="w"> </span>hailo-h10-all
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <p>Verify that the firmware responds:</p>
@@ -10497,20 +10507,19 @@
 </code></pre></div></td></tr></table></div>
 <p>Do not manually force PCIe Gen 3 for AI HAT+ 2. That configuration step applies to the older AI Kit; the HAT+ products manage the required setting automatically.</p>
 <h2 id="3-install-the-hailo-genai-model-package">3. Install the Hailo GenAI model package<a class="headerlink" href="#3-install-the-hailo-genai-model-package" title="Permanent link">¶</a></h2>
-<p>The official LLM workflow uses a versioned Hailo GenAI Model Zoo Debian package. Download the current Raspberry Pi Arm64 package from the Hailo Developer Zone, then install the downloaded file. The official documentation used version 5.1.1 at the time this guide was written:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>hailo_gen_ai_model_zoo_5.1.1_arm64.deb
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>--fix-broken<span class="w"> </span>install
+<p>The official LLM workflow uses a versioned Hailo GenAI Model Zoo Debian package. As of 28 October 2026, the <a href="https://www.raspberrypi.com/documentation/computers/ai.html">Raspberry Pi instructions</a> name version 5.1.1. Before installation, check that page for the current trusted download, filename, compatibility and licensing. The command below is an example for that specific package, not a promise that it remains current:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>hailo_gen_ai_model_zoo_5.1.1_arm64.deb
 </code></pre></div></td></tr></table></div>
-<p>Because this package and its available models change, confirm the current filename in the official documentation instead of copying an old download URL from a third-party mirror.</p>
+<p>If <code>dpkg</code> reports missing dependencies, inspect the error and proposed package changes before using <code>apt --fix-broken install</code>; do not copy a third-party download URL or blindly replace an existing Hailo stack.</p>
 <h2 id="4-start-hailo-ollama-and-run-an-llm">4. Start hailo-ollama and run an LLM<a class="headerlink" href="#4-start-hailo-ollama-and-run-an-llm" title="Permanent link">¶</a></h2>
 <p>Start the local backend in one terminal:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>hailo-ollama
 </code></pre></div></td></tr></table></div>
+<p>The process keeps running in that terminal. Check its actual listening address with <code>ss -lntp</code> and restrict access to trusted clients; do not assume <code>localhost</code> in the commands below means the server itself only listens on loopback. Stop this foreground process with Ctrl+C after the experiment. Prompts and responses sent over the network may be visible to anyone with access to an unprotected API.</p>
 <p>In a second terminal, list the supported models:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8000/hailo/v1/list
 </code></pre></div></td></tr></table></div>
-<p>Download one of the returned models. This example uses a small Qwen model:</p>
+<p>Download one of the returned models. The following is an example <strong>only if</strong> <code>qwen2:1.5b</code> appears in the installed version's list; otherwise substitute an exact listed model in both commands. Model downloads use network bandwidth and disk space.</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
 <span class="normal"><a href="#__codelineno-8-2">2</a></span>
 <span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>curl<span class="w"> </span>--silent<span class="w"> </span>http://localhost:8000/api/pull<span class="w"> </span><span class="se">\</span>
@@ -10540,14 +10549,16 @@
 <a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="s1">    ]</span>
 <a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="s1">  }'</span>
 </code></pre></div></td></tr></table></div>
-<p>Model names are determined by the installed Hailo package. Always use a name returned by the list endpoint.</p>
+<p>Model names are determined by the installed Hailo package. A successful chat response confirms the basic API path for the chosen model; it does not verify a VLM, camera, Web UI or performance claim. If this is all you need, stop here without installing Docker.</p>
 <h2 id="5-add-open-webui">5. Add Open WebUI<a class="headerlink" href="#5-add-open-webui" title="Permanent link">¶</a></h2>
+<p><strong>Optional:</strong> perform this only after the API works and you have decided who may access the service. Open WebUI stores user accounts, settings and conversations in its data volume; protect and back it up according to your privacy needs. Model downloads and optional WebUI features can make network requests, so local inference alone is not a guarantee of offline operation.</p>
 <p>Raspberry Pi OS Trixie uses Python 3.13, while the recommended Open WebUI path is containerised. Install Docker using its current official instructions, then confirm it works:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
 <span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>docker<span class="w"> </span>version
 <a id="__codelineno-10-2" name="__codelineno-10-2"></a>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>hello-world
 </code></pre></div></td></tr></table></div>
-<p>Pull and start Open WebUI on the host network so it can reach <code>hailo-ollama</code> on port 8000:</p>
+<p>The Raspberry Pi documentation uses Docker host networking so the UI can reach <code>hailo-ollama</code> on port 8000. In <a href="https://docs.docker.com/engine/network/drivers/host/">host network mode</a>, the container shares the host network namespace: a service listening on all addresses can be reachable from the LAN, and Docker <code>-p</code> mappings do not restrict it. Before continuing, inspect existing containers and volumes, occupied ports and your firewall. Do not overwrite or delete an existing <code>open-webui</code> container or volume. Plan authentication and a trusted access path before starting the UI.</p>
+<p>The following follows the official integration example, but does not constrain the UI to loopback. <strong>Do not run it on an untrusted network or expose it to the internet.</strong> See <a href="https://docs.openwebui.com/getting-started/advanced-topics/hardening/">Open WebUI hardening</a> and current documentation for your version. For a temporary trial, omit automatic restart:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
 <span class="normal"><a href="#__codelineno-11-2">2</a></span>
 <span class="normal"><a href="#__codelineno-11-3">3</a></span>
@@ -10561,7 +10572,7 @@
 <a id="__codelineno-11-3" name="__codelineno-11-3"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>--name<span class="w"> </span>open-webui<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>--network<span class="o">=</span>host<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--restart<span class="o">=</span>always<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>--restart<span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>-e<span class="w"> </span><span class="nv">OLLAMA_BASE_URL</span><span class="o">=</span>http://127.0.0.1:8000<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">  </span>ghcr.io/open-webui/open-webui:main
@@ -10569,52 +10580,54 @@
 <p>Watch the initial startup:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>open-webui
 </code></pre></div></td></tr></table></div>
-<p>Open <code>http://raspberry-pi.local:8080</code> from another computer on the same network. Create the first administrator account, select the downloaded model, and send a test prompt.</p>
+<p>Stop following logs with Ctrl+C; the container continues to run. Check the actual listening addresses, access policy and configured port before connecting from a trusted client. If this is a new instance, promptly create the first administrator account in the trusted environment. Then select the downloaded model and send a test prompt. The hostname and port depend on your setup.</p>
+<p>The named <code>open-webui</code> volume persists chats, users and settings after the container stops or is removed. Do not delete it unless you intend to delete that data. The <a href="https://docs.openwebui.com/getting-started/quick-start/">Open WebUI quick start</a> also recommends a persistent <code>WEBUI_SECRET_KEY</code> for stable sessions across container recreation; generate and store it securely according to your deployment, and do not paste it into a public issue or shell history. Review the current version's defaults and enabled external integrations.</p>
+<p>To stop only the trial container you created, after verifying its name and owner:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>docker<span class="w"> </span>stop<span class="w"> </span>open-webui
+</code></pre></div></td></tr></table></div>
 <div class="admonition warning">
 <p class="admonition-title">Do not publish Open WebUI directly</p>
 <p>Keep port 8080 on a trusted LAN or behind authenticated private access such as Tailscale. Do not expose an unauthenticated AI interface through router port forwarding.</p>
 </div>
 <h2 id="6-run-hailo-ollama-as-a-service">6. Run hailo-ollama as a service<a class="headerlink" href="#6-run-hailo-ollama-as-a-service" title="Permanent link">¶</a></h2>
-<p>First locate the executable:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>hailo-ollama
+<p>This section is optional. Finish and stop the foreground backend before starting another instance, or the port may already be in use. Inspect existing user services first, and do not overwrite a service or change its startup policy if you cannot recover it. First locate the executable:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>hailo-ollama
 </code></pre></div></td></tr></table></div>
-<p>Create a user service using the returned path:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-14-10">10</a></span>
-<span class="normal"><a href="#__codelineno-14-11">11</a></span>
-<span class="normal"><a href="#__codelineno-14-12">12</a></span>
-<span class="normal"><a href="#__codelineno-14-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="c1"># ~/.config/systemd/user/hailo-ollama.service</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="k">[Unit]</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="na">Description</span><span class="o">=</span><span class="s">Hailo Ollama Backend</span>
-<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6"></a>
-<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">[Service]</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/hailo-ollama</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
-<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5</span>
-<a id="__codelineno-14-11" name="__codelineno-14-11"></a>
-<a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="k">[Install]</span>
-<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
+<p>For a new service, create the user unit only after verifying that the filename is unused. Replace the <code>ExecStart</code> path below with the actual result of <code>command -v</code>:</p>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="c1"># ~/.config/systemd/user/hailo-ollama.service</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="k">[Unit]</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="na">Description</span><span class="o">=</span><span class="s">Hailo Ollama Backend</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="na">After</span><span class="o">=</span><span class="s">network-online.target</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="na">Wants</span><span class="o">=</span><span class="s">network-online.target</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="k">[Service]</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/hailo-ollama</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11"></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="k">[Install]</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">default.target</span>
 </code></pre></div></td></tr></table></div>
-<p>Enable it and allow the user service to start without an interactive login:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
-<span class="normal"><a href="#__codelineno-15-2">2</a></span>
-<span class="normal"><a href="#__codelineno-15-3">3</a></span>
-<span class="normal"><a href="#__codelineno-15-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>daemon-reload
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a>systemctl<span class="w"> </span>--user<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>hailo-ollama
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a>loginctl<span class="w"> </span>enable-linger
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>hailo-ollama
+<p>After reviewing the unit, start it manually for a trial:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>daemon-reload
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>start<span class="w"> </span>hailo-ollama
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>hailo-ollama
 </code></pre></div></td></tr></table></div>
-<p>If <code>command -v</code> reports a different path, update <code>ExecStart</code>.</p>
+<p>Stop the trial with <code>systemctl --user stop hailo-ollama</code>. Enabling automatic startup and user lingering are separate, persistent changes; choose them only after checking the service, port, access control and reboot recovery. A user service may stop at logout without lingering.</p>
 <h2 id="7-vlm-and-camera-projects">7. VLM and camera projects<a class="headerlink" href="#7-vlm-and-camera-projects" title="Permanent link">¶</a></h2>
 <p>VLM applications combine an image with a text prompt, for example:</p>
 <ul>
@@ -10626,7 +10639,7 @@
 <p>Start by confirming basic capture with the <a href="../raspberry_pi_camera_setup_and_troubleshooting__rpicam_and_picamera2/">rpicam and Picamera2 guide</a>. Then use a model and example pipeline explicitly supported by the installed Hailo Apps release. VLM model packaging is accelerator-specific; a generic GGUF or Hugging Face checkpoint cannot be copied directly to the Hailo-10H.</p>
 <h2 id="monitoring-and-realistic-benchmarking">Monitoring and realistic benchmarking<a class="headerlink" href="#monitoring-and-realistic-benchmarking" title="Permanent link">¶</a></h2>
 <p>Measure the complete application, not only a vendor TOPS figure. Use the shared <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">Raspberry Pi benchmark methodology</a> so CPU, Hailo-8L, and Hailo-10H results include the same context:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd get_throttled; free -h'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd get_throttled; free -h'</span>
 </code></pre></div></td></tr></table></div>
 <p>For LLM tests, record:</p>
 <ul>
@@ -10642,7 +10655,7 @@
 <h3 id="hailortcli-cannot-find-the-device"><code>hailortcli</code> cannot find the device<a class="headerlink" href="#hailortcli-cannot-find-the-device" title="Permanent link">¶</a></h3>
 <p>Power off, reseat the PCIe cable, verify its orientation, and check <code>lspci</code>. Also confirm that the system uses a stable power supply.</p>
 <h3 id="hailo-all-conflicts-with-hailo-h10-all"><code>hailo-all</code> conflicts with <code>hailo-h10-all</code><a class="headerlink" href="#hailo-all-conflicts-with-hailo-h10-all" title="Permanent link">¶</a></h3>
-<p>The older Hailo-8/8L stack and Hailo-10H stack cannot coexist. Remove the package for hardware no longer installed, then reinstall <code>hailo-h10-all</code>.</p>
+<p>The older Hailo-8/8L stack and Hailo-10H stack conflict. Identify installed packages and applications and consult the current official migration instructions before removing anything. Back up and plan recovery first.</p>
 <h3 id="the-requested-model-is-unavailable">The requested model is unavailable<a class="headerlink" href="#the-requested-model-is-unavailable" title="Permanent link">¶</a></h3>
 <p>Use the list endpoint. Hailo requires models compiled and packaged for Hailo-10H; arbitrary Ollama models are not automatically compatible.</p>
 <h3 id="open-webui-cannot-reach-the-backend">Open WebUI cannot reach the backend<a class="headerlink" href="#open-webui-cannot-reach-the-backend" title="Permanent link">¶</a></h3>
