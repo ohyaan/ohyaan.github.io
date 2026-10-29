@@ -91,7 +91,9 @@
         link.setAttribute("href", next.path);
         link.textContent = `${allDone ? "Review" : last || state.completed.length ? "Continue" : "Start"}: ${next.title}`;
         if (home) return;
-        panel.querySelector("[data-learning-progress]").value = state.completed.length;
+        const progress = panel.querySelector("[data-learning-progress]");
+        progress.max = lessons.length;
+        progress.value = state.completed.length;
         const lastNotice = panel.querySelector("[data-learning-last]");
         lastNotice.hidden = !last;
         lastNotice.textContent = last ? `Last opened: ${last.title}` : "";
@@ -110,11 +112,11 @@
       if (!store) {
         try {
           lessons = JSON.parse(roots[0].querySelector("[data-learning-config]").textContent);
-          if (!Array.isArray(lessons) || lessons.length !== 7 ||
-              new Set(lessons.map(item => item.id)).size !== 7 ||
-              !lessons.every(item => typeof item.id === "string" && /^[a-z-]+$/.test(item.id) &&
+          if (!Array.isArray(lessons) || lessons.length === 0 ||
+              !lessons.every(item => item && typeof item.id === "string" && /^[a-z-]+$/.test(item.id) &&
                 typeof item.title === "string" && typeof item.path === "string" &&
-                /^\/programming\/[a-z0-9._-]+\/$/.test(item.path))) return;
+                /^\/programming\/[a-z0-9._-]+\/$/.test(item.path)) ||
+              new Set(lessons.map(item => item.id)).size !== lessons.length) return;
         } catch (_) { return; }
         let storage;
         try { storage = win.localStorage; } catch (_) { storage = null; }
