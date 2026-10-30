@@ -7136,6 +7136,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-does-this-mean-for-your-raspberry-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      What does this mean for your Raspberry Pi?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cve-2026-99999-what-goes-wrong" class="md-nav__link">
     <span class="md-ellipsis">
       CVE-2026-99999: what goes wrong?
@@ -10496,6 +10505,48 @@
   </script>
 </div>
 
+<h2 id="what-does-this-mean-for-your-raspberry-pi">What does this mean for your Raspberry Pi?<a class="headerlink" href="#what-does-this-mean-for-your-raspberry-pi" title="Permanent link">¶</a></h2>
+<p>The following is a practical interpretation of the <a href="https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/99xxx/CVE-2026-99999.json">documented attack scenario</a>, <strong>not an exploit test of these setups</strong>. A use case does not establish whether its kernel contains the fix.</p>
+<div class="security-impact">
+<table>
+<thead>
+<tr>
+<th>Your Pi use</th>
+<th>Relation to this CVE</th>
+<th>What to do now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your own GPIO, OLED, camera or coding projects</td>
+<td>This use alone does not establish the documented guest-to-host attack path. It is not proof that the kernel is fixed.</td>
+<td>Keep supported updates current; check your kernel provider below.</td>
+</tr>
+<tr>
+<td>A website, NAS, Pi-hole or home server</td>
+<td>Ordinary incoming requests are not the attack path described in the record. Public exposure alone does not establish this exploit.</td>
+<td>Check whether the Pi also runs untrusted workloads. Do not disable a working service as an improvised fix.</td>
+</tr>
+<tr>
+<td>VMs or sandboxes where other people can run code</td>
+<td>Investigate first if their virtual networking reaches the documented host path. Isolation from the host is the boundary at risk.</td>
+<td>Ask the administrator/provider about the exact host kernel and released fix before accepting untrusted workloads.</td>
+</tr>
+<tr>
+<td>Docker or other containers</td>
+<td>A container is not a VM; using Docker alone neither establishes this attack path nor proves the host unaffected.</td>
+<td>Review the host kernel, workload trust and granted privileges; do not use the container's OS label as a host-kernel verdict.</td>
+</tr>
+<tr>
+<td>A VM you rent from a cloud provider</td>
+<td>The underlying host kernel belongs to the provider. Updating your guest does not patch that host.</td>
+<td>Ask the provider about host remediation; maintain your own guest separately.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, if an attack succeeds from a guest on an affected host, it can compromise or crash the Pi itself—not just that guest. A NAS or home-automation service sharing the Pi could then stop too. This is a consequence of host compromise, <strong>not a claim that VM escape has been reproduced on your Pi or on ARM hardware here</strong>.</p>
+<p>Keep three questions separate: <strong>Does my package contain the flaw? Can an untrusted actor reach the relevant path? Is a corrected kernel actually running?</strong> The checks below help gather evidence; they are not an automatic vulnerability verdict.</p>
 <h2 id="cve-2026-99999-what-goes-wrong">CVE-2026-99999: what goes wrong?<a class="headerlink" href="#cve-2026-99999-what-goes-wrong" title="Permanent link">¶</a></h2>
 <p>A checksum helps detect damaged network data. Linux can carry internal metadata saying where checksum work should happen. In this bug, an invalid position can cause checksum processing to overwrite data it should not change.</p>
 <p>The documented scenario starts with an untrusted guest supplying malformed virtual-network metadata. Host-side processing can then corrupt kernel memory, with consequences including disclosure, crashes or code execution. The <a href="https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/99xxx/CVE-2026-99999.json">Linux-maintained CVE record</a> describes the conditions; this guide does not reproduce them.</p>
@@ -10585,6 +10636,7 @@
 <li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-99999">NVD entry</a>: cross-reference; NVD scoring/enrichment can differ from the assigning authority.</li>
 <li><a href="https://ubuntu.com/security/CVE-2026-99999">Ubuntu package status</a> and <a href="https://security-tracker.debian.org/tracker/CVE-2026-99999">Debian package status</a>: check live records before relying on this dated snapshot.</li>
 <li><strong>30 October 2026:</strong> first review; read-only Pi inventory verified; OS-specific limits recorded above.</li>
+<li><strong>30 October 2026, usability revision:</strong> add use-case impact and next-action guidance before the technical explanation; no new exploit or patch verification.</li>
 </ul>
 <p>Return to <a href="../">Security</a> or review <a href="../cve_basics/">CVE basics</a>. For routine prevention rather than this specific flaw, use <a href="../../tips/raspberry_pi_security_hardening_complete_guide/">SSH and firewall hardening</a>.</p></div>
 

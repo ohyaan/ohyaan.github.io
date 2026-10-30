@@ -1,3 +1,40 @@
+/* Preserve the impact table on desktop; stack complete use cases on phones. */
+@media screen and (max-width: 768px) {
+    .md-typeset .security-impact .md-typeset__table {
+        display: block;
+        white-space: normal;
+    }
+    .md-typeset .security-impact table:not([class]),
+    .md-typeset .security-impact :is(tbody, tr, td) {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+    .md-typeset .security-impact thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+    .md-typeset .security-impact tbody tr {
+        border-top: 1px solid var(--md-default-fg-color--lightest);
+        padding: 0.5rem;
+    }
+    .md-typeset .security-impact td {
+        border: 0;
+        padding: 0.35rem 0;
+        overflow-wrap: anywhere;
+    }
+    .md-typeset .security-impact td::before {
+        display: block;
+        font-weight: 700;
+    }
+    .md-typeset .security-impact td:nth-child(1)::before { content: "Your Pi use"; }
+    .md-typeset .security-impact td:nth-child(2)::before { content: "Relation to this CVE"; }
+    .md-typeset .security-impact td:nth-child(3)::before { content: "What to do now"; }
+}
+
 @media screen and (max-width: 768px) {
     .md-typeset .usb-guide-picker .md-typeset__table {
         display: block;
