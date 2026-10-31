@@ -7396,6 +7396,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
       
@@ -7440,6 +7446,72 @@
   
   <span class="md-ellipsis">
     Test Service Restrictions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="isolation/service_filesystem/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Filesystem Isolation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="isolation/service_resource_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cgroup Resource Limits
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="isolation/docker_isolation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker Isolation Boundaries
     
   </span>
   
@@ -10923,7 +10995,7 @@
 
 <h2 id="start-with-a-system-you-understand">Start with a system you understand<a class="headerlink" href="#start-with-a-system-you-understand" title="Permanent link">¶</a></h2>
 <p>Before changing settings, identify what the Pi does, what data matters, who can access it, and whether you have local recovery access. A private GPIO project, an Internet-facing service and a host running other people's code need different decisions.</p>
-<p>The path below has seven practical lessons across six areas. Begin with read-only checks, then try bounded disposable-file and temporary-service labs. Administrative update steps are clearly separated; you do not need to change your OS or disable working services to begin. Existing Tips remain references for broader implementations.</p>
+<p>The path below has ten lessons across six areas. Begin with read-only checks, then try bounded disposable-file and temporary-service labs. Administrative update steps are clearly separated; you do not need to change your OS or disable working services to begin. Existing Tips remain references for broader implementations.</p>
 <h2 id="practical-security-learning-path">Practical security learning path<a class="headerlink" href="#practical-security-learning-path" title="Permanent link">¶</a></h2>
 <h3 id="know-what-you-are-protecting">Know what you are protecting<a class="headerlink" href="#know-what-you-are-protecting" title="Permanent link">¶</a></h3>
 <p><a href="foundations/protection_and_recovery_checklist/">Build your protection and recovery checklist</a>. Identify valuable data, credentials, access paths and untrusted inputs before changing access controls. The <a href="../tips/raspberry_pi_security_hardening_complete_guide/">hardening guide</a> is a broader implementation reference, not a script to apply in full.</p>
@@ -10938,7 +11010,7 @@
 <p><a href="networking/service_exposure/">Inspect service exposure</a> and test a temporary loopback-only service. Distinguish listeners from reachable services, and LAN from VPN/public routes. The <a href="../tips/raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">remote-access guide</a> covers implementation choices; none is required for the localhost lab.</p>
 <p><strong>Result to aim for:</strong> identify who can reach a service and verify that permitted access still works after a reviewed change.</p>
 <h3 id="limit-what-a-service-can-affect">Limit what a service can affect<a class="headerlink" href="#limit-what-a-service-can-affect" title="Permanent link">¶</a></h3>
-<p><a href="isolation/service_boundaries/">Test one service restriction</a> in a bounded transient user service. Compare accounts, systemd restrictions, containers and VMs; observe an allowed operation and a denied one. The <a href="../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/">sandboxing reference</a> covers further options.</p>
+<p><a href="isolation/service_boundaries/">Start with service boundaries and a socket restriction</a>, then <a href="isolation/service_filesystem/">isolate file access</a>, <a href="isolation/service_resource_limits/">test cgroup resource controls</a>, and <a href="isolation/docker_isolation/">review Docker's boundaries</a>. Connect accounts, namespaces and resource limits to concrete allowed/denied operations. The <a href="../tips/cgroups_v2_and_systemd-run_-_resource_control_and_sandboxing_for_raspberry_pi/">sandboxing reference</a> covers further options.</p>
 <p><strong>Result to aim for:</strong> describe what a workload shares with the host and what your chosen isolation does not protect.</p>
 <h3 id="protect-data-and-practise-recovery">Protect data and practise recovery<a class="headerlink" href="#protect-data-and-practise-recovery" title="Permanent link">¶</a></h3>
 <p><a href="recovery/backup_restore_practice/">Restore and verify a disposable backup</a>. Check the restored content and permissions in a new destination, then distinguish this same-disk lab from independent recovery. Use the <a href="../tips/automated_backup_strategies/">backup strategy guide</a> when planning real application backups.</p>
@@ -10956,8 +11028,11 @@
 <li>The permissions lab refused the intended write and restored mode <code>600</code>; the backup lab restored matching content and mode into an empty destination.</li>
 <li>The HTTP lab listened only on <code>127.0.0.1:8765</code>, returned its sample file, stopped after 30 seconds and left no listener. Its temporary file was removed.</li>
 <li>The transient-service lab allowed Unix-domain sockets, denied new IPv4 socket creation with errno <code>97</code>, and reported <code>NoNewPrivs=1</code>. The ordinary shell still created an IPv4 socket afterward; the transient service finished and was collected.</li>
+<li>The filesystem extension denied settings writes with errno <code>30</code>, allowed result creation and demonstrated separate <code>/tmp</code> contents. The original host marker/settings were checked, shell write access remained, and sample files were removed.</li>
+<li>The cgroup extension allowed seven waiting worker threads, denied an additional thread with a new pids-controller event, and read back CPU quota. CPU saturation and memory-pressure enforcement were not tested. The Pi exposes no memory controller; a preliminary <code>MemoryMax</code> request did not create an enforceable <code>memory.max</code> file. No boot setting was changed to enable it.</li>
+<li>After the reader installed Docker, the optional container lab passed on the same Pi: Debian-packaged Engine <code>26.1.5+dfsg1</code>, ARM64, cgroup v2/systemd driver. A digest-pinned official Python image ran as UID 1000 with no effective capabilities and <code>NoNewPrivs=1</code>; root-filesystem writes failed with <code>EROFS</code>, tmpfs writes succeeded, only loopback was visible, and an additional thread was denied after 15 waiting workers. CPU quota was read back, not load-tested. Docker warned that memory/swap limits are unsupported. The container was removed after completion; the image remains cached. No host-data mount, published port or Docker-group grant was used.</li>
 </ul>
-<p>Disposable test files were cleaned up. <strong>No OS update, reboot, new authentication policy, firewall/router change or production service restriction was applied.</strong> Ubuntu commands were reviewed against vendor documentation, not tested on an Ubuntu device. No public-Internet reachability, exploit resistance, disaster recovery or whole-system security audit is claimed.</p></div>
+<p>Disposable test files were cleaned up. <strong>No OS upgrade, reboot, new authentication policy, manual firewall/router change or production service restriction was applied.</strong> Docker installation is a separate reader-authorized administrative change: the engine/containerd services and Docker-managed networking remain on the host. The earlier unprivileged systemd exercises did not install them. Ubuntu commands were reviewed against vendor documentation, not tested on an Ubuntu device. No public-Internet reachability, exploit resistance, disaster recovery or whole-system security audit is claimed.</p></div>
 
 
 
@@ -10980,7 +11055,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 31, 2026 09:38:08 JST">2026-10-31</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 31, 2026 17:16:19 JST">2026-10-31</span>
   </span>
 
     
