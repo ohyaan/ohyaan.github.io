@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-03">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-03"
   }
   </script>
   <script type="application/ld+json">
@@ -11135,6 +11135,15 @@
 <p>You need a local Pi terminal or an established SSH login and the <a href="../essential_linux_commands_for_raspberry_pi/">terminal lesson</a>. Commands below run on the <strong>Pi</strong> unless marked <strong>client computer</strong>.</p>
 <p>Start with read-only checks. Changes to the active network can cut off SSH, so use a local console or verified alternate connection before changing the link you depend on. A profile name and an interface name are not the same thing.</p>
 <p>See the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html">official Raspberry Pi configuration reference</a> and <a href="https://networkmanager.dev/docs/api/latest/nmcli.html">nmcli manual</a> for the supported tools.</p>
+<h3 id="start-with-your-symptom">Start with your symptom<a class="headerlink" href="#start-with-your-symptom" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><code>nmcli: command not found</code> or service not running:</strong> <a href="#if-nmcli-is-missing-or-networkmanager-is-not-running">identify the installed manager</a>, not a replacement Wi-Fi password.</li>
+<li><strong>Wi-Fi will not connect or a device is <code>unmanaged</code>:</strong> <a href="#read-the-device-state-before-reconnecting">read the device state</a>.</li>
+<li><strong>Connected, but websites fail:</strong> <a href="#read-an-address-and-route">check the selected route</a>, then <a href="#dns-diagnostics">name resolution</a>.</li>
+<li><strong>Internet works, but SSH fails:</strong> <a href="#4-separate-ssh-from-network-connectivity">check SSH separately</a>.</li>
+<li><strong>APT update fails or boot waits:</strong> use the <a href="../../tips/raspberry_pi_network_manager_update_failed/">package-repair guide</a> or <a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/">wait-online diagnosis</a>; these are different problems.</li>
+</ul>
+<p><strong>Outcome:</strong> identify the failing layer before changing anything, then check the intended connection and a fresh SSH login after one targeted repair. If you cannot log in at all, start with the <a href="../../tips/raspberry_pi_headless_setup_troubleshooter/">headless connection troubleshooter</a>.</p>
 <h3 id="if-nmcli-is-missing-or-networkmanager-is-not-running">If <code>nmcli</code> is missing or NetworkManager is not running<a class="headerlink" href="#if-nmcli-is-missing-or-networkmanager-is-not-running" title="Permanent link">¶</a></h3>
 <p>Run these read-only checks on the Pi before trying to change a connection:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
@@ -11162,21 +11171,58 @@
 <p>An <strong>interface</strong>, such as <code>wlan0</code> or <code>eth0</code>, is a network device. A <strong>profile</strong>, such as a Wi-Fi network name or <code>Wired connection 1</code>, contains saved connection settings. Your device/profile names may differ.</p>
 <p><strong>Check:</strong> the interface used for your connection shows <code>connected</code> and has the expected address. Disconnected unused interfaces are normal. <code>lo</code> is the loopback interface, not the connection to your router.</p>
 <p>The route table normally has a <code>default via</code> entry for the internet gateway. An address alone does not prove DNS or internet access. NetworkManager's overall connectivity assessment is also not a substitute for testing your intended destination.</p>
+<h3 id="read-an-address-and-route">Read an address and route<a class="headerlink" href="#read-an-address-and-route" title="Permanent link">¶</a></h3>
+<p>Illustrative IPv4 output, not values to copy into your Pi:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>$ ip -brief address
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>lo       UNKNOWN  127.0.0.1/8 ::1/128
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>wlan0    UP       192.168.10.42/24
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>$ ip route
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>default via 192.168.10.1 dev wlan0 proto dhcp metric 600
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>192.168.10.0/24 dev wlan0 proto kernel scope link src 192.168.10.42 metric 600
+</code></pre></div></td></tr></table></div>
+<p>Here <code>192.168.10.42</code> belongs to the Pi, <code>/24</code> describes its local subnet, and <code>192.168.10.1</code> is the gateway. The local-subnet route does not replace a default route to other networks. <code>UNKNOWN</code> on <code>lo</code> is not a Wi-Fi fault. An IPv4 address in <code>169.254.0.0/16</code> alone is not evidence of a router DHCP lease; IPv6-only networks also need their own route checks.</p>
+<p>With Ethernet, Wi-Fi or a VPN active together, several routes can be legitimate. Ask the kernel which IPv4 path it would use:</p>
+<!-- verify: network-route-choice -->
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>ip<span class="w"> </span>route<span class="w"> </span>get<span class="w"> </span><span class="m">1</span>.1.1.1
+</code></pre></div></td></tr></table></div>
+<p>Look for <code>dev</code> (outgoing interface), <code>src</code> (source address), and <code>via</code> when a gateway is needed. This <a href="https://man7.org/linux/man-pages/man8/ip-route.8.html">route lookup</a> does not send a ping or prove that the destination answers. Use the actual destination IP when diagnosing another service. Do not delete routes just because there are two defaults; policy rules, more-specific routes and VPNs can affect selection. For an IPv6 destination, use <code>ip -6 route get</code> with its actual IPv6 address instead.</p>
 <h2 id="2-understand-what-dhcp-supplies">2. Understand what DHCP supplies<a class="headerlink" href="#2-understand-what-dhcp-supplies" title="Permanent link">¶</a></h2>
 <p>A normal home router supplies an address, prefix, gateway and DNS servers through DHCP. You usually do not need a static IP for initial setup.</p>
 <p>Use the actual connected interface in place of <code>wlan0</code>:</p>
 <!-- verify: network-details -->
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL,IP4,IP6<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL,IP4,IP6<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
 </code></pre></div></td></tr></table></div>
 <p><strong>Check:</strong> find its connection name, address, gateway and DNS entries. Do not share complete output without considering hostnames, MAC addresses and public addresses.</p>
 <p>If Ethernet is available, connect a cable to a LAN port on the router and inspect the device state. Do not plug it into a router's WAN port or assume a cable to an unconfigured client computer supplies DHCP.</p>
+<h3 id="read-the-device-state-before-reconnecting">Read the device state before reconnecting<a class="headerlink" href="#read-the-device-state-before-reconnecting" title="Permanent link">¶</a></h3>
+<p>Replace <code>wlan0</code> with the interface from step 1. These commands inspect state and recent logs; they do not reconnect the device:</p>
+<!-- verify: network-device-reason -->
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>GENERAL.STATE,GENERAL.REASON,GENERAL.CONNECTION<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>NetworkManager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>--no-pager
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><code>disconnected</code>:</strong> NetworkManager has no active connection on that device. Inspect the radio, intended SSID and profile; use <a href="#3-connect-to-wi-fi-intentionally">the intentional Wi-Fi connection step</a> only if needed. A disconnected spare Ethernet port is normal.</li>
+<li><strong><code>unavailable</code>:</strong> inspect the reason and log. A disabled or blocked radio, missing driver/firmware or absent hardware needs a different response from a wrong password. A globally enabled Wi-Fi radio does not rule out a hardware block.</li>
+<li><strong><code>unmanaged</code>:</strong> NetworkManager is not managing this device. Check whether another service or deliberate device rule owns it before changing that policy. Do not apply <code>managed yes</code> to every interface, especially bridges, containers and USB links.</li>
+<li><strong><code>connecting</code> or repeated activation failures:</strong> match the reason/log to authentication, association or address configuration. A request for credentials differs from a DHCP timeout. Fix the reported stage rather than repeatedly restarting the service.</li>
+<li><strong><code>connected</code>:</strong> continue with the address, selected route and DNS checks. Connection state alone is not proof of internet access.</li>
+</ul>
+<p>The log may omit older events or require additional log-reading permission. Review SSIDs, addresses and other private details before sharing it; do not collect saved passwords with <code>--show-secrets</code>.</p>
 <h2 id="3-connect-to-wi-fi-intentionally">3. Connect to Wi-Fi intentionally<a class="headerlink" href="#3-connect-to-wi-fi-intentionally" title="Permanent link">¶</a></h2>
 <p>Perform this from a local console or alternate connection if changing Wi-Fi could interrupt SSH. It changes the radio/profile state; skip it if your current connection already works.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi<span class="w"> </span>on
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>--ask<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"YOUR-SSID"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>nmcli<span class="w"> </span>radio<span class="w"> </span>wifi<span class="w"> </span>on
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>nmcli<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>list
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>--ask<span class="w"> </span>device<span class="w"> </span>wifi<span class="w"> </span>connect<span class="w"> </span><span class="s2">"YOUR-SSID"</span>
 </code></pre></div></td></tr></table></div>
 <p>Replace <code>YOUR-SSID</code> with the exact network name. <code>--ask</code> prompts for the secret rather than putting the password directly into shell history. Match the correct access point and regulatory country; set the country in Imager or <a href="../system_settings_configuration_for_raspberry_pi/">raspi-config</a>.</p>
 <p>For a hidden network, use the same command with <code>hidden yes</code>. Do not interpret an absent 5 GHz network as a password error when your board only supports 2.4 GHz.</p>
@@ -11185,18 +11231,20 @@
 <h2 id="dns-diagnostics">DNS diagnostics<a class="headerlink" href="#dns-diagnostics" title="Permanent link">¶</a></h2>
 <p>Run on the Pi:</p>
 <!-- verify: dns-observation -->
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>IP4.DNS,IP6.DNS<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>getent<span class="w"> </span>ahosts<span class="w"> </span>raspberrypi.com
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>ls<span class="w"> </span>-l<span class="w"> </span>/etc/resolv.conf
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>nmcli<span class="w"> </span>-f<span class="w"> </span>IP4.DNS,IP6.DNS<span class="w"> </span>device<span class="w"> </span>show<span class="w"> </span>wlan0
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>getent<span class="w"> </span>ahosts<span class="w"> </span>raspberrypi.com
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>ls<span class="w"> </span>-l<span class="w"> </span>/etc/resolv.conf
 </code></pre></div></td></tr></table></div>
 <p>Use your actual interface name. <code>getent</code> uses the system's name-service configuration, which is useful for testing what applications can resolve.</p>
+<p><strong>Interpret the result:</strong> address rows mean this hostname resolved through the system's name-service path; <code>STREAM</code> and <code>DGRAM</code> rows describe socket types, not duplicate DNS failures. No rows or a lookup error means resolution did not return a usable result. Repeat with the hostname from the failing application or APT error, not its full <code>https://...</code> URL. One working hostname does not prove every domain works.</p>
+<p>If only name lookup fails, inspect the active profile's DNS entries and <code>/etc/resolv.conf</code> target. If those point to your router or Pi-hole, check that resolver's availability before changing the Pi. If names resolve but HTTPS fails, check the application's actual error, clock, certificate and endpoint instead of replacing DNS servers. The <a href="https://man7.org/linux/man-pages/man1/getent.1.html"><code>getent</code> reference</a> explains the system lookup path; it is not a direct query to a particular DNS server.</p>
 <p><code>resolvectl</code> is appropriate <strong>only when systemd-resolved is installed and active</strong>. It was absent on the available Pi 4B despite working DNS, so this course does not require it or recommend installing it as a generic repair.</p>
 <p>To test the path independently of names, inspect <code>ip route</code> and substitute its actual gateway address below:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">192</span>.168.1.1
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span>.1.1.1
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">192</span>.168.1.1
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">1</span>.1.1.1
 </code></pre></div></td></tr></table></div>
 <p>These send traffic; they do not modify configuration. Lack of a ping reply is not conclusive because ICMP may be filtered. Conversely, a successful ping does not prove HTTPS, package repositories or authentication work.</p>
 <table>
@@ -11233,14 +11281,14 @@
 <h2 id="4-separate-ssh-from-network-connectivity">4. Separate SSH from network connectivity<a class="headerlink" href="#4-separate-ssh-from-network-connectivity" title="Permanent link">¶</a></h2>
 <p>On the <strong>Pi</strong>, inspect the service:</p>
 <!-- verify: network-ssh -->
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>ss<span class="w"> </span>-lnt
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>ss<span class="w"> </span>-lnt
 </code></pre></div></td></tr></table></div>
 <p>On the <strong>client computer</strong>, use the account you created and the hostname or actual router-assigned IP:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>ssh<span class="w"> </span>your-user@pi-setup.local
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>ssh<span class="w"> </span>your-user@pi-setup.local
 </code></pre></div></td></tr></table></div>
 <p>If the IP works but <code>.local</code> does not, investigate client-side mDNS/network discovery rather than rebuilding the OS. If SSH says <code>Connection refused</code>, check that the address is your Pi and its service is listening. A timeout, denied password and changed host key are different failures.</p>
 <p>Keep the original session open while testing a second one. For enabling SSH, use <a href="../system_settings_configuration_for_raspberry_pi/#enable-ssh-safely">the settings lesson</a>. Never disable host-key checks or expose port 22 on the router merely to make a LAN exercise work.</p>
@@ -11248,28 +11296,28 @@
 <p>Prefer a <strong>DHCP reservation on your router</strong> when you control it. This keeps address allocation in one place and avoids an accidental duplicate.</p>
 <p>A device-side static profile requires a network plan: reserved address, prefix, gateway and DNS. Do not copy the example values into an unrelated network.</p>
 <p>From a local console, record the known-good profile and create a separate test profile:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span>
-<span class="normal"><a href="#__codelineno-8-5">5</a></span>
-<span class="normal"><a href="#__codelineno-8-6">6</a></span>
-<span class="normal"><a href="#__codelineno-8-7">7</a></span>
-<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Wired connection 1"</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>clone<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="s2">"Pi wired test"</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Pi wired test"</span><span class="w"> </span>connection.autoconnect<span class="w"> </span>no
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Pi wired test"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">"192.168.10.50/24"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">"192.168.10.1"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"192.168.10.1"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span>
+<span class="normal"><a href="#__codelineno-11-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>nmcli<span class="w"> </span>connection<span class="w"> </span>show<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>clone<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span><span class="s2">"Pi wired test"</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Pi wired test"</span><span class="w"> </span>connection.autoconnect<span class="w"> </span>no
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Pi wired test"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>ipv4.method<span class="w"> </span>manual<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>ipv4.addresses<span class="w"> </span><span class="s2">"192.168.10.50/24"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>ipv4.gateway<span class="w"> </span><span class="s2">"192.168.10.1"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">  </span>ipv4.dns<span class="w"> </span><span class="s2">"192.168.10.1"</span>
 </code></pre></div></td></tr></table></div>
 <p>These names and values are examples. The clone is kept from autoconnecting before you test it. Changing a saved profile does not prove that it is active.</p>
 <p>Only with a confirmed recovery route, activate the intended profile:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Pi wired test"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Pi wired test"</span>
 </code></pre></div></td></tr></table></div>
 <p>Repeat address, route, DNS and second-login checks. If it fails, use the local console to reactivate the original profile:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
 </code></pre></div></td></tr></table></div>
 <p>If everything is correct and persistence is required, decide explicitly whether to enable autoconnect and how competing profiles should be prioritised. Do not leave multiple conflicting auto-start profiles without testing reboot behaviour.</p>
 <p>Advanced NetworkManager releases provide checkpoints for rollback, but verify support and recovery on the installed version before relying on that feature. This lesson does not perform a remote static-address change.</p>
@@ -11277,8 +11325,10 @@
 <p>An APT error naming <code>network-manager</code> is not necessarily a Wi-Fi problem. Record the exact error, check available disk space and repository configuration, then distinguish network failures from interrupted package operations.</p>
 <p>Do not remove NetworkManager from a remotely administered Pi or mix Bookworm/Trixie repositories to force installation. Use <a href="../../tips/raspberry_pi_network_manager_update_failed/">the dedicated update-repair guide</a>. Routine package upgrades and major OS migrations are separate tasks.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<p>For logs, run <code>journalctl -b -u NetworkManager --no-pager</code> on the Pi, subject to your log-access permissions. Review them for personal/network details before sharing.</p>
-<p>A working connection is complete when you can explain which interface/profile is active, identify its address and route, resolve the intended host, and make a new login. The inspection commands were checked on the existing Pi 4B; profile changes, hotspot setup and new Wi-Fi provisioning are not claimed as executed for this revision.</p>
+<h3 id="recover-without-making-a-second-problem">Recover without making a second problem<a class="headerlink" href="#recover-without-making-a-second-problem" title="Permanent link">¶</a></h3>
+<p>Before an intentional change, record the known-good profile's UUID from step 1 and retain console or alternate access. If the changed profile cuts off SSH, use that recovery access to reactivate the original profile with <code>sudo nmcli connection up uuid "YOUR-RECORDED-UUID"</code>. Replace the placeholder with the UUID you recorded; this changes the active connection and cannot be run through a dead SSH session. Reactivating a profile does not undo edits to that same profile, which is why the static-address exercise uses a separate clone.</p>
+<p>Make one change, then repeat device/address, route, intended-host lookup and second-login checks. If the original connection works, do not also change DNS, firewall and SSH policy. If you need help, share the failing stage, exact error, OS release and redacted output, not passwords or an entire unrestricted log dump.</p>
+<p><strong>Checkpoint:</strong> if Wi-Fi is connected and a hostname resolves, but SSH says <code>Connection refused</code>, which service would you inspect? Why does a successful <code>ip route get</code> not prove internet access?</p>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>
 <p>Next, learn <a href="../user_and_permission_management_for_raspberry_pi/">Users and Permissions</a>. Optional networking projects belong after the foundations:</p>
 <ul>
@@ -11286,7 +11336,9 @@
 <li><a href="../../tips/secure_remote_access_to_raspberry_pi_using_tailscale__no_port_forwarding_/">Secure remote access with Tailscale</a>: for remote access beyond your LAN.</li>
 <li><a href="../../tips/raspberry_pi_networkmanager_wait_online_slow_boot/">NetworkManager slow-boot diagnosis</a>: when connectivity works but startup is delayed.</li>
 </ul>
-<p>Want to write a program that uses the connection? With basic C++ and a working compiler, continue to <a href="../../network/02_addresses_ports_and_sockets/">addresses, ports and sockets</a>, then <a href="../../network/03_first_udp_exchange/">your first UDP exchange</a>. These are programming lessons, not additional Wi-Fi configuration steps; the first exchange stays on one Pi using loopback.</p></div>
+<p>Want to write a program that uses the connection? With basic C++ and a working compiler, continue to <a href="../../network/02_addresses_ports_and_sockets/">addresses, ports and sockets</a>, then <a href="../../network/03_first_udp_exchange/">your first UDP exchange</a>. These are programming lessons, not additional Wi-Fi configuration steps; the first exchange stays on one Pi using loopback.</p>
+<p>To understand why a working network can still return a partial application message or close a connection, continue later to <a href="../../network/06_first_tcp_connection/">your first TCP connection</a>. Follow that course's development prerequisites first; no further router or Wi-Fi changes are required for its loopback examples.</p>
+<p>Diagnostic references reviewed on <strong>3 November 2026</strong>.</p></div>
 
 
 
@@ -11309,7 +11361,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 3, 2026 09:48:04 JST">2026-11-03</span>
   </span>
 
     
