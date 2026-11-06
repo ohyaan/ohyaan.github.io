@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2026-10-02">
   
   
-    <meta property="article:modified_time" content="2026-10-02">
+    <meta property="article:modified_time" content="2026-11-06">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-10-02",
-    "dateModified": "2026-10-02"
+    "dateModified": "2026-11-06"
   }
   </script>
   <script type="application/ld+json">
@@ -7925,9 +7925,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before you start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#llamacpp-mlock-error-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
       llama.cpp mlock error quick reference
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#if-mlock-is-an-invalid-argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      If --mlock is an invalid argument
     </span>
   </a>
   
@@ -7946,6 +7964,15 @@
   <a href="#establish-an-unlocked-baseline-first" class="md-nav__link">
     <span class="md-ellipsis">
       Establish an unlocked baseline first
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-a-failed-lock-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read a failed-lock warning
     </span>
   </a>
   
@@ -11112,7 +11139,10 @@
   </script>
 </div>
 
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Run commands in Bash on the Pi, using your actual llama.cpp path, model and service name. Begin with inspection; model loading and service restarts are separate, deliberate steps. The optional one-page example also works on another Linux computer and needs no model download.</p>
 <h2 id="llamacpp-mlock-error-quick-reference">llama.cpp mlock error quick reference<a class="headerlink" href="#llamacpp-mlock-error-quick-reference" title="Permanent link">¶</a></h2>
+<div class="mlock-diagnostics mlock-error-picker">
 <table>
 <thead>
 <tr>
@@ -11123,24 +11153,24 @@
 </thead>
 <tbody>
 <tr>
-<td><code>--mlock</code> is not recognised</td>
+<td><code>error: invalid argument: --mlock</code></td>
 <td>Binary version and <code>--help</code></td>
-<td>Use the loading option shown by your installed version.</td>
+<td><a href="#if-mlock-is-an-invalid-argument">Fix the argument first</a>; changing limits cannot repair an unknown option.</td>
 </tr>
 <tr>
-<td>Lock warning mentions memory allocation</td>
-<td>Process limits and available memory</td>
-<td>Check the soft memlock limit before assuming the model is too large.</td>
+<td><code>warning: failed to mlock</code></td>
+<td>Requested bytes, errno and process limits</td>
+<td><a href="#read-a-failed-lock-warning">Read the lock warning</a>; it is not automatically an OOM kill.</td>
 </tr>
 <tr>
-<td>Process is killed during startup</td>
+<td>Process exits with <code>Killed</code> or status 137</td>
 <td>Kernel and service logs</td>
-<td>Diagnose OOM separately from a recoverable lock warning.</td>
+<td><a href="#distinguish-a-lock-warning-from-an-oom-kill">Look for OOM evidence</a>, not just an exit code.</td>
 </tr>
 <tr>
 <td>Terminal launch works, service fails</td>
 <td>Service process limits</td>
-<td>Inspect the running PID, not your interactive shell's <code>ulimit</code>.</td>
+<td><a href="#inspect-the-running-processs-memory-limit">Inspect the service PID</a>, not the shell's <code>ulimit</code>.</td>
 </tr>
 <tr>
 <td>Locking succeeds but speed is unchanged</td>
@@ -11149,15 +11179,20 @@
 </tr>
 </tbody>
 </table>
+</div>
+<h2 id="if-mlock-is-an-invalid-argument">If --mlock is an invalid argument<a class="headerlink" href="#if-mlock-is-an-invalid-argument" title="Permanent link">¶</a></h2>
+<p>This is an <strong>argument-parser failure</strong>, before a model can be loaded by that invocation. Do not run the server as root, change swap or increase a service limit to fix it. Inspect the exact binary you launch below: a package, container or service may use a different executable from your checkout.</p>
+<p>If its help lists <code>--load-mode</code>, use that interface. If it lists the older <code>--mlock</code> flag instead, follow that version's help; a new command copied into an old executable can fail in the opposite direction. A wrapper such as llama-cpp-python may expose different options.</p>
 <h2 id="check-the-current-loading-options">Check the current loading options<a class="headerlink" href="#check-the-current-loading-options" title="Permanent link">¶</a></h2>
 <p>From your llama.cpp checkout, inspect the actual executable:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>./build/bin/llama-server<span class="w"> </span>--version
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>./build/bin/llama-server<span class="w"> </span>--help<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'load-mode|mlock|mmap'</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>./build/bin/llama-server<span class="w"> </span>--help<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span>--<span class="w"> </span><span class="s1">'load-mode|mlock|mmap'</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
 </code></pre></div></td></tr></table></div>
-<p>The upstream option parser checked on <strong>2 October 2026</strong> exposes <code>--load-mode</code>, including <code>mmap</code>, <code>mlock</code>, and <code>mmap+mlock</code>. These select different loading paths. See the <a href="https://github.com/ggml-org/llama.cpp/blob/master/common/arg.cpp">current argument implementation</a>, <a href="https://github.com/ggml-org/llama.cpp/blob/master/src/llama-model-loader.cpp">model loader</a>, and <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/completion/README.md">upstream loading-mode documentation</a>.</p>
+<p>The upstream parser reviewed on <strong>6 November 2026</strong>, revision <a href="https://github.com/ggml-org/llama.cpp/blob/6c01da6278ab6c69ed67d9124806b50d2b299ba7/common/arg.cpp#L2661-L2678"><code>6c01da6278ab</code></a>, accepts <code>--load-mode</code>. Use the installed binary's help as the final authority. <code>git rev-parse HEAD</code> identifies the checkout, not necessarily the binary or library running in your service. No matching help output can also mean the binary failed to start; read its full error before assuming an option was removed.</p>
+<div class="mlock-diagnostics">
 <table>
 <thead>
 <tr>
@@ -11184,11 +11219,13 @@
 </tr>
 <tr>
 <td><code>--load-mode none</code></td>
-<td>Use the non-mmap loading path without locking.</td>
+<td>Use the non-mmap path without locking; it still loads the model and consumes memory.</td>
 </tr>
 </tbody>
 </table>
-<p>Older builds used separate <code>--mlock</code> and <code>--no-mmap</code> switches. For a current build, <code>mmap+mlock</code> expresses the mapped-and-locked intention; <code>mlock</code> expresses the unmapped-and-locked intention. Confirm support in local help rather than mixing flags from different revisions. Do not assume that a wrapper such as llama-cpp-python has the same command-line interface.</p>
+</div>
+<p>For this parser, <code>mmap+mlock</code> requests mapped-and-locked loading; <code>mlock</code> requests the non-mmap locked path. It also offers <code>dio</code>, a separate Direct I/O path, not a general lock-error repair. See the <a href="https://github.com/ggml-org/llama.cpp/blob/6c01da6278ab6c69ed67d9124806b50d2b299ba7/src/llama-model-loader.cpp">model loader at the same revision</a>.</p>
+<p>Check service <code>ExecStart</code> and any <code>LLAMA_ARG_LOAD_MODE</code> environment setting too. Do not keep a stale <code>--mlock</code> argument while adding a new environment setting: the unsupported argument still fails parsing.</p>
 <h2 id="establish-an-unlocked-baseline-first">Establish an unlocked baseline first<a class="headerlink" href="#establish-an-unlocked-baseline-first" title="Permanent link">¶</a></h2>
 <p>Choose a model that fits with the OS, context/KV cache, compute buffers, and other services. Start with a short context and a single workload:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
@@ -11204,62 +11241,157 @@
 <a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
 </code></pre></div></td></tr></table></div>
 <p>Replace the model path with your own. Stop that server before starting the comparison run with <code>--load-mode mmap+mlock</code>. Keep the model, context, requests, and other options identical. The server remains local to the Pi in this example; you can check readiness using <code>curl http://127.0.0.1:8080/health</code> from another terminal on the Pi.</p>
+<p>This command <strong>starts a long-running inference server and loads a model</strong>. It is not a read-only diagnostic. Use only a model and workload already known to fit, and stop a foreground server with Ctrl+C when finished. If the server does not support these flags, return to its local help first.</p>
 <p>Memory locking can help when pages would otherwise be evicted or swapped under pressure. It does not increase CPU compute throughput. Compare startup time, request latency, and memory use rather than assuming a higher tokens/s result.</p>
+<h2 id="read-a-failed-lock-warning">Read a failed-lock warning<a class="headerlink" href="#read-a-failed-lock-warning" title="Permanent link">¶</a></h2>
+<p>Match this message shape in the startup log; the byte counts and final error vary:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>warning: failed to mlock N-byte buffer (after previously locking M bytes): ERROR
+</code></pre></div></td></tr></table></div>
+<p>This <a href="https://github.com/ggml-org/llama.cpp/blob/6c01da6278ab6c69ed67d9124806b50d2b299ba7/src/llama-mmap.cpp#L732-L734">source-defined warning</a> means a lock request failed. <code>M</code> is the amount already locked by that lock object, not the Pi's total RAM. A nonzero value can indicate partial locking; a server that stays up is not proof the whole model is locked.</p>
+<ul>
+<li><strong><code>Cannot allocate memory</code> / <code>ENOMEM</code>:</strong> compare the requested bytes with the process's soft memlock limit. Linux can return this error for a limit violation even when free RAM remains; other mapping/resource failures are possible too.</li>
+<li><strong><code>Operation not permitted</code> / <code>EPERM</code>:</strong> inspect the zero/low limit and the process's permission or sandbox policy. Do not grant root or <code>CAP_IPC_LOCK</code> as the first fix.</li>
+<li><strong>No lock warning, but the process vanishes:</strong> investigate its termination separately. Neither an option-parser error nor this warning establishes an OOM kill.</li>
+</ul>
 <h2 id="inspect-the-running-processs-memory-limit">Inspect the running process's memory limit<a class="headerlink" href="#inspect-the-running-processs-memory-limit" title="Permanent link">¶</a></h2>
 <p>For a shell-launched process, inspect the shell's soft and hard limits before launching:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nb">ulimit</span><span class="w"> </span>-S<span class="w"> </span>-l
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">ulimit</span><span class="w"> </span>-H<span class="w"> </span>-l
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">ulimit</span><span class="w"> </span>-S<span class="w"> </span>-l
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nb">ulimit</span><span class="w"> </span>-H<span class="w"> </span>-l
 </code></pre></div></td></tr></table></div>
 <p>In Bash, these values are in KiB. An unprivileged shell cannot raise its soft limit above its hard limit. Changing the limit in another terminal does not change an already-running server.</p>
 <p>For an existing process, use its real PID. For a system service named <code>llama-server.service</code>:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nv">server_pid</span><span class="o">=</span><span class="k">$(</span>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span>--property<span class="o">=</span>MainPID<span class="w"> </span>--value<span class="k">)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$server_pid</span><span class="s2">"</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'Max locked memory'</span><span class="w"> </span><span class="s2">"/proc/</span><span class="nv">$server_pid</span><span class="s2">/limits"</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span>sudo<span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'VmLck|VmRSS'</span><span class="w"> </span><span class="s2">"/proc/</span><span class="nv">$server_pid</span><span class="s2">/status"</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="k">fi</span>
-</code></pre></div></td></tr></table></div>
-<p><code>/proc/PID/limits</code> reports the process limits in bytes for locked memory; <code>VmLck</code> reports locked memory in kB. A successful model load is not proof that every requested lock succeeded. Read llama.cpp's startup warnings as well as the process state. The <a href="https://man7.org/linux/man-pages/man2/mlock.2.html">Linux mlock manual</a> explains locked-page behaviour, limit checks, and error conditions.</p>
-<h2 id="set-a-bounded-systemd-limit-when-required">Set a bounded systemd limit when required<a class="headerlink" href="#set-a-bounded-systemd-limit-when-required" title="Permanent link">¶</a></h2>
-<p>A system service gets its limits from the service manager. Your SSH shell's <code>ulimit</code> is not its configuration. Inspect the current unit and effective settings:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>llama-server.service
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span>--property<span class="o">=</span>LimitMEMLOCK<span class="w"> </span>--property<span class="o">=</span>LimitMEMLOCKSoft
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">server_pid</span><span class="o">=</span><span class="k">$(</span>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span>--property<span class="o">=</span>MainPID<span class="w"> </span>--value<span class="k">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$server_pid</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span>^<span class="o">[</span><span class="m">1</span>-9<span class="o">][</span><span class="m">0</span>-9<span class="o">]</span>*$<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span>grep<span class="w"> </span><span class="s1">'Max locked memory'</span><span class="w"> </span><span class="s2">"/proc/</span><span class="nv">$server_pid</span><span class="s2">/limits"</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'VmLck|VmRSS'</span><span class="w"> </span><span class="s2">"/proc/</span><span class="nv">$server_pid</span><span class="s2">/status"</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="k">else</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'No running service PID; inspect its status and journal.\n'</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">fi</span>
 </code></pre></div></td></tr></table></div>
-<p>If the measured workload fits RAM and needs more locked memory, create a service override with <code>sudo systemctl edit llama-server.service</code>. For example:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">[Service]</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="c1"># Example only: choose a value from the actual model/workload budget.</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="na">LimitMEMLOCK</span><span class="o">=</span><span class="s">2G</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="na">Environment</span><span class="o">=</span><span class="s">LLAMA_ARG_LOAD_MODE=mmap+mlock</span>
+<p><code>/proc/PID/limits</code> reports the process limits in bytes for locked memory; <code>VmLck</code> reports locked memory in kB. A successful model load is not proof that every requested lock succeeded. Read llama.cpp's startup warnings as well as the process state. The <a href="https://man7.org/linux/man-pages/man2/mlock.2.html">Linux mlock manual</a> explains locked-page behaviour, limit checks, and error conditions.</p>
+<p>Use your actual unit name. If <code>/proc</code> access is denied, use an appropriately authorised administrator account; do not relax the machine's process-visibility policy. A restart changes the PID, so obtain it again. On a manually launched server, inspect its actual PID instead of the systemd example.</p>
+<p>For example, <code>ulimit -S -l</code> reporting <code>8192</code> means <strong>8 MiB</strong>, while <code>/proc/PID/limits</code> represents the same allowance as <code>8388608</code> bytes. These are illustrative values, not defaults for every Pi. <code>VmLck: 0 kB</code> means no pages are currently recorded as locked for that process, not that the model uses no RAM.</p>
+<details>
+<summary>Optional: observe a refusal without loading a model</summary>
+<p>Run this on Linux as an ordinary user with Python 3, <strong>without sudo</strong>. It allocates one page (at most 64 KiB) and lowers only this short-lived Python process's memlock limit to zero. It does not change your shell, service, swap or system limits, and does not try to exhaust RAM:</p>
+<!-- verify: memlock-refusal -->
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;'PY'</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="s">import ctypes</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="s">import errno</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="s">import mmap</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="s">import os</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="s">import resource</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="s">if os.geteuid() == 0 or mmap.PAGESIZE &gt; 65536:</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="s">    raise SystemExit("Use an ordinary user and a page size no larger than 64 KiB.")</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="s">resource.setrlimit(resource.RLIMIT_MEMLOCK, (0, 0))</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="s">libc = ctypes.CDLL(None, use_errno=True)</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="s">for name in ("mlock", "munlock"):</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="s">    function = getattr(libc, name)</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="s">    function.argtypes = [ctypes.c_void_p, ctypes.c_size_t]</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="s">    function.restype = ctypes.c_int</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="s">with mmap.mmap(-1, mmap.PAGESIZE) as page:</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="s">    address = ctypes.addressof(ctypes.c_char.from_buffer(page))</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="s">    print(f"page_bytes={mmap.PAGESIZE}, soft_memlock_bytes=0")</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="s">    if libc.mlock(address, mmap.PAGESIZE) == -1:</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20"></a><span class="s">        code = ctypes.get_errno()</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21"></a><span class="s">        print(f"mlock refused: {errno.errorcode.get(code, code)}")</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22"></a><span class="s">    else:</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23"></a><span class="s">        libc.munlock(address, mmap.PAGESIZE)</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24"></a><span class="s">        print("Lock succeeded: this process may bypass the limit; stop here.")</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="s">PY</span>
+</code></pre></div></td></tr></table></div>
+<p>Example output on an unprivileged Linux process with 4 KiB pages:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>page_bytes=4096, soft_memlock_bytes=0
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>mlock refused: EPERM
+</code></pre></div></td></tr></table></div>
+<p>This demonstrates a kernel lock refusal, not llama.cpp inference or an OOM event. Page size and security policy can differ. If locking succeeds, a capability may bypass the limit; the example unlocks the page and exits rather than increasing its allocation.</p>
+</details>
+<h2 id="set-a-bounded-systemd-limit-when-required">Set a bounded systemd limit when required<a class="headerlink" href="#set-a-bounded-systemd-limit-when-required" title="Permanent link">¶</a></h2>
+<p>A system service gets its limits from the service manager. Your SSH shell's <code>ulimit</code> is not its configuration. Inspect the current unit and effective settings:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>llama-server.service
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span>--property<span class="o">=</span>LimitMEMLOCK<span class="w"> </span>--property<span class="o">=</span>LimitMEMLOCKSoft
+</code></pre></div></td></tr></table></div>
+<p>Only if the measured workload fits RAM and needs locking, plan a <strong>system-service</strong> override. Read the existing unit first and record its effective soft/hard limits. Use an unused drop-in name such as <code>50-mlock.conf</code>; if that file already exists, preserve its contents and do not overwrite unrelated settings.</p>
+<p>These commands create a configuration directory and open an editor; they are not inspection commands:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/systemd/system/llama-server.service.d
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/llama-server.service.d/50-mlock.conf
+</code></pre></div></td></tr></table></div>
+<p>For that new file only, an example is:</p>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">[Service]</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="c1"># Example only: choose a value from the actual model/workload budget.</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="na">LimitMEMLOCK</span><span class="o">=</span><span class="s">2G</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="na">Environment</span><span class="o">=</span><span class="s">LLAMA_ARG_LOAD_MODE=mmap+mlock</span>
 </code></pre></div></td></tr></table></div>
 <p><code>2G</code> is an illustrative limit, not a model-size recommendation. The environment setting is supported by the checked upstream parser; if <code>ExecStart</code> already sets a loading mode explicitly, update that deliberate choice rather than maintaining conflicting settings. Keep the service's unprivileged user.</p>
 <p>The <a href="https://manpages.debian.org/trixie/systemd/systemd.exec.5.en.html">systemd execution reference</a> documents <code>LimitMEMLOCK</code> and the distinction between system and user-service limits. A user service cannot exceed the limits inherited by its user manager merely by adding a larger unit value.</p>
 <p>Apply the override during a suitable restart window, then inspect the new PID:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>llama-server.service
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>llama-server.service<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>llama-server.service
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>llama-server.service<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <p>Setting a limit permits locking up to that amount; it does not preallocate that amount or guarantee a successful lock. Avoid granting every process an unlimited lock allowance to fix one service.</p>
+<p><strong>Verify and undo:</strong> obtain the new <code>MainPID</code>, repeat the <code>/proc</code> checks and read startup warnings. A unit property alone is not proof the restarted process inherited it. If this experiment should be undone, replace only the newly created <code>50-mlock.conf</code> contents with:</p>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">[Service]</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="c1"># No memory-lock overrides; inherit the previous service configuration.</span>
+</code></pre></div></td></tr></table></div>
+<p>Then reload, restart during the same planned window and verify the restored limits and loading choice. If you edited a pre-existing file or command line, restore its recorded original contents too. Do not use a blanket <code>systemctl revert</code> that could remove unrelated service customisations.</p>
 <h2 id="distinguish-a-lock-warning-from-an-oom-kill">Distinguish a lock warning from an OOM kill<a class="headerlink" href="#distinguish-a-lock-warning-from-an-oom-kill" title="Permanent link">¶</a></h2>
 <p>Check memory and kernel logs:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom|killed process'</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span>--property<span class="o">=</span>MemoryCurrent<span class="w"> </span>--property<span class="o">=</span>MemoryMax
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>free<span class="w"> </span>-h
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom|killed process'</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>systemctl<span class="w"> </span>show<span class="w"> </span>llama-server.service<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>--property<span class="o">=</span>Result<span class="w"> </span>--property<span class="o">=</span>ExecMainCode<span class="w"> </span>--property<span class="o">=</span>ExecMainStatus<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--property<span class="o">=</span>MemoryCurrent<span class="w"> </span>--property<span class="o">=</span>MemoryMax
 </code></pre></div></td></tr></table></div>
 <p>A service can hit its cgroup memory limit even when the whole Pi has free memory. Increasing <code>LimitMEMLOCK</code> does not increase <code>MemoryMax</code> or the board's physical RAM. If the model only works unlocked and starts thrashing under load, reduce the model size, context, or concurrent workload before enabling locks. See the <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">memory-pressure and OOM guide</a>.</p>
+<p><code>Killed</code> or exit status <strong>137</strong> can mean SIGKILL, but not why the signal was sent. Correlate the timestamp and victim PID with kernel logs and the unit's result; an administrator or another policy can also terminate a process. A <code>Result=oom-kill</code> result or matching kernel OOM report is stronger evidence than an exit code alone. Missing journal access or absent records do not prove that no OOM occurred. Do not deliberately trigger OOM on the working Pi to test this page.</p>
 <h2 id="record-whether-the-change-helped">Record whether the change helped<a class="headerlink" href="#record-whether-the-change-helped" title="Permanent link">¶</a></h2>
 <p>Compare the same requests with unlocked and locked runs. Record the llama.cpp revision, loading mode, model checksum, context, concurrency, startup time, request latency, <code>VmLck</code>, peak memory, and thermal/power state. Separate a cold first load from a cached repeat. Retain the setting only when it improves the deployment's measured behaviour without starving other services.</p>
 <h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
@@ -11267,7 +11399,8 @@
 <li><a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/">Build and benchmark llama.cpp on Raspberry Pi</a></li>
 <li><a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">Measure memory pressure, ZRAM, and OOM events</a></li>
 <li><a href="../managing_your_program_as_a_systemd_daemon/">Manage a program as a systemd service</a></li>
-</ul></div>
+</ul>
+<p><strong>Checkpoint:</strong> why can a lock request fail while RAM remains available? Why does a shell's <code>ulimit</code> not describe a separately managed service?</p></div>
 
 
 
@@ -11290,7 +11423,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 2, 2026 09:09:26 JST">2026-10-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 6, 2026 22:18:15 JST">2026-11-06</span>
   </span>
 
     
