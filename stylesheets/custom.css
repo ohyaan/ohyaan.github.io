@@ -484,6 +484,31 @@ object {
     margin: 0.8rem 0;
 }
 
+.throttled-status-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.throttled-status-grid section {
+    min-width: 0;
+    padding: 0.8rem;
+    background: var(--md-default-bg-color);
+    border-left: 0.2rem solid var(--md-accent-fg-color);
+}
+
+.md-typeset .throttled-status-grid h3 {
+    margin-top: 0;
+}
+
+.throttled-decoder .pi-calculator-actions {
+    align-items: center;
+}
+
+.throttled-decoder [aria-invalid="true"] {
+    border-color: var(--md-accent-fg-color);
+}
+
 .pi-calculator-results dl {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -509,7 +534,17 @@ object {
 }
 
 @media screen and (max-width: 600px) {
+    .throttled-examples > span {
+        flex-basis: 100%;
+    }
+
+    .throttled-examples .md-button {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
     .pi-calculator-grid,
+    .throttled-status-grid,
     .pi-diagnostic-grid,
     .pi-calculator-results dl {
         grid-template-columns: 1fr;
