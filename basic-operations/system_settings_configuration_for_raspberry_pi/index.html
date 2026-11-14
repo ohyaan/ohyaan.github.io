@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-14">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-14"
   }
   </script>
   <script type="application/ld+json">
@@ -873,6 +873,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#open-the-raspi-config-menu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open the raspi-config menu
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choose-the-setting-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose the setting you need
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
       Before you start
@@ -882,27 +900,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-inspect-the-current-state" class="md-nav__link">
+  <a href="#correct-the-time-zone" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Inspect the current state
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-open-raspi-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Open raspi-config
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-optional-correct-the-time-zone" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Optional: correct the time zone
+      Correct the time zone
     </span>
   </a>
   
@@ -921,6 +921,15 @@
   <a href="#enable-only-the-hardware-interface-you-need" class="md-nav__link">
     <span class="md-ellipsis">
       Enable only the hardware interface you need
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#language-and-keyboard-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language and keyboard settings
     </span>
   </a>
   
@@ -11130,7 +11139,7 @@
 
 
 <div><h1 id="raspberry-pi-config-command-make-and-verify-one-change">Raspberry Pi Config Command: Make and Verify One Change<a class="headerlink" href="#raspberry-pi-config-command-make-and-verify-one-change" title="Permanent link">¶</a></h1>
-<p>The Raspberry Pi settings command is <code>sudo raspi-config</code>. Use its interactive menu for a setting you actually need, record the original value, and verify the result before making another change.</p>
+<p>Run <code>sudo raspi-config</code> in a terminal on your Raspberry Pi to open its settings menu. Choose the feature you need, check its current state, and verify the result after changing it.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11140,68 +11149,66 @@
   </script>
 </div>
 
+<h2 id="open-the-raspi-config-menu">Open the raspi-config menu<a class="headerlink" href="#open-the-raspi-config-menu" title="Permanent link">¶</a></h2>
+<p>On <strong>Raspberry Pi OS</strong>, open a terminal or an existing SSH session to the Pi and run:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>raspi-config
+</code></pre></div></td></tr></table></div>
+<p>If <code>sudo</code> asks for a password, enter your Pi account password. The terminal hides the characters as you type. The <strong>Setup Options</strong> menu should appear.</p>
+<p>Use <strong>↑/↓</strong> to highlight an option and <strong>Enter</strong> to open it. Use <strong>Tab</strong> to move to <strong>Select</strong>, <strong>Back</strong>, or <strong>Finish</strong>, then press <strong>Enter</strong>. To leave the main menu, select <strong>Finish</strong>. If a change prompts for a reboot, save your work and make sure you can reconnect before accepting.</p>
+<p><strong>Command not found?</strong> Follow the <a href="../../tips/raspi_config_command_not_found_nonint_errors/#1-confirm-raspberry-pi-os-and-the-installed-package">raspi-config error guide</a> to check the OS and package.</p>
+<h2 id="choose-the-setting-you-need">Choose the setting you need<a class="headerlink" href="#choose-the-setting-you-need" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="#enable-ssh-safely">Enable SSH and test a login</a> from another computer. Open <strong>Interface Options → SSH</strong>.</li>
+<li><a href="#enable-only-the-hardware-interface-you-need">Enable I2C for a sensor or SSD1306 OLED</a>. Open <strong>Interface Options → I2C</strong>.</li>
+<li><a href="#enable-only-the-hardware-interface-you-need">Enable SPI for a peripheral</a>. Open <strong>Interface Options → SPI</strong>.</li>
+<li><a href="#correct-the-time-zone">Correct the time zone</a>. Open <strong>Localisation Options → Timezone</strong>.</li>
+<li><a href="#language-and-keyboard-settings">Change language or keyboard layout</a>. Open <strong>Localisation Options → Locale</strong> or <strong>Keyboard</strong>.</li>
+<li><a href="#understand-settings-that-affect-access-or-persistence">Plan a hostname, boot, or serial-access change</a> before using System, Interface, or Advanced Options.</li>
+</ul>
+<p>Read the labels in your installed version; menu numbers and available options vary by OS image and board.</p>
+<p><img alt="Official raspi-config main menu showing System, Display, Interface, Performance, Localisation, and Advanced Options" src="../../images/raspi-config-main-menu.png"></p>
+<p><em>Main menu image © Raspberry Pi Ltd, reproduced unchanged from the <a href="https://www.raspberrypi.com/documentation/computers/configuration.html#interactive-raspi-config-tui">official configuration documentation</a>, under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</em></p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
-<p>You need a working Raspberry Pi OS login and <a href="../essential_linux_commands_for_raspberry_pi/">terminal basics</a>. All inspection and configuration commands below run on the <strong>Pi</strong>. SSH connection tests run on the <strong>client computer</strong>.</p>
-<p>The available settings depend on the installed tool version, board and OS image. Desktop Control Centre is another supported interface; Lite does not include that desktop application. Do not install this tool on Ubuntu simply to make Raspberry Pi OS instructions fit.</p>
-<p>Read-only observation is sufficient for the course if your settings already work. Do not change hostname, boot target, serial console or network access as arbitrary practice on a remotely managed machine.</p>
-<h2 id="1-inspect-the-current-state">1. Inspect the current state<a class="headerlink" href="#1-inspect-the-current-state" title="Permanent link">¶</a></h2>
-<!-- verify: settings-observation -->
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>cat<span class="w"> </span>/etc/os-release
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>raspi-config
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>raspi-config
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>hostname
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>localectl<span class="w"> </span>status
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>timedatectl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>Timezone<span class="w"> </span>-p<span class="w"> </span>NTPSynchronized
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+<p>You need a working Raspberry Pi OS login and <a href="../essential_linux_commands_for_raspberry_pi/">terminal basics</a>. Run configuration and inspection commands on the <strong>Pi</strong>. Run SSH connection tests on the <strong>client computer</strong>. By the end, you should be able to locate one needed setting and check whether it works.</p>
+<p>Before changing a setting, record its current value, decide how to verify it, and keep a way to restore access. A hostname, network, boot, or serial-console change can affect a remote connection.</p>
+<p>Desktop <strong>Control Centre</strong> is another supported interface; Lite uses the terminal tool. For Ubuntu, use that distribution's settings tools. Keep system maintenance in the <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/#system-updates-and-package-installation">first-login update workflow</a>.</p>
+<h2 id="correct-the-time-zone">Correct the time zone<a class="headerlink" href="#correct-the-time-zone" title="Permanent link">¶</a></h2>
+<p>Read the current value first and record it for recovery:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>timedatectl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>Timezone<span class="w"> </span>-p<span class="w"> </span>NTPSynchronized
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>date
 </code></pre></div></td></tr></table></div>
-<p><strong>Check:</strong> the tool exists and the OS is the one you intend to configure. Locale affects language/formatting; keyboard layout affects input; time zone affects how local time is displayed. They are not interchangeable.</p>
-<p>A full system upgrade is not a prerequisite for opening the menu. Keep the system maintained separately using <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/#system-updates-and-package-installation">the first-login update workflow</a>.</p>
-<h2 id="2-open-raspi-config">2. Open raspi-config<a class="headerlink" href="#2-open-raspi-config" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>raspi-config
-</code></pre></div></td></tr></table></div>
-<p>The text menu should open. Use arrow keys to select, Enter to confirm, and Tab where needed to move between controls. Read the current menu labels rather than copying numeric positions from an old screenshot.</p>
-<p>Before changing anything, decide:</p>
-<ol>
-<li>What feature do I need?</li>
-<li>What is its current setting?</li>
-<li>Will it affect the current connection or require reboot?</li>
-<li>How will I verify it?</li>
-<li>How can I undo the change if access fails?</li>
-</ol>
-<p>For example, setting your own time zone is a bounded change; disabling SSH during an SSH session is not.</p>
-<h2 id="3-optional-correct-the-time-zone">3. Optional: correct the time zone<a class="headerlink" href="#3-optional-correct-the-time-zone" title="Permanent link">¶</a></h2>
-<p>First read <code>timedatectl</code> as above. If the zone is wrong, use your actual zone, not Japan merely because it appears in this example:</p>
+<p>If the zone is wrong, select <strong>Localisation Options → Timezone</strong> in <code>raspi-config</code> and choose your region and city. Alternatively, use the command below with your actual zone. <code>Asia/Tokyo</code> is an example:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>timedatectl<span class="w"> </span>set-timezone<span class="w"> </span>Asia/Tokyo
 <a id="__codelineno-2-2" name="__codelineno-2-2"></a>timedatectl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>Timezone<span class="w"> </span>-p<span class="w"> </span>NTPSynchronized
 <a id="__codelineno-2-3" name="__codelineno-2-3"></a>date
 </code></pre></div></td></tr></table></div>
-<p>This changes system configuration. <strong>Check:</strong> the intended zone appears and the displayed local time makes sense. Revert by setting the original zone if you selected the wrong one.</p>
+<p><strong>Check:</strong> <code>Timezone</code> shows your intended zone and <code>date</code> displays the expected local time. Restore the original zone through the same menu or command if you selected the wrong one.</p>
 <p>NTP synchronisation also needs a working network and time service. Do not treat a correct time zone as proof that the clock has synchronised.</p>
 <h2 id="enable-ssh-safely">Enable SSH safely<a class="headerlink" href="#enable-ssh-safely" title="Permanent link">¶</a></h2>
-<p>If you need SSH and it is not enabled, use the menu's SSH option or the corresponding noninteractive command:</p>
+<p>First check the SSH service on the <strong>Pi</strong>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>do_ssh<span class="w"> </span><span class="m">0</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+</code></pre></div></td></tr></table></div>
+<p>For the usual service setup, <code>active</code> and <code>enabled</code> mean it is running and starts at boot. If SSH already works, test a second login from the client and continue with your task.</p>
+<p>To enable it, choose <strong>Interface Options → SSH → Enable</strong>, or run the corresponding noninteractive command on the Pi:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>do_ssh<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
 </code></pre></div></td></tr></table></div>
 <p>For this option, <code>0</code> means enable. That convention is not a universal meaning for every subcommand. <strong>Success:</strong> the normal service is active/enabled and a new login from the client succeeds.</p>
 <p>On the <strong>client computer</strong>, replace the account and host:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>ssh<span class="w"> </span>your-user@pi-setup.local
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>ssh<span class="w"> </span>your-user@pi-setup.local
 </code></pre></div></td></tr></table></div>
 <p>Keep an existing session open while testing the second. For custom socket activation, interpret its service/socket policy rather than replacing a working configuration blindly. Key setup belongs in <a href="../user_and_permission_management_for_raspberry_pi/">Users and Permissions</a>.</p>
 <h2 id="enable-only-the-hardware-interface-you-need">Enable only the hardware interface you need<a class="headerlink" href="#enable-only-the-hardware-interface-you-need" title="Permanent link">¶</a></h2>
-<p>These are <strong>alternative examples</strong>, not a block to run in full. Enabling an interface changes configuration and may require reboot.</p>
+<p>For an I2C or SPI project, check which interface the peripheral requires and read its current setting in <strong>Interface Options</strong>. Record that setting before enabling it. The standard 40-pin GPIO I2C bus is usually <code>/dev/i2c-1</code>; other buses depend on your board and overlays.</p>
+<p>Choose <strong>Interface Options → I2C</strong> or <strong>SPI</strong>, select <strong>Enable</strong>, then <strong>Finish</strong>. Follow the tool's reboot prompt when required and reconnect before checking the device. Use the matching command below if you prefer a noninteractive change.</p>
 <table>
 <thead>
 <tr>
@@ -11226,16 +11233,45 @@
 <td><code>sudo raspi-config nonint do_onewire 0</code></td>
 <td>Expected controller/device appears when properly configured</td>
 </tr>
-<tr>
-<td>SSH server</td>
-<td><code>sudo raspi-config nonint do_ssh 0</code></td>
-<td>New authenticated connection succeeds</td>
-</tr>
 </tbody>
 </table>
+<p>After the required reboot, list the exposed devices on the <strong>Pi</strong>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Inspect device names; this does not scan the bus or contact peripherals.</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>find<span class="w"> </span>/dev<span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\(</span><span class="w"> </span>-name<span class="w"> </span><span class="s1">'i2c-*'</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s1">'spidev*'</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span>-print
+</code></pre></div></td></tr></table></div>
+<p>If you enabled the wrong interface, return to its menu and restore the original setting. These commands enable separate interfaces, so choose only the one your project uses.</p>
 <p>A device node proves only that the interface is exposed, not that a circuit is correctly wired or communicating. Scanning a bus can itself interact with attached hardware; do not scan unknown equipment as a universal test.</p>
 <p>The site's existing SSD1306 uses I2C, but the LED/button course uses GPIO character devices and does not require enabling I2C or SPI. Keep the separate protocols distinct.</p>
 <p>Serial hardware and the serial login console are separate settings. Changing either can remove a recovery route; use the hardware's specific instructions, voltage limits and an alternate login rather than enabling all interfaces at once.</p>
+<h2 id="language-and-keyboard-settings">Language and keyboard settings<a class="headerlink" href="#language-and-keyboard-settings" title="Permanent link">¶</a></h2>
+<p>Run these checks on the <strong>Pi</strong> before choosing <strong>Localisation Options → Locale</strong> or <strong>Keyboard</strong>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>localectl<span class="w"> </span>status
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>locale
+</code></pre></div></td></tr></table></div>
+<p>Locale controls language and formatting. Keyboard layout controls how local key presses are interpreted. Select your intended language or physical keyboard layout, then follow the menu's prompts. After logging in again, repeat the checks and test a few characters in a terminal. Over SSH, the client keyboard layout also matters. Restore your recorded setting through the same menu if the result is wrong.</p>
+<details>
+<summary>Optional system inventory for diagnosis</summary>
+<p>These read-only commands collect the OS, tool version, hostname, regional settings, and SSH service state when you need a broader diagnosis.</p>
+<!-- verify: settings-observation -->
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span>
+<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>dpkg-query<span class="w"> </span>-W<span class="w"> </span>raspi-config
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>raspi-config
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>hostname
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>localectl<span class="w"> </span>status
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>timedatectl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>Timezone<span class="w"> </span>-p<span class="w"> </span>NTPSynchronized
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+</code></pre></div></td></tr></table></div>
+</details>
 <h2 id="understand-settings-that-affect-access-or-persistence">Understand settings that affect access or persistence<a class="headerlink" href="#understand-settings-that-affect-access-or-persistence" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -11276,18 +11312,17 @@
 <p>Current Raspberry Pi OS uses <code>/boot/firmware/config.txt</code>. Do not add old graphics, GPU-memory or overclocking settings just because a tutorial lists them.</p>
 <p>If an actual peripheral requires an overlay, read <code>dtoverlay -h overlay-name</code> on the Pi and check the <a href="https://www.raspberrypi.com/documentation/computers/config_txt.html">official config.txt reference</a>. Conditional sections such as <code>[pi4]</code> and <code>[all]</code> matter.</p>
 <p>Before a required edit, make a uniquely named backup:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nv">config_backup</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>mktemp<span class="w"> </span>/boot/firmware/config.txt.course-backup.XXXXXX<span class="k">)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>-a<span class="w"> </span>/boot/firmware/config.txt<span class="w"> </span><span class="s2">"</span><span class="nv">$config_backup</span><span class="s2">"</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Backup: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$config_backup</span><span class="s2">"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nv">config_backup</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>mktemp<span class="w"> </span>/boot/firmware/config.txt.course-backup.XXXXXX<span class="k">)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>-a<span class="w"> </span>/boot/firmware/config.txt<span class="w"> </span><span class="s2">"</span><span class="nv">$config_backup</span><span class="s2">"</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Backup: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$config_backup</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>Record that exact path. Edit with <code>sudo nano /boot/firmware/config.txt</code>, change only the intended setting and review it. Do not edit <code>cmdline.txt</code> for an unrelated setting; if it genuinely needs modification, its parameters must remain on one line.</p>
 <p>If the Pi stops booting, power down and use another computer to compare the boot file with that backup, undoing only your last change. Do not replace the entire configuration from another model.</p>
 <h2 id="verify-after-an-intentional-reboot">Verify after an intentional reboot<a class="headerlink" href="#verify-after-an-intentional-reboot" title="Permanent link">¶</a></h2>
 <p>Use <code>sudo reboot</code> only after the required change and once you can recover access. Wait for the board to return; a dropped SSH connection is expected.</p>
-<p>Repeat the observation block and test the actual feature. For a headless board, a second client login is a stronger check than <code>active</code> alone.</p>
-<p>The current version and read-only settings were inspected on the existing Pi 4B. Time-zone changes, new interface activation, boot edits and reboot were not performed to validate this revision.</p>
+<p>Repeat the checks for the setting you changed and test the actual feature. For a headless board, open a new SSH login from the client while keeping your original session open. If it fails, restore the recorded setting through your local or alternate console.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Command not found:</strong> confirm Raspberry Pi OS and its package repositories. Install/repair <code>raspi-config</code> only in that supported context.</li>
@@ -11321,7 +11356,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 14, 2026 22:02:39 JST">2026-11-14</span>
   </span>
 
     
