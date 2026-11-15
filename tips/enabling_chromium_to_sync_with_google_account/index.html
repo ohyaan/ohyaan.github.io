@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-05-06">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-15">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-05-06",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-15"
   }
   </script>
   <script type="application/ld+json">
@@ -10693,6 +10693,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#choose-what-you-want-to-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choose what you want to do
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sign-in-to-google-websites-in-chromium" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sign in to Google websites in Chromium
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#can-chromium-sync-with-a-google-account" class="md-nav__link">
     <span class="md-ellipsis">
       Can Chromium sync with a Google Account?
@@ -10705,24 +10723,6 @@
   <a href="#install-chrome-arm64-for-google-sync" class="md-nav__link">
     <span class="md-ellipsis">
       Install Chrome ARM64 for Google Sync
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#check-your-raspberry-pi-before-downloading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Check your Raspberry Pi before downloading
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-google-chrome-stable_current_arm64deb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download google-chrome-stable_current_arm64.deb
     </span>
   </a>
   
@@ -11128,8 +11128,7 @@
 
 
 <div><h1 id="chromium-google-sync-not-working-on-raspberry-pi-what-to-do">Chromium Google Sync Not Working on Raspberry Pi? What to Do<a class="headerlink" href="#chromium-google-sync-not-working-on-raspberry-pi-what-to-do" title="Permanent link">¶</a></h1>
-<p>Chromium on Raspberry Pi cannot sync its browser profile directly with a Google Account because Google restricts its private Chrome Sync APIs. Signing in to a Google website still works, but it does not sync Chromium bookmarks, passwords, history, or tabs. For full Google browser sync, use official Chrome ARM64; to keep Chromium, use a bookmark extension and password manager instead.</p>
-<p><strong>Quick answer:</strong> Gmail login is not browser sync. Do not try to restore sync by copying OAuth keys into Chromium. For Google browser sync, follow the Chrome ARM64 path below; for Chromium-only bookmark or password sync, jump to the alternatives.</p>
+<p>Chromium on Raspberry Pi can sign in to Gmail and other Google websites. Its built-in browser profile cannot use Google's private Chrome Sync service. Choose below according to the data you want to use on another device.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11139,111 +11138,73 @@
   </script>
 </div>
 
-<p><strong>Scope:</strong> Raspberry Pi OS desktop with Chromium. The Chrome installation path below targets 64-bit Raspberry Pi OS Trixie, not a headless Lite installation or a 32-bit OS. Package availability does not establish compatibility with every older Pi model.</p>
-<h2 id="can-chromium-sync-with-a-google-account">Can Chromium sync with a Google Account?<a class="headerlink" href="#can-chromium-sync-with-a-google-account" title="Permanent link">¶</a></h2>
-<p>No—not through Chromium's built-in profile on Raspberry Pi OS. Signing in to Gmail or another Google website does not enable browser sync. Choose one of these paths:</p>
+<h2 id="choose-what-you-want-to-do">Choose what you want to do<a class="headerlink" href="#choose-what-you-want-to-do" title="Permanent link">¶</a></h2>
 <ul>
-<li>Install official Chrome ARM64 for Google Account browser sync.</li>
-<li>Keep Chromium and use Floccus for bookmarks plus a dedicated password manager.</li>
-<li>Use Firefox Sync for bookmarks, passwords, history, and tabs in one account.</li>
+<li><a href="#sign-in-to-google-websites-in-chromium">Use Gmail, Drive, or another Google website</a>. Continue in Chromium and sign in on the website.</li>
+<li><a href="#install-chrome-arm64-for-google-sync">Use Google Account browser data across devices</a>. Install native Chrome on a compatible 64-bit Raspberry Pi OS desktop, then choose the data to save to your account.</li>
+<li><a href="#keep-chromium-and-sync-bookmarks">Keep Chromium and share bookmarks</a>. Set up Floccus with a selected bookmark folder.</li>
+<li><a href="#keep-chromium-and-sync-passwords">Keep Chromium and share passwords</a>. Use a password manager extension on your devices.</li>
+<li><a href="#use-firefox-sync-instead">Use one browser account for bookmarks, history, passwords, and tabs</a>. Set up Firefox Sync.</li>
 </ul>
+<p>The Chrome installation steps target a <strong>64-bit Raspberry Pi OS Trixie desktop</strong>. Run terminal commands on the Pi. For a 32-bit OS, choose the Chromium or Firefox routes. Google documents native Chrome's Linux ARM64 support in its platform announcement. <a href="https://blog.google/chromium/bringing-chrome-to-arm64-linux-devices/">Chrome for ARM64 Linux</a></p>
+<h2 id="sign-in-to-google-websites-in-chromium">Sign in to Google websites in Chromium<a class="headerlink" href="#sign-in-to-google-websites-in-chromium" title="Permanent link">¶</a></h2>
+<p>Open Gmail or Drive in a normal Chromium window, choose <strong>Sign in</strong>, and complete your Google Account login. Open another page from that service to check that you remain signed in. Google may ask for multi-factor authentication or an account security check.</p>
+<p>If the website keeps returning to its login page, check that cookies are allowed for that service and that the Pi's date and time are correct. A browser-wide cookie clear signs you out of other sites, so inspect the affected site's settings first.</p>
+<p>For browser bookmarks, passwords, history, or tabs on another device, use the matching route above. Those data have separate account settings.</p>
+<h2 id="can-chromium-sync-with-a-google-account">Can Chromium sync with a Google Account?<a class="headerlink" href="#can-chromium-sync-with-a-google-account" title="Permanent link">¶</a></h2>
+<p>Google restricted its private Chrome APIs for third-party Chromium builds on 15 March 2021. The old <code>/etc/chromium.d/oauth2-client</code> recipes and copied <code>GOOGLE_DEFAULT_CLIENT_ID</code> or <code>GOOGLE_DEFAULT_CLIENT_SECRET</code> values do not provide a supported way to restore that access. The original announcement explains the restriction. <a href="https://blog.chromium.org/2021/01/limiting-private-api-availability-in.html">Chromium announcement</a></p>
 <h2 id="install-chrome-arm64-for-google-sync">Install Chrome ARM64 for Google Sync<a class="headerlink" href="#install-chrome-arm64-for-google-sync" title="Permanent link">¶</a></h2>
-<p>On 64-bit Raspberry Pi OS Trixie, download Google's ARM64 <code>.deb</code>, confirm that its <code>Architecture</code> field is <code>arm64</code>, then install the local file with APT. Do not install the similarly named AMD64 build.</p>
-<p>First check your OS userspace, not just whether the Pi has a 64-bit CPU:</p>
+<p>If Chrome is already installed, go directly to <a href="#verify-google-account-data-on-two-devices">sign-in and the two-device check</a>.</p>
+<h3 id="check-your-raspberry-pi-before-downloading">Check your Raspberry Pi before downloading<a class="headerlink" href="#check-your-raspberry-pi-before-downloading" title="Permanent link">¶</a></h3>
+<p>Confirm that both the CPU userspace and Debian package architecture are 64-bit ARM:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>dpkg<span class="w"> </span>--print-architecture
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>getconf<span class="w"> </span>LONG_BIT
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>uname<span class="w"> </span>-m
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>dpkg<span class="w"> </span>--print-architecture
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>getconf<span class="w"> </span>LONG_BIT
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cat<span class="w"> </span>/etc/os-release
 </code></pre></div></td></tr></table></div>
-<p>Continue with the ARM64 package only if these report <code>arm64</code> and <code>64</code>. Otherwise use the Chromium or Firefox alternatives below.</p>
+<p>For the ARM64 package, the expected results are <code>aarch64</code>, <code>arm64</code>, and <code>64</code>. A Raspberry Pi with a 64-bit processor can still be running a 32-bit OS, so checking only the board model is not enough.</p>
+<h3 id="download-google-chrome-stable_current_arm64deb">Download <code>google-chrome-stable_current_arm64.deb</code><a class="headerlink" href="#download-google-chrome-stable_current_arm64deb" title="Permanent link">¶</a></h3>
+<p>Use a fresh folder so you can identify this download. Stop at any failed command and use the <a href="../google_chrome_arm64_raspberry_pi_install_errors/">Chrome ARM64 installation error guide</a> before continuing.</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span>
 <span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>curl<span class="w"> </span>-fL<span class="w"> </span>https://dl.google.com/linux/direct/google-chrome-stable_current_arm64.deb<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span>-o<span class="w"> </span>google-chrome-stable_current_arm64.deb
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>dpkg-deb<span class="w"> </span>-f<span class="w"> </span>google-chrome-stable_current_arm64.deb<span class="w"> </span>Package<span class="w"> </span>Version<span class="w"> </span>Architecture
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./google-chrome-stable_current_arm64.deb
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nv">chrome_download_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/chrome-download.XXXXXX"</span><span class="k">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$chrome_download_dir</span><span class="s2">"</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>curl<span class="w"> </span>--fail<span class="w"> </span>--location<span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">15</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">180</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>https://dl.google.com/linux/direct/google-chrome-stable_current_arm64.deb<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span>-o<span class="w"> </span>google-chrome-stable_current_arm64.deb
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>dpkg-deb<span class="w"> </span>-f<span class="w"> </span>google-chrome-stable_current_arm64.deb<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">  </span>Package<span class="w"> </span>Version<span class="w"> </span>Architecture<span class="w"> </span>Maintainer
 </code></pre></div></td></tr></table></div>
-<p><strong>Verify the result:</strong> launch <code>google-chrome-stable</code>, sign in using Chrome's profile controls, and check the account's saved-data settings. Test a non-sensitive bookmark on another signed-in Chrome device. A Gmail tab alone does not verify browser sync; installation alone does not either.</p>
-<p>If any command fails, use the <a href="../google_chrome_arm64_raspberry_pi_install_errors/">Chrome ARM64 installation error guide</a> before trying another package.</p>
-<table>
-<thead>
-<tr>
-<th>What you need</th>
-<th>Recommended approach</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Google Chrome Sync for bookmarks, passwords, history, and tabs</td>
-<td>Install Google's official ARM64 package on 64-bit Raspberry Pi OS</td>
-</tr>
-<tr>
-<td>Chromium with cross-browser bookmark sync</td>
-<td>Use Floccus with a storage provider you trust</td>
-</tr>
-<tr>
-<td>Chromium with password sync</td>
-<td>Use a dedicated password manager such as Bitwarden</td>
-</tr>
-<tr>
-<td>One account that synchronises the whole browser</td>
-<td>Use Firefox Sync</td>
-</tr>
-<tr>
-<td>32-bit Raspberry Pi OS</td>
-<td>Use Chromium extensions or Firefox; do not force-install the ARM64 package</td>
-</tr>
-</tbody>
-</table>
-<p>Do not add copied OAuth client IDs or secrets to Chromium. Google restricted its private Chrome APIs for third-party Chromium builds in March 2021, so the old <code>/etc/chromium.d/oauth2-client</code> workaround is no longer a supported solution. See the <a href="https://blog.chromium.org/2021/01/limiting-private-api-availability-in.html">Chromium announcement</a>.</p>
-<h2 id="check-your-raspberry-pi-before-downloading">Check your Raspberry Pi before downloading<a class="headerlink" href="#check-your-raspberry-pi-before-downloading" title="Permanent link">¶</a></h2>
-<p>Confirm that both the CPU userspace and Debian package architecture are 64-bit ARM:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>uname<span class="w"> </span>-m
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>dpkg<span class="w"> </span>--print-architecture
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>getconf<span class="w"> </span>LONG_BIT
-</code></pre></div></td></tr></table></div>
-<p>For the ARM64 package, the expected results are <code>aarch64</code>, <code>arm64</code>, and <code>64</code>. A Raspberry Pi with a 64-bit processor can still be running a 32-bit OS, so checking only the board model is not enough.</p>
-<p>Also update the package index before installation:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
-</code></pre></div></td></tr></table></div>
-<h2 id="download-google-chrome-stable_current_arm64deb">Download <code>google-chrome-stable_current_arm64.deb</code><a class="headerlink" href="#download-google-chrome-stable_current_arm64deb" title="Permanent link">¶</a></h2>
-<p>Google's direct ARM64 Debian package URL is:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>https://dl.google.com/linux/direct/google-chrome-stable_current_arm64.deb
-</code></pre></div></td></tr></table></div>
-<p>This URL returned the official ARM64 package during the 3 August 2026 verification. Availability and version can change, so test the response instead of trusting a copied filename:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>curl<span class="w"> </span>-I<span class="w"> </span>-L<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>https://dl.google.com/linux/direct/google-chrome-stable_current_arm64.deb
-</code></pre></div></td></tr></table></div>
-<p>Continue only when the final response is <code>HTTP 200</code>. Download the package, then inspect its identity and architecture before running an installer:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>curl<span class="w"> </span>-fL<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span>https://dl.google.com/linux/direct/google-chrome-stable_current_arm64.deb<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span>-o<span class="w"> </span>google-chrome-stable_current_arm64.deb
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>dpkg-deb<span class="w"> </span>-f<span class="w"> </span>google-chrome-stable_current_arm64.deb<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span>Package<span class="w"> </span>Version<span class="w"> </span>Architecture<span class="w"> </span>Maintainer
-</code></pre></div></td></tr></table></div>
-<p>Expected fields include package <code>google-chrome-stable</code> and architecture <code>arm64</code>. The version changes as Chrome is released, so do not require the example version above. If the metadata names a different package or architecture, stop and delete the download.</p>
+<p>Before installing, check that <code>Package</code> is <code>google-chrome-stable</code> and <code>Architecture</code> is <code>arm64</code>. The version changes as Chrome is released. A failed download, invalid archive, or mismatched architecture needs diagnosis before installation.</p>
 <p>Install it with APT so dependencies are resolved:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./google-chrome-stable_current_arm64.deb
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./google-chrome-stable_current_arm64.deb
 </code></pre></div></td></tr></table></div>
-<p>Launch Chrome from the desktop menu or run:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>google-chrome-stable
+<h3 id="verify-google-account-data-on-two-devices">Verify Google Account data on two devices<a class="headerlink" href="#verify-google-account-data-on-two-devices" title="Permanent link">¶</a></h3>
+<p>Launch Chrome from the desktop menu or, as your normal desktop user, run:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>google-chrome-stable
 </code></pre></div></td></tr></table></div>
-<p>Select the profile icon, sign in to Chrome with your Google Account, and choose which data to save. Google explains the account behaviour in <a href="https://support.google.com/chrome/answer/13948160">How sign-in with your Google Account works in Chrome</a>.</p>
+<ol>
+<li>Open Chrome's profile controls and sign in to the intended Google Account.</li>
+<li>Open the account's saved-data settings and choose the data you want to use across devices. History and open tabs have their own setting.</li>
+<li>Create a disposable bookmark, such as this guide, in Chrome on the Pi.</li>
+<li>Check that it appears in Chrome on another device using the same account, then remove the test bookmark when finished.</li>
+</ol>
+<p>If it does not appear, compare the account and saved-data settings on both devices. Follow any account prompts, including an existing sync passphrase or organisation policy. Google's current instructions describe the sign-in and data controls. <a href="https://support.google.com/chrome/answer/13948160">Chrome account sign-in</a></p>
 <p>After installation, the Google repository configuration normally allows future Chrome updates through regular system upgrades. Verify the installed package and repository files with:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>apt<span class="w"> </span>policy<span class="w"> </span>google-chrome-stable
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>ls<span class="w"> </span>/etc/apt/sources.list.d/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>chrome
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>apt<span class="w"> </span>policy<span class="w"> </span>google-chrome-stable
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>ls<span class="w"> </span>/etc/apt/sources.list.d/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>chrome
 </code></pre></div></td></tr></table></div>
 <h2 id="if-the-arm64-download-returns-404-or-another-error">If the ARM64 download returns 404 or another error<a class="headerlink" href="#if-the-arm64-download-returns-404-or-another-error" title="Permanent link">¶</a></h2>
 <p>Do not substitute the AMD64 package. <code>google-chrome-stable_current_amd64.deb</code> targets x86-64 computers and will not run natively on Raspberry Pi OS ARM64.</p>
@@ -11259,13 +11220,15 @@
 <h2 id="keep-chromium-and-sync-bookmarks">Keep Chromium and sync bookmarks<a class="headerlink" href="#keep-chromium-and-sync-bookmarks" title="Permanent link">¶</a></h2>
 <p><a href="https://floccus.org/">Floccus</a> can synchronise bookmarks through Nextcloud, WebDAV, Google Drive, or another supported backend.</p>
 <ol>
+<li>Export your existing bookmarks and retain that backup while setting up sync.</li>
 <li>Install Floccus from the browser's extension store.</li>
 <li>Choose a backend and create a dedicated sync folder.</li>
-<li>Configure the same account and folder on your other browsers.</li>
+<li>Configure the same account and folder on your other browsers, checking each browser's local folder selection.</li>
+<li>Use one bookmark sync service for that folder on each browser to avoid conflicting updates.</li>
 <li>Run a manual sync on one device before enabling automatic sync everywhere.</li>
-<li>Keep a bookmark export until you have confirmed that merging behaves as expected.</li>
 </ol>
-<p>This synchronises bookmarks, not Chromium history, open tabs, cookies, or Google Password Manager data.</p>
+<p><strong>Check the bookmark route:</strong> create one disposable bookmark in the chosen folder on the Pi, sync that profile, and check the same folder on your other browser. Keep the export until you have checked for missing or duplicate bookmarks.</p>
+<p>Floccus also offers a separate open-tabs mode. Its guide calls that mode experimental and notes that duplicate tabs can occur. Start with bookmark-folder syncing if that is your goal. Browser history, cookies, and passwords need their own solutions. <a href="https://floccus.org/guides/">Floccus setup and tab-sync guide</a></p>
 <h2 id="keep-chromium-and-sync-passwords">Keep Chromium and sync passwords<a class="headerlink" href="#keep-chromium-and-sync-passwords" title="Permanent link">¶</a></h2>
 <p>A dedicated password manager is usually a cleaner option than trying to restore Chromium's retired Google API integration.</p>
 <ol>
@@ -11278,11 +11241,11 @@
 <p>Do not place a vault password, OAuth secret, or recovery code in a shell script or Chromium configuration file.</p>
 <h2 id="use-firefox-sync-instead">Use Firefox Sync instead<a class="headerlink" href="#use-firefox-sync-instead" title="Permanent link">¶</a></h2>
 <p>Firefox supports its own account-based synchronisation on Raspberry Pi OS:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>firefox
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>firefox
 </code></pre></div></td></tr></table></div>
-<p>Open Firefox, select the menu, sign in, and choose the data types to synchronise. This is the simplest fallback when you need bookmarks, passwords, history, and tabs under one browser account and Chrome ARM64 is unavailable.</p>
+<p>Open Firefox, select the menu, sign in to your Mozilla account, and choose the data types to synchronise. Make a disposable bookmark and check it on another signed-in Firefox device. Use the same account on both devices. <a href="https://support.mozilla.org/en-US/kb/how-do-i-set-sync-my-computer">Firefox Sync setup</a></p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
 <h3 id="dpkg-error-processing-archive-package-architecture-arm64-does-not-match-system-armhf"><code>dpkg: error processing archive ... package architecture (arm64) does not match system (armhf)</code><a class="headerlink" href="#dpkg-error-processing-archive-package-architecture-arm64-does-not-match-system-armhf" title="Permanent link">¶</a></h3>
 <p>Your Raspberry Pi OS userspace is 32-bit. Reinstall with a 64-bit Raspberry Pi OS image if your board supports it, or use the Chromium/Firefox alternatives above.</p>
@@ -11290,24 +11253,23 @@
 <p>The package is not currently available at that endpoint. Do not remove <code>-f</code> or install an HTML error response as though it were a Debian package. Use a fallback and check again later.</p>
 <h3 id="chrome-installs-but-will-not-start">Chrome installs but will not start<a class="headerlink" href="#chrome-installs-but-will-not-start" title="Permanent link">¶</a></h3>
 <p>Run it from a terminal to capture the error:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>google-chrome-stable
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>journalctl<span class="w"> </span>--user<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-100
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>google-chrome-stable
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>journalctl<span class="w"> </span>--user<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-100
 </code></pre></div></td></tr></table></div>
-<p>Confirm the architecture, available disk space, and package dependencies:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>dpkg<span class="w"> </span>--print-architecture
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>df<span class="w"> </span>-h<span class="w"> </span>/
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>--fix-broken<span class="w"> </span>install
+<p>Confirm the system architecture and free disk space:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>dpkg<span class="w"> </span>--print-architecture
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>df<span class="w"> </span>-h<span class="w"> </span>/
 </code></pre></div></td></tr></table></div>
+<p>Use the <a href="../google_chrome_arm64_raspberry_pi_install_errors/">Chrome startup and dependency error guide</a> to interpret the message before choosing a repair command.</p>
 <h3 id="signing-into-gmail-does-not-enable-browser-sync-in-chromium">Signing into Gmail does not enable browser sync in Chromium<a class="headerlink" href="#signing-into-gmail-does-not-enable-browser-sync-in-chromium" title="Permanent link">¶</a></h3>
 <p>Website sign-in and browser-profile sign-in are separate. Signing into a Google website inside Chromium does not restore the private Chrome Sync API.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
 <h3 id="can-chromium-on-raspberry-pi-sync-directly-with-a-google-account">Can Chromium on Raspberry Pi sync directly with a Google Account?<a class="headerlink" href="#can-chromium-on-raspberry-pi-sync-directly-with-a-google-account" title="Permanent link">¶</a></h3>
 <p>No. The Raspberry Pi OS Chromium build does not have supported access to Google's private Chrome Sync APIs. Use official Google Chrome when a compatible ARM64 package is available, or synchronise through another service.</p>
 <h3 id="is-google-chrome-arm64-available-for-raspberry-pi-now">Is Google Chrome ARM64 available for Raspberry Pi now?<a class="headerlink" href="#is-google-chrome-arm64-available-for-raspberry-pi-now" title="Permanent link">¶</a></h3>
-<p>Yes. The official direct URL returned a valid <code>google-chrome-stable</code> ARM64 Debian package during this site's 3 August 2026 verification. Always check HTTP status and <code>dpkg-deb</code> metadata because availability and versions can change.</p>
+<p>Yes. Google's official download endpoint provides an ARM64 Debian package. Check its <code>Package</code> and <code>Architecture</code> fields as shown above before installation, and follow the <a href="#if-the-arm64-download-returns-404-or-another-error">download-error steps</a> if the request fails.</p>
 <h3 id="does-changing-oauth-client-ids-re-enable-chromium-sync">Does changing OAuth client IDs re-enable Chromium Sync?<a class="headerlink" href="#does-changing-oauth-client-ids-re-enable-chromium-sync" title="Permanent link">¶</a></h3>
 <p>No supported configuration does this. Old guides that export <code>GOOGLE_API_KEY</code>, <code>GOOGLE_DEFAULT_CLIENT_ID</code>, or <code>GOOGLE_DEFAULT_CLIENT_SECRET</code> describe a retired workaround.</p>
 <h3 id="can-i-install-the-amd64-chrome-package-with-emulation">Can I install the AMD64 Chrome package with emulation?<a class="headerlink" href="#can-i-install-the-amd64-chrome-package-with-emulation" title="Permanent link">¶</a></h3>
@@ -11346,7 +11308,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 15, 2026 09:16:16 JST">2026-11-15</span>
   </span>
 
     
