@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-11-29">
   
   
-    <meta property="article:modified_time" content="2026-10-16">
+    <meta property="article:modified_time" content="2026-11-15">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-29",
-    "dateModified": "2026-10-16"
+    "dateModified": "2026-11-15"
   }
   </script>
   <script type="application/ld+json">
@@ -10906,7 +10906,7 @@
         
   
   <span class="md-ellipsis">
-    Common Issues and Solutions
+    Raspberry Pi Troubleshooting: Boot, Wi-Fi, SSH and Power
     
   </span>
   
@@ -10989,6 +10989,7 @@
 <p>Choose the guide that matches the symptom. Each section provides checks to help identify the cause before changing the configuration.</p>
 <h2 id="diagnostics-troubleshooting-guides">Diagnostics &amp; Troubleshooting Guides<a class="headerlink" href="#diagnostics-troubleshooting-guides" title="Permanent link">¶</a></h2>
 <ul>
+<li><a href="common_issues_and_solutions/#choose-your-symptom">Start with your symptom</a> — Choose boot, power, networking, storage, display, or peripheral checks and follow the result.</li>
 <li><a href="../tips/raspberry_pi_boot_time_optimization__complete_performance_guide/">Slow boot and systemd timings</a> — Separate reported startup, target activation and application readiness using a real Pi 4 example.</li>
 <li><a href="../tips/raspberry_pi_networkmanager_wait_online_slow_boot/">NetworkManager wait-online and slow boot</a> — Inspect consumers, connection activation, and readiness before disabling a wait.</li>
 <li><a href="../tips/raspberry_pi_overlayfs_changes_lost_updates/">OverlayFS changes lost and update problems</a> — Verify actual mounts and maintain a persistent baseline.</li>
@@ -11001,7 +11002,7 @@
 <div class="grid cards">
   <a href="common_issues_and_solutions/">
     <strong>Common Issues &amp; Solutions</strong>
-    <p>Resolve hardware and system errors including boot failures, Wi-Fi connectivity, static IP setups, and under-voltage warnings.</p>
+    <p>Choose your symptom, interpret the first checks, and follow the matching boot, network, power, storage, or peripheral procedure.</p>
   </a>
   <a href="performance_troubleshooting_guide/">
     <strong>Performance Troubleshooting</strong>
@@ -11015,21 +11016,16 @@
 
 <hr>
 <h2 id="quick-diagnostic-flowchart">Quick Diagnostic Flowchart<a class="headerlink" href="#quick-diagnostic-flowchart" title="Permanent link">¶</a></h2>
-<p>If you are unsure where to start, follow this quick diagnostic flow to locate the correct guide:</p>
-<div class="mermaid">graph TD
-    A[Identify the Symptom] --&gt; B{System Slow or Freezes?}
-    B --&gt;|Yes| C{High Temperature?}
-    C --&gt;|Yes, Over 80C| D[Go to Thermal Section in Performance Guide]
-    C --&gt;|No| E[Check CPU, RAM, or Disk IO in Performance Guide]
-    B --&gt;|No| F{Boot, Network, or Power Failure?}
-    F --&gt;|Yes| G[Go to Common Issues Guide]
-    F --&gt;|No| H[Search the FAQ Section]
-
-    style A fill:#4361ee,stroke:#3f37c9,stroke-width:2px,color:#fff
-    style D fill:#f72585,stroke:#b5179e,stroke-width:2px,color:#fff
-    style E fill:#f72585,stroke:#b5179e,stroke-width:2px,color:#fff
-    style G fill:#7209b7,stroke:#560bad,stroke-width:2px,color:#fff
-    style H fill:#4cc9f0,stroke:#4895ef,stroke-width:2px,color:#fff</div></div>
+<p>Start by checking whether you can reach a terminal locally or over SSH:</p>
+<div class="mermaid">flowchart TD
+    accTitle: Choose a Raspberry Pi troubleshooting starting point
+    accDescr: If a local or SSH terminal is available, check the failed feature or investigate performance. Otherwise start with power, boot messages and network access.
+    A{Terminal&lt;br/&gt;available?}
+    A --&gt;|No| B[Check power&lt;br/&gt;boot and access]
+    A --&gt;|Yes| C{Task&lt;br/&gt;works?}
+    C --&gt;|No| D[Check the&lt;br/&gt;failed feature]
+    C --&gt;|Yes, slowly| E[Measure the&lt;br/&gt;slow stage]</div>
+<p>Follow the <a href="common_issues_and_solutions/#choose-your-symptom">symptom checks</a>, or use <a href="performance_troubleshooting_guide/">performance diagnosis</a> when the task completes slowly.</p></div>
 
 
 
@@ -11052,7 +11048,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 16, 2026 19:37:43 JST">2026-10-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 15, 2026 09:29:52 JST">2026-11-15</span>
   </span>
 
     
@@ -11085,7 +11081,7 @@
           <li><a href="../tips/retro_gaming__high-performance_ps2_and_sega_saturn_emulation_on_raspberry_pi_5/">Previous: Raspberry Pi 5 PS2 and Sega Saturn Emulation</a></li>
         
         
-          <li><a href="common_issues_and_solutions/">Next: Common Issues and Solutions</a></li>
+          <li><a href="common_issues_and_solutions/">Next: Raspberry Pi Troubleshooting: Boot, Wi-Fi, SSH and Power</a></li>
         
         <li><a href="https://ohyaan.github.io/">Explore all Raspberry Pi tutorials and projects</a></li>
       </ul>
