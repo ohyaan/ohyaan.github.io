@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Set up Raspberry Pi headless in 2026 with Imager, Wi-Fi, SSH keys, Ethernet, or USB Gadget Mode. Includes first-boot checks, discovery, security, and recovery.">
+        <meta name="description" content="Set up a Raspberry Pi without a monitor. Configure SSH in Imager, find your Pi by its .local hostname or router-assigned IP, and verify the first login.">
       
       
       
@@ -84,7 +84,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Raspberry Pi Headless Setup with Imager and SSH - With Raspberry Pi">
-  <meta property="og:description" content="Set up Raspberry Pi headless in 2026 with Imager, Wi-Fi, SSH keys, Ethernet, or USB Gadget Mode. Includes first-boot checks, discovery, security, and recovery.">
+  <meta property="og:description" content="Set up a Raspberry Pi without a monitor. Configure SSH in Imager, find your Pi by its .local hostname or router-assigned IP, and verify the first login.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy.jpg">
@@ -96,12 +96,12 @@
     <meta property="article:published_time" content="2025-05-06">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Raspberry Pi Headless Setup with Imager and SSH - With Raspberry Pi">
-  <meta name="twitter:description" content="Set up Raspberry Pi headless in 2026 with Imager, Wi-Fi, SSH keys, Ethernet, or USB Gadget Mode. Includes first-boot checks, discovery, security, and recovery.">
+  <meta name="twitter:description" content="Set up a Raspberry Pi without a monitor. Configure SSH in Imager, find your Pi by its .local hostname or router-assigned IP, and verify the first login.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -122,7 +122,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Raspberry Pi Headless Setup with Imager and SSH",
-    "description": "Set up Raspberry Pi headless in 2026 with Imager, Wi-Fi, SSH keys, Ethernet, or USB Gadget Mode. Includes first-boot checks, discovery, security, and recovery.",
+    "description": "Set up a Raspberry Pi without a monitor. Configure SSH in Imager, find your Pi by its .local hostname or router-assigned IP, and verify the first login.",
     "url": "https://ohyaan.github.io/tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_headless_setup_complete_guide__remote_setup_made_easy.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-05-06",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -10330,9 +10330,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#references-and-verification-scope" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
-      References and verification scope
+      References
     </span>
   </a>
   
@@ -11159,8 +11159,9 @@
 
 
 <div><h1 id="raspberry-pi-headless-setup-2026-with-imager-and-ssh">Raspberry Pi Headless Setup 2026 with Imager and SSH<a class="headerlink" href="#raspberry-pi-headless-setup-2026-with-imager-and-ssh" title="Permanent link">¶</a></h1>
-<p>To set up a Raspberry Pi <strong>without a monitor</strong>, configure its account, network and SSH public key in Raspberry Pi Imager before writing the card. Boot it on your local network, find its hostname or router-assigned address, then connect from another computer. A headless Pi needs neither a default password nor a static IP.</p>
-<p>This procedure ends at a verified LAN terminal login. For a monitor-based first boot, use <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/">Initial Setup</a>. If you already tried SSH and have an error, use the <a href="../raspberry_pi_headless_setup_troubleshooter/">headless troubleshooter</a> instead of repeating the installation. Pi 5 owners should also check <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/">power and boot behaviour</a>.</p>
+<p>A <strong>headless Raspberry Pi</strong> runs without a monitor, keyboard or mouse. Set its username, network and SSH public key in Raspberry Pi Imager before writing the card. After powering it on, connect from another computer using the hostname you chose. If the name does not resolve, use the Pi's IP address from your router.</p>
+<p><a href="#step-2-configure-raspberry-pi-imager">Set up Imager</a> · <a href="#step-4-connect-over-ssh">Find the Pi and connect</a> · <a href="#troubleshooting">Read your SSH error</a></p>
+<p>For a monitor-based first boot, see <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/">Initial Setup</a>. If you use a Pi 5, check its <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/">power and boot behaviour</a>.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11207,18 +11208,27 @@
 <p>Safely remove the verified card from the client, insert it into the unpowered Pi, attach Ethernet if selected, then apply the correct power supply. Allow provisioning to complete; do not repeatedly interrupt power. On models without Ethernet, use the Wi-Fi settings prepared in Imager.</p>
 <p>Keep the client on a network that can reach the Pi. Record the configured username and hostname, not a guessed default. Pi 5 power-button/status-light and peripheral checks are in the <a href="../raspberry_pi_5_headless_first_boot_ssh_checklist/#pi-5-first-boot-checklist">model-specific checklist</a>.</p>
 <h2 id="step-4-connect-over-ssh">Step 4: connect over SSH<a class="headerlink" href="#step-4-connect-over-ssh" title="Permanent link">¶</a></h2>
-<p>On the <strong>client</strong>, replace <code>your-user</code> with your configured account:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ssh<span class="w"> </span>your-user@pi-lab-01.local
+<h3 id="try-the-hostname-from-imager">Try the hostname from Imager<a class="headerlink" href="#try-the-hostname-from-imager" title="Permanent link">¶</a></h3>
+<p>Open a terminal on your <strong>client computer</strong> (PowerShell on Windows or Terminal on macOS and Linux). In this example Imager used the hostname <code>pi-lab-01</code>. Replace it and <code>your-user</code> with the values you entered. Leave the <code>.local</code> suffix in place.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">ConnectTimeout</span><span class="o">=</span><span class="m">5</span><span class="w"> </span>your-user@pi-lab-01.local
 </code></pre></div></td></tr></table></div>
-<p>If you chose a non-default private-key filename in Step 1, select it with <code>ssh -i</code> (for example, <code>ssh -i /path/to/your/private-key your-user@pi-lab-01.local</code>). The <code>-i</code> path is the <strong>private</strong> client file, not the <code>.pub</code> file copied into Imager.</p>
-<p>If <code>.local</code> cannot resolve, find <code>pi-lab-01</code> in the router's DHCP/client list or ask the network administrator. Replace this example with that <strong>known actual address</strong>:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>ssh<span class="w"> </span>your-user@192.168.1.42
+<p>Raspberry Pi OS announces the name on the local network using multicast DNS (mDNS). Your client and network must support that lookup. If SSH reports <code>Could not resolve hostname</code>, try the router-assigned IP below. If it asks about an unfamiliar host key, <a href="#verify-the-host-key-on-first-login">verify the Pi's identity</a> before accepting.</p>
+<h3 id="find-the-pis-ip-address-in-the-router">Find the Pi's IP address in the router<a class="headerlink" href="#find-the-pis-ip-address-in-the-router" title="Permanent link">¶</a></h3>
+<p>Open the router's app or admin page and look for <strong>Connected devices</strong>, <strong>Clients</strong> or <strong>DHCP leases</strong>. On a managed network, ask the administrator.</p>
+<ol>
+<li>Find an active entry with the hostname you set in Imager, such as <code>pi-lab-01</code>. Check that its connection type matches your Ethernet or Wi-Fi setup if the router shows it. An old lease can remain listed after a device disconnects.</li>
+<li>Copy the entry's IPv4 address. If the router hides the name or shows several possible entries, use a monitor to run <code>ip -brief address</code> on the Pi, or ask the network administrator to confirm its address.</li>
+<li>From your <strong>client</strong>, replace <code>192.168.1.42</code> with the address you confirmed:<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>ssh<span class="w"> </span>-o<span class="w"> </span><span class="nv">ConnectTimeout</span><span class="o">=</span><span class="m">5</span><span class="w"> </span>your-user@192.168.1.42
 </code></pre></div></td></tr></table></div>
-<p>A failing hostname with a working IP points to name discovery, not necessarily failed boot. Do not scan networks you do not administer or try random fallback addresses.</p>
-<p><strong>Verify identity before accepting a new host key.</strong> A trusted local Pi console can display its public ED25519 fingerprint:</p>
+</li>
+</ol>
+<p>If SSH works by IP, the Pi is reachable and you can use that address even if <code>.local</code> fails. If the Pi has no active entry, first check boot, Ethernet or Imager's Wi-Fi settings. Changing the SSH key will not help the Pi join the network.</p>
+<p>If you saved the key under a custom filename in Step 1, add <code>-i "path/to/private-key"</code> before the destination in either command. Use the matching private key on the client.</p>
+<h3 id="verify-the-host-key-on-first-login">Verify the host key on first login<a class="headerlink" href="#verify-the-host-key-on-first-login" title="Permanent link">¶</a></h3>
+<p>A host key identifies the SSH server. Check the fingerprint in the first-login prompt through a trusted independent route before accepting it. For an ED25519 prompt, run this from a trusted local console on the <strong>Pi</strong>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>ssh-keygen<span class="w"> </span>-lf<span class="w"> </span>/etc/ssh/ssh_host_ed25519_key.pub
 </code></pre></div></td></tr></table></div>
-<p>Compare the offered fingerprint with the corresponding key through a trusted independent route; do not use <code>ssh-keyscan</code> from the same unverified path as proof. A new unattended image may require temporarily attaching a console or another trusted provisioning method to establish that baseline. If a known key changes, stop and verify the machine/reimaging history before replacing only that client's affected entry. Do not disable host-key checking.</p>
+<p>Compare the fingerprint and key type with the client's prompt. If the fingerprint differs, cancel the connection and check the intended Pi's address. You may see a new prompt when you switch from hostname to IP. If the client warns that a known key changed, <a href="../raspberry_pi_headless_setup_troubleshooter/#host-key-warnings-require-identity-verification">verify the device and its reimaging history</a> before updating the entry.</p>
 <h2 id="step-5-verify-the-installation">Step 5: verify the installation<a class="headerlink" href="#step-5-verify-the-installation" title="Permanent link">¶</a></h2>
 <p>After authentication, run these read-only checks <strong>on the Pi</strong>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
@@ -11242,19 +11252,48 @@
 <p>Once both logins work, continue with <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/#5-update-raspberry-pi-os-then-reconnect">updates and reconnection after reboot</a>. These are <strong>system-changing steps</strong>: review APT's proposed actions, check recovery and service startup, and reboot only after a successful update. The <a href="../raspberry_pi_os_trixie_sudo_password_required/">Trixie sudo guide</a> explains administrator-password prompts separately from SSH login.</p>
 <p>Further access-policy changes belong to <a href="../raspberry_pi_security_hardening_complete_guide/">security hardening</a>, not an additional mandatory first-boot script.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>No boot indication or no router lease:</strong> check image verification, power and the intended Ethernet/Wi-Fi path before changing credentials.</li>
-<li><strong>IP works but hostname fails:</strong> check client mDNS/network isolation; keep using the verified address.</li>
-<li><strong>Timeout, refused connection, public-key rejection or changed host key:</strong> these are different failure layers. Use the <a href="../raspberry_pi_headless_setup_troubleshooter/">symptom-based troubleshooter</a>; do not reimage as the first response.</li>
-<li><strong>USB interface absent:</strong> return to the <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB-specific prerequisites</a>, not a generic IP guess.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What to check next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Could not resolve hostname</code></td>
+<td>Check the spelling or <a href="#find-the-pis-ip-address-in-the-router">use the router-assigned IP</a>.</td>
+</tr>
+<tr>
+<td><code>Connection timed out</code></td>
+<td>Confirm the IP is current and the client can reach the Pi's network. Check for guest Wi-Fi isolation or filtering.</td>
+</tr>
+<tr>
+<td><code>Connection refused</code></td>
+<td>Confirm you reached the intended address, then check that SSH is enabled and listening on the Pi.</td>
+</tr>
+<tr>
+<td><code>Permission denied (publickey)</code></td>
+<td>The server answered. Confirm your Imager username and <a href="../raspberry_pi_headless_setup_troubleshooter/#ssh-key-checks">the key your client offered</a>.</td>
+</tr>
+<tr>
+<td><code>REMOTE HOST IDENTIFICATION HAS CHANGED</code></td>
+<td><a href="#verify-the-host-key-on-first-login">Check the server's identity</a> before changing any saved key.</td>
+</tr>
+</tbody>
+</table>
+<p>For recovery steps, see the <a href="../raspberry_pi_headless_setup_troubleshooter/#symptom-matrix">headless troubleshooter</a>. For a Pi connected directly over USB, follow the <a href="../raspberry_pi_usb_gadget_mode_ssh_over_usb_trixie/">USB Gadget prerequisites</a>.</p>
 <h2 id="optional-remote-access">Optional remote access<a class="headerlink" href="#optional-remote-access" title="Permanent link">¶</a></h2>
 <p>This LAN login does not automatically work from outside home. For browser access or a desktop, use <a href="../raspberry_pi_remote_access_and_vnc_optimization__complete_remote_desktop_guide/">the remote-access chooser</a>. For different connectivity requirements, use <a href="../raspberry_pi_headless_networking_2026_hub/">the connection route map</a>. Lite still has no graphical desktop to share.</p>
 <h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
 <p>Which key stays on the client, and which goes into Imager? Why can <code>.local</code> fail while the numeric address works? What proves that SSH runs now, and what still needs checking before reboot?</p>
 <p>Next, use <a href="../../basic-operations/essential_linux_commands_for_raspberry_pi/">safe terminal practice</a> after completing the update/reconnection check. Network profile changes belong to <a href="../../basic-operations/networking_setup_and_management_for_raspberry_pi/">NetworkManager and nmcli</a>, not another OS installation.</p>
-<h2 id="references-and-verification-scope">References and verification scope<a class="headerlink" href="#references-and-verification-scope" title="Permanent link">¶</a></h2>
-<p>The <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html">official first-install guide</a> and <a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#ssh">SSH documentation</a> were checked for this revision. Shell syntax and rendered links are checked automatically. This editorial revision does <strong>not</strong> claim a fresh card write, unattended first boot, new key provisioning or validation on every model; no Pi account, service or network setting was changed for it.</p></div>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#headless-remote-setup">Raspberry Pi headless setup</a></li>
+<li><a href="https://www.raspberrypi.com/documentation/computers/remote-access.html#find-the-ip-address-of-your-raspberry-pi">Raspberry Pi remote access and IP discovery</a></li>
+<li><a href="https://man.openbsd.org/ssh_config#ConnectTimeout">OpenSSH client configuration</a></li>
+</ul></div>
 
 
 
@@ -11277,7 +11316,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 23:10:39 JST">2026-11-22</span>
   </span>
 
     
