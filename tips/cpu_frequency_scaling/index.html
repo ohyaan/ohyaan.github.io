@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
+        <meta name="description" content="Check Raspberry Pi CPU speed with vcgencmd, compare idle and loaded clocks, and use CPUFreq and throttling flags to explain a low reading.">
       
       
       
@@ -84,7 +84,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Raspberry Pi CPU Frequency: Commands and Governors - With Raspberry Pi">
-  <meta property="og:description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
+  <meta property="og:description" content="Check Raspberry Pi CPU speed with vcgencmd, compare idle and loaded clocks, and use CPUFreq and throttling flags to explain a low reading.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/cpu_frequency_scaling/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg">
@@ -96,12 +96,12 @@
     <meta property="article:published_time" content="2025-02-21">
   
   
-    <meta property="article:modified_time" content="2026-10-09">
+    <meta property="article:modified_time" content="2026-11-23">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Raspberry Pi CPU Frequency: Commands and Governors - With Raspberry Pi">
-  <meta name="twitter:description" content="Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.">
+  <meta name="twitter:description" content="Check Raspberry Pi CPU speed with vcgencmd, compare idle and loaded clocks, and use CPUFreq and throttling flags to explain a low reading.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -122,7 +122,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Raspberry Pi CPU Frequency: Commands and Governors",
-    "description": "Check Raspberry Pi CPU clock speed, compare firmware Hz with Linux kHz, inspect available governors, and diagnose low frequency before changing settings.",
+    "description": "Check Raspberry Pi CPU speed with vcgencmd, compare idle and loaded clocks, and use CPUFreq and throttling flags to explain a low reading.",
     "url": "https://ohyaan.github.io/tips/cpu_frequency_scaling/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/cpu_frequency_scaling/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__cpu_frequency_scaling.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-02-21",
-    "dateModified": "2026-10-09"
+    "dateModified": "2026-11-23"
   }
   </script>
   <script type="application/ld+json">
@@ -10174,6 +10174,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compare-idle-and-loaded-clock-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compare idle and loaded clock speed
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#inspect-cpufreq-policy-before-changing-it" class="md-nav__link">
     <span class="md-ellipsis">
       Inspect CPUFreq policy before changing it
@@ -11101,7 +11110,7 @@
 
 
 <div><h1 id="raspberry-pi-cpu-frequency-check-clock-speed-and-governors">Raspberry Pi CPU Frequency: Check Clock Speed and Governors<a class="headerlink" href="#raspberry-pi-cpu-frequency-check-clock-speed-and-governors" title="Permanent link">¶</a></h1>
-<p>Check Raspberry Pi CPU clock speed with <code>vcgencmd measure_clock arm</code>. Inspect the Linux governor separately: a low idle clock can be normal, while a low clock during load needs temperature, power, and policy checks—not an immediate overclock.</p>
+<p>Run <code>vcgencmd measure_clock arm</code> on the Raspberry Pi to check its current CPU clock in hertz (Hz). A low reading at idle is common. Measure again while the Pi is doing work, then check temperature and throttling flags if the clock stays low.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11111,6 +11120,7 @@
   </script>
 </div>
 
+<p><a href="#raspberry-pi-cpu-frequency-commands">Read the clock</a> · <a href="#compare-idle-and-loaded-clock-speed">Compare idle and load</a> · <a href="#why-is-my-raspberry-pi-cpu-frequency-low">Diagnose a low reading</a></p>
 <h2 id="raspberry-pi-cpu-frequency-commands">Raspberry Pi CPU frequency commands<a class="headerlink" href="#raspberry-pi-cpu-frequency-commands" title="Permanent link">¶</a></h2>
 <p>Run on the Pi host:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
@@ -11121,37 +11131,88 @@
 <a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1"># Linux CPUFreq reading: kilohertz, if this policy exists.</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4"></a>cat<span class="w"> </span>/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
 </code></pre></div></td></tr></table></div>
-<p>These interfaces use different units and may describe different aspects of clock control. For a Linux reading in MHz:</p>
+<p>Read the number after <code>=</code> in the firmware output. For example, <code>frequency(48)=1800404352</code> is about <strong>1,800 MHz</strong>. Divide the firmware number by 1,000,000 or the Linux number by 1,000 to convert to MHz. To print the Linux reading in MHz directly:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
 <span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>awk<span class="w"> </span><span class="s1">'{printf "%.0f MHz\n", $1/1000}'</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span>/sys/devices/system/cpu/cpufreq/policy0/scaling_cur_freq
 </code></pre></div></td></tr></table></div>
-<p>Do not assume a universal default of 700 MHz, a minimum of 100 MHz, or one governor across all boards and images. Query your running system.</p>
-<h2 id="inspect-cpufreq-policy-before-changing-it">Inspect CPUFreq policy before changing it<a class="headerlink" href="#inspect-cpufreq-policy-before-changing-it" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Read each policy the kernel exposes.</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">for</span><span class="w"> </span>policy<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/devices/system/cpu/cpufreq/policy*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'\nPolicy: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span>field<span class="w"> </span><span class="k">in</span><span class="w"> </span>scaling_driver<span class="w"> </span>scaling_governor<span class="w"> </span>scaling_available_governors<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">                 </span>scaling_min_freq<span class="w"> </span>scaling_max_freq<span class="w"> </span>scaling_cur_freq<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">        </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">        </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s: '</span><span class="w"> </span><span class="s2">"</span><span class="nv">$field</span><span class="s2">"</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">        </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="k">done</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="k">done</span>
+<p>Use the policy limits below to find the range on your board. The firmware and Linux readings come from different interfaces and are sampled at different instants.</p>
+<h2 id="compare-idle-and-loaded-clock-speed">Compare idle and loaded clock speed<a class="headerlink" href="#compare-idle-and-loaded-clock-speed" title="Permanent link">¶</a></h2>
+<p>Start the monitor in one terminal on the Pi and let the readings settle:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="s1">vcgencmd measure_clock arm</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="s1">vcgencmd measure_temp</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="s1">vcgencmd get_throttled</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="s1">'</span>
 </code></pre></div></td></tr></table></div>
-<p>Policies can cover several CPUs. Missing policy files mean this interface is unavailable in that environment, not that CPU frequency is zero.</p>
-<p>The <a href="https://docs.kernel.org/admin-guide/pm/cpufreq.html#policy-interface-in-sysfs">Linux CPUFreq documentation</a> distinguishes the current governor, allowed limits, and requested frequency. scaling_cur_freq often reflects a requested state rather than an exact instantaneous hardware measurement. cpuinfo_cur_freq, when supported, uses hardware feedback. Read the <a href="https://www.raspberrypi.com/documentation/computers/os.html#measure_clock-clock">firmware command reference</a> for vcgencmd.</p>
+<p>In a second terminal on the Pi, run the workload that felt slow. On a test Pi, you can also use this eight-second check to see whether the clock responds to demand:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>timeout<span class="w"> </span>8s<span class="w"> </span>yes<span class="w"> </span>&gt;/dev/null
+</code></pre></div></td></tr></table></div>
+<p><code>yes</code> repeatedly writes to <code>/dev/null</code> and keeps roughly one CPU core busy. <code>timeout</code> stops it automatically (exit status 124 is expected). Compare the clock <strong>before, during and after</strong> the workload. Press Ctrl+C to close the monitor. A short run shows how the clock responds to load. For sustained cooling problems, observe your actual workload.</p>
+<p>These readings came from a Raspberry Pi 4B running Raspberry Pi OS Trixie with the <code>ondemand</code> governor:</p>
+<table>
+<thead>
+<tr>
+<th>When sampled</th>
+<th style="text-align: right;">Arm clock</th>
+<th style="text-align: right;">SoC temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>At idle</td>
+<td style="text-align: right;">600 MHz</td>
+<td style="text-align: right;">34.0°C</td>
+</tr>
+<tr>
+<td>Four seconds into the load</td>
+<td style="text-align: right;">1,800 MHz</td>
+<td style="text-align: right;">36.0°C</td>
+</tr>
+<tr>
+<td>Five seconds after the load ended</td>
+<td style="text-align: right;">1,800 MHz</td>
+<td style="text-align: right;">34.5°C</td>
+</tr>
+<tr>
+<td>Fifteen seconds after the load ended</td>
+<td style="text-align: right;">600 MHz</td>
+<td style="text-align: right;">35.0°C</td>
+</tr>
+</tbody>
+</table>
+<p>The same board ran at both 600 MHz and 1,800 MHz without changing its settings. <code>get_throttled</code> stayed at <code>0x50000</code>, which records earlier undervoltage and throttling. The current flags were clear at each sample. Use your own readings to compare clock behaviour.</p>
+<h2 id="inspect-cpufreq-policy-before-changing-it">Inspect CPUFreq policy before changing it<a class="headerlink" href="#inspect-cpufreq-policy-before-changing-it" title="Permanent link">¶</a></h2>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Read each policy the kernel exposes.</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">for</span><span class="w"> </span>policy<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/devices/system/cpu/cpufreq/policy*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'\nPolicy: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">"</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span>field<span class="w"> </span><span class="k">in</span><span class="w"> </span>affected_cpus<span class="w"> </span>scaling_driver<span class="w"> </span>scaling_governor<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">                 </span>scaling_available_governors<span class="w"> </span>scaling_min_freq<span class="w"> </span>scaling_max_freq<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">                 </span>scaling_cur_freq<span class="w"> </span>cpuinfo_cur_freq<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">        </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">        </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s: '</span><span class="w"> </span><span class="s2">"</span><span class="nv">$field</span><span class="s2">"</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">        </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy</span><span class="s2">/</span><span class="nv">$field</span><span class="s2">"</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<p>Each policy controls the online cores listed in <code>affected_cpus</code>. <code>scaling_min_freq</code> and <code>scaling_max_freq</code> give its allowed range in kHz.</p>
+<p><code>scaling_cur_freq</code> often reflects the last frequency requested by the driver. <code>cpuinfo_cur_freq</code> uses hardware feedback when the driver provides it. On the Pi 4B used here, <code>cpuinfo_cur_freq</code> was absent. See the <a href="https://docs.kernel.org/admin-guide/pm/cpufreq.html#policy-interface-in-sysfs">Linux CPUFreq attributes</a> and the <a href="https://www.raspberrypi.com/documentation/computers/os.html#measure_clock-clock">firmware clock command</a>.</p>
 <h2 id="what-the-governor-changes">What the governor changes<a class="headerlink" href="#what-the-governor-changes" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -11182,9 +11243,7 @@
 <p>Actual clocks remain subject to hardware, firmware, power, and temperature constraints. performance is not a promise of an always-maximal measured clock; powersave is not proof of the lowest whole-board energy use.</p>
 <p>Available choices depend on driver and kernel configuration. Use scaling_available_governors rather than copying a name from another Pi.</p>
 <h2 id="why-is-my-raspberry-pi-cpu-frequency-low">Why is my Raspberry Pi CPU frequency low?<a class="headerlink" href="#why-is-my-raspberry-pi-cpu-frequency-low" title="Permanent link">¶</a></h2>
-<p>Observe the workload that appears slow:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'vcgencmd measure_clock arm; vcgencmd measure_temp; vcgencmd get_throttled'</span>
-</code></pre></div></td></tr></table></div>
+<p>Use readings taken during the slowdown. Compare the firmware clock with the CPUFreq policy's minimum and maximum, and check current and historical flags separately.</p>
 <table>
 <thead>
 <tr>
@@ -11198,7 +11257,7 @@
 <td>Normal scaling may explain it</td>
 </tr>
 <tr>
-<td>Warm and clock falls during sustained work</td>
+<td>Clock drops as temperature approaches the board's thermal limit during sustained work</td>
 <td><a href="../raspberry_pi_temperature_monitoring_and_alerts/">Temperature, airflow, and cooling</a></td>
 </tr>
 <tr>
@@ -11207,11 +11266,11 @@
 </tr>
 <tr>
 <td>Only historical flags remain</td>
-<td>Resolve whether the fault recurs during the current workload</td>
+<td>Use the <a href="../raspberry_pi_get_throttled_undervoltage/#raspberry-pi-get_throttled-decoder">flag decoder</a> and check whether current flags appear during the slowdown</td>
 </tr>
 <tr>
-<td>Low requested limit or powersave policy</td>
-<td>Inspect recorded limits and governor</td>
+<td>Low policy maximum or <code>powersave</code> governor</td>
+<td>Check <code>scaling_max_freq</code> and <code>scaling_governor</code> before changing either</td>
 </tr>
 <tr>
 <td>Normal clock, application still slow</td>
@@ -11221,33 +11280,29 @@
 </table>
 <p>Do not diagnose thermal throttling from a historical bit alone. Do not compensate for insufficient power by forcing a higher frequency.</p>
 <h2 id="test-a-governor-reversibly">Test a governor reversibly<a class="headerlink" href="#test-a-governor-reversibly" title="Permanent link">¶</a></h2>
-<p>This Bash example targets policy0 only. Review that policy first, save its current governor, and choose a listed replacement:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">policy_path</span><span class="o">=</span>/sys/devices/system/cpu/cpufreq/policy0
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">previous_governor</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nv">candidate_governor</span><span class="o">=</span>performance
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Stop if the kernel does not list this choice.</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>grep<span class="w"> </span>-qw<span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_available_governors"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="c1"># Run the same short application workload, then restore in this shell.</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$previous_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+<p>If you have a repeatable workload, time it under the current policy first. In Bash, record the original governor for <code>policy0</code> and attempt a temporary change only if the new governor is listed:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nv">policy_path</span><span class="o">=</span>/sys/devices/system/cpu/cpufreq/policy0
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nv">candidate_governor</span><span class="o">=</span>performance
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="nv">previous_governor</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span><span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'Original governor: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$previous_governor</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">    </span>grep<span class="w"> </span>-qw<span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_available_governors"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$candidate_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
 </code></pre></div></td></tr></table></div>
-<p>This is a temporary policy experiment, not overclocking. Another service may change the policy, and reboot may restore the image's configuration. Avoid doing it on an unattended appliance without a recovery path.</p>
-<p>For comparison, record workload duration, clock, temperature, and throttling under both policies. Include measured energy if power use matters. No speed or power improvement is promised here.</p>
+<p>If the change succeeds, run and time the same workload again. When it finishes, restore the original governor <strong>in that same shell</strong> and check the result:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">test</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$previous_governor</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$previous_governor</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$policy_path</span><span class="s2">/scaling_governor"</span>
+</code></pre></div></td></tr></table></div>
+<p>Compare workload duration, clock, temperature and flags under both policies. For whole-board energy, measure power over the full workload. A service that manages CPU policy can overwrite a manual change.</p>
 <h2 id="do-i-need-to-edit-configtxt-or-rebuild-the-kernel">Do I need to edit config.txt or rebuild the kernel?<a class="headerlink" href="#do-i-need-to-edit-configtxt-or-rebuild-the-kernel" title="Permanent link">¶</a></h2>
 <p>Not for a first measurement or a temporary change to an available governor. Leave firmware clock and voltage settings at their defaults while diagnosing power and cooling.</p>
 <p>Firmware configuration affects supported frequency behaviour but is not interchangeable with a Linux governor. Do not copy old arm_freq_min=100 advice across models. Kernel rebuilding is not a routine prerequisite for CPUFreq diagnosis.</p>
@@ -11287,7 +11342,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 9, 2026 22:32:34 JST">2026-10-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 23, 2026 06:18:53 JST">2026-11-23</span>
   </span>
 
     
