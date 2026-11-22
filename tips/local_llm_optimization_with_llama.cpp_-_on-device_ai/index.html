@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-11-22">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-22",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -7947,6 +7947,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#before-you-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before you start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       Quick start
@@ -7959,15 +7968,6 @@
   <a href="#hardware-and-model-sizing" class="md-nav__link">
     <span class="md-ellipsis">
       Hardware and model sizing
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#choose-a-gguf-quantisation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Choose a GGUF quantisation
     </span>
   </a>
   
@@ -8019,15 +8019,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#minimal-systemd-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      Minimal systemd service
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       Troubleshooting
@@ -8037,9 +8028,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#faq" class="md-nav__link">
+  <a href="#check-your-understanding" class="md-nav__link">
     <span class="md-ellipsis">
-      FAQ
+      Check your understanding
     </span>
   </a>
   
@@ -11137,46 +11128,7 @@
 
 
 <div><h1 id="llamacpp-on-raspberry-pi-build-memory-locking-and-benchmark">llama.cpp on Raspberry Pi: Build, Memory Locking, and Benchmark<a class="headerlink" href="#llamacpp-on-raspberry-pi-build-memory-locking-and-benchmark" title="Permanent link">¶</a></h1>
-<p><code>llama.cpp</code> runs quantised GGUF language models locally on Raspberry Pi. A useful setup starts with a model that fits comfortably in RAM, builds the current project with CMake, measures prompt processing and text generation separately, and changes only one parameter per benchmark.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Quick answer: should you lock llama.cpp model memory?</p>
-<p>Current builds expose <code>--load-mode</code>; <code>mmap+mlock</code> requests mapped model memory remain resident. Older builds used <code>--mlock</code>. Locking can help with memory-pressure stalls, but does not accelerate inference computation. Check local <code>--help</code>, physical RAM, and process limits first. Use the <a href="../llama_cpp_mlock_failed_raspberry_pi/">memory-lock failure guide</a> for option migration and systemd checks.</p>
-</div>
-<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ggml-org/llama.cpp.git
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nb">cd</span><span class="w"> </span>llama.cpp
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>./build/bin/llama-cli<span class="w"> </span>--version
-</code></pre></div></td></tr></table></div>
-<p>Run a local GGUF model:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span>
-<span class="normal"><a href="#__codelineno-1-5">5</a></span>
-<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>./build/bin/llama-cli<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span>-m<span class="w"> </span>/srv/models/model.gguf<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="s2">"Explain what a Raspberry Pi GPIO pin does."</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">128</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span>-c<span class="w"> </span><span class="m">2048</span>
-</code></pre></div></td></tr></table></div>
-<p>The project changes quickly. Check the upstream <a href="https://github.com/ggml-org/llama.cpp">llama.cpp repository</a> and <a href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md">build documentation</a> before copying old commands. Current builds use CMake and place tools such as <code>llama-cli</code>, <code>llama-server</code>, and <code>llama-bench</code> under <code>build/bin/</code>; old <code>make</code> and <code>./main</code> instructions are obsolete.</p>
+<p>Run a small local language model on your Raspberry Pi before tuning its performance. This guide builds <code>llama.cpp</code>, downloads a specific GGUF model, and generates a short answer; memory locking, benchmarks, and a local API come afterwards.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11186,356 +11138,349 @@
   </script>
 </div>
 
-<h2 id="hardware-and-model-sizing">Hardware and model sizing<a class="headerlink" href="#hardware-and-model-sizing" title="Permanent link">¶</a></h2>
-<p>The model file is only part of the memory requirement. llama.cpp also needs memory for its context/KV cache, compute buffers, the operating system, and any server concurrency.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Run the commands <strong>in a terminal on the Pi</strong>, including through SSH. Use a Raspberry Pi 4 or 5 with a 64-bit Linux installation, an internet connection, and several GB of free storage for source, compiler output, and the model. The first example uses a tiny English-language model on the CPU, two threads, and a short context.</p>
+<p>By the end of the required steps, the CLI should load the model, print a short response, and return to your shell prompt. Then you can try the optional benchmark and API sections.</p>
+<p>Check the system before installing anything:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>uname<span class="w"> </span>-m
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>free<span class="w"> </span>-h
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>df<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>The architecture should be <code>aarch64</code>. On a 32-bit installation, use the <a href="../../getting-started/">Getting Started course</a> to prepare a separate 64-bit OS card first. Keep your current card and data until the new installation works. In <code>free</code>, look at <strong>available</strong> memory rather than only the <strong>free</strong> column; the model also needs working buffers and space for the OS.</p>
 <table>
 <thead>
 <tr>
-<th>Raspberry Pi</th>
-<th>Practical starting point</th>
-<th>Notes</th>
+<th>Stage</th>
+<th>What you will check</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Pi 4, 4 GB</td>
-<td>Small 1B–3B-class quantised model, short context</td>
-<td>Keep desktop applications closed and watch swap</td>
+<td><a href="#1-build-llamacpp-on-raspberry-pi">Build</a></td>
+<td><code>llama-cli --version</code> prints a version</td>
 </tr>
 <tr>
-<td>Pi 4, 8 GB</td>
-<td>Small model or carefully tested 7B-class quantisation</td>
-<td>Generation is CPU-bound; active cooling helps consistency</td>
+<td><a href="#2-download-a-small-gguf-model">Download</a></td>
+<td>The GGUF checksum matches the selected file</td>
 </tr>
 <tr>
-<td>Pi 5, 8 GB</td>
-<td>Small models for responsiveness; test 7B-class models</td>
-<td>Use active cooling and fast storage for repeatable tests</td>
+<td><a href="#3-generate-one-short-response">First response</a></td>
+<td>A single short turn finishes</td>
 </tr>
 <tr>
-<td>Pi 5, 16 GB</td>
-<td>Larger context or model experiments</td>
-<td>More RAM does not make CPU generation proportionally faster</td>
+<td><a href="#benchmark-prompt-and-generation-speed">Optional benchmark</a></td>
+<td>Prompt processing and generation have separate results</td>
+</tr>
+<tr>
+<td><a href="#run-the-local-api-server">Optional API</a></td>
+<td>A loopback health request returns <code>status: ok</code></td>
 </tr>
 </tbody>
 </table>
-<p>These are starting ranges, not guarantees. Architecture, quantisation, context length, batch size, llama.cpp revision, and background processes change the result.</p>
-<p>Before loading a model:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>df<span class="w"> </span>-h<span class="w"> </span>/srv/models
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>vcgencmd<span class="w"> </span>measure_temp
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>vcgencmd<span class="w"> </span>get_throttled
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">¶</a></h2>
+<h3 id="1-build-llamacpp-on-raspberry-pi">1. Build llama.cpp on Raspberry Pi<a class="headerlink" href="#1-build-llamacpp-on-raspberry-pi" title="Permanent link">¶</a></h3>
+<p>Install the compiler, CMake, Git, and download tools. APT asks before installing packages; read its proposed changes.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>cmake<span class="w"> </span>git<span class="w"> </span>curl<span class="w"> </span>ca-certificates
 </code></pre></div></td></tr></table></div>
-<p>Keep at least several hundred MiB free for the OS, and preferably more for services and filesystem cache. If the kernel kills <code>llama-cli</code>, choose a smaller model or context instead of treating swap as unlimited RAM.</p>
-<h2 id="choose-a-gguf-quantisation">Choose a GGUF quantisation<a class="headerlink" href="#choose-a-gguf-quantisation" title="Permanent link">¶</a></h2>
-<p>GGUF files commonly include a quantisation label such as <code>Q4_K_M</code> or <code>Q5_K_M</code>. Lower-bit quantisation usually reduces RAM and storage use but can reduce model quality. Higher-bit files require more RAM and storage and may be slower to load.</p>
-<p>Use this selection process:</p>
-<ol>
-<li>Confirm that the model licence permits your use.</li>
-<li>Choose a model architecture supported by your current llama.cpp revision.</li>
-<li>Start with a moderate quantisation such as a Q4 variant.</li>
-<li>Start with a short context such as 2048 tokens.</li>
-<li>Measure quality, memory, prompt speed, and generation speed.</li>
-<li>Change one dimension—model, quantisation, or context—at a time.</li>
-</ol>
-<p>Do not infer RAM requirements from parameter count alone. Inspect the actual file and test the complete runtime configuration.</p>
-<h2 id="build-options-for-raspberry-pi">Build options for Raspberry Pi<a class="headerlink" href="#build-options-for-raspberry-pi" title="Permanent link">¶</a></h2>
-<h3 id="standard-cpu-build">Standard CPU build<a class="headerlink" href="#standard-cpu-build" title="Permanent link">¶</a></h3>
-<p>The standard build is the best baseline:</p>
+<p>Create a fresh working directory in your home directory. Keep using this terminal so that <code>llama_work</code> and your current directory remain available.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># Create a new directory without replacing an existing checkout.</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">llama_work</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/llama-start.XXXXXX"</span><span class="k">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Working directory: %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$llama_work</span><span class="s2">"</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/ggml-org/llama.cpp.git<span class="w"> </span><span class="s2">"</span><span class="nv">$llama_work</span><span class="s2">/llama.cpp"</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$llama_work</span><span class="s2">/llama.cpp"</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span>-DLLAMA_BUILD_TESTS<span class="o">=</span>OFF
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">  </span>--target<span class="w"> </span>llama-cli<span class="w"> </span>llama-bench<span class="w"> </span>llama-server<span class="w"> </span>-j<span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a>./build/bin/llama-cli<span class="w"> </span>--version
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+</code></pre></div></td></tr></table></div>
+<p>Wait for each command to finish successfully before continuing. The first build can take many minutes on a Pi 4; progress percentages can restart as CMake moves between targets. Two build jobs limit parallel compiler memory use. If compilation is killed, inspect memory and retry the <strong>same</strong> build command with <code>-j 1</code>; there is no need to delete the checkout.</p>
+<p>The version and Git commit identify your build. The <a href="https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md">upstream build instructions</a> use CMake; old <code>make LLAMA_OPENBLAS=1</code> and <code>./main</code> instructions refer to older versions. From a new terminal, change into the printed working directory's <code>llama.cpp</code> subdirectory first.</p>
+<h3 id="2-download-a-small-gguf-model">2. Download a small GGUF model<a class="headerlink" href="#2-download-a-small-gguf-model" title="Permanent link">¶</a></h3>
+<p>Use <strong>SmolLM2-135M-Instruct, Q4_K_M</strong> for the first run. This particular file is 105,454,432 bytes (about 101 MiB). It makes download and loading checks practical; it is not a recommendation for answer quality or every language.</p>
+<p>The <a href="https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct">original model</a> is published by HuggingFaceTB under Apache 2.0. The <a href="https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF">GGUF conversion</a> used here is published separately by bartowski. The URL selects a fixed repository revision, and the checksum checks that exact file.</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Run inside the llama.cpp checkout from step 1.</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>models
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>curl<span class="w"> </span>--fail<span class="w"> </span>--location<span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">15</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">300</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span>--output<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf.part<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span><span class="s1">'https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF/resolve/09816acd5d99df7be770d85ea30822623dab342c/SmolLM2-135M-Instruct-Q4_K_M.gguf'</span>
 </code></pre></div></td></tr></table></div>
-<p>Record the exact source revision with benchmark results:</p>
+<p>Only continue if <code>curl</code> succeeds. Verify the completed download before giving it its final name:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>./build/bin/llama-cli<span class="w"> </span>--version
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s  %s\n'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="s1">'2e8040ceae7815abe0dcb3540b9995eaa1fa0d2ca9e797d0a635ae4433c68c2d'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span><span class="s1">'models/SmolLM2-135M-Instruct-Q4_K_M.gguf.part'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sha256sum<span class="w"> </span>--check<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>mv<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf.part<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf
 </code></pre></div></td></tr></table></div>
-<h3 id="native-cpu-build">Native CPU build<a class="headerlink" href="#native-cpu-build" title="Permanent link">¶</a></h3>
-<p>When compiling on the same Raspberry Pi that will run the binary, native optimisation can be tested with:</p>
+<p>Expect a line ending in <code>: OK</code>. If the checksum fails or the transfer times out, stop and repeat the download; do not load the partial file. <code>curl --output</code> replaces the <code>.part</code> file on the next attempt.</p>
+<h3 id="3-generate-one-short-response">3. Generate one short response<a class="headerlink" href="#3-generate-one-short-response" title="Permanent link">¶</a></h3>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
 <span class="normal"><a href="#__codelineno-5-2">2</a></span>
 <span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-native<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span>-DGGML_NATIVE<span class="o">=</span>ON
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-native<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>./build/bin/llama-cli<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span>-m<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span>--device<span class="w"> </span>none<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span>--single-turn<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span>-p<span class="w"> </span><span class="s2">"Write one short sentence about a garden."</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">32</span><span class="w"> </span>-t<span class="w"> </span><span class="m">2</span><span class="w"> </span>-c<span class="w"> </span><span class="m">512</span>
 </code></pre></div></td></tr></table></div>
-<p>A native binary may not be portable to a different Arm CPU. Benchmark it against the standard build rather than assuming it is faster.</p>
-<h3 id="openblas-build">OpenBLAS build<a class="headerlink" href="#openblas-build" title="Permanent link">¶</a></h3>
-<p>OpenBLAS can improve prompt processing for suitable batch sizes, but upstream documentation notes that it does not improve token generation speed.</p>
+<p>Loading messages are normal. After loading, expect generated text and a return to the shell prompt. The wording varies and the model can make mistakes. <code>-n 32</code> limits generated tokens, while <code>--single-turn</code> prevents another interactive turn. Tokens are pieces of text, not necessarily whole words. Press <strong>Ctrl+C</strong> to stop a run early.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose in this first run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-m</code></td>
+<td>Path to the downloaded model</td>
+</tr>
+<tr>
+<td><code>--device none</code></td>
+<td>Keep inference on the CPU</td>
+</tr>
+<tr>
+<td><code>--single-turn</code></td>
+<td>Finish after the supplied prompt's response</td>
+</tr>
+<tr>
+<td><code>-n 32</code></td>
+<td>Generate at most 32 tokens</td>
+</tr>
+<tr>
+<td><code>-t 2</code></td>
+<td>Use two generation threads</td>
+</tr>
+<tr>
+<td><code>-c 512</code></td>
+<td>Use a small context for this short request</td>
+</tr>
+</tbody>
+</table>
+<p>Keep this file and command working before changing the model or enabling additional features. If an option is rejected, use <code>./build/bin/llama-cli --help</code> and confirm you are running the executable you just built.</p>
+<h2 id="hardware-and-model-sizing">Hardware and model sizing<a class="headerlink" href="#hardware-and-model-sizing" title="Permanent link">¶</a></h2>
+<p>The GGUF file is only part of the memory requirement. Context/KV cache, compute buffers, the OS, and server concurrency need additional RAM. A 4 GB Pi does not have 4 GB available for model weights.</p>
+<p>Start with the small example above on both Pi 4 and Pi 5. For the next model, choose a supported instruction-tuned GGUF, check its licence and actual file size, then keep context short. Increase one dimension at a time and observe memory. More RAM allows larger workloads; it does not proportionally increase CPU generation speed.</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>What to watch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>More parameters</td>
+<td>Weight storage, loading time, and generation latency</td>
+</tr>
+<tr>
+<td>Different quantisation</td>
+<td>File size and answer quality; Q4_K_M is not the same as every other Q4 format</td>
+</tr>
+<tr>
+<td>Larger context (<code>-c</code>)</td>
+<td>KV cache and peak RAM, even with the same model file</td>
+</tr>
+<tr>
+<td>More concurrent requests</td>
+<td>Combined server buffers and active contexts</td>
+</tr>
+</tbody>
+</table>
+<p>Do not choose an architecture-specific quantisation just because its filename starts with Q4. It may require CPU instructions absent on your Pi. Consult the conversion's model card and your llama.cpp build.</p>
+<h2 id="build-options-for-raspberry-pi">Build options for Raspberry Pi<a class="headerlink" href="#build-options-for-raspberry-pi" title="Permanent link">¶</a></h2>
+<p>The first build is the CPU baseline. Upstream enables <code>GGML_NATIVE</code> by default, so adding <code>-DGGML_NATIVE=ON</code> is not a separate optimisation experiment. Build on the Pi you will use; a native executable built for a different CPU may fail with <code>Illegal instruction</code>.</p>
+<p>OpenBLAS is optional. Upstream describes benefits for prompt processing with suitable batch sizes, not a general improvement to token generation. To compare it, install its development package and use a separate build directory:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
 <span class="normal"><a href="#__codelineno-6-2">2</a></span>
 <span class="normal"><a href="#__codelineno-6-3">3</a></span>
 <span class="normal"><a href="#__codelineno-6-4">4</a></span>
 <span class="normal"><a href="#__codelineno-6-5">5</a></span>
 <span class="normal"><a href="#__codelineno-6-6">6</a></span>
-<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libopenblas-dev
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-openblas<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libopenblas-dev
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-openblas<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span>-DLLAMA_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span>-DGGML_BLAS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span>-DGGML_BLAS_VENDOR<span class="o">=</span>OpenBLAS
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-openblas<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>-j<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>nproc<span class="k">)</span><span class="s2">"</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-openblas<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--target<span class="w"> </span>llama-bench<span class="w"> </span>-j<span class="w"> </span><span class="m">2</span>
 </code></pre></div></td></tr></table></div>
-<p>Compare <code>build/bin/llama-bench</code> with <code>build-openblas/bin/llama-bench</code> using the same model and parameters.</p>
+<p>Compare the two <code>llama-bench</code> executables with the same model and benchmark settings. Installing OpenBLAS alone does not change an already-built executable.</p>
 <h2 id="tune-the-important-runtime-parameters">Tune the important runtime parameters<a class="headerlink" href="#tune-the-important-runtime-parameters" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>What it controls</th>
-<th>Start with</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>-t</code>, <code>--threads</code></td>
-<td>CPU threads used for generation</td>
-<td>Test 1, 2, and 4</td>
-</tr>
-<tr>
-<td><code>-c</code>, <code>--ctx-size</code></td>
-<td>Maximum context/KV cache size</td>
-<td>2048, then increase only if needed</td>
-</tr>
-<tr>
-<td><code>-b</code>, <code>--batch-size</code></td>
-<td>Prompt-processing batch size</td>
-<td>Default, then test measured alternatives</td>
-</tr>
-<tr>
-<td><code>-n</code>, <code>--n-predict</code></td>
-<td>Maximum generated tokens</td>
-<td>128 for a quick test</td>
-</tr>
-<tr>
-<td><code>--load-mode mmap+mlock</code></td>
-<td>Map and lock model memory</td>
-<td>Only when the full workload fits RAM comfortably</td>
-</tr>
-<tr>
-<td><code>--load-mode none</code></td>
-<td>Load without memory mapping or locking</td>
-<td>Test only for a measured reason</td>
-</tr>
-</tbody>
-</table>
-<p>More threads are not automatically faster. Test thread counts because memory bandwidth, background work, cooling, and model size affect scaling.</p>
-<h3 id="context-size-and-ram">Context size and RAM<a class="headerlink" href="#context-size-and-ram" title="Permanent link">¶</a></h3>
-<p>A larger <code>-c</code> reserves more memory for context. Do not set a large context simply because the model advertises one. Start small and observe peak resident memory:</p>
+<p>Keep the model fixed when changing runtime settings. Try <code>-t 1</code>, <code>-t 2</code>, and <code>-t 4</code> separately; four threads can lose to fewer threads when memory bandwidth or background work limits throughput. Increase <code>-c</code> only when your prompt and output need more space. A 512-token context is for this brief exercise, not a long conversation.</p>
+<p>For a finite run's peak resident memory, install the <code>time</code> package if <code>/usr/bin/time</code> is missing, then run:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
 <span class="normal"><a href="#__codelineno-7-2">2</a></span>
 <span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>/usr/bin/time<span class="w"> </span>-v<span class="w"> </span>./build/bin/llama-cli<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">  </span>-m<span class="w"> </span>/srv/models/model.gguf<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="s2">"Summarise Raspberry Pi thermal throttling."</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">128</span><span class="w"> </span>-t<span class="w"> </span><span class="m">4</span><span class="w"> </span>-c<span class="w"> </span><span class="m">2048</span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>/usr/bin/time<span class="w"> </span>-v<span class="w"> </span>./build/bin/llama-cli<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">  </span>-m<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">  </span>--device<span class="w"> </span>none<span class="w"> </span>--single-turn<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">  </span>-p<span class="w"> </span><span class="s2">"Write one short sentence about a garden."</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">32</span><span class="w"> </span>-t<span class="w"> </span><span class="m">2</span><span class="w"> </span>-c<span class="w"> </span><span class="m">512</span>
 </code></pre></div></td></tr></table></div>
-<p>Look at <code>Maximum resident set size</code> and repeat with only <code>-c</code> changed.</p>
+<p>Look for <code>Maximum resident set size (kbytes)</code>. This is process resident memory, not a complete measure of system memory use. Repeat with only one setting changed; do not change the model and context while trying to isolate a thread-count improvement.</p>
 <h2 id="what-mlock-does">What <code>--mlock</code> does<a class="headerlink" href="#what-mlock-does" title="Permanent link">¶</a></h2>
-<p>Memory locking asks the operating system to keep model memory resident. Current llama.cpp builds use <code>--load-mode mmap+mlock</code> for the mapped-and-locked path; older versions used <code>--mlock</code>. Check <code>--help</code> on your executable before selecting a mode. Read the <a href="../llama_cpp_mlock_failed_raspberry_pi/">dedicated mlock troubleshooting guide</a> for limits, service overrides, and OOM diagnosis.</p>
-<p>Check the current locked-memory limit:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nb">ulimit</span><span class="w"> </span>-l
+<p>Memory locking asks Linux to keep model pages resident. Current builds expose <code>--load-mode</code>; <code>mmap+mlock</code> requests mapping and locking. Older builds used <code>--mlock</code>. Neither form accelerates the inference calculation itself.</p>
+<p>Leave the loading mode at its default for the first run. Consider locking only if the complete workload fits comfortably in physical RAM and a repeated measurement identifies paging-related stalls. Check your actual executable's options and the shell's limit:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>./build/bin/llama-cli<span class="w"> </span>--help
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nb">ulimit</span><span class="w"> </span>-l
 </code></pre></div></td></tr></table></div>
-<p>Use <code>--mlock</code> only when:</p>
-<ul>
-<li>The complete model and runtime buffers fit in physical RAM.</li>
-<li>Other required services retain enough memory.</li>
-<li>The process has permission to lock the required memory.</li>
-<li>A repeated benchmark shows that swap-related latency is a real problem.</li>
-</ul>
-<p>Do not lock an oversized model. The result may be a lock failure or an out-of-memory kill instead of slower paging.</p>
-<p>For a systemd service, set a deliberate limit in its unit rather than silently granting every process unlimited locked memory:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">[Service]</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="na">LimitMEMLOCK</span><span class="o">=</span><span class="s">6G</span>
-</code></pre></div></td></tr></table></div>
-<p>Then reload and restart the service:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>llama-server
-</code></pre></div></td></tr></table></div>
+<p>Do not solve a warning by granting unlimited locked memory or copying a service limit from a different Pi. Follow the <a href="../llama_cpp_mlock_failed_raspberry_pi/">llama.cpp memory-lock failure guide</a> to distinguish an obsolete option, a lock warning, and a kernel OOM kill; it also explains bounded systemd limits and rollback.</p>
 <h2 id="benchmark-prompt-and-generation-speed">Benchmark prompt and generation speed<a class="headerlink" href="#benchmark-prompt-and-generation-speed" title="Permanent link">¶</a></h2>
-<p>Use the project's <code>llama-bench</code> instead of parsing human-oriented CLI output:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span>
-<span class="normal"><a href="#__codelineno-11-5">5</a></span>
-<span class="normal"><a href="#__codelineno-11-6">6</a></span>
-<span class="normal"><a href="#__codelineno-11-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>./build/bin/llama-bench<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span>-m<span class="w"> </span>/srv/models/model.gguf<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">  </span>-n<span class="w"> </span><span class="m">128</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">1</span>,2,4<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">  </span>-r<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">  </span>-o<span class="w"> </span>md
+<p>This short, optional benchmark uses the same small model, two threads, and one repetition:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>./build/bin/llama-bench<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span>-m<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">  </span>-p<span class="w"> </span><span class="m">32</span><span class="w"> </span>-n<span class="w"> </span><span class="m">16</span><span class="w"> </span>-t<span class="w"> </span><span class="m">2</span><span class="w"> </span>-r<span class="w"> </span><span class="m">1</span><span class="w"> </span>-o<span class="w"> </span>md
 </code></pre></div></td></tr></table></div>
-<p>The benchmark reports prompt processing (<code>pp</code>) and text generation (<code>tg</code>) separately. The upstream <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md">llama-bench documentation</a> notes that its timings do not include tokenisation or sampling, so also measure end-to-end application latency when that matters.</p>
-<p>Record:</p>
+<p>Read the <code>test</code> and <code>t/s</code> columns:</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Example of what to capture</th>
+<th>Test</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Board</td>
-<td>Raspberry Pi model and RAM</td>
+<td><code>pp32</code></td>
+<td>Process a 32-token prompt; prompt-processing throughput</td>
 </tr>
 <tr>
-<td>OS</td>
-<td><code>/etc/os-release</code> and kernel</td>
-</tr>
-<tr>
-<td>llama.cpp</td>
-<td>Git commit and build flags</td>
-</tr>
-<tr>
-<td>Model</td>
-<td>Exact filename, quantisation, and checksum</td>
-</tr>
-<tr>
-<td>Runtime</td>
-<td>Threads, context, batch, mmap/mlock</td>
-</tr>
-<tr>
-<td>Storage</td>
-<td>microSD, USB SSD, or NVMe</td>
-</tr>
-<tr>
-<td>Cooling</td>
-<td>Cooler, fan curve, ambient temperature</td>
-</tr>
-<tr>
-<td>Result</td>
-<td>pp tokens/s, tg tokens/s, peak RAM, max temperature</td>
-</tr>
-<tr>
-<td>Health</td>
-<td><code>vcgencmd get_throttled</code> before and after</td>
+<td><code>tg16</code></td>
+<td>Generate 16 tokens; generation throughput</td>
 </tr>
 </tbody>
 </table>
-<p>Run the tests after the system reaches a stable idle state. Avoid comparing a cold first run with a cached repeat without labelling them.</p>
-<p>See the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">site-wide Raspberry Pi benchmark methodology</a> for a reusable test record.</p>
+<p>One repetition is a smoke test, not a stable performance result. For comparisons, repeat under similar idle, cooling, and power conditions and report the variation. The <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md">upstream benchmark documentation</a> explains that tokenisation and sampling are excluded, so these numbers are not the full time a user waits for an answer.</p>
+<p>Record the board/RAM, OS/kernel, Git commit, model filename/checksum, build flags, threads, context, and storage. Check temperature and throttling before and after longer tests. Use the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">benchmark methodology</a> and <a href="../raspberry_pi_get_throttled_undervoltage/">throttling decoder</a> to interpret the conditions rather than reporting tokens/s alone.</p>
 <h2 id="run-the-local-api-server">Run the local API server<a class="headerlink" href="#run-the-local-api-server" title="Permanent link">¶</a></h2>
-<p>Bind to loopback by default so the unauthenticated API is not exposed to the LAN:</p>
+<p>Keep the CLI working first. In the same checkout, start an optional foreground server bound to this Pi's loopback address:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>./build/bin/llama-server<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span>-m<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">  </span>--device<span class="w"> </span>none<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">2</span><span class="w"> </span>-c<span class="w"> </span><span class="m">512</span><span class="w"> </span>--parallel<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</code></pre></div></td></tr></table></div>
+<p>Leave that terminal open. In a <strong>second terminal on the same Pi</strong>, check health after the model has loaded:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>curl<span class="w"> </span>--fail<span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">3</span><span class="w"> </span>--max-time<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">  </span>http://127.0.0.1:8080/health
+</code></pre></div></td></tr></table></div>
+<p>An HTTP 200 response containing <code>{"status":"ok"}</code> means the server is ready. A loading response means to wait; <code>Connection refused</code> means no listener is reachable at that address and port. Check the first terminal's messages. If port 8080 is occupied, choose another free port in both commands.</p>
+<p>Return to the first terminal and press <strong>Ctrl+C</strong> to stop the server. This exercise does not enable startup at boot. Before turning it into a persistent service, plan a dedicated account, actual executable/model paths, resource limits, and recovery using the <a href="../../security/isolation/service_boundaries/">service-isolation lesson</a>. Keep the API private; access from another machine needs an appropriately authenticated connection or proxy.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>First check</th>
+<th>Next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CMake cannot find a compiler or build tool</td>
+<td>Read the first configure error</td>
+<td>Complete prerequisite package installation, then reconfigure</td>
+</tr>
+<tr>
+<td>Build is killed</td>
+<td>Check available memory and kernel logs</td>
+<td>Retry with one build job; keep the same checkout</td>
+</tr>
+<tr>
+<td><code>./main</code> or <code>make</code> instructions fail</td>
+<td>Check the tutorial/version</td>
+<td>Use CMake and <code>build/bin/llama-cli</code> as above</td>
+</tr>
+<tr>
+<td>Model file not found</td>
+<td>Check <code>pwd</code> and the filename below</td>
+<td>Return to your checkout and confirm the download step completed</td>
+</tr>
+<tr>
+<td>GGUF loading fails</td>
+<td>Check the checksum and first error</td>
+<td>Redownload a bad file; for a different model, check architecture support</td>
+</tr>
+<tr>
+<td><code>unknown argument: --mlock</code></td>
+<td>Inspect this executable's <code>--help</code></td>
+<td>Use the <a href="../llama_cpp_mlock_failed_raspberry_pi/">version-aware memory-lock guide</a></td>
+</tr>
+<tr>
+<td><code>Killed</code> or exit 137</td>
+<td>Inspect kernel logs for an OOM entry</td>
+<td>Investigate; the exit alone is not proof of OOM</td>
+</tr>
+</tbody>
+</table>
+<p>These checks are read-only:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
 <span class="normal"><a href="#__codelineno-12-2">2</a></span>
 <span class="normal"><a href="#__codelineno-12-3">3</a></span>
-<span class="normal"><a href="#__codelineno-12-4">4</a></span>
-<span class="normal"><a href="#__codelineno-12-5">5</a></span>
-<span class="normal"><a href="#__codelineno-12-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>./build/bin/llama-server<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span>-m<span class="w"> </span>/srv/models/model.gguf<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span>-c<span class="w"> </span><span class="m">2048</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">  </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">8080</span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nb">pwd</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>ls<span class="w"> </span>-lh<span class="w"> </span>models/SmolLM2-135M-Instruct-Q4_K_M.gguf
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>free<span class="w"> </span>-h
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s1">'out of memory|oom|killed process'</span>
 </code></pre></div></td></tr></table></div>
-<p>Test it locally:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/health
-</code></pre></div></td></tr></table></div>
-<p>If another machine needs access, put an authenticated TLS reverse proxy or a private VPN in front of the service. Do not bind an unauthenticated model server to <code>0.0.0.0</code> and expose the port directly to the internet.</p>
-<h2 id="minimal-systemd-service">Minimal systemd service<a class="headerlink" href="#minimal-systemd-service" title="Permanent link">¶</a></h2>
-<p>Create a dedicated unprivileged account and model directory:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>sudo<span class="w"> </span>useradd<span class="w"> </span>--system<span class="w"> </span>--home<span class="w"> </span>/var/lib/llama<span class="w"> </span>--create-home<span class="w"> </span>llama
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>-o<span class="w"> </span>llama<span class="w"> </span>-g<span class="w"> </span>llama<span class="w"> </span>/srv/models
-</code></pre></div></td></tr></table></div>
-<p>Example <code>/etc/systemd/system/llama-server.service</code>:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span>
-<span class="normal"><a href="#__codelineno-15-13">13</a></span>
-<span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span>
-<span class="normal"><a href="#__codelineno-15-16">16</a></span>
-<span class="normal"><a href="#__codelineno-15-17">17</a></span>
-<span class="normal"><a href="#__codelineno-15-18">18</a></span>
-<span class="normal"><a href="#__codelineno-15-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">[Unit]</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">Local llama.cpp API</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="na">After</span><span class="o">=</span><span class="s">local-fs.target</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a>
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="k">[Service]</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="na">User</span><span class="o">=</span><span class="s">llama</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="na">Group</span><span class="o">=</span><span class="s">llama</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/opt/llama.cpp/build/bin/llama-server -m /srv/models/model.gguf -t 4 -c 2048 --host 127.0.0.1 --port 8080</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
-<a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">3</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">true</span>
-<a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="na">PrivateTmp</span><span class="o">=</span><span class="s">true</span>
-<a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
-<a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="na">ProtectHome</span><span class="o">=</span><span class="s">true</span>
-<a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="na">ReadOnlyPaths</span><span class="o">=</span><span class="s">/srv/models</span>
-<a id="__codelineno-15-17" name="__codelineno-15-17"></a>
-<a id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="k">[Install]</span>
-<a id="__codelineno-15-19" name="__codelineno-15-19"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
-</code></pre></div></td></tr></table></div>
-<p>Adjust the executable and model paths to match your installation, then verify before enabling it at boot:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
-<span class="normal"><a href="#__codelineno-16-2">2</a></span>
-<span class="normal"><a href="#__codelineno-16-3">3</a></span>
-<span class="normal"><a href="#__codelineno-16-4">4</a></span>
-<span class="normal"><a href="#__codelineno-16-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>llama-server
-<a id="__codelineno-16-3" name="__codelineno-16-3"></a>systemctl<span class="w"> </span>status<span class="w"> </span>llama-server
-<a id="__codelineno-16-4" name="__codelineno-16-4"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>llama-server<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>--no-pager
-<a id="__codelineno-16-5" name="__codelineno-16-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>llama-server
-</code></pre></div></td></tr></table></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<h3 id="make-no-rule-to-make-target"><code>make: No rule to make target</code><a class="headerlink" href="#make-no-rule-to-make-target" title="Permanent link">¶</a></h3>
-<p>Current llama.cpp uses CMake. Remove old instructions that call <code>make LLAMA_OPENBLAS=1</code>; configure with <code>cmake -B build</code> and build with <code>cmake --build build</code>.</p>
-<h3 id="main-no-such-file-or-directory"><code>./main: No such file or directory</code><a class="headerlink" href="#main-no-such-file-or-directory" title="Permanent link">¶</a></h3>
-<p>The current CLI binary is normally <code>build/bin/llama-cli</code>. The server and benchmark tools are <code>build/bin/llama-server</code> and <code>build/bin/llama-bench</code>.</p>
-<h3 id="the-process-is-killed-while-loading">The process is killed while loading<a class="headerlink" href="#the-process-is-killed-while-loading" title="Permanent link">¶</a></h3>
-<p>Check the kernel log:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>-E<span class="w"> </span><span class="s1">'out of memory|oom|killed process'</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a>free<span class="w"> </span>-h
-</code></pre></div></td></tr></table></div>
-<p>Use a smaller quantisation or model, reduce context size and concurrency, and stop unrelated processes. Do not hide an OOM problem by adding large amounts of slow swap.</p>
-<h3 id="mlock-fails"><code>mlock</code> fails<a class="headerlink" href="#mlock-fails" title="Permanent link">¶</a></h3>
-<p>Check the running process's locked-memory limit, user, systemd <code>LimitMEMLOCK</code>, and available physical RAM. For current builds, inspect <code>--load-mode</code> in local help. Follow the <a href="../llama_cpp_mlock_failed_raspberry_pi/">mlock failure checklist</a> and keep locking only when a benchmark demonstrates a need.</p>
-<h3 id="performance-drops-during-a-long-run">Performance drops during a long run<a class="headerlink" href="#performance-drops-during-a-long-run" title="Permanent link">¶</a></h3>
-<p>Monitor temperature, frequency, and throttling:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd measure_clock arm; vcgencmd get_throttled'</span>
-</code></pre></div></td></tr></table></div>
-<p>Use active cooling, fix undervoltage, and repeat the same benchmark after the system returns to a comparable starting temperature.</p>
-<h3 id="the-api-works-locally-but-not-from-another-computer">The API works locally but not from another computer<a class="headerlink" href="#the-api-works-locally-but-not-from-another-computer" title="Permanent link">¶</a></h3>
-<p>This guide intentionally binds to <code>127.0.0.1</code>. Use a private VPN or an authenticated reverse proxy instead of exposing the raw server. If you deliberately bind to a LAN address, restrict it with a firewall and do not forward the port from your router.</p>
-<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
-<h3 id="does-mlock-make-llamacpp-faster-on-raspberry-pi">Does <code>--mlock</code> make llama.cpp faster on Raspberry Pi?<a class="headerlink" href="#does-mlock-make-llamacpp-faster-on-raspberry-pi" title="Permanent link">¶</a></h3>
-<p>It can prevent swap-related stalls, but it does not accelerate inference computation. If the model already stays resident and the system is not under memory pressure, it may provide no measurable benefit.</p>
-<h3 id="should-i-use-all-four-raspberry-pi-cpu-cores">Should I use all four Raspberry Pi CPU cores?<a class="headerlink" href="#should-i-use-all-four-raspberry-pi-cpu-cores" title="Permanent link">¶</a></h3>
-<p>Test it. Four threads are a reasonable starting point on Pi 4 and Pi 5, but memory bandwidth and background services can make a lower count competitive.</p>
-<h3 id="does-openblas-improve-generation-speed">Does OpenBLAS improve generation speed?<a class="headerlink" href="#does-openblas-improve-generation-speed" title="Permanent link">¶</a></h3>
-<p>Upstream documentation says BLAS may improve prompt processing with suitable batch sizes but does not improve generation performance. Measure <code>pp</code> and <code>tg</code> separately.</p>
-<h3 id="can-the-raspberry-pi-gpu-accelerate-llamacpp">Can the Raspberry Pi GPU accelerate llama.cpp?<a class="headerlink" href="#can-the-raspberry-pi-gpu-accelerate-llamacpp" title="Permanent link">¶</a></h3>
-<p>Backend support changes rapidly and results depend on firmware, drivers, build options, and model operations. Treat CPU as the reproducible baseline and test Vulkan only with the current upstream build documentation and a matching benchmark.</p>
-<h3 id="which-model-is-fastest">Which model is fastest?<a class="headerlink" href="#which-model-is-fastest" title="Permanent link">¶</a></h3>
-<p>Smaller models and lower-bit quantisations generally need less memory, but quality and speed depend on the exact build and prompt. Publish measurements with the model checksum, context, threads, cooling, and llama.cpp commit.</p>
+<p>An empty grep result is not proof that memory was sufficient; log access and retention vary. With a confirmed memory shortage, reduce model size, context, or concurrency. Adding slow swap does not make an oversized workload responsive.</p>
+<p>If generation slows over time, use the <a href="../raspberry_pi_temperature_monitoring_and_alerts/">temperature guide</a> and check <code>vcgencmd get_throttled</code>. Do not attribute a changing result to the model before checking power, cooling, and other running processes.</p>
+<h2 id="check-your-understanding">Check your understanding<a class="headerlink" href="#check-your-understanding" title="Permanent link">¶</a></h2>
+<ul>
+<li>Why can a model need more RAM than its GGUF file size?</li>
+<li>Which option makes the supplied prompt a single turn, and which limits output tokens?</li>
+<li>Why is <code>pp32</code> not a prediction of generation speed?</li>
+<li>Why would a memory-lock warning need a different response from a confirmed OOM kill?</li>
+</ul>
+<p>Next, use the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">benchmark methodology</a> to compare one setting at a time. For an actual locking error, go directly to the <a href="../llama_cpp_mlock_failed_raspberry_pi/">mlock diagnostic</a>.</p>
 <h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">Raspberry Pi AI accelerator comparison</a></li>
 <li><a href="../raspberry_pi_ai_hat_plus_2_complete_guide__local_llms_and_vlms/">AI HAT+ 2 local LLM and VLM guide</a></li>
-<li><a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">Raspberry Pi benchmark methodology</a></li>
 <li><a href="../raspberry_pi_temperature_monitoring_and_alerts/">Raspberry Pi temperature monitoring</a></li>
 <li><a href="../how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">NVMe boot and storage setup</a></li>
 </ul></div>
@@ -11561,7 +11506,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 09:31:01 JST">2026-11-22</span>
   </span>
 
     
