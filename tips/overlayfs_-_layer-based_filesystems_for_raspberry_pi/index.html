@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Enable Raspberry Pi OverlayFS safely for a read-only root or kiosk. Plan persistent data, test RAM usage, maintain updates, disable it, and recover failures.">
+        <meta name="description" content="See how Raspberry Pi OverlayFS discards writes in a temporary demo. Then check which files will persist before enabling a read-only root for a kiosk.">
       
       
       
@@ -84,7 +84,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Raspberry Pi OverlayFS: Read-Only Root - With Raspberry Pi">
-  <meta property="og:description" content="Enable Raspberry Pi OverlayFS safely for a read-only root or kiosk. Plan persistent data, test RAM usage, maintain updates, disable it, and recover failures.">
+  <meta property="og:description" content="See how Raspberry Pi OverlayFS discards writes in a temporary demo. Then check which files will persist before enabling a read-only root for a kiosk.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__overlayfs_-_layer-based_filesystems_for_raspberry_pi.jpg">
@@ -96,12 +96,12 @@
     <meta property="article:published_time" content="2025-11-24">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-23">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Raspberry Pi OverlayFS: Read-Only Root - With Raspberry Pi">
-  <meta name="twitter:description" content="Enable Raspberry Pi OverlayFS safely for a read-only root or kiosk. Plan persistent data, test RAM usage, maintain updates, disable it, and recover failures.">
+  <meta name="twitter:description" content="See how Raspberry Pi OverlayFS discards writes in a temporary demo. Then check which files will persist before enabling a read-only root for a kiosk.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__overlayfs_-_layer-based_filesystems_for_raspberry_pi.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -122,7 +122,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Raspberry Pi OverlayFS: Read-Only Root",
-    "description": "Enable Raspberry Pi OverlayFS safely for a read-only root or kiosk. Plan persistent data, test RAM usage, maintain updates, disable it, and recover failures.",
+    "description": "See how Raspberry Pi OverlayFS discards writes in a temporary demo. Then check which files will persist before enabling a read-only root for a kiosk.",
     "url": "https://ohyaan.github.io/tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/overlayfs_-_layer-based_filesystems_for_raspberry_pi/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__overlayfs_-_layer-based_filesystems_for_raspberry_pi.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-11-24",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-23"
   }
   </script>
   <script type="application/ld+json">
@@ -11173,7 +11173,17 @@
 
 
 <div><h1 id="raspberry-pi-overlayfs-read-only-root-and-kiosk-guide">Raspberry Pi OverlayFS: Read-Only Root and Kiosk Guide<a class="headerlink" href="#raspberry-pi-overlayfs-read-only-root-and-kiosk-guide" title="Permanent link">¶</a></h1>
-<p>Raspberry Pi OS can protect its root filesystem with OverlayFS so runtime changes go to a temporary RAM-backed upper layer and disappear after reboot. This is useful for kiosks, classroom devices, digital signs, and appliances that must return to a known state. It is not appropriate until every required persistent file has a deliberate home.</p>
+<p>Raspberry Pi OS can use OverlayFS to put changes to the root filesystem in a temporary RAM-backed layer. After reboot, a kiosk or classroom Pi can return to the same starting state. Data on a separate, writable filesystem can still persist.</p>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
+<p><a href="#directory-level-overlayfs-experiment">Try it in a temporary directory</a> · <a href="#inventory-persistent-data">Check where your data lives</a> · <a href="#enable-the-supported-read-only-root">Enable the root overlay</a></p>
 <h2 id="quick-answer">Quick answer<a class="headerlink" href="#quick-answer" title="Permanent link">¶</a></h2>
 <ol>
 <li>Update and back up the working system.</li>
@@ -11186,15 +11196,6 @@
 <li>Document how to disable the overlay before future OS updates.</li>
 </ol>
 <p>The <a href="https://www.raspberrypi.com/documentation/computers/configuration.html#enable-or-disable-overlay-file-system">official Raspberry Pi configuration documentation</a> describes the supported menu and desktop controls. Raspberry Pi also publishes an application note on <a href="https://pip.raspberrypi.com/categories/685-app-notes-guides-whitepapers/documents/RP-003610-WP/Making-a-more-resilient-file-system.pdf">making a more resilient filesystem</a>.</p>
-<!-- Inline AdSense Component -->
-<div class="adsense-inline">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
 <h2 id="how-overlayfs-works">How OverlayFS works<a class="headerlink" href="#how-overlayfs-works" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -11248,17 +11249,21 @@
 </ul>
 <p>OverlayFS reduces writes to the lower root while active. It does not replace clean shutdown, reliable power, backups, or suitable storage.</p>
 <h2 id="inventory-persistent-data">Inventory persistent data<a class="headerlink" href="#inventory-persistent-data" title="Permanent link">¶</a></h2>
+<p>Start with the directory your application actually writes to. For example, replace <code>/srv/pi-data</code> with an existing path on your Pi:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>findmnt<span class="w"> </span>--target<span class="w"> </span>/srv/pi-data<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,VFS-OPTIONS
+</code></pre></div></td></tr></table></div>
+<p>If <code>TARGET</code> is <code>/</code>, the path is on the root filesystem and its writes will go into the temporary layer when the root overlay is active. For data that must persist, look for the intended filesystem and a writable (<code>rw</code>) mount. A mount backed by <code>tmpfs</code> is temporary too. A missing data disk can leave its mount directory visible on the root filesystem. For a service that starts at boot, see <a href="../raspberry_pi_overlayfs_changes_lost_updates/#5-make-application-persistence-explicit">how to check its data mount before it runs</a>.</p>
 <p>Run the real workload for an hour, then inspect recently modified files:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>find<span class="w"> </span>/etc<span class="w"> </span>/home<span class="w"> </span>/var<span class="w"> </span>-xdev<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mmin<span class="w"> </span>-60<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span>-printf<span class="w"> </span><span class="s1">'%TY-%Tm-%Td %TH:%TM:%TS %s %p\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>find<span class="w"> </span>/etc<span class="w"> </span>/home<span class="w"> </span>/var<span class="w"> </span>-xdev<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mmin<span class="w"> </span>-60<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span>-printf<span class="w"> </span><span class="s1">'%TY-%Tm-%Td %TH:%TM:%TS %s %p\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
 </code></pre></div></td></tr></table></div>
 <p>Check common state directories:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>du<span class="w"> </span>-xhd1<span class="w"> </span>/var/lib<span class="w"> </span>/var/log<span class="w"> </span>/home<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-h
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>systemctl<span class="w"> </span>--failed
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>findmnt<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>du<span class="w"> </span>-xhd1<span class="w"> </span>/var/lib<span class="w"> </span>/var/log<span class="w"> </span>/home<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-h
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>systemctl<span class="w"> </span>--failed
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>findmnt<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,OPTIONS
 </code></pre></div></td></tr></table></div>
 <p>Classify every write:</p>
 <table>
@@ -11310,13 +11315,13 @@
 <p>Do not bind-mount broad directories such as all of <code>/etc</code> or <code>/var</code> without understanding what becomes writable and how it is backed up.</p>
 <h2 id="prepare-a-rollback">Prepare a rollback<a class="headerlink" href="#prepare-a-rollback" title="Permanent link">¶</a></h2>
 <p>Before activation:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>systemctl<span class="w"> </span>--failed
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>vcgencmd<span class="w"> </span>get_throttled
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>systemctl<span class="w"> </span>--failed
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>vcgencmd<span class="w"> </span>get_throttled
 </code></pre></div></td></tr></table></div>
 <p>Create a restorable image or file-level backup, and keep another bootable storage device. Record:</p>
 <ul>
@@ -11330,7 +11335,7 @@
 <p>Test the backup restoration before deployment. A backup that has never been restored is only an assumption.</p>
 <h2 id="enable-the-supported-read-only-root">Enable the supported read-only root<a class="headerlink" href="#enable-the-supported-read-only-root" title="Permanent link">¶</a></h2>
 <p>Open the configuration menu:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>raspi-config
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>raspi-config
 </code></pre></div></td></tr></table></div>
 <p>Choose <strong>Performance Options → Overlay File System</strong>. The tool asks two distinct questions:</p>
 <ol>
@@ -11339,43 +11344,39 @@
 </ol>
 <p>Enable only the root overlay for the first test. Keeping the boot partition writable initially simplifies recovery; protect it later only if the threat model requires it and the maintenance process works.</p>
 <p>Reboot when prompted:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>reboot
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <h2 id="verify-that-it-works">Verify that it works<a class="headerlink" href="#verify-that-it-works" title="Permanent link">¶</a></h2>
-<p>Inspect mounts after reconnecting:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>findmnt<span class="w"> </span>/
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>findmnt<span class="w"> </span>-t<span class="w"> </span>overlay
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>mount<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">' on / |type overlay'</span>
-</code></pre></div></td></tr></table></div>
-<p>Create a disposable marker:</p>
+<p>Inspect the running root and boot mounts after reconnecting. On current Raspberry Pi OS, the boot partition normally mounts at <code>/boot/firmware</code>:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'overlay test %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>date<span class="w"> </span>--iso-8601<span class="o">=</span>seconds<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/overlay-test.txt
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>cat<span class="w"> </span>/etc/overlay-test.txt
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>sudo<span class="w"> </span>reboot
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>findmnt<span class="w"> </span>--target<span class="w"> </span>/<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,VFS-OPTIONS
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>findmnt<span class="w"> </span>--mountpoint<span class="w"> </span>/boot/firmware<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE,VFS-OPTIONS
 </code></pre></div></td></tr></table></div>
-<p>After reboot, the marker should be absent:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/etc/overlay-test.txt<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'temporary root change discarded'</span>
+<p>For the Raspberry Pi OS temporary-root mode, <code>FSTYPE</code> for <code>/</code> should be <code>overlay</code>. It can show <code>rw</code> because writes go to the temporary layer. The boot mount has its own <code>rw</code> or <code>ro</code> setting.</p>
+<p>If <code>/etc</code> is part of that root overlay, create an empty test file with a unique name:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>findmnt<span class="w"> </span>--target<span class="w"> </span>/etc<span class="w"> </span>-n<span class="w"> </span>-r<span class="w"> </span>-o<span class="w"> </span>TARGET,FSTYPE<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/ overlay"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span>sudo<span class="w"> </span>mktemp<span class="w"> </span>/etc/pi-overlay-check.XXXXXX
 </code></pre></div></td></tr></table></div>
-<p>Now verify the data that must persist. Create a marker in the dedicated writable location, restart the application, reboot, and confirm its database, uploads, identity, and configuration remain valid.</p>
+<p>Record the full path the command prints. For any separate writable data mount, confirm that the device is mounted, then create and record a second test file there. Reboot after saving work and confirming your recovery path.</p>
+<p>After reconnecting, replace the example below with the <strong>actual path of the root test file</strong>:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nb">test</span><span class="w"> </span>!<span class="w"> </span>-e<span class="w"> </span>/etc/pi-overlay-check.A1b2C3<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">'Temporary root change discarded'</span>
+</code></pre></div></td></tr></table></div>
+<p>On the separate data mount, the second test file should still exist. Check that the application still sees its database, uploads, identity and configuration.</p>
 <h2 id="measure-ram-and-upper-layer-growth">Measure RAM and upper-layer growth<a class="headerlink" href="#measure-ram-and-upper-layer-growth" title="Permanent link">¶</a></h2>
 <p>The temporary upper layer consumes memory as files change. Monitor the system during the longest expected workload:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>df<span class="w"> </span>-hT
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>findmnt<span class="w"> </span>-t<span class="w"> </span>overlay
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'free -h; df -h /'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>free<span class="w"> </span>-h
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>df<span class="w"> </span>-hT
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>findmnt<span class="w"> </span>-t<span class="w"> </span>overlay
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'free -h; df -h /'</span>
 </code></pre></div></td></tr></table></div>
 <p>Also check memory pressure and OOM history:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>cat<span class="w"> </span>/proc/pressure/memory
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom-kill|killed process'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>cat<span class="w"> </span>/proc/pressure/memory
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom-kill|killed process'</span>
 </code></pre></div></td></tr></table></div>
 <p>If the upper layer grows without bound, identify the writer with <code>iotop</code> and application logs. Do not solve it by assigning all RAM to the overlay; fix or relocate the write source.</p>
 <p>Use the <a href="../raspberry_pi_memory_pressure_zram_oom_benchmark/">memory pressure and OOM guide</a> for a repeatable load test.</p>
@@ -11392,25 +11393,25 @@
 <li>Reboot again and run persistence and reset tests.</li>
 </ol>
 <p>Example update checks while the overlay is disabled:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>findmnt<span class="w"> </span>/
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a>systemctl<span class="w"> </span>--failed
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span>warning<span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>findmnt<span class="w"> </span>/
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>full-upgrade
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>systemctl<span class="w"> </span>--failed
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-p<span class="w"> </span>warning<span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <p>Do not automate updates during the overlay-enabled state and assume they were committed to the lower filesystem.</p>
 <h2 id="disable-overlayfs">Disable OverlayFS<a class="headerlink" href="#disable-overlayfs" title="Permanent link">¶</a></h2>
 <p>Open:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>raspi-config
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>raspi-config
 </code></pre></div></td></tr></table></div>
 <p>Return to <strong>Performance Options → Overlay File System</strong>, disable the root overlay, and reboot. If maintenance requires removing boot write protection, return to the menu with the root overlay no longer active, change boot protection, and reboot when requested. Current Trixie refuses a permanent <code>fstab</code> change while the root overlay is active. Verify:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>findmnt<span class="w"> </span>/
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'touch /etc/write-test &amp;&amp; rm /etc/write-test'</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>findmnt<span class="w"> </span>/
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nv">probe</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>mktemp<span class="w"> </span>/etc/pi-root-write-check.XXXXXX<span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>rm<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="nv">$probe</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
 <p>If the menu cannot complete, use the documented backup/recovery path rather than copying undocumented initramfs commands from another OS release.</p>
 <h2 id="recover-a-system-that-does-not-boot">Recover a system that does not boot<a class="headerlink" href="#recover-a-system-that-does-not-boot" title="Permanent link">¶</a></h2>
@@ -11424,30 +11425,76 @@
 </ol>
 <p>Do not repeatedly power-cycle a filesystem that may be damaged. Image or back up important partitions before repair attempts.</p>
 <h2 id="directory-level-overlayfs-experiment">Directory-level OverlayFS experiment<a class="headerlink" href="#directory-level-overlayfs-experiment" title="Permanent link">¶</a></h2>
-<p>To learn the lower/upper/work/merged model without changing the root filesystem, use disposable directories:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-13-10">10</a></span>
-<span class="normal"><a href="#__codelineno-13-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo"</span>/<span class="o">{</span>lower,upper,work,merged<span class="o">}</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'original\n'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/lower/example.txt"</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>overlay<span class="w"> </span>overlay<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">  </span>-o<span class="w"> </span><span class="s2">"lowerdir=</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/lower,upperdir=</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/upper,workdir=</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/work"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">  </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/merged"</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7"></a>
-<a id="__codelineno-13-8" name="__codelineno-13-8"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/merged/example.txt"</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'changed\n'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/merged/example.txt"</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10"></a>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/upper/example.txt"</span>
-<a id="__codelineno-13-11" name="__codelineno-13-11"></a>sudo<span class="w"> </span>umount<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/overlay-demo/merged"</span>
+<p>Run this on a test Pi to see what happens when an application edits a file. The experiment uses fresh directories under <code>/tmp</code> and mounts them in a private namespace visible only to the demo. It needs Linux support for unprivileged user namespaces and OverlayFS.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span>
+<span class="normal"><a href="#__codelineno-14-21">21</a></span>
+<span class="normal"><a href="#__codelineno-14-22">22</a></span>
+<span class="normal"><a href="#__codelineno-14-23">23</a></span>
+<span class="normal"><a href="#__codelineno-14-24">24</a></span>
+<span class="normal"><a href="#__codelineno-14-25">25</a></span>
+<span class="normal"><a href="#__codelineno-14-26">26</a></span>
+<span class="normal"><a href="#__codelineno-14-27">27</a></span>
+<span class="normal"><a href="#__codelineno-14-28">28</a></span>
+<span class="normal"><a href="#__codelineno-14-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="o">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">    </span><span class="nb">set</span><span class="w"> </span>-eu
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">    </span><span class="nv">demo</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span>/tmp/pi-overlay.XXXXXXXX<span class="k">)</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">    </span><span class="nb">trap</span><span class="w"> </span><span class="s1">'rm -rf -- "$demo"'</span><span class="w"> </span>EXIT
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">    </span>mkdir<span class="w"> </span><span class="s2">"</span><span class="nv">$demo</span><span class="s2">"</span>/<span class="o">{</span>lower,upper,work,merged,fresh-upper,fresh-work<span class="o">}</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'original\n'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$demo</span><span class="s2">/lower/example.txt"</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="w">    </span>unshare<span class="w"> </span>--user<span class="w"> </span>--map-root-user<span class="w"> </span>--mount<span class="w"> </span>--propagation<span class="w"> </span>private<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="w">        </span>bash<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="nv">$demo</span><span class="s2">"</span><span class="w"> </span><span class="s">&lt;&lt;'DEMO'</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="s">set -eu</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a><span class="s">demo=$1</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a><span class="s">mount_demo() {</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="s">    mount -t overlay overlay \</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14"></a><span class="s">        -o "lowerdir=$demo/lower,upperdir=$demo/$1,workdir=$demo/$2,userxattr" \</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15"></a><span class="s">        "$demo/merged"</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16"></a><span class="s">}</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18"></a><span class="s">mount_demo upper work</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19"></a><span class="s">printf 'changed\n' &gt; "$demo/merged/example.txt"</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20"></a><span class="s">printf 'Merged: '; cat "$demo/merged/example.txt"</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21"></a><span class="s">printf 'Upper:  '; cat "$demo/upper/example.txt"</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22"></a><span class="s">printf 'Lower:  '; cat "$demo/lower/example.txt"</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23"></a><span class="s">umount "$demo/merged"</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24"></a>
+<a id="__codelineno-14-25" name="__codelineno-14-25"></a><span class="s">mount_demo fresh-upper fresh-work</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26"></a><span class="s">printf 'Merged with a fresh upper: '; cat "$demo/merged/example.txt"</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27"></a><span class="s">umount "$demo/merged"</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28"></a><span class="s">DEMO</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29"></a><span class="o">)</span>
 </code></pre></div></td></tr></table></div>
-<p><code>upperdir</code> and <code>workdir</code> must be on the same filesystem, and <code>workdir</code> must be empty. See the <a href="https://docs.kernel.org/filesystems/overlayfs.html">Linux kernel OverlayFS documentation</a> for filesystem requirements and advanced behaviour.</p>
+<p>Output verified on a Raspberry Pi 4B running Raspberry Pi OS Trixie:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>Merged: changed
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>Upper:  changed
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>Lower:  original
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>Merged with a fresh upper: original
+</code></pre></div></td></tr></table></div>
+<p>The first write copied the file into the upper layer. Mounting the same lower layer with a fresh upper shows the original file again. Raspberry Pi OS uses a fresh temporary upper layer on each boot in its read-only-root mode.</p>
+<p>If <code>unshare</code> or <code>mount</code> reports <code>Operation not permitted</code>, your system may restrict the demo. Keep the system's restrictions in place and use the output above to follow the sequence. For upper and work directory requirements, see the <a href="https://docs.kernel.org/filesystems/overlayfs.html">Linux kernel OverlayFS documentation</a>.</p>
 <h2 id="benchmark-checklist">Benchmark checklist<a class="headerlink" href="#benchmark-checklist" title="Permanent link">¶</a></h2>
 <p>Compare the same workload with and without OverlayFS:</p>
 <table>
@@ -11555,7 +11602,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 23, 2026 07:52:02 JST">2026-11-23</span>
   </span>
 
     
