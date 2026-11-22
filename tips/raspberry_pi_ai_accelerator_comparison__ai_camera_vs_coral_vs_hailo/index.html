@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Compare AI accelerators for Raspberry Pi 4 and 5: AI Camera, Coral USB, and Hailo AI HAT+ by board compatibility, model support, and workload.">
+        <meta name="description" content="Compare Raspberry Pi AI accelerators by board, workload, and model format, including AI Camera, Coral USB, Hailo AI HAT+, and Sixfab DEEPX.">
       
       
       
@@ -84,7 +84,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Raspberry Pi AI: Camera vs Coral vs Hailo - With Raspberry Pi">
-  <meta property="og:description" content="Compare AI accelerators for Raspberry Pi 4 and 5: AI Camera, Coral USB, and Hailo AI HAT+ by board compatibility, model support, and workload.">
+  <meta property="og:description" content="Compare Raspberry Pi AI accelerators by board, workload, and model format, including AI Camera, Coral USB, Hailo AI HAT+, and Sixfab DEEPX.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo.jpg">
@@ -96,12 +96,12 @@
     <meta property="article:published_time" content="2026-07-26">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Raspberry Pi AI: Camera vs Coral vs Hailo - With Raspberry Pi">
-  <meta name="twitter:description" content="Compare AI accelerators for Raspberry Pi 4 and 5: AI Camera, Coral USB, and Hailo AI HAT+ by board compatibility, model support, and workload.">
+  <meta name="twitter:description" content="Compare Raspberry Pi AI accelerators by board, workload, and model format, including AI Camera, Coral USB, Hailo AI HAT+, and Sixfab DEEPX.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -122,7 +122,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Raspberry Pi AI: Camera vs Coral vs Hailo",
-    "description": "Compare AI accelerators for Raspberry Pi 4 and 5: AI Camera, Coral USB, and Hailo AI HAT+ by board compatibility, model support, and workload.",
+    "description": "Compare Raspberry Pi AI accelerators by board, workload, and model format, including AI Camera, Coral USB, Hailo AI HAT+, and Sixfab DEEPX.",
     "url": "https://ohyaan.github.io/tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__raspberry_pi_ai_accelerator_comparison__ai_camera_vs_coral_vs_hailo.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-07-26",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -8291,6 +8291,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sixfab-vs-hailo-on-raspberry-pi-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sixfab vs Hailo on Raspberry Pi 5
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#option-1-raspberry-pi-cpu" class="md-nav__link">
     <span class="md-ellipsis">
       Option 1: Raspberry Pi CPU
@@ -11155,8 +11164,16 @@
 
 
 <div><h1 id="raspberry-pi-ai-accelerator-comparison-ai-camera-vs-coral-vs-hailo">Raspberry Pi AI Accelerator Comparison: AI Camera vs Coral vs Hailo<a class="headerlink" href="#raspberry-pi-ai-accelerator-comparison-ai-camera-vs-coral-vs-hailo" title="Permanent link">¶</a></h1>
-<p>Choosing an AI accelerator for Raspberry Pi 4 or 5 starts with board compatibility and the model you need to run. Projects can use the CPU, the built-in VideoCore GPU through specialised runtimes, an AI Camera, a Coral USB Accelerator, or a Hailo-based AI HAT. The fastest-looking specification is not always the best choice: model compatibility, software maintenance, latency, power, and camera architecture often matter more than a TOPS number.</p>
-<p>This guide compares the practical deployment paths and helps you choose hardware before committing a project to one model format or vendor runtime.</p>
+<p>Start with the Raspberry Pi model you own and the application you want to run. For Pi 4, check the AI Camera for sensor-side inference, Coral USB for an existing Edge TPU application, or the CPU for a software baseline. For Pi 5, the extra PCIe choices include Raspberry Pi's Hailo boards and the Sixfab DEEPX board. Pick the runtime and exact model before you commit to hardware.</p>
+<!-- Inline AdSense Component -->
+<div class="adsense-inline">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+
 <h2 id="which-ai-accelerator-works-with-raspberry-pi-4-or-5">Which AI accelerator works with Raspberry Pi 4 or 5?<a class="headerlink" href="#which-ai-accelerator-works-with-raspberry-pi-4-or-5" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -11198,18 +11215,15 @@
 <td>Yes, via PCIe</td>
 <td>Check that the required vision, LLM, or VLM model is supported.</td>
 </tr>
+<tr>
+<td>Sixfab AI HAT+ (DEEPX DX-M1M)</td>
+<td>No</td>
+<td>Yes, via PCIe</td>
+<td>Check the DXRT runtime, <code>.dxnn</code> model, and app integration. <a href="https://docs.sixfab.com/docs/ai-hat-plus-raspberry-pi-5-faq">Sixfab documentation</a></td>
+</tr>
 </tbody>
 </table>
 <p>The <a href="https://www.raspberrypi.com/documentation/accessories/ai-camera.html">Raspberry Pi AI Camera documentation</a> covers Pi 4 and Pi 5. The <a href="https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html">AI HAT documentation</a> specifies Raspberry Pi 5. Coral's <a href="https://www.coral.ai/static/files/Coral-USB-Accelerator-datasheet.pdf">USB Accelerator datasheet</a> lists Raspberry Pi 3 Model B+ and Pi 4 as tested hosts, but its published software requirements are old; do not assume a current Raspberry Pi OS release works without checking the runtime first.</p>
-<!-- Inline AdSense Component -->
-<div class="adsense-inline">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-6051992210534346" data-ad-slot="1046319900"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
 <h2 id="quick-recommendation">Quick recommendation<a class="headerlink" href="#quick-recommendation" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -11220,32 +11234,24 @@
 </thead>
 <tbody>
 <tr>
-<td>Learn or prototype without buying hardware</td>
-<td>Pi 5 CPU with OpenVINO or NCNN</td>
+<td>Learn or prototype with the hardware you have</td>
+<td>Try <a href="#option-1-raspberry-pi-cpu">CPU vision inference</a> or <a href="../local_llm_optimization_with_llama.cpp_-_on-device_ai/">a small llama.cpp text model</a>.</td>
 </tr>
 <tr>
-<td>Compact camera with low host load</td>
-<td>Raspberry Pi AI Camera</td>
+<td>Put detection inside a CSI camera</td>
+<td>Use <a href="#option-3-raspberry-pi-ai-camera">AI Camera</a> if an IMX500 model fits the task.</td>
 </tr>
 <tr>
-<td>Existing TensorFlow Lite Edge TPU project</td>
-<td>Coral USB Accelerator</td>
+<td>Add a detector to Frigate</td>
+<td>Start with an officially supported detector for your installed version. Check <a href="#hailo-vs-coral-which-should-you-choose">Coral vs Hailo</a>.</td>
 </tr>
 <tr>
-<td>High-rate vision and multiple camera models</td>
-<td>AI HAT+ 26 TOPS</td>
+<td>Choose a Pi 5 HAT for a new vision app</td>
+<td>Check whether your app can use <a href="#sixfab-vs-hailo-on-raspberry-pi-5">Hailo or Sixfab's DEEPX stack</a>.</td>
 </tr>
 <tr>
-<td>Moderate vision workload at lower cost</td>
-<td>AI HAT+ 13 TOPS</td>
-</tr>
-<tr>
-<td>Local LLMs, VLMs, and vision on one board</td>
-<td>AI HAT+ 2</td>
-</tr>
-<tr>
-<td>Maximum portability between Pi and other Linux targets</td>
-<td>CPU runtime such as OpenVINO</td>
+<td>Run supported local LLM and VLM models on a Pi 5 accelerator</td>
+<td>Check the <a href="#option-6-ai-hat-2">AI HAT+ 2 model options</a> before choosing it.</td>
 </tr>
 </tbody>
 </table>
@@ -11302,11 +11308,17 @@
 <td>Vision, supported LLMs, and VLMs</td>
 <td>New software stack and packaged-model requirements</td>
 </tr>
+<tr>
+<td>Sixfab AI HAT+</td>
+<td>DEEPX DX-M1M over PCIe</td>
+<td>Vision with DXRT and a compatible compiled model</td>
+<td>Requires its own runtime and model format</td>
+</tr>
 </tbody>
 </table>
 <p>TOPS values across INT8 and INT4 devices are not directly comparable. Always benchmark the same model, input size, pre/post-processing, and camera path.</p>
 <h2 id="hailo-vs-coral-which-should-you-choose">Hailo vs Coral: which should you choose?<a class="headerlink" href="#hailo-vs-coral-which-should-you-choose" title="Permanent link">¶</a></h2>
-<p>Choose Coral when the application already supports an Edge TPU model—especially an established Frigate deployment—or when USB attachment is a requirement. Choose a Hailo-based AI HAT when building a new Raspberry Pi 5 vision pipeline that needs higher throughput, several supported models, or direct integration with the Raspberry Pi camera software.</p>
+<p>Keep a working Coral USB setup when your application and models already support Edge TPU. For a new Frigate deployment, check the detector list for your release. Frigate documents USB Coral (<code>edgetpu</code>) and a separate Hailo detector for Hailo-8 and Hailo-8L. Confirm the model and device setup before switching. <a href="https://docs.frigate.video/configuration/object_detectors/">Frigate detector documentation</a></p>
 <table>
 <thead>
 <tr>
@@ -11344,6 +11356,42 @@
 </tbody>
 </table>
 <p>Neither option wins every benchmark. Compare end-to-end latency using the same model family, accuracy target, input, capture path, and post-processing. A Coral result from one model cannot be fairly compared with a Hailo result from another model based only on FPS or TOPS.</p>
+<h2 id="sixfab-vs-hailo-on-raspberry-pi-5">Sixfab vs Hailo on Raspberry Pi 5<a class="headerlink" href="#sixfab-vs-hailo-on-raspberry-pi-5" title="Permanent link">¶</a></h2>
+<p>The Sixfab AI HAT+ uses a <strong>DEEPX DX-M1M</strong> with the DXRT runtime and compiled <code>.dxnn</code> vision models. Raspberry Pi's AI HAT+ uses <strong>Hailo-8 or Hailo-8L</strong> with HailoRT and compatible <code>.hef</code> models. Despite their similar product names, moving between these boards requires a new compiled model and an application that calls the destination runtime. If you need text generation on a HAT, check the supported model list for the Hailo-10H in AI HAT+ 2. <a href="https://docs.sixfab.com/docs/ai-hat-plus-raspberry-pi-5-faq">Sixfab runtime and model requirements</a> · <a href="https://github.com/hailo-ai/hailo_model_zoo">Hailo Model Zoo</a> · <a href="https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html">Raspberry Pi AI HATs</a></p>
+<h3 id="read-the-benchmark-at-the-stage-that-matters">Read the benchmark at the stage that matters<a class="headerlink" href="#read-the-benchmark-at-the-stage-that-matters" title="Permanent link">¶</a></h3>
+<p>Sixfab, the vendor of the DEEPX board, tested both runtimes with YOLOv8l at 640 × 640 on an 8 GB Raspberry Pi 5. The following values are from its test, rounded to one decimal place. Both rows use asynchronous submission with eight requests in flight. <a href="https://sixfab.com/blog/raspberry-pi-5-ai-hat-benchmark-deepx-vs-hailo/">Sixfab's benchmark and methodology</a></p>
+<table>
+<thead>
+<tr>
+<th>YOLOv8l throughput</th>
+<th>Sixfab DX-M1M</th>
+<th>Hailo-8</th>
+<th>Hailo-10H</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NPU inference</td>
+<td>50.1 FPS</td>
+<td>19.6 FPS</td>
+<td>40.0 FPS</td>
+</tr>
+<tr>
+<td>Full video pipeline</td>
+<td>23.7 FPS</td>
+<td>19.5 FPS</td>
+<td>25.2 FPS</td>
+</tr>
+</tbody>
+</table>
+<p>In this run, the DEEPX lead over Hailo-8 shrank once video decoding and CPU work were included. Hailo-10H processed more frames in the full pipeline even though DEEPX processed more in the inference stage. For a camera application, measure frames processed and latency with your video sources, model settings and expected concurrency. For a live view, measure how long a frame takes to reach the display or trigger an event. Queuing more requests can increase throughput while adding wait time for each request.</p>
+<h3 id="check-compatibility-before-changing-hardware">Check compatibility before changing hardware<a class="headerlink" href="#check-compatibility-before-changing-hardware" title="Permanent link">¶</a></h3>
+<ol>
+<li>Find the detector or inference backend in your application's documentation. Check the exact chip, OS and runtime version.</li>
+<li>Find a compiled model for that chip. For a custom model, check the compiler's supported operators, input shape and quantisation, then confirm what executes on the accelerator and what falls back to the CPU.</li>
+<li>Check the connection. A PCIe HAT uses the Pi 5's exposed PCIe connector. If you also need an NVMe drive, check how both devices will connect before picking the HAT.</li>
+<li>Test the complete workload with the same input and accuracy target. Check the <a href="#a-fair-benchmark-method">benchmark method</a> before comparing results from different models or pipelines.</li>
+</ol>
 <h2 id="option-1-raspberry-pi-cpu">Option 1: Raspberry Pi CPU<a class="headerlink" href="#option-1-raspberry-pi-cpu" title="Permanent link">¶</a></h2>
 <p>CPU inference has no extra hardware cost and is the easiest way to validate an idea. Current OpenVINO Arm64 wheels provide a standard path for converting and caching models, while TensorFlow Lite, ONNX Runtime, and PyTorch-based workflows support other model families.</p>
 <p>Choose CPU inference when:</p>
@@ -11376,7 +11424,7 @@
 <li>USB is more convenient than the Pi 5 PCIe connector.</li>
 <li>Stable low-power vision inference is more important than broad model choice.</li>
 </ul>
-<p>Before selecting a model, check that every required operation can run on the Edge TPU. Unsupported graph sections can fall back to the host and erase expected performance gains. See the <a href="../edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/">Frigate and Coral guide</a>.</p>
+<p>Before selecting a model, check the Edge TPU Compiler report. An unsupported operation can leave part of the graph running on the CPU, so a compiled <code>.tflite</code> file alone does not tell you how much work was offloaded. Check the software requirements for your OS or application image. <a href="https://coral.ai/docs/edgetpu/models-intro/">Coral model requirements</a> · <a href="../edge_ai__face_and_object_recognition_with_google_coral_tpu_and_frigate/">Frigate and Coral guide</a></p>
 <h2 id="option-5-ai-hat-13-or-26-tops">Option 5: AI HAT+ 13 or 26 TOPS<a class="headerlink" href="#option-5-ai-hat-13-or-26-tops" title="Permanent link">¶</a></h2>
 <p>AI HAT+ integrates Hailo-8L or Hailo-8 directly with Raspberry Pi 5. The camera stack can offload supported vision tasks to the NPU.</p>
 <ul>
@@ -11435,6 +11483,7 @@
 <li><a href="https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html">Raspberry Pi AI HAT documentation</a></li>
 <li><a href="https://www.raspberrypi.com/documentation/computers/ai.html">Raspberry Pi AI software</a></li>
 <li><a href="https://www.raspberrypi.com/documentation/accessories/ai-camera.html">Raspberry Pi AI Camera documentation</a></li>
+<li><a href="https://docs.sixfab.com/docs/ai-model-deployment-overview">Sixfab DEEPX model deployment</a></li>
 </ul></div>
 
 
@@ -11458,7 +11507,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 15:11:50 JST">2026-11-22</span>
   </span>
 
     
