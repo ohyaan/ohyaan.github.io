@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-06-08">
   
   
-    <meta property="article:modified_time" content="2026-10-16">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-06-08",
-    "dateModified": "2026-10-16"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -10245,6 +10245,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#measure-when-ssh-is-ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measure when SSH is ready
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-a-repeatable-baseline" class="md-nav__link">
     <span class="md-ellipsis">
       Create a repeatable baseline
@@ -11222,6 +11231,11 @@
 <td>A running process is not necessarily ready to serve requests</td>
 </tr>
 <tr>
+<td>You need the Pi to accept SSH after boot</td>
+<td><a href="#measure-when-ssh-is-ready">Check when the SSH server listens and when a client can log in</a></td>
+<td>Separates server startup from network and login readiness</td>
+</tr>
+<tr>
 <td>A delay seems related to Wi-Fi or DHCP</td>
 <td><a href="../raspberry_pi_networkmanager_wait_online_slow_boot/">NetworkManager wait-online diagnosis</a></td>
 <td>Which consumer and connection actually need the wait</td>
@@ -11274,16 +11288,16 @@
 <li>Restore the change if reliability or functionality regresses.</li>
 </ol>
 <h2 id="what-counts-as-raspberry-pi-boot-time">What counts as Raspberry Pi boot time?<a class="headerlink" href="#what-counts-as-raspberry-pi-boot-time" title="Permanent link">¶</a></h2>
-<p><code>systemd-analyze time</code> separates firmware, loader, kernel, initrd, and userspace where those stages are available. It does not necessarily measure the moment your kiosk, API, camera, or network connection becomes usable.</p>
+<p><code>systemd-analyze time</code> separates firmware, loader, kernel, initrd, and userspace where those stages are available. Pair the report with a project-specific readiness check for your kiosk, API, camera, or network connection.</p>
 <p>For an appliance, choose an application-level target such as:</p>
 <ul>
 <li>SSH accepts a connection.</li>
-<li>A systemd service reports <code>active</code>.</li>
+<li>A worker completes its initial load and can accept a job.</li>
 <li>An HTTP health endpoint returns 200.</li>
 <li>A kiosk page is visible and interactive.</li>
 <li>A GPIO output reaches its required state.</li>
 </ul>
-<p>Measure both systemd startup and that real readiness event. Optimising the wrong endpoint can make a report look better without improving the product.</p>
+<p>Measure both systemd startup and the readiness event your users need. Which target you choose depends on the job the Pi performs.</p>
 <h2 id="a-real-pi-4-boot-report-why-the-numbers-differ">A real Pi 4 boot report: why the numbers differ<a class="headerlink" href="#a-real-pi-4-boot-report-why-the-numbers-differ" title="Permanent link">¶</a></h2>
 <p>On our Raspberry Pi 4 Model B Rev 1.5, the diagnostic commands returned this report on <strong>16 October 2026</strong>:</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
@@ -11307,29 +11321,87 @@
 </code></pre></div></td></tr></table></div>
 <p><code>NetworkManager-wait-online.service</code> was not in that displayed chain. Subtracting its 5.988 seconds from the desktop target would therefore be an unsupported prediction. It may still matter to another consumer; inspect that consumer's chain before changing anything. <a href="../raspberry_pi_networkmanager_wait_online_slow_boot/">Read the network-wait diagnosis</a> if that is your actual bottleneck.</p>
 <p>This is one existing boot, inspected on Debian 13-based Raspberry Pi OS with kernel <code>6.18.50+rpt-rpi-v8</code>. No service was disabled and no reboot or before/after speed test was performed. It is a worked interpretation, <strong>not</strong> a Pi 4 average, a Pi 5 result or a claim of a speedup.</p>
+<h2 id="measure-when-ssh-is-ready">Measure when SSH is ready<a class="headerlink" href="#measure-when-ssh-is-ready" title="Permanent link">¶</a></h2>
+<p>Use two observations for a headless Pi. First, find when the local SSH service started. Then measure when your client can authenticate and run a command. A successful login also depends on name resolution, the network path, and the credentials you use.</p>
+<h3 id="read-the-pis-current-boot-journal">Read the Pi's current boot journal<a class="headerlink" href="#read-the-pis-current-boot-journal" title="Permanent link">¶</a></h3>
+<p>Run this on the <strong>Pi</strong>. Raspberry Pi OS normally calls the OpenSSH unit <code>ssh.service</code>. Use the unit name on your image if it differs.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>ssh.service
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>systemctl<span class="w"> </span>show<span class="w"> </span>ssh.service<span class="w"> </span>-p<span class="w"> </span>Type<span class="w"> </span>-p<span class="w"> </span>ActiveState<span class="w"> </span>-p<span class="w"> </span>ActiveEnterTimestampMonotonic
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>systemctl<span class="w"> </span>show<span class="w"> </span>network-online.target<span class="w"> </span>-p<span class="w"> </span>ActiveState<span class="w"> </span>-p<span class="w"> </span>ActiveEnterTimestampMonotonic
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>ssh.service<span class="w"> </span>--output<span class="o">=</span>short-monotonic<span class="w"> </span>--no-hostname<span class="w"> </span>--no-pager<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span>--grep<span class="o">=</span><span class="s1">'^Server listening|^Started .*ssh|^Started .*OpenBSD'</span>
+</code></pre></div></td></tr></table></div>
+<p>The <code>--grep</code> filter selects common English startup messages. If the filter finds nothing, inspect the unfiltered journal for that unit. <code>ActiveEnterTimestampMonotonic</code> is in microseconds on the current boot's monotonic clock. Divide by 1,000,000 to compare it with the seconds printed by <code>journalctl --output=short-monotonic</code>. If the unit restarted, that property may describe its latest activation. Check the sequence in the journal. <a href="https://manpages.debian.org/trixie/systemd/journalctl.1.en.html">Debian systemd journal reference</a></p>
+<p>In a later boot on the same Pi 4, systemd reported <code>ActiveEnterTimestampMonotonic=13696440</code> for <code>ssh.service</code>. The journal recorded the IPv4 listener at <strong>13.696 s</strong> on the boot clock. On that clock, <code>network-online.target</code> activated at about <strong>19.471 s</strong>. The earlier listener only establishes when the process was ready to accept connections at the server. Use a client-side login to measure reachability. The <code>@</code> timestamps in a critical-chain report use the systemd startup timeline. Use one clock for any subtraction.</p>
+<h3 id="check-an-authenticated-ssh-login-from-your-computer">Check an authenticated SSH login from your computer<a class="headerlink" href="#check-an-authenticated-ssh-login-from-your-computer" title="Permanent link">¶</a></h3>
+<p>On a <strong>Linux client</strong> with Bash, OpenSSH and GNU <code>timeout</code>, replace <code>my-pi</code> with a verified host alias or <code>user@hostname</code>. Before measuring startup, run the snippet with the Pi already on to confirm that key authentication and host verification work. Keep the same address and connection path for all comparisons. <a href="../../security/access/ssh_access_and_recovery/">Key setup on Raspberry Pi</a></p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="o">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="nv">pi_ssh</span><span class="o">=</span>my-pi
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span><span class="nv">wait_seconds</span><span class="o">=</span><span class="m">60</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span><span class="nv">SECONDS</span><span class="o">=</span><span class="m">0</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="o">((</span><span class="w"> </span>SECONDS<span class="w"> </span>&lt;<span class="w"> </span>wait_seconds<span class="w"> </span><span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nv">last_error</span><span class="o">=</span><span class="k">$(</span>timeout<span class="w"> </span>4s<span class="w"> </span>ssh<span class="w"> </span>-n<span class="w"> </span>-T<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">      </span>-o<span class="w"> </span><span class="nv">BatchMode</span><span class="o">=</span>yes<span class="w"> </span>-o<span class="w"> </span><span class="nv">ConnectTimeout</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">StrictHostKeyChecking</span><span class="o">=</span>yes<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">      </span>-o<span class="w"> </span><span class="nv">ControlMaster</span><span class="o">=</span>no<span class="w"> </span>-o<span class="w"> </span><span class="nv">ControlPath</span><span class="o">=</span>none<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="nv">$pi_ssh</span><span class="s2">"</span><span class="w"> </span><span class="nb">true</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">      </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'SSH command succeeded %s s after starting the check.\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SECONDS</span><span class="s2">"</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">      </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span><span class="k">fi</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">    </span>sleep<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">  </span><span class="k">done</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'SSH command did not succeed. Last result: %s\n'</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="w">    </span><span class="s2">"</span><span class="si">${</span><span class="nv">last_error</span><span class="k">:-</span><span class="nv">no</span><span class="p"> SSH response before the attempt timed out</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18"></a><span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Each attempt authenticates and runs <code>true</code> over a fresh connection. The check gives up after about a minute. A name lookup error, host key error or authentication error needs separate investigation before timing a boot. <a href="https://manpages.debian.org/trixie/openssh-client/ssh_config.5.en.html">OpenSSH client options</a></p>
+<p>For a planned boot comparison, use the same starting event for every run. For example, start this check at the moment you power on a fully shut-down Pi and note any delay between power-on and starting the command. Record the result as elapsed time from the client check. It samples readiness roughly once a second between attempts, so report seconds rather than millisecond precision.</p>
 <h2 id="create-a-repeatable-baseline">Create a repeatable baseline<a class="headerlink" href="#create-a-repeatable-baseline" title="Permanent link">¶</a></h2>
 <p>First save the current boot. The following creates a private report directory and a uniquely named text file; it does not change services or reboot:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">if</span><span class="w"> </span><span class="nv">boot_report_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/boot-bench.XXXXXX"</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="o">{</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span>date<span class="w"> </span>--iso-8601<span class="o">=</span>seconds
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span>uname<span class="w"> </span>-a
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span>cat<span class="w"> </span>/etc/os-release
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span>systemd-analyze<span class="w"> </span><span class="nb">time</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span>systemd-analyze<span class="w"> </span>critical-chain
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span>systemctl<span class="w"> </span>--failed
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$boot_report_dir</span><span class="s2">/report.txt"</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">  </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$boot_report_dir</span><span class="s2">/report.txt"</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="k">fi</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">if</span><span class="w"> </span><span class="nv">boot_report_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/boot-bench.XXXXXX"</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="o">{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span>date<span class="w"> </span>--iso-8601<span class="o">=</span>seconds
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">    </span>uname<span class="w"> </span>-a
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span>systemd-analyze<span class="w"> </span><span class="nb">time</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">    </span>systemd-analyze<span class="w"> </span>critical-chain
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span>systemctl<span class="w"> </span>--failed
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$boot_report_dir</span><span class="s2">/report.txt"</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">  </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$boot_report_dir</span><span class="s2">/report.txt"</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="k">fi</span>
 </code></pre></div></td></tr></table></div>
 <p>Keep the report locally: hostnames, unit names and OS details can identify your installation. Review and redact before sharing it. Repeat after each test boot and keep the reports with a note identifying the configuration.</p>
 <p>For comparisons, distinguish a warm reboot from a cold start. Keep the same method in both groups. For a cold start, shut down cleanly and wait for shutdown to complete before disconnecting power; never pull power from a running filesystem to collect timings.</p>
@@ -11373,39 +11445,39 @@
 </tbody>
 </table>
 <p>Check power and throttling history after each run:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>vcgencmd<span class="w"> </span>get_throttled
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>vcgencmd<span class="w"> </span>get_throttled
 </code></pre></div></td></tr></table></div>
 <p>A value other than <code>0x0</code> means a power, frequency-cap, or thermal condition is current or has occurred since boot. Fix that before treating the timing as a clean benchmark.</p>
 <h2 id="read-systemd-analyze-correctly">Read <code>systemd-analyze</code> correctly<a class="headerlink" href="#read-systemd-analyze-correctly" title="Permanent link">¶</a></h2>
 <h3 id="systemd-analyze-blame"><code>systemd-analyze blame</code><a class="headerlink" href="#systemd-analyze-blame" title="Permanent link">¶</a></h3>
 <p><code>blame</code> lists how long units spent activating, but a slow unit may have run in parallel and contributed little to total boot time. Treat it as a clue, not a list of services to disable.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>systemd-analyze<span class="w"> </span>blame<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-30
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>systemd-analyze<span class="w"> </span>blame<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-30
 </code></pre></div></td></tr></table></div>
 <h3 id="systemd-analyze-critical-chain"><code>systemd-analyze critical-chain</code><a class="headerlink" href="#systemd-analyze-critical-chain" title="Permanent link">¶</a></h3>
 <p>The critical chain shows ordering dependencies that held up the selected target:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>systemd-analyze<span class="w"> </span>critical-chain
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>multi-user.target
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>graphical.target
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>systemd-analyze<span class="w"> </span>critical-chain
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>multi-user.target
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>graphical.target
 </code></pre></div></td></tr></table></div>
-<p>The <code>@</code> time shows when a unit became active; the <code>+</code> time shows how long it took to start.</p>
+<p>The <code>@</code> time shows when a unit became active or started on the reported timeline. The <code>+</code> time shows how long it took to start.</p>
 <p>Both views have limits: <code>Type=simple</code> process startup does not measure application readiness, and device waits, timed-out jobs or socket activation may need journal inspection too. See the upstream <a href="https://manpages.debian.org/trixie/systemd/systemd-analyze.1.en.html">systemd-analyze manual distributed with Debian</a>.</p>
 <p>If the command says bootup is not yet finished, inspect <code>systemctl list-jobs --no-pager</code> and the relevant unit's logs. Do not cancel every job to make the report finish. If it cannot connect to the bus, check whether you are inside a container or chroot rather than a booted Pi system.</p>
 <h3 id="boot-timeline-plot">Boot timeline plot<a class="headerlink" href="#boot-timeline-plot" title="Permanent link">¶</a></h3>
 <p>Generate an SVG for a visual comparison:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>systemd-analyze<span class="w"> </span>plot<span class="w"> </span>&gt;<span class="w"> </span>boot-before.svg
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>systemd-analyze<span class="w"> </span>plot<span class="w"> </span>&gt;<span class="w"> </span>boot-before.svg
 </code></pre></div></td></tr></table></div>
 <p>After a change, generate <code>boot-after.svg</code> and compare the critical path rather than the total number of enabled services.</p>
 <h2 id="find-the-cause-of-a-slow-unit">Find the cause of a slow unit<a class="headerlink" href="#find-the-cause-of-a-slow-unit" title="Permanent link">¶</a></h2>
 <p>For a unit named <code>example.service</code>, inspect its status, definition, dependencies, and current-boot logs:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>example.service
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>example.service
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>example.service
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>example.service<span class="w"> </span>--no-pager
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>example.service
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>systemctl<span class="w"> </span>cat<span class="w"> </span>example.service
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>example.service
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-u<span class="w"> </span>example.service<span class="w"> </span>--no-pager
 </code></pre></div></td></tr></table></div>
 <p>Questions to answer before changing it:</p>
 <ul>
@@ -11418,31 +11490,31 @@
 <p>Fixing an error or timeout is generally more valuable than hiding the service.</p>
 <h2 id="safe-optimisation-1-disable-a-confirmed-unused-service">Safe optimisation 1: disable a confirmed-unused service<a class="headerlink" href="#safe-optimisation-1-disable-a-confirmed-unused-service" title="Permanent link">¶</a></h2>
 <p>Check why it is enabled and what depends on it:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>example.service
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>example.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>example.service
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>example.service
 </code></pre></div></td></tr></table></div>
 <p><code>example.service</code> is a placeholder, not a unit to paste literally. This example applies only to an ordinary, currently <strong>enabled</strong>, confirmed-unused service. Record its original enabled/active state and definition. Static, masked, generated or socket-triggered units need separate analysis. Never experiment on SSH, your network connection, storage or security maintenance merely to shorten a table.</p>
 <p>For that restricted case, change next-boot enablement without stopping the running service immediately:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>example.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>example.service
 </code></pre></div></td></tr></table></div>
 <p><code>disable</code> does not guarantee that another dependency cannot start the service. It also differs from <code>--now</code>, which would stop it immediately. Review <a href="https://manpages.debian.org/trixie/systemd/systemctl.1.en.html">systemctl's enable/disable semantics</a> before using these operations.</p>
 <p>Only schedule a reboot after saving work and confirming a recovery console or known-good storage. Check SSH is active and enabled if it is your access method:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>systemctl<span class="w"> </span>is-active<span class="w"> </span>ssh
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>ssh
 </code></pre></div></td></tr></table></div>
 <p>For the originally enabled service in this example, cancel the enablement change with:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>example.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>example.service
 </code></pre></div></td></tr></table></div>
 <p>If a test reboot has already left it inactive, starting it is an additional explicit operation after reviewing its purpose. Re-enabling is not a universal restoration of every custom symlink or prior runtime state; keep the original configuration record.</p>
 <p>Examples that may be unused on a specific appliance include Bluetooth support on an Ethernet-only server or a print service on a system that never prints. They are not universally safe to disable.</p>
 <h2 id="safe-optimisation-2-remove-unnecessary-network-waiting">Safe optimisation 2: remove unnecessary network waiting<a class="headerlink" href="#safe-optimisation-2-remove-unnecessary-network-waiting" title="Permanent link">¶</a></h2>
 <p>For NetworkManager-specific timeouts, profile retries, and rollback steps, use the <a href="../raspberry_pi_networkmanager_wait_online_slow_boot/">NetworkManager wait-online slow-boot diagnosis guide</a>.</p>
 <p>A headless service may be ordered after <code>network-online.target</code> even when it can bind locally and retry its outbound connection later. Inspect the chain first:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>network-online.target
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>network-online.target
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>systemd-analyze<span class="w"> </span>critical-chain<span class="w"> </span>network-online.target
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>--reverse<span class="w"> </span>network-online.target
 </code></pre></div></td></tr></table></div>
 <p>Do not simply disable the wait-online service if the application requires a configured address or mounted network storage during startup. <code>network-online.target</code> does not guarantee DNS, a reachable remote endpoint, or a synchronised clock; verify those application requirements separately. Make the application resilient where appropriate:</p>
 <ul>
@@ -11453,38 +11525,38 @@
 </ul>
 <h2 id="safe-optimisation-3-make-your-own-service-precise">Safe optimisation 3: make your own service precise<a class="headerlink" href="#safe-optimisation-3-make-your-own-service-precise" title="Permanent link">¶</a></h2>
 <p>Avoid broad dependencies such as <code>After=network-online.target</code> when they are not needed. A simple local application can use:</p>
-<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">[Unit]</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">My Raspberry Pi application</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="na">After</span><span class="o">=</span><span class="s">local-fs.target</span>
-<a id="__codelineno-15-4" name="__codelineno-15-4"></a>
-<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="k">[Service]</span>
-<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
-<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/my-app</span>
-<a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
-<a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">2</span>
-<a id="__codelineno-15-10" name="__codelineno-15-10"></a>
-<a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="k">[Install]</span>
-<a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+<div class="language-ini highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="k">[Unit]</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">My Raspberry Pi application</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="na">After</span><span class="o">=</span><span class="s">local-fs.target</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="k">[Service]</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/my-app</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">2</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="k">[Install]</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
 </code></pre></div></td></tr></table></div>
 <p>After changing a unit:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
-<span class="normal"><a href="#__codelineno-16-2">2</a></span>
-<span class="normal"><a href="#__codelineno-16-3">3</a></span>
-<span class="normal"><a href="#__codelineno-16-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-<a id="__codelineno-16-2" name="__codelineno-16-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>my-app.service
-<a id="__codelineno-16-3" name="__codelineno-16-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my-app.service
-<a id="__codelineno-16-4" name="__codelineno-16-4"></a>systemctl<span class="w"> </span>status<span class="w"> </span>my-app.service
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>my-app.service
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>my-app.service
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>systemctl<span class="w"> </span>status<span class="w"> </span>my-app.service
 </code></pre></div></td></tr></table></div>
 <p>Use <code>Type=notify</code> only when the application actually sends the systemd readiness notification. Choosing a service type that does not match process behaviour can add timeouts or report false readiness.</p>
 <h2 id="safe-optimisation-4-use-raspberry-pi-os-lite">Safe optimisation 4: use Raspberry Pi OS Lite<a class="headerlink" href="#safe-optimisation-4-use-raspberry-pi-os-lite" title="Permanent link">¶</a></h2>
@@ -11500,9 +11572,9 @@
 <p>Keep the original storage as a rollback until the Lite installation has passed soak testing.</p>
 <h2 id="safe-optimisation-5-investigate-storage">Safe optimisation 5: investigate storage<a class="headerlink" href="#safe-optimisation-5-investigate-storage" title="Permanent link">¶</a></h2>
 <p>Slow or failing storage often appears as filesystem, database, or service delays. Check kernel messages and device health where supported:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'mmc|nvme|usb|reset|timeout|error'</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a>findmnt<span class="w"> </span>-no<span class="w"> </span>SOURCE,FSTYPE,OPTIONS<span class="w"> </span>/
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'mmc|nvme|usb|reset|timeout|error'</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>findmnt<span class="w"> </span>-no<span class="w"> </span>SOURCE,FSTYPE,OPTIONS<span class="w"> </span>/
 </code></pre></div></td></tr></table></div>
 <p>Compare SD, USB SSD, or NVMe with the same OS image and workload. Do not publish a single boot result; use multiple cold boots and report the median plus the range.</p>
 <p>See the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">Raspberry Pi benchmark methodology</a> for a reproducible test record.</p>
@@ -11613,11 +11685,11 @@
 <li>Inspect the previous boot with <code>journalctl -b -1</code>.</li>
 </ol>
 <p>For a service change:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
-<span class="normal"><a href="#__codelineno-18-2">2</a></span>
-<span class="normal"><a href="#__codelineno-18-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>unmask<span class="w"> </span>example.service
-<a id="__codelineno-18-2" name="__codelineno-18-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>example.service
-<a id="__codelineno-18-3" name="__codelineno-18-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>unmask<span class="w"> </span>example.service
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>example.service
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
 </code></pre></div></td></tr></table></div>
 <p>Keep a known-good storage image for devices that must recover without network access.</p>
 <h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">¶</a></h2>
@@ -11663,7 +11735,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 16, 2026 19:37:43 JST">2026-10-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 19:43:03 JST">2026-11-22</span>
   </span>
 
     
