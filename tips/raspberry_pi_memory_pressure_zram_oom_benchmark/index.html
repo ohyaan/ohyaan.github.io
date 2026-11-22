@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2026-08-03">
   
   
-    <meta property="article:modified_time" content="2026-08-03">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-08-03",
-    "dateModified": "2026-08-03"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -11145,11 +11145,17 @@
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>free<span class="w"> </span>-h
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>zramctl
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>vmstat<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">'cat /proc/pressure/memory'</span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PATH</span><span class="s2">:/usr/sbin:/sbin"</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>free<span class="w"> </span>-h
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>swapon<span class="w"> </span>--show<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>zramctl
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>vmstat<span class="w"> </span>-y<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span>/proc/pressure/memory<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">  </span>cat<span class="w"> </span>/proc/pressure/memory
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="k">fi</span>
 </code></pre></div></td></tr></table></div>
 <p>Then check whether the kernel killed a process:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'out of memory|oom-kill|killed process'</span>
@@ -11189,9 +11195,9 @@
 <td>Identify the killed cgroup/process</td>
 </tr>
 <tr>
-<td>ZRAM <code>DATA</code> much smaller than <code>COMPR</code></td>
-<td>Data compresses poorly or overhead dominates</td>
-<td>Reduce/disable ZRAM for this workload</td>
+<td>ZRAM <code>TOTAL</code> approaches <code>DATA</code> under load</td>
+<td>ZRAM uses almost as much memory as the original data</td>
+<td>Compare latency and memory before tuning</td>
 </tr>
 </tbody>
 </table>
@@ -11230,7 +11236,7 @@
 <a id="__codelineno-6-2" name="__codelineno-6-2"></a>full avg10=0.02 avg60=0.01 avg300=0.00 total=1234
 </code></pre></div></td></tr></table></div>
 <p>These are observations, not universal pass/fail thresholds. Record them beside application response time. A batch workload may tolerate pressure that makes an interactive desktop unusable.</p>
-<p>Save a one-second sample without inventing benchmark results:</p>
+<p>Some kernels omit <code>/proc/pressure/memory</code>. If the file is missing, record <code>MemAvailable</code>, swap activity and application timing. If it is present, this example saves a sample each second for five minutes:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
@@ -11244,33 +11250,45 @@
 <span class="normal"><a href="#__codelineno-7-11">11</a></span>
 <span class="normal"><a href="#__codelineno-7-12">12</a></span>
 <span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/memory-bench"</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="nv">duration</span><span class="o">=</span><span class="m">300</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="nv">output</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/memory-bench/pressure.csv"</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'timestamp,mem_available_kib,swap_free_kib,psi_some_avg10,psi_full_avg10\n'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="k">for</span><span class="w"> </span>_<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s2">"</span><span class="nv">$duration</span><span class="s2">"</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">  </span><span class="nv">timestamp</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">  </span><span class="nv">available</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/MemAvailable:/ {print $2}'</span><span class="w"> </span>/proc/meminfo<span class="k">)</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">  </span><span class="nv">swap_free</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/SwapFree:/ {print $2}'</span><span class="w"> </span>/proc/meminfo<span class="k">)</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">  </span><span class="nv">some</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/some/ {sub("avg10=", "", $2); print $2}'</span><span class="w"> </span>/proc/pressure/memory<span class="k">)</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">  </span><span class="nv">full</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/full/ {sub("avg10=", "", $2); print $2}'</span><span class="w"> </span>/proc/pressure/memory<span class="k">)</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s,%s,%s,%s,%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$timestamp</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$available</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$swap_free</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$some</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$full</span><span class="s2">"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span>
-<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">  </span>sleep<span class="w"> </span><span class="m">1</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="k">done</span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="o">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-r<span class="w"> </span>/proc/pressure/memory<span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'Memory PSI is unavailable\n'</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">  </span><span class="k">fi</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">  </span><span class="nv">output</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/memory-pressure.XXXXXX.csv"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">  </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'Saving measurements to %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">  </span><span class="o">{</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'timestamp,mem_available_kib,swap_free_kib,psi_some_avg10,psi_full_avg10\n'</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span>_<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">300</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="w">      </span><span class="nv">timestamp</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="w">      </span><span class="nv">available</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/MemAvailable:/ {print $2}'</span><span class="w"> </span>/proc/meminfo<span class="k">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="w">      </span><span class="nv">swap_free</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/SwapFree:/ {print $2}'</span><span class="w"> </span>/proc/meminfo<span class="k">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="w">      </span><span class="nv">some</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/^some / {sub("avg10=", "", $2); print $2}'</span><span class="w"> </span>/proc/pressure/memory<span class="k">)</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="w">      </span><span class="nv">full</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">'/^full / {sub("avg10=", "", $2); print $2}'</span><span class="w"> </span>/proc/pressure/memory<span class="k">)</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="w">      </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s,%s,%s,%s,%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$timestamp</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$available</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$swap_free</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$some</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$full</span><span class="s2">"</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="w">      </span>sleep<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$output</span><span class="s2">"</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="o">)</span>
 </code></pre></div></td></tr></table></div>
 <p>Run the same workload before and after one controlled change. Keep the workload, OS, cooling, storage, and starting temperature constant.</p>
 <h2 id="inspect-zram-efficiency">Inspect ZRAM efficiency<a class="headerlink" href="#inspect-zram-efficiency" title="Permanent link">¶</a></h2>
 <p><code>zramctl</code> reports the uncompressed data size, compressed size, and total memory consumed:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>zramctl<span class="w"> </span>--output<span class="w"> </span>NAME,ALGORITHM,DISKSIZE,DATA,COMPR,TOTAL,STREAMS,MOUNTPOINT
+<span class="normal"><a href="#__codelineno-8-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>zramctl<span class="w"> </span>--output<span class="w"> </span>NAME,ALGORITHM,DISKSIZE,DATA,COMPR,TOTAL,MOUNTPOINT
 <a id="__codelineno-8-2" name="__codelineno-8-2"></a>cat<span class="w"> </span>/sys/block/zram0/mm_stat
 </code></pre></div></td></tr></table></div>
 <p>Do not compare only <code>DATA</code> and <code>COMPR</code>; allocator overhead is represented in <code>TOTAL</code>. A high configured disk size is only a limit and does not mean that amount of RAM is preallocated.</p>
 <p>Check swap priority:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>swapon<span class="w"> </span>--show<span class="w"> </span>--output<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>swapon<span class="w"> </span>--show<span class="o">=</span>NAME,TYPE,SIZE,USED,PRIO
 </code></pre></div></td></tr></table></div>
-<p>If both ZRAM and disk swap exist, ZRAM normally needs the higher priority to be selected first. Confirm the actual output rather than assuming a configuration was applied.</p>
+<p>If ZRAM and disk swap are separate active devices, the higher priority normally wins. With <code>rpi-swap</code> in <code>zram+file</code> mode, check ZRAM's backing device and counters instead. <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/#read-a-real-raspberry-pi-os-trixie-snapshot">Read a Trixie example</a></p>
 <h2 id="identify-an-oom-kill">Identify an OOM kill<a class="headerlink" href="#identify-an-oom-kill" title="Permanent link">¶</a></h2>
 <p>Show kernel OOM messages from the current boot:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>journalctl<span class="w"> </span>-k<span class="w"> </span>-b<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span>-C<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s1">'oom-kill|killed process|out of memory'</span>
@@ -11289,7 +11307,7 @@
 </code></pre></div></td></tr></table></div>
 <p>Fix a leak or oversized workload before treating swap as the solution. For image, AI, database, or browser workloads, reducing concurrency, resolution, cache size, model size, or batch size often helps more predictably.</p>
 <h2 id="ab-test-zram-safely">A/B test ZRAM safely<a class="headerlink" href="#ab-test-zram-safely" title="Permanent link">¶</a></h2>
-<p>Use the <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/">ZRAM setup guide</a> to select one implementation. Do not install both <code>zram-tools</code> and <code>systemd-zram-generator</code>.</p>
+<p>Identify the manager already configuring your swap. Raspberry Pi OS can use <code>rpi-swap</code> and its <code>systemd-zram-generator</code> dependency together. <a href="../optimizing_swap_with_zram_on_raspberry_pi_os/">Identify your ZRAM configuration</a></p>
 <p>For each state, record at least five runs:</p>
 <table>
 <thead>
@@ -11389,7 +11407,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 3, 2026 22:16:28 JST">2026-08-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 16:18:12 JST">2026-11-22</span>
   </span>
 
     
