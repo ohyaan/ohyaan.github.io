@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn how to set up an embedded systems development environment using Rust on Raspberry Pi. Configure cross-compilation and write safety GPIO control code.">
+        <meta name="description" content="Build Rust on Raspberry Pi OS with Cargo, read the board model using RPPAL, try a short GPIO LED exercise, and know when cross-compilation is useful.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Introduction to Embedded Systems Development with Rust on Raspberry Pi - With Raspberry Pi</title>
+        <title>Rust on Raspberry Pi: Board Info and GPIO - With Raspberry Pi</title>
       
     
     
@@ -83,25 +83,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Introduction to Embedded Systems Development with Rust on Raspberry Pi - With Raspberry Pi">
-  <meta property="og:description" content="Learn how to set up an embedded systems development environment using Rust on Raspberry Pi. Configure cross-compilation and write safety GPIO control code.">
+  <meta property="og:title" content="Rust on Raspberry Pi: Board Info and GPIO - With Raspberry Pi">
+  <meta property="og:description" content="Build Rust on Raspberry Pi OS with Cargo, read the board model using RPPAL, try a short GPIO LED exercise, and know when cross-compilation is useful.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__introduction_to_embedded_systems_development_with_rust_on_raspberry_pi.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Introduction to Embedded Systems Development with Rust on Raspberry Pi">
+  <meta property="og:image:alt" content="Rust on Raspberry Pi: Board Info and GPIO">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-06-21">
   
   
-    <meta property="article:modified_time" content="2026-10-03">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Introduction to Embedded Systems Development with Rust on Raspberry Pi - With Raspberry Pi">
-  <meta name="twitter:description" content="Learn how to set up an embedded systems development environment using Rust on Raspberry Pi. Configure cross-compilation and write safety GPIO control code.">
+  <meta name="twitter:title" content="Rust on Raspberry Pi: Board Info and GPIO - With Raspberry Pi">
+  <meta name="twitter:description" content="Build Rust on Raspberry Pi OS with Cargo, read the board model using RPPAL, try a short GPIO LED exercise, and know when cross-compilation is useful.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__introduction_to_embedded_systems_development_with_rust_on_raspberry_pi.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -121,8 +121,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Introduction to Embedded Systems Development with Rust on Raspberry Pi",
-    "description": "Learn how to set up an embedded systems development environment using Rust on Raspberry Pi. Configure cross-compilation and write safety GPIO control code.",
+    "headline": "Rust on Raspberry Pi: Board Info and GPIO",
+    "description": "Build Rust on Raspberry Pi OS with Cargo, read the board model using RPPAL, try a short GPIO LED exercise, and know when cross-compilation is useful.",
     "url": "https://ohyaan.github.io/tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__introduction_to_embedded_systems_development_with_rust_on_raspberry_pi.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-06-21",
-    "dateModified": "2026-10-03"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -142,7 +142,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Introduction to Embedded Systems Development with Rust on Raspberry Pi", "item": "https://ohyaan.github.io/tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/"}
+      {"@type": "ListItem", "position": 2, "name": "Rust on Raspberry Pi: Board Info and GPIO", "item": "https://ohyaan.github.io/tips/introduction_to_embedded_systems_development_with_rust_on_raspberry_pi/"}
     ]
   }
   </script>
@@ -167,7 +167,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction-to-embedded-systems-development-with-rust-on-raspberry-pi" class="md-skip">
+        <a href="#rust-on-raspberry-pi-read-the-board-model-and-blink-an-led" class="md-skip">
           Skip to content
         </a>
       
@@ -203,7 +203,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction to Embedded Systems Development with Rust on Raspberry Pi
+              Rust on Raspberry Pi: Board Info and GPIO
             
           </span>
         </div>
@@ -9076,7 +9076,7 @@
           
   
   <span class="md-ellipsis">
-    Introduction to Embedded Systems Development with Rust on Raspberry Pi
+    Rust on Raspberry Pi: Board Info and GPIO
     
   </span>
   
@@ -9088,7 +9088,7 @@
         
   
   <span class="md-ellipsis">
-    Introduction to Embedded Systems Development with Rust on Raspberry Pi
+    Rust on Raspberry Pi: Board Info and GPIO
     
   </span>
   
@@ -9111,54 +9111,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-why-choose-rust-for-raspberry-pi" class="md-nav__link">
+  <a href="#read-the-board-model-with-rppal" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Why Choose Rust for Raspberry Pi?
+      Read the board model with RPPAL
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-setting-up-the-rust-cross-compiler" class="md-nav__link">
+  <a href="#blink-an-led-three-times" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Setting Up the Rust Cross-Compiler
+      Blink an LED three times
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-creating-a-rust-hardware-project" class="md-nav__link">
+  <a href="#cross-compile-for-64-bit-raspberry-pi-os" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Creating a Rust Hardware Project
+      Cross-compile for 64-bit Raspberry Pi OS
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-writing-gpio-logic-in-rust" class="md-nav__link">
+  <a href="#continue-learning-rust" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Writing GPIO Logic in Rust
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-compiling-and-transferring-binaries" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Compiling and Transferring Binaries
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-guides" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related Guides
+      Continue learning Rust
     </span>
   </a>
   
@@ -11082,153 +11064,8 @@
 
 
 
-<div><h1 id="introduction-to-embedded-systems-development-with-rust-on-raspberry-pi">Introduction to Embedded Systems Development with Rust on Raspberry Pi<a class="headerlink" href="#introduction-to-embedded-systems-development-with-rust-on-raspberry-pi" title="Permanent link">¶</a></h1>
-<p>This guide introduces Rust development for Raspberry Pi, including cross-compilation and hardware access. Rust uses ownership and borrowing rules to check many memory and concurrency errors at compile time.</p>
-<p>This guide shows you how to set up a Rust development environment for Raspberry Pi, configure cross-compilation, and write safe GPIO control code.</p>
-<hr>
-<h2 id="1-why-choose-rust-for-raspberry-pi">1. Why Choose Rust for Raspberry Pi?<a class="headerlink" href="#1-why-choose-rust-for-raspberry-pi" title="Permanent link">¶</a></h2>
-<ol>
-<li><strong>Memory Safety</strong>: The Rust compiler validates memory access patterns at compile-time (via Ownership and Borrowing rules), eliminating segmentation faults.</li>
-<li><strong>Zero-Cost Abstractions</strong>: High-level abstractions (like iterators, pattern matching, and closures) compile down to machine instructions as fast as hand-written C.</li>
-<li><strong>Concurrency Safety</strong>: Rust prevents data races (multiple threads trying to write to the same memory address concurrently) by validating data sharing at compile-time.</li>
-<li><strong>Modern Tooling</strong>: <code>cargo</code> handles dependency management, compiling, and testing seamlessly.</li>
-</ol>
-<hr>
-<h2 id="2-setting-up-the-rust-cross-compiler">2. Setting Up the Rust Cross-Compiler<a class="headerlink" href="#2-setting-up-the-rust-cross-compiler" title="Permanent link">¶</a></h2>
-<p>While you can compile Rust code directly on a Raspberry Pi, compiling on a more powerful host PC (Linux, macOS, or Windows) is significantly faster. We will configure cross-compilation to target Raspberry Pi's 64-bit architecture (<code>aarch64-unknown-linux-gnu</code>).</p>
-<h3 id="1-install-rust-on-your-host-pc">1. Install Rust on Your Host PC<a class="headerlink" href="#1-install-rust-on-your-host-pc" title="Permanent link">¶</a></h3>
-<p>Run the official Rust installer:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>curl<span class="w"> </span>--proto<span class="w"> </span><span class="s1">'=https'</span><span class="w"> </span>--tlsv1.2<span class="w"> </span>-sSf<span class="w"> </span>https://sh.rustup.rs<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-</code></pre></div></td></tr></table></div>
-<h3 id="2-add-the-target-architecture">2. Add the Target Architecture<a class="headerlink" href="#2-add-the-target-architecture" title="Permanent link">¶</a></h3>
-<p>Add the toolchain target for 64-bit Raspberry Pi OS:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>rustup<span class="w"> </span>target<span class="w"> </span>add<span class="w"> </span>aarch64-unknown-linux-gnu
-</code></pre></div></td></tr></table></div>
-<h3 id="3-install-cross-compilation-linkers-ubuntudebian-host">3. Install Cross-Compilation Linkers (Ubuntu/Debian Host)<a class="headerlink" href="#3-install-cross-compilation-linkers-ubuntudebian-host" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-aarch64-linux-gnu<span class="w"> </span>-y
-</code></pre></div></td></tr></table></div>
-<h3 id="4-configure-cargo-linker">4. Configure Cargo Linker<a class="headerlink" href="#4-configure-cargo-linker" title="Permanent link">¶</a></h3>
-<p>Create a global Cargo config file (or a local <code>.cargo/config.toml</code> in your project root) and specify the linker:
-</p><div class="language-toml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">[target.aarch64-unknown-linux-gnu]</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">linker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"aarch64-linux-gnu-gcc"</span>
-</code></pre></div></td></tr></table></div>
-<hr>
-<h2 id="3-creating-a-rust-hardware-project">3. Creating a Rust Hardware Project<a class="headerlink" href="#3-creating-a-rust-hardware-project" title="Permanent link">¶</a></h2>
-<h3 id="1-initialize-a-cargo-binary-project">1. Initialize a Cargo Binary Project<a class="headerlink" href="#1-initialize-a-cargo-binary-project" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>cargo<span class="w"> </span>new<span class="w"> </span>rpi_gpio_demo
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">cd</span><span class="w"> </span>rpi_gpio_demo
-</code></pre></div></td></tr></table></div>
-<h3 id="2-add-the-rppal-library-dependency">2. Add the <code>rppal</code> Library Dependency<a class="headerlink" href="#2-add-the-rppal-library-dependency" title="Permanent link">¶</a></h3>
-<p><code>rppal</code> (Raspberry Pi Peripheral Access Library) is the standard Rust crate providing safe access to GPIO, I2C, SPI, PWM, and UART.</p>
-<p>Open <code>Cargo.toml</code> and add:
-</p><div class="language-toml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">[dependencies]</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">rppal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.14.1"</span>
-</code></pre></div></td></tr></table></div>
-<hr>
-<h2 id="4-writing-gpio-logic-in-rust">4. Writing GPIO Logic in Rust<a class="headerlink" href="#4-writing-gpio-logic-in-rust" title="Permanent link">¶</a></h2>
-<p>Let's write a program that sets up a GPIO output pin (LED) and an input pin (button), turning on the LED only when the button is pressed.</p>
-<p>Open <code>src/main.rs</code> and write:</p>
-<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span>
-<span class="normal"><a href="#__codelineno-6-20">20</a></span>
-<span class="normal"><a href="#__codelineno-6-21">21</a></span>
-<span class="normal"><a href="#__codelineno-6-22">22</a></span>
-<span class="normal"><a href="#__codelineno-6-23">23</a></span>
-<span class="normal"><a href="#__codelineno-6-24">24</a></span>
-<span class="normal"><a href="#__codelineno-6-25">25</a></span>
-<span class="normal"><a href="#__codelineno-6-26">26</a></span>
-<span class="normal"><a href="#__codelineno-6-27">27</a></span>
-<span class="normal"><a href="#__codelineno-6-28">28</a></span>
-<span class="normal"><a href="#__codelineno-6-29">29</a></span>
-<span class="normal"><a href="#__codelineno-6-30">30</a></span>
-<span class="normal"><a href="#__codelineno-6-31">31</a></span>
-<span class="normal"><a href="#__codelineno-6-32">32</a></span>
-<span class="normal"><a href="#__codelineno-6-33">33</a></span>
-<span class="normal"><a href="#__codelineno-6-34">34</a></span>
-<span class="normal"><a href="#__codelineno-6-35">35</a></span>
-<span class="normal"><a href="#__codelineno-6-36">36</a></span>
-<span class="normal"><a href="#__codelineno-6-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">error</span><span class="p">::</span><span class="n">Error</span><span class="p">;</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="k">use</span><span class="w"> </span><span class="n">rppal</span><span class="p">::</span><span class="n">gpio</span><span class="p">::</span><span class="n">Gpio</span><span class="p">;</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="c1">// Define BCM pins</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="k">const</span><span class="w"> </span><span class="n">LED_PIN</span><span class="p">:</span><span class="w"> </span><span class="kt">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">;</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="k">const</span><span class="w"> </span><span class="n">BUTTON_PIN</span><span class="p">:</span><span class="w"> </span><span class="kt">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">23</span><span class="p">;</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Initializing GPIO..."</span><span class="p">);</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12"></a>
-<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">    </span><span class="c1">// Initialize the GPIO driver</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">gpio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gpio</span><span class="p">::</span><span class="n">new</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
-<a id="__codelineno-6-15" name="__codelineno-6-15"></a>
-<a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">    </span><span class="c1">// Configure the LED pin as an output</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">led</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">into_output</span><span class="p">();</span>
-<a id="__codelineno-6-18" name="__codelineno-6-18"></a>
-<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">    </span><span class="c1">// Configure the Button pin as an input with a Pull-Up resistor</span>
-<a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">BUTTON_PIN</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">into_input_pullup</span><span class="p">();</span>
-<a id="__codelineno-6-21" name="__codelineno-6-21"></a>
-<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"GPIO Ready. Press the button to turn on the LED. Press Ctrl+C to exit."</span><span class="p">);</span>
-<a id="__codelineno-6-23" name="__codelineno-6-23"></a>
-<a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">        </span><span class="c1">// Read input pin state</span>
-<a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">button</span><span class="p">.</span><span class="n">is_low</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">            </span><span class="c1">// Button is pressed (connected to ground)</span>
-<a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="w">            </span><span class="n">led</span><span class="p">.</span><span class="n">set_high</span><span class="p">();</span>
-<a id="__codelineno-6-29" name="__codelineno-6-29"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="w">            </span><span class="c1">// Button is released</span>
-<a id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="w">            </span><span class="n">led</span><span class="p">.</span><span class="n">set_low</span><span class="p">();</span>
-<a id="__codelineno-6-32" name="__codelineno-6-32"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-6-33" name="__codelineno-6-33"></a>
-<a id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="w">        </span><span class="c1">// Small sleep to prevent 100% CPU thread lock</span>
-<a id="__codelineno-6-35" name="__codelineno-6-35"></a><span class="w">        </span><span class="n">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span><span class="p">::</span><span class="n">from_millis</span><span class="p">(</span><span class="mi">50</span><span class="p">));</span>
-<a id="__codelineno-6-36" name="__codelineno-6-36"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="safety-features-of-rppal">Safety Features of <code>rppal</code>:<a class="headerlink" href="#safety-features-of-rppal" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Ownership validation</strong>: If you try to call <code>gpio.get(18)</code> twice, <code>rppal</code> returns an error, preventing two independent parts of your code from trying to configure the same physical hardware pin simultaneously.</li>
-<li><strong>Resource Cleanup</strong>: When variables <code>led</code> and <code>button</code> go out of scope, Rust's drop checker automatically cleans up the pin configuration, acting as an automatic hardware RAII guard.</li>
-</ul>
-<hr>
-<h2 id="5-compiling-and-transferring-binaries">5. Compiling and Transferring Binaries<a class="headerlink" href="#5-compiling-and-transferring-binaries" title="Permanent link">¶</a></h2>
-<h3 id="1-compile-the-project">1. Compile the project<a class="headerlink" href="#1-compile-the-project" title="Permanent link">¶</a></h3>
-<p>Build the binary targeting the Raspberry Pi:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>cargo<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>aarch64-unknown-linux-gnu<span class="w"> </span>--release
-</code></pre></div></td></tr></table></div>
-<h3 id="2-transfer-the-binary-to-your-pi">2. Transfer the Binary to your Pi<a class="headerlink" href="#2-transfer-the-binary-to-your-pi" title="Permanent link">¶</a></h3>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>scp<span class="w"> </span>target/aarch64-unknown-linux-gnu/release/rpi_gpio_demo<span class="w"> </span>pi@192.168.1.100:/home/pi/
-</code></pre></div></td></tr></table></div>
-<h3 id="3-run-on-raspberry-pi">3. Run on Raspberry Pi<a class="headerlink" href="#3-run-on-raspberry-pi" title="Permanent link">¶</a></h3>
-<p>SSH into your Raspberry Pi and execute the binary:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>./rpi_gpio_demo
-</code></pre></div></td></tr></table></div>
-<hr>
-<h2 id="related-guides">Related Guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
-<ul>
-<li><a href="../../programming/1._programming_basics_for_raspberry_pi/">Programming Basics</a> — Digital input and output circuit setups.</li>
-<li><a href="../high-speed_gpio_control__c%2B%2B_direct_register_access_vs_libgpiod/">High-Speed GPIO Control</a> — Detailed registry manipulation patterns.</li>
-</ul>
+<div><h1 id="rust-on-raspberry-pi-read-the-board-model-and-blink-an-led">Rust on Raspberry Pi: Read the Board Model and Blink an LED<a class="headerlink" href="#rust-on-raspberry-pi-read-the-board-model-and-blink-an-led" title="Permanent link">¶</a></h1>
+<p>Build a small Rust program directly on a Raspberry Pi 4 or 5 running 64-bit Raspberry Pi OS. First print the board model with RPPAL and no extra hardware. Then use the same Cargo project to blink an indicator LED or build an ARM64 binary on another computer.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11236,7 +11073,185 @@
   <script>
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-</div></div>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>What you want to do</th>
+<th>Where to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Install Rust or learn the language</td>
+<td><a href="../../rust-learning/01_install_rust_and_first_cargo_project/">Install Rust and run your first Cargo project</a></td>
+</tr>
+<tr>
+<td>Try a Raspberry Pi-specific crate</td>
+<td><a href="#read-the-board-model-with-rppal">Read the board model</a></td>
+</tr>
+<tr>
+<td>Control a GPIO output</td>
+<td><a href="#blink-an-led-three-times">Blink an LED three times</a></td>
+</tr>
+<tr>
+<td>Build on an x86-64 Linux computer</td>
+<td><a href="#cross-compile-for-64-bit-raspberry-pi-os">Cross-compile for 64-bit Raspberry Pi OS</a></td>
+</tr>
+<tr>
+<td>Write firmware for a Raspberry Pi Pico</td>
+<td>Start with <a href="https://doc.rust-lang.org/embedded-book/intro/no-std.html">the Embedded Rust Book</a>. Pico firmware has a separate target and typically uses <code>no_std</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="read-the-board-model-with-rppal">Read the board model with RPPAL<a class="headerlink" href="#read-the-board-model-with-rppal" title="Permanent link">¶</a></h2>
+<p>Run these commands <strong>on the Pi</strong>, either in its terminal or through SSH. The exercise needs Cargo, a working native linker and internet access for its first dependency download. Start with the <a href="../../rust-learning/01_install_rust_and_first_cargo_project/">Rust setup lesson</a> if <code>cargo</code> cannot build a basic program yet.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Check both the kernel architecture and user-space width.</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>uname<span class="w"> </span>-m
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>getconf<span class="w"> </span>LONG_BIT
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>cargo<span class="w"> </span>--version
+</code></pre></div></td></tr></table></div>
+<p>This example uses <code>aarch64</code> with 64-bit user space. Create a fresh project in your home directory and add the version of RPPAL used here.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nv">rust_pi_work</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/pi-rust-start.XXXXXX"</span><span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$rust_pi_work</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span>cargo<span class="w"> </span>new<span class="w"> </span>--edition<span class="w"> </span><span class="m">2024</span><span class="w"> </span>pi-rust-probe<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span><span class="nb">cd</span><span class="w"> </span>pi-rust-probe<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">  </span>cargo<span class="w"> </span>add<span class="w"> </span><span class="s1">'rppal@=0.22.1'</span>
+</code></pre></div></td></tr></table></div>
+<p>Keep the project path. In the new project, replace <code>src/main.rs</code> with:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">use</span><span class="w"> </span><span class="n">rppal</span><span class="p">::</span><span class="n">system</span><span class="p">::</span><span class="n">DeviceInfo</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">error</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DeviceInfo</span><span class="p">::</span><span class="n">new</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Board: {}"</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">.</span><span class="n">model</span><span class="p">());</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"SoC: {}"</span><span class="p">,</span><span class="w"> </span><span class="n">device</span><span class="p">.</span><span class="n">soc</span><span class="p">());</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>cargo<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--bin<span class="w"> </span>pi-rust-probe
+</code></pre></div></td></tr></table></div>
+<p>Cargo builds and runs the program. The <code>--locked</code> flag keeps the dependency versions resolved in <code>Cargo.lock</code>. <code>DeviceInfo::new()</code> reads model information exposed by Linux. The <code>?</code> returns an error to the caller if the board cannot be identified. You can check the board's raw device-tree name separately. <a href="https://docs.rs/rppal/latest/rppal/system/struct.DeviceInfo.html">RPPAL DeviceInfo reference</a></p>
+<p>On a Pi 4 Model B, the program printed:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>Board: Raspberry Pi 4 B
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>SoC: BCM2711
+</code></pre></div></td></tr></table></div>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># Compare with the name from Linux's device tree.</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\000'</span><span class="w"> </span>&lt;<span class="w"> </span>/proc/device-tree/model
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'\n'</span>
+</code></pre></div></td></tr></table></div>
+<p>This step works without an LED or a GPIO permission change. A successful build on a different computer can still give an unknown-model error at runtime there. Run the binary on the Pi you want to identify.</p>
+<h2 id="blink-an-led-three-times">Blink an LED three times<a class="headerlink" href="#blink-an-led-three-times" title="Permanent link">¶</a></h2>
+<p>This optional step switches a physical output. Use a spare GPIO24 on a Pi with a 40-pin header, a low-current LED, a <strong>1 kΩ series resistor</strong>, and a breadboard. Shut down and disconnect power before wiring. Confirm GPIO24 is free of other circuitry and software uses. If you have a HAT or another project on this pin, finish the read-only example and use a spare board for this exercise.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>GPIO24 (physical pin 18) → 1 kΩ resistor → LED anode
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>LED cathode → GND (physical pin 20)
+</code></pre></div></td></tr></table></div>
+<p>GPIO24 is the number used by the program. Match the physical positions on the header before power-up. The GPIO uses 3.3 V logic. Keep the circuit away from the 5 V pins. See the <a href="../../programming/2._controlling_led_with_gpio/">LED wiring walkthrough</a> and <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pin-layout">Raspberry Pi pin layout</a>.</p>
+<p>In the same project, create a directory for the second binary:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>src/bin
+</code></pre></div></td></tr></table></div>
+<p>Save this as <code>src/bin/blink.rs</code>:</p>
+<div class="language-rust highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">use</span><span class="w"> </span><span class="n">rppal</span><span class="p">::</span><span class="n">gpio</span><span class="p">::</span><span class="n">Gpio</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="nb">Box</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">error</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">gpio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gpio</span><span class="p">::</span><span class="n">new</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">led</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gpio</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">into_output_low</span><span class="p">();</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Duration</span><span class="p">::</span><span class="n">from_millis</span><span class="p">(</span><span class="mi">300</span><span class="p">);</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">        </span><span class="n">led</span><span class="p">.</span><span class="n">set_high</span><span class="p">();</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">        </span><span class="n">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">);</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">        </span><span class="n">led</span><span class="p">.</span><span class="n">set_low</span><span class="p">();</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">        </span><span class="n">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">);</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Use <code>cargo build --locked --bin blink</code> to compile without changing any pin. When the powered-off wiring check is complete, reconnect power and run as your regular Pi user:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>cargo<span class="w"> </span>run<span class="w"> </span>--locked<span class="w"> </span>--bin<span class="w"> </span>blink
+</code></pre></div></td></tr></table></div>
+<p>Expect three flashes and automatic exit. The pin starts low and each flash ends low. RPPAL restores the pin mode on ordinary scope exit by default. A forced process exit can skip that cleanup. Check for other software using the pin before you run. <a href="https://docs.rs/rppal/latest/rppal/gpio/struct.OutputPin.html#method.set_reset_on_drop">RPPAL GPIO reference</a></p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cargo cannot find a linker</td>
+<td>Complete the <a href="../../rust-learning/01_install_rust_and_first_cargo_project/#install-rust-and-a-native-linker">native toolchain setup</a>.</td>
+</tr>
+<tr>
+<td>RPPAL cannot identify the model</td>
+<td>Run on the Raspberry Pi OS host and check the device-tree name and <a href="https://docs.rs/rppal/latest/rppal/">supported boards</a>.</td>
+</tr>
+<tr>
+<td>GPIO access is denied</td>
+<td>Check your login's groups with <code>id -nG</code> and the OS's GPIO permissions. <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio-permissions">Raspberry Pi GPIO permissions</a></td>
+</tr>
+<tr>
+<td>The binary exits but the LED stays dark</td>
+<td>Disconnect power and check pins 18 and 20, LED polarity, and the series resistor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cross-compile-for-64-bit-raspberry-pi-os">Cross-compile for 64-bit Raspberry Pi OS<a class="headerlink" href="#cross-compile-for-64-bit-raspberry-pi-os" title="Permanent link">¶</a></h2>
+<p>Cross-compilation is useful if you edit on a Linux workstation and want an executable for the Pi. Confirm 64-bit user space on the Pi first. For a Debian or Ubuntu x86-64 workstation with Rust installed, use its ARM64 GNU linker and the stable Rust Linux target. <a href="https://doc.rust-lang.org/rustc/platform-support/aarch64-unknown-linux-gnu.html">Rust ARM64 Linux target</a></p>
+<p>Run this on the <strong>workstation</strong> from a copy of the project containing <code>Cargo.toml</code>, <code>Cargo.lock</code> and the source files:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gcc-aarch64-linux-gnu<span class="w"> </span>libc6-dev-arm64-cross<span class="w"> </span>file
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>rustup<span class="w"> </span>target<span class="w"> </span>add<span class="w"> </span>aarch64-unknown-linux-gnu
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="nv">CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER</span><span class="o">=</span>aarch64-linux-gnu-gcc<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">  </span>cargo<span class="w"> </span>build<span class="w"> </span>--locked<span class="w"> </span>--release<span class="w"> </span>--target<span class="w"> </span>aarch64-unknown-linux-gnu<span class="w"> </span>--bin<span class="w"> </span>pi-rust-probe
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>file<span class="w"> </span>target/aarch64-unknown-linux-gnu/release/pi-rust-probe
+</code></pre></div></td></tr></table></div>
+<p><code>file</code> should identify an AArch64 ELF executable. Transfer it to a directory you control using your existing <a href="../../getting-started/initial_setup_guide_for_raspberry_pi/#make-sure-ssh-will-work-after-reboot">SSH connection</a>. Run <code>./pi-rust-probe</code> in that directory <strong>on the Pi</strong>. If it reports a missing <code>GLIBC_</code> version, build against a compatible target system or return to the native build. An ARM64 target determines the CPU and ABI. The selected linker and libraries still determine runtime compatibility. <a href="https://doc.rust-lang.org/cargo/reference/config.html#targettriplerlinker">Cargo linker configuration</a></p>
+<h2 id="continue-learning-rust">Continue learning Rust<a class="headerlink" href="#continue-learning-rust" title="Permanent link">¶</a></h2>
+<p>Can you explain why the board probe needs Linux but wiring is only part of the blink example? Can you point to GPIO24 on the header without using physical pin 24?</p>
+<p>Follow the <a href="../../rust-learning/">Rust course</a> for ownership, error handling and concurrency. If you already know Cargo and want a larger no-wiring project, build the <a href="../../rust-learning/28_raspberry_pi_system_status_project/">Raspberry Pi system status tool</a>.</p></div>
 
 
 
@@ -11259,7 +11274,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 3, 2026 21:10:28 JST">2026-10-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 10:58:03 JST">2026-11-22</span>
   </span>
 
     
