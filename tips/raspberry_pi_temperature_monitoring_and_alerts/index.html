@@ -96,7 +96,7 @@
     <meta property="article:published_time" content="2025-06-08">
   
   
-    <meta property="article:modified_time" content="2026-11-11">
+    <meta property="article:modified_time" content="2026-11-22">
   
 
   <meta name="twitter:card" content="summary_large_image">
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2025-06-08",
-    "dateModified": "2026-11-11"
+    "dateModified": "2026-11-22"
   }
   </script>
   <script type="application/ld+json">
@@ -11110,7 +11110,7 @@
 
 
 <div><h1 id="raspberry-pi-temperature-command-check-cpu-heat-and-throttling">Raspberry Pi Temperature Command: Check CPU Heat and Throttling<a class="headerlink" href="#raspberry-pi-temperature-command-check-cpu-heat-and-throttling" title="Permanent link">¶</a></h1>
-<p>To check Raspberry Pi CPU temperature, run <code>vcgencmd measure_temp</code>. Pair it with <code>vcgencmd get_throttled</code> to distinguish heat from power faults. A warm board or a low idle clock alone does not prove thermal throttling.</p>
+<p>To check Raspberry Pi CPU temperature, run <code>vcgencmd measure_temp</code> in a terminal on the Pi or over SSH. If the Pi slows down, check temperature, throttling flags, and CPU clock during the same workload to decide what to investigate.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11122,19 +11122,13 @@
 
 <p><a id="which-temperature-command-should-you-use"></a></p>
 <h2 id="raspberry-pi-temperature-command-the-quick-answer">Raspberry Pi temperature command: the quick answer<a class="headerlink" href="#raspberry-pi-temperature-command-the-quick-answer" title="Permanent link">¶</a></h2>
-<p>Run these on the Pi, either in a local terminal or over SSH:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Read SoC temperature, firmware flags, and the current Arm clock.</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>vcgencmd<span class="w"> </span>measure_temp
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>vcgencmd<span class="w"> </span>get_throttled
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm
+<p>On a Pi 4 or Pi 5 running Raspberry Pi OS, start with this read-only command:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>vcgencmd<span class="w"> </span>measure_temp
 </code></pre></div></td></tr></table></div>
-<p>Example temperature output—not a measurement from a tested board:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>temp=48.2'C
+<p>Here is a reading from a Raspberry Pi 4 Model B running 64-bit Raspberry Pi OS with kernel <code>6.18.50+rpt-rpi-v8</code>:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>temp=37.9'C
 </code></pre></div></td></tr></table></div>
-<p>That means 48.2°C at the SoC's internal sensor, not room temperature. Monitor without installing a database or dashboard:</p>
+<p>The chip's internal sensor read <strong>37.9°C</strong> at that moment. Your reading will vary with workload, room temperature, and cooling. To watch it change, run:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>watch<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">'vcgencmd measure_temp; vcgencmd get_throttled'</span>
 </code></pre></div></td></tr></table></div>
 <p>Stop with Ctrl+C. The <a href="https://www.raspberrypi.com/documentation/computers/os.html#measure_temp">official vcgencmd reference</a> documents the temperature and clock commands.</p>
@@ -11148,11 +11142,11 @@
 <tbody>
 <tr>
 <td>How hot is the CPU now?</td>
-<td>Read measure_temp</td>
+<td>Run <code>vcgencmd measure_temp</code></td>
 </tr>
 <tr>
-<td>Is it actually slowing down?</td>
-<td>Inspect current flags and <a href="../cpu_frequency_scaling/">CPU frequency</a> during the workload</td>
+<td>Is heat or power limiting speed?</td>
+<td><a href="#temperature-is-not-the-same-as-throttling">Read temperature, flags, and clock together</a></td>
 </tr>
 <tr>
 <td>Is 60°C or 70°C too hot?</td>
@@ -11163,8 +11157,8 @@
 <td>Check <a href="#raspberry-pi-5-fan-not-spinning">its automatic fan curve</a></td>
 </tr>
 <tr>
-<td>Command missing or sensor file absent?</td>
-<td>Follow <a href="#fix-temperature-reading-errors">reading-error diagnosis</a></td>
+<td><code>vcgencmd</code> unavailable?</td>
+<td><a href="#read-cpu-temperature-without-vcgencmd">Find the CPU sensor in Linux</a> or <a href="#fix-temperature-reading-errors">check the utility</a></td>
 </tr>
 <tr>
 <td>Need a local warning?</td>
@@ -11201,59 +11195,89 @@
 </table>
 <p>Raspberry Pi 3B+ has an additional default 60°C soft limit. Do not apply that older model's rule to Pi 4 or Pi 5.</p>
 <p>These are firmware control points, not recommended user alert settings. You might choose a warning at 75°C to investigate cooling before reaching the general throttling range. That is an example operating policy, not a new hardware limit.</p>
-<p>Compare idle and the workload that matters to you. Record the case, fan, room conditions, and duration. This article supplies no Pi hardware measurements or guaranteed temperature reductions.</p>
+<p>Compare idle and the workload that matters to you. Record the case, fan, room conditions, and duration so you can compare readings after a cooling change.</p>
 <p><a id="thermal-throttling-detection"></a></p>
 <h2 id="temperature-is-not-the-same-as-throttling">Temperature is not the same as throttling<a class="headerlink" href="#temperature-is-not-the-same-as-throttling" title="Permanent link">¶</a></h2>
-<p>get_throttled contains current and historical bits. A historical fault can remain recorded after the board has cooled or the power supply has been corrected.</p>
-<ul>
-<li><code>0x50000</code>: earlier undervoltage and throttling, with neither active in this reading.</li>
-<li><code>0x50005</code>: current undervoltage and throttling, plus their history.</li>
-<li><code>0x0</code>: none of the defined flags set in that reading.</li>
-</ul>
-<p>Paste your <code>vcgencmd get_throttled</code> output into the <a href="../raspberry_pi_get_throttled_undervoltage/#raspberry-pi-get_throttled-decoder">get_throttled decoder</a> to see current warnings, historical flags, and the next checks. The throttling bit alone does not identify heat as the cause; use the power and cooling checks before buying a cooler or changing clock settings.</p>
-<h2 id="read-cpu-temperature-without-vcgencmd">Read CPU temperature without vcgencmd<a class="headerlink" href="#read-cpu-temperature-without-vcgencmd" title="Permanent link">¶</a></h2>
-<p>Linux exposes thermal sensors through sysfs. First identify the zone rather than assuming zone zero always names the CPU:</p>
+<p>When the Pi feels slow, run these three commands while the slowdown is happening:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
 <span class="normal"><a href="#__codelineno-3-2">2</a></span>
 <span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># List sensor types on this kernel.</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">for</span><span class="w"> </span>zone<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/class/thermal/thermal_zone*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">/type"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s: '</span><span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">"</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">    </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">/type"</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="k">done</span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c1"># Sample the chip temperature, firmware flags, and Arm clock.</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>vcgencmd<span class="w"> </span>measure_temp
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>vcgencmd<span class="w"> </span>get_throttled
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm
 </code></pre></div></td></tr></table></div>
-<p>After confirming that thermal_zone0 is the appropriate SoC zone on your system:</p>
+<p>The same Pi 4 reported <code>throttled=0x50000</code> and <code>frequency(48)=1800404352</code> alongside the 37.9°C reading. The clock was about 1.80 GHz at that instant. The flag indicates earlier undervoltage and throttling. Both current bits were clear, so the reading cannot tell when the earlier events happened or what caused the throttle.</p>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What to check next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current undervoltage, for example <code>0x50005</code></td>
+<td>Check the power supply, cable, and connected peripherals first.</td>
+</tr>
+<tr>
+<td>Temperature rises toward the thermal limit and the clock drops under sustained load</td>
+<td>Check airflow, heatsink contact, and fan operation. Compare the same workload again after one change.</td>
+</tr>
+<tr>
+<td>History flags only, for example <code>0x50000</code></td>
+<td>Record a new sample during the slowdown. Use the history to guide what you check.</td>
+</tr>
+<tr>
+<td>Clock is low at idle and flags are clear (<code>0x0</code>)</td>
+<td>Check the clock again during normal work. A low idle clock can come from <a href="../cpu_frequency_scaling/">CPU frequency scaling</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Paste your <code>vcgencmd get_throttled</code> output into the <a href="../raspberry_pi_get_throttled_undervoltage/#raspberry-pi-get_throttled-decoder">get_throttled decoder</a> to see current warnings, historical flags, and the next checks. The throttling bit alone does not identify heat as the cause; use the power and cooling checks before buying a cooler or changing clock settings.</p>
+<h2 id="read-cpu-temperature-without-vcgencmd">Read CPU temperature without vcgencmd<a class="headerlink" href="#read-cpu-temperature-without-vcgencmd" title="Permanent link">¶</a></h2>
+<p>Linux exposes thermal sensors through sysfs. First identify the zone rather than assuming zone zero always names the CPU:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># The sysfs value is millidegrees Celsius.</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>cat<span class="w"> </span>/sys/class/thermal/thermal_zone0/temp
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>awk<span class="w"> </span><span class="s1">'{printf "%.1f C\n", $1/1000}'</span><span class="w"> </span>/sys/class/thermal/thermal_zone0/temp
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># List sensor types on this kernel.</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="k">for</span><span class="w"> </span>zone<span class="w"> </span><span class="k">in</span><span class="w"> </span>/sys/class/thermal/thermal_zone*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">/type"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s: '</span><span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">"</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span>cat<span class="w"> </span><span class="s2">"</span><span class="nv">$zone</span><span class="s2">/type"</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">done</span>
 </code></pre></div></td></tr></table></div>
-<p>A raw value of 48200 converts to 48.2°C. The <a href="https://docs.kernel.org/driver-api/thermal/sysfs-api.html">Linux thermal sysfs reference</a> defines the type and units. Raspberry Pi's documentation prefers vcgencmd for an instantaneous SoC reading; Linux and firmware paths need not return identical samples.</p>
+<p>Look for the SoC zone, such as <code>cpu-thermal</code> on the Pi 4 used here. Substitute its path if it differs from the example:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1"># The sysfs value is millidegrees Celsius.</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>cat<span class="w"> </span>/sys/class/thermal/thermal_zone0/temp
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>awk<span class="w"> </span><span class="s1">'{printf "%.1f C\n", $1/1000}'</span><span class="w"> </span>/sys/class/thermal/thermal_zone0/temp
+</code></pre></div></td></tr></table></div>
+<p>On the example Pi 4, that zone returned <code>37972</code>, which is 37.972°C before rounding. The <a href="https://docs.kernel.org/driver-api/thermal/sysfs-api.html">Linux thermal sysfs reference</a> defines the type and units. The Linux and firmware paths sample separately, so small differences are expected.</p>
 <p>A missing zone is an unavailable reading, not 0°C. Do not substitute zero in a monitoring script when reading fails.</p>
 <h2 id="fix-temperature-reading-errors">Fix temperature reading errors<a class="headerlink" href="#fix-temperature-reading-errors" title="Permanent link">¶</a></h2>
 <h3 id="vcgencmd-command-not-found">vcgencmd: command not found<a class="headerlink" href="#vcgencmd-command-not-found" title="Permanent link">¶</a></h3>
 <p>Check the OS and executable before installing anything:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>cat<span class="w"> </span>/etc/os-release
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>vcgencmd
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>apt-cache<span class="w"> </span>policy<span class="w"> </span>raspi-utils
-</code></pre></div></td></tr></table></div>
-<p>On current Raspberry Pi OS, check the candidate from the configured Raspberry Pi repositories, then install the utility package if needed:</p>
 <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
 <span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>raspi-utils
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>vcgencmd<span class="w"> </span>measure_temp
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>vcgencmd
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>apt-cache<span class="w"> </span>policy<span class="w"> </span>raspi-utils
+</code></pre></div></td></tr></table></div>
+<p>On current Raspberry Pi OS, check the candidate from the configured Raspberry Pi repositories, then install the utility package if needed:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>raspi-utils
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>vcgencmd<span class="w"> </span>measure_temp
 </code></pre></div></td></tr></table></div>
 <p>The <a href="https://github.com/raspberrypi/utils">Raspberry Pi utils project</a> includes vcgencmd. Package names and firmware access can differ on Ubuntu, Armbian, older images, or inside a container. Do not add unrelated distribution repositories just to obtain this command; use the kernel sensor interface when available.</p>
 <h3 id="permission-denied-or-firmware-access-fails">Permission denied or firmware access fails<a class="headerlink" href="#permission-denied-or-firmware-access-fails" title="Permanent link">¶</a></h3>
 <p>Try the read once with sudo to distinguish permissions from an absent interface:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>vcgencmd<span class="w"> </span>measure_temp
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>vcgencmd<span class="w"> </span>measure_temp
 </code></pre></div></td></tr></table></div>
 <p>If that succeeds while the ordinary command fails, inspect the image's device/group configuration. If it also fails, check whether you are on the Pi host, not a container lacking host devices. Do not grant a container privileged access merely to obtain a temperature reading.</p>
 <h3 id="thermal_zone0temp-no-such-file-or-directory">thermal_zone0/temp: No such file or directory<a class="headerlink" href="#thermal_zone0temp-no-such-file-or-directory" title="Permanent link">¶</a></h3>
@@ -11297,47 +11321,47 @@
 <p>Check airflow and thermal-pad contact according to the cooler's instructions. A fan improves neither a bad power supply nor an unrelated storage bottleneck.</p>
 <h2 id="a-local-temperature-warning-without-extra-packages">A local temperature warning without extra packages<a class="headerlink" href="#a-local-temperature-warning-without-extra-packages" title="Permanent link">¶</a></h2>
 <p>Download <a href="../examples/cooling/temperature_check.py">temperature_check.py</a>. It reads one confirmed thermal-zone file and prints JSON. It requires Python 3, not root, a webhook, a database, or a Python package installation.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>python3<span class="w"> </span>temperature_check.py<span class="w"> </span>--warning<span class="w"> </span><span class="m">75</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="c1"># Select another zone only after identifying its type.</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>python3<span class="w"> </span>temperature_check.py<span class="w"> </span>--temperature-file<span class="w"> </span>/sys/class/thermal/thermal_zone1/temp<span class="w"> </span>--warning<span class="w"> </span><span class="m">75</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>python3<span class="w"> </span>temperature_check.py<span class="w"> </span>--warning<span class="w"> </span><span class="m">75</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="c1"># Select another zone only after identifying its type.</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>python3<span class="w"> </span>temperature_check.py<span class="w"> </span>--temperature-file<span class="w"> </span>/sys/class/thermal/thermal_zone1/temp<span class="w"> </span>--warning<span class="w"> </span><span class="m">75</span>
 </code></pre></div></td></tr></table></div>
 <p>Exit status is 0 below the selected warning, 1 at or above it, and 2 when a read or argument fails. Non-numeric, NaN, and infinite readings are rejected rather than treated as a cool board.</p>
 <p>Example output for a synthetic 78°C reading:</p>
-<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span><span class="w"> </span><span class="nt">"temperature_c"</span><span class="p">:</span><span class="w"> </span><span class="mf">78.0</span><span class="p">,</span><span class="w"> </span><span class="nt">"warning_c"</span><span class="p">:</span><span class="w"> </span><span class="mf">75.0</span><span class="p">}</span>
+<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="p">{</span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span><span class="w"> </span><span class="nt">"temperature_c"</span><span class="p">:</span><span class="w"> </span><span class="mf">78.0</span><span class="p">,</span><span class="w"> </span><span class="nt">"warning_c"</span><span class="p">:</span><span class="w"> </span><span class="mf">75.0</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>The warning is local output, not an email, SMS, or chat notification. If you integrate it into monitoring, add cooldown, recovery notifications, and a separate sensor-error alert. Treating every nonzero status as “too hot” would confuse read failures with real warnings.</p>
 <p>For systemd integration, explicitly account for status 1 being an intentional warning. Do not attach automatic restarts or shutdown actions to an unreviewed exit code.</p>
 <p>The <a href="../examples/cooling/test_temperature_check.py">fixture tests</a> exercise conversion, threshold boundaries, custom settings, missing files, and invalid input:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="c1"># Keep the checker and test file in the same directory.</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>python3<span class="w"> </span>test_temperature_check.py
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Keep the checker and test file in the same directory.</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>python3<span class="w"> </span>test_temperature_check.py
 </code></pre></div></td></tr></table></div>
 <p>They run on a regular computer; they are not validation of a Pi sensor or cooler.</p>
 <h2 id="log-a-short-cooling-check">Log a short cooling check<a class="headerlink" href="#log-a-short-cooling-check" title="Permanent link">¶</a></h2>
 <p>A bounded foreground capture avoids a root service and an unbounded log:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c1"># Capture 30 samples at two-second intervals in a new local file.</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="nv">sample_log</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>./pi-thermal-XXXXXX.log<span class="k">)</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">30</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span>date<span class="w"> </span>-Iseconds
-<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">    </span>vcgencmd<span class="w"> </span>measure_temp
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">    </span>vcgencmd<span class="w"> </span>get_throttled
-<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">    </span>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm
-<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">    </span>sleep<span class="w"> </span><span class="m">2</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="k">done</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$sample_log</span><span class="s2">"</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Saved readings to %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$sample_log</span><span class="s2">"</span>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="c1"># Capture 30 samples at two-second intervals in a new local file.</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="nv">sample_log</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>./pi-thermal-XXXXXX.log<span class="k">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">30</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">    </span>date<span class="w"> </span>-Iseconds
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">    </span>vcgencmd<span class="w"> </span>measure_temp
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">    </span>vcgencmd<span class="w"> </span>get_throttled
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">    </span>vcgencmd<span class="w"> </span>measure_clock<span class="w"> </span>arm
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span>sleep<span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="k">done</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$sample_log</span><span class="s2">"</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">'Saved readings to %s\n'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$sample_log</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<p>Run your ordinary application while capturing. Inspect command errors as well as values; this raw capture is not an automated alarm. Repeat with the same workload and only one cooling change. For full monitoring, use the <a href="../how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/">Prometheus and Grafana guide</a> rather than copying old repository setup commands into a temperature check.</p>
+<p>Run your ordinary application while capturing. Use <code>less "$sample_log"</code> to compare the samples around the slowdown. If a command fails, its error appears in the terminal, so check for missing readings before interpreting the file. Repeat with the same workload and one cooling change. For ongoing monitoring, see the <a href="../how_to_monitor_raspberry_pi_performance_with_prometheus_and_grafana/">Prometheus and Grafana guide</a>.</p>
 <h2 id="related-guides">Related guides<a class="headerlink" href="#related-guides" title="Permanent link">¶</a></h2>
 <ul>
 <li><a href="../../network/03_first_udp_exchange/">Learn to send data with UDP in C++</a>: a separate loopback exercise using a text message, not a network-enabled version of the temperature checker above. Start with <a href="../../network/01_tools_and_first_program/">the Network course setup</a> if you need the compiler and socket tools.</li>
@@ -11370,7 +11394,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 11, 2026 21:32:48 JST">2026-11-11</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 22, 2026 10:06:25 JST">2026-11-22</span>
   </span>
 
     
