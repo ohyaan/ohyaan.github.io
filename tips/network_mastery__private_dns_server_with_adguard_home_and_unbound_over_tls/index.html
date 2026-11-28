@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Set up a secure private DNS server on Raspberry Pi with AdGuard Home and Unbound. Configure DNS over TLS (DoT) to block ads and encrypt query traffic.">
+        <meta name="description" content="Set up AdGuard Home and Unbound on Raspberry Pi. Verify LAN DNS, blocked domains, and encrypted forwarding to Quad9 before switching your router.">
       
       
       
@@ -94,7 +94,7 @@
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta property="og:title" content="Raspberry Pi DNS: AdGuard Home and Unbound - With Raspberry Pi">
-  <meta property="og:description" content="Set up a secure private DNS server on Raspberry Pi with AdGuard Home and Unbound. Configure DNS over TLS (DoT) to block ads and encrypt query traffic.">
+  <meta property="og:description" content="Set up AdGuard Home and Unbound on Raspberry Pi. Verify LAN DNS, blocked domains, and encrypted forwarding to Quad9 before switching your router.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls.jpg">
@@ -106,12 +106,12 @@
     <meta property="article:published_time" content="2026-06-27">
   
   
-    <meta property="article:modified_time" content="2026-11-02">
+    <meta property="article:modified_time" content="2026-11-28">
   
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Raspberry Pi DNS: AdGuard Home and Unbound - With Raspberry Pi">
-  <meta name="twitter:description" content="Set up a secure private DNS server on Raspberry Pi with AdGuard Home and Unbound. Configure DNS over TLS (DoT) to block ads and encrypt query traffic.">
+  <meta name="twitter:description" content="Set up AdGuard Home and Unbound on Raspberry Pi. Verify LAN DNS, blocked domains, and encrypted forwarding to Quad9 before switching your router.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -132,7 +132,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "Raspberry Pi DNS: AdGuard Home and Unbound",
-    "description": "Set up a secure private DNS server on Raspberry Pi with AdGuard Home and Unbound. Configure DNS over TLS (DoT) to block ads and encrypt query traffic.",
+    "description": "Set up AdGuard Home and Unbound on Raspberry Pi. Verify LAN DNS, blocked domains, and encrypted forwarding to Quad9 before switching your router.",
     "url": "https://ohyaan.github.io/tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__network_mastery__private_dns_server_with_adguard_home_and_unbound_over_tls.jpg"],
@@ -143,7 +143,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-06-27",
-    "dateModified": "2026-11-02"
+    "dateModified": "2026-11-28"
   }
   </script>
   <script type="application/ld+json">
@@ -8752,15 +8752,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#why-adguard-home-over-pi-hole" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why AdGuard Home over Pi-hole?
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#configuration-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       Configuration Architecture
@@ -8770,45 +8761,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-directory-setup-and-unbound-configuration" class="md-nav__link">
+  <a href="#before-you-start" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 1: Directory Setup and Unbound Configuration
+      Before you start
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-deploy-with-docker-compose" class="md-nav__link">
+  <a href="#1-set-up-unbound-on-loopback" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 2: Deploy with Docker Compose
+      1. Set up Unbound on loopback
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-initial-setup-integration" class="md-nav__link">
+  <a href="#2-set-up-adguard-home" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 3: Initial Setup &amp; Integration
+      2. Set up AdGuard Home
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-add-filter-lists-for-ad-blocking" class="md-nav__link">
+  <a href="#3-test-from-one-client" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Add Filter Lists for Ad Blocking
+      3. Test from one client
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-configure-devices-to-use-your-new-dns" class="md-nav__link">
+  <a href="#4-switch-clients-when-ready" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 5: Configure Devices to Use Your New DNS
+      4. Switch clients when ready
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
     </span>
   </a>
   
@@ -11103,12 +11103,7 @@
 
 <div><p><a id="network-mastery-private-dns-server-with-adguard-home-and-unbound-over-tls"></a></p>
 <h1 id="private-dns-on-raspberry-pi-with-adguard-home-and-unbound">Private DNS on Raspberry Pi with AdGuard Home and Unbound<a class="headerlink" href="#private-dns-on-raspberry-pi-with-adguard-home-and-unbound" title="Permanent link">¶</a></h1>
-<p>Securing your home network starts at the DNS level. Whenever a device loads a website, it makes a DNS query. These queries are typically sent in unencrypted plain text to your ISP, exposing your browsing habits and leaving you vulnerable to spoofing.</p>
-<p>By configuring a local <strong>Raspberry Pi</strong> as a private DNS server, you can filter ads, block tracking scripts, and encrypt all outbound DNS queries.</p>
-<p>This guide walks you through setting up:
-- <strong>AdGuard Home</strong>: A modern DNS sinkhole for network-wide ad blocking, parental control, and DNS redirection.
-- <strong>Unbound</strong>: A highly secure validation resolver configured for <strong>DNS over TLS (DoT)</strong> to securely route upstream queries.</p>
-<p>We will deploy this unified stack using <strong>Docker Compose</strong> on Raspberry Pi OS.</p>
+<p>Use <strong>AdGuard Home</strong> to filter DNS queries from your home network and <strong>Unbound</strong> to forward allowed queries to Quad9 using DNS over TLS (DoT). Start with a single test client. Use a DNS query and AdGuard Home's query log to confirm that each step works before changing your router.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11118,36 +11113,30 @@
   </script>
 </div>
 
-<hr>
-<h2 id="why-adguard-home-over-pi-hole">Why AdGuard Home over Pi-hole?<a class="headerlink" href="#why-adguard-home-over-pi-hole" title="Permanent link">¶</a></h2>
-<p>While Pi-hole is a legendary tool, AdGuard Home offers several built-in advantages:
-1. <strong>Native Encryption</strong>: Supports DNS over TLS (DoT), DNS over HTTPS (DoH), and DNS over QUIC out of the box.
-2. <strong>Dynamic Filtering Rule Support</strong>: Can process standard Adblock Plus cosmetic filtering syntax natively.
-3. <strong>Parental Controls</strong>: Built-in, one-click blocklists for specific services (like TikTok, YouTube, or gaming services).
-4. <strong>Standalone Binary</strong>: Lighter CPU footprint and doesn't require a web server dependency like lighttpd.</p>
-<hr>
+<p><a href="#1-set-up-unbound-on-loopback">Set up Unbound</a> · <a href="#2-set-up-adguard-home">Set up AdGuard Home</a> · <a href="#3-test-from-one-client">Test from one client</a></p>
 <h2 id="configuration-architecture">Configuration Architecture<a class="headerlink" href="#configuration-architecture" title="Permanent link">¶</a></h2>
-<div class="mermaid">graph LR
-    A["Local Devices (Laptop, Phone)"] --&gt;|Plain DNS (Port 53)| B["AdGuard Home (Pi)"]
-    B --&gt;|Check Ad Blocklists| B
-    B --&gt;|Clean Queries| C["Unbound Resolver (Pi: Port 5335)"]
-    C --&gt;|Encrypted DNS over TLS (Port 853)| D["Upstream DNS (Cloudflare / Quad9)"]
-
-    style B fill:#7209b7,stroke:#560bad,color:#fff
-    style C fill:#4cc9f0,stroke:#4361ee,color:#000</div>
-<hr>
-<h2 id="step-1-directory-setup-and-unbound-configuration">Step 1: Directory Setup and Unbound Configuration<a class="headerlink" href="#step-1-directory-setup-and-unbound-configuration" title="Permanent link">¶</a></h2>
-<p>Create a dedicated workspace directory on your Raspberry Pi:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/adguard-unbound/unbound
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>~/adguard-unbound
+<div class="mermaid">flowchart LR
+    client["Laptop or phone"] --&gt;|"DNS · port 53"| adguard["AdGuard Home&lt;br/&gt;Pi LAN IPv4"]
+    adguard --&gt;|"Allowed queries · port 5335"| unbound["Unbound&lt;br/&gt;Pi loopback"]
+    unbound --&gt;|"DNS over TLS · TCP 853"| quad9["Quad9"]</div>
+<p>The client-to-Pi leg uses ordinary LAN DNS. The encrypted leg is from Unbound to Quad9. Quad9 still resolves the domains it receives. In this setup Unbound is a forwarding resolver. DNS filtering works at the domain level, so allowed domains may still serve ads.</p>
+<p>This guide runs both services directly on Raspberry Pi OS. That lets AdGuard Home use the same loopback address as Unbound. If you already run a DNS stack in containers, keep your clients on the working resolver while testing a replacement. Each container with its own network namespace has its own <code>127.0.0.1</code>.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<p>Use Raspberry Pi OS with SSH or a local desktop. Reserve an IPv4 address for the Pi through your router so clients can keep using it after reboot. Replace the example address <code>192.168.1.42</code> throughout with the actual address. <a href="../static_ip_configuration_on_raspberry_pi_os/">Reserve or configure a stable address</a></p>
+<p>On the Pi, check the current listeners:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>ip<span class="w"> </span>-brief<span class="w"> </span>-4<span class="w"> </span>address
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup<span class="w"> </span><span class="s1">'( sport = :53 or sport = :5335 or sport = :3000 )'</span>
 </code></pre></div></td></tr></table></div>
-<p>Configure Unbound to act as a secure recursive resolver that forwards all validated requests to secure upstream providers via <strong>DNS over TLS (DoT)</strong> on port <code>853</code>.</p>
-<p>Create the configuration file:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>nano<span class="w"> </span>unbound/unbound.conf
+<p>You need UDP and TCP port 53 on the chosen LAN address, and ports 5335 and 3000 on loopback. A resolver listening on <code>127.0.0.53:53</code> can coexist with AdGuard Home on a different address. If another service already owns the LAN address or a wildcard listener such as <code>0.0.0.0:53</code>, identify it before proceeding. Avoid disabling the Pi's existing resolver as a port-conflict fix.</p>
+<h2 id="1-set-up-unbound-on-loopback">1. Set up Unbound on loopback<a class="headerlink" href="#1-set-up-unbound-on-loopback" title="Permanent link">¶</a></h2>
+<p>On the Pi, install the Raspberry Pi OS packages:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>unbound<span class="w"> </span>dns-root-data<span class="w"> </span>ca-certificates<span class="w"> </span>bind9-dnsutils
 </code></pre></div></td></tr></table></div>
-<p>Add the following Unbound configuration:
-</p><div class="language-nginx highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<p>Create <code>/etc/unbound/unbound.conf.d/lan-forward.conf</code> with <code>sudoedit</code>. On standard Raspberry Pi OS, Unbound loads files from this directory. Review existing interface, port and forwarding settings first if Unbound is already configured.</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
 <span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
@@ -11158,197 +11147,127 @@
 <span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
 <span class="normal"><a href="#__codelineno-2-10">10</a></span>
 <span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span>
-<span class="normal"><a href="#__codelineno-2-33">33</a></span>
-<span class="normal"><a href="#__codelineno-2-34">34</a></span>
-<span class="normal"><a href="#__codelineno-2-35">35</a></span>
-<span class="normal"><a href="#__codelineno-2-36">36</a></span>
-<span class="normal"><a href="#__codelineno-2-37">37</a></span>
-<span class="normal"><a href="#__codelineno-2-38">38</a></span>
-<span class="normal"><a href="#__codelineno-2-39">39</a></span>
-<span class="normal"><a href="#__codelineno-2-40">40</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">server:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="s">verbosity:</span><span class="w"> </span><span class="mi">1</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="s">interface:</span><span class="w"> </span><span class="mi">0</span><span class="s">.0.0.0</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="s">port:</span><span class="w"> </span><span class="mi">5335</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="s">do-ip4:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="s">do-udp:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="s">do-tcp:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="c1"># Security settings</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="s">hide-identity:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="s">hide-version:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="s">use-caps-for-id:</span><span class="w"> </span><span class="s">no</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="s">harden-glue:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">    </span><span class="s">harden-dnssec-stripped:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span><span class="s">harden-algo-downgrade:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span><span class="s">use-syslog:</span><span class="w"> </span><span class="s">no</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="c1"># Performance optimizations</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">    </span><span class="s">num-threads:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1"># Optimize for Pi multicore CPU</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">    </span><span class="s">msg-cache-slabs:</span><span class="w"> </span><span class="mi">4</span>
-<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">    </span><span class="s">rrset-cache-slabs:</span><span class="w"> </span><span class="mi">4</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="w">    </span><span class="s">infra-cache-slabs:</span><span class="w"> </span><span class="mi">4</span>
-<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">    </span><span class="s">key-cache-slabs:</span><span class="w"> </span><span class="mi">4</span>
-<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">    </span><span class="s">rrset-cache-size:</span><span class="w"> </span><span class="mi">50m</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">    </span><span class="s">msg-cache-size:</span><span class="w"> </span><span class="mi">25m</span>
-<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">    </span><span class="s">so-rcvbuf:</span><span class="w"> </span><span class="mi">4m</span>
-<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">    </span><span class="s">so-sndbuf:</span><span class="w"> </span><span class="mi">4m</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28"></a>
-<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">    </span><span class="c1"># Privacy configuration: Forward queries securely via DNS-over-TLS (DoT)</span>
-<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="w">    </span><span class="s">tls-cert-bundle:</span><span class="w"> </span><span class="s">"/etc/ssl/certs/ca-certificates.crt"</span>
-<a id="__codelineno-2-31" name="__codelineno-2-31"></a>
-<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="s">forward-zone:</span>
-<a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">    </span><span class="s">name:</span><span class="w"> </span><span class="s">"."</span>
-<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">    </span><span class="s">forward-tls-upstream:</span><span class="w"> </span><span class="s">yes</span>
-<a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="w">    </span><span class="c1"># Forward to Cloudflare DNSSEC/DoT</span>
-<a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">    </span><span class="s">forward-addr:</span><span class="w"> </span><span class="mi">1</span><span class="s">.1.1.1@853</span><span class="c1">#cloudflare-dns.com</span>
-<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="w">    </span><span class="s">forward-addr:</span><span class="w"> </span><span class="mi">1</span><span class="s">.0.0.1@853</span><span class="c1">#cloudflare-dns.com</span>
-<a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">    </span><span class="c1"># Forward to Quad9 DNSSEC/DoT</span>
-<a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">    </span><span class="s">forward-addr:</span><span class="w"> </span><span class="mi">9</span><span class="s">.9.9.9@853</span><span class="c1">#dns.quad9.net</span>
-<a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="w">    </span><span class="s">forward-addr:</span><span class="w"> </span><span class="mi">149</span><span class="s">.112.112.112@853</span><span class="c1">#dns.quad9.net</span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>server:
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    interface: 127.0.0.1
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    port: 5335
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    access-control: 127.0.0.0/8 allow
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    tls-cert-bundle: "/etc/ssl/certs/ca-certificates.crt"
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>forward-zone:
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>    name: "."
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>    forward-tls-upstream: yes
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a>    forward-first: no
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>    forward-addr: 9.9.9.9@853#dns.quad9.net
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>    forward-addr: 149.112.112.112@853#dns.quad9.net
 </code></pre></div></td></tr></table></div>
-<hr>
-<h2 id="step-2-deploy-with-docker-compose">Step 2: Deploy with Docker Compose<a class="headerlink" href="#step-2-deploy-with-docker-compose" title="Permanent link">¶</a></h2>
-<p>Because systemd-resolved binds to port <code>53</code> (DNS port) by default on some Raspberry Pi OS distributions, we need to disable it on the host first, or bind AdGuard Home directly.
-Check if port 53 is active:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>lsof<span class="w"> </span>-i<span class="w"> </span>:53
+<p>The part after <code>#</code> is the expected TLS certificate name. Both addresses belong to the same Quad9 service. <code>forward-first: no</code> prevents fallback to direct recursion if forwarding fails. Keep the package's DNSSEC trust-anchor configuration.</p>
+<p>Check the syntax before restarting. Then query the loopback listener directly:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>unbound-checkconf<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>unbound<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>unbound
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>dig<span class="w"> </span>@127.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">5335</span><span class="w"> </span>example.com.<span class="w"> </span>A<span class="w"> </span>+time<span class="o">=</span><span class="m">3</span><span class="w"> </span>+tries<span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>dig<span class="w"> </span>@127.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">5335</span><span class="w"> </span>proto.on.quad9.net.<span class="w"> </span>TXT<span class="w"> </span>+short
 </code></pre></div></td></tr></table></div>
-If <code>systemd-resolved</code> is blocking the port, disable it:
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>systemd-resolved
+<p>Look for <code>NOERROR</code> and an answer to the first query. The Quad9 protocol query should report <code>dot</code>. If this step fails, fix it before installing the LAN resolver. <a href="https://unbound.docs.nlnetlabs.nl/en/latest/manpages/unbound.conf.html">Unbound configuration reference</a> · <a href="https://docs.quad9.net/Setup_Guides/Confirm_Connection_to_Quad9/">Quad9 connection checks</a></p>
+<h2 id="2-set-up-adguard-home">2. Set up AdGuard Home<a class="headerlink" href="#2-set-up-adguard-home" title="Permanent link">¶</a></h2>
+<p>Run <code>dpkg --print-architecture</code> on the Pi and download the matching Linux archive from the <a href="https://github.com/AdguardTeam/AdGuardHome/releases/latest">official stable release</a>. The commands below use the <code>arm64</code> archive for 64-bit Raspberry Pi OS. Compare its SHA-256 with <code>checksums.txt</code> from the same release.</p>
+<p>From the directory containing the downloaded archive, use a new directory for the install. The commands stop if that directory is already present:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>/opt/adguard-home<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>AdGuardHome_linux_arm64.tar.gz<span class="w"> </span>-C<span class="w"> </span>/opt/adguard-home<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/opt/adguard-home<span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span>sudo<span class="w"> </span>./AdGuardHome<span class="w"> </span>--web-addr<span class="w"> </span><span class="m">127</span>.0.0.1:3000
 </code></pre></div></td></tr></table></div>
-<p>Now, create the Docker Compose file:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>nano<span class="w"> </span>docker-compose.yml
+<p>Leave that terminal open for setup. If the browser is on the Pi, go to <code>http://127.0.0.1:3000</code>. From another computer, replace <code>your-user</code> and the IP with the corresponding SSH account and Pi address, and keep this tunnel open:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>ssh<span class="w"> </span>-N<span class="w"> </span>-L<span class="w"> </span><span class="m">127</span>.0.0.1:3000:127.0.0.1:3000<span class="w"> </span>your-user@192.168.1.42
 </code></pre></div></td></tr></table></div>
-<p>Add the following configuration:
-</p><div class="language-yaml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span>
-<span class="normal"><a href="#__codelineno-6-20">20</a></span>
-<span class="normal"><a href="#__codelineno-6-21">21</a></span>
-<span class="normal"><a href="#__codelineno-6-22">22</a></span>
-<span class="normal"><a href="#__codelineno-6-23">23</a></span>
-<span class="normal"><a href="#__codelineno-6-24">24</a></span>
-<span class="normal"><a href="#__codelineno-6-25">25</a></span>
-<span class="normal"><a href="#__codelineno-6-26">26</a></span>
-<span class="normal"><a href="#__codelineno-6-27">27</a></span>
-<span class="normal"><a href="#__codelineno-6-28">28</a></span>
-<span class="normal"><a href="#__codelineno-6-29">29</a></span>
-<span class="normal"><a href="#__codelineno-6-30">30</a></span>
-<span class="normal"><a href="#__codelineno-6-31">31</a></span>
-<span class="normal"><a href="#__codelineno-6-32">32</a></span>
-<span class="normal"><a href="#__codelineno-6-33">33</a></span>
-<span class="normal"><a href="#__codelineno-6-34">34</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.8'</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="nt">services</span><span class="p">:</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="c1"># Unbound: Recuring DNS resolver over TLS</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span><span class="nt">unbound</span><span class="p">:</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mvance/unbound-rpi:latest</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unbound</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"5335:5335/udp"</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"5335:5335/tcp"</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf:ro</span>
-<a id="__codelineno-6-14" name="__codelineno-6-14"></a>
-<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="w">  </span><span class="c1"># AdGuard Home: Ad blocking sinkhole</span>
-<a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="w">  </span><span class="nt">adguardhome</span><span class="p">:</span>
-<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adguard/adguardhome:latest</span>
-<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adguardhome</span>
-<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
-<a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
-<a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"53:53/tcp"</span>
-<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"53:53/udp"</span>
-<a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"80:80/tcp"</span>
-<a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"3000:3000/tcp"</span>
-<a id="__codelineno-6-25" name="__codelineno-6-25"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"853:853/tcp"</span><span class="w">  </span><span class="c1"># Optional: serve DoT for mobile devices</span>
-<a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
-<a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adguard_work:/opt/adguardhome/work</span>
-<a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">adguard_conf:/opt/adguardhome/conf</span>
-<a id="__codelineno-6-29" name="__codelineno-6-29"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
-<a id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unbound</span>
-<a id="__codelineno-6-31" name="__codelineno-6-31"></a>
-<a id="__codelineno-6-32" name="__codelineno-6-32"></a><span class="nt">volumes</span><span class="p">:</span>
-<a id="__codelineno-6-33" name="__codelineno-6-33"></a><span class="w">  </span><span class="nt">adguard_work</span><span class="p">:</span>
-<a id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="w">  </span><span class="nt">adguard_conf</span><span class="p">:</span>
+<p>Open <code>http://127.0.0.1:3000</code> on your computer. In the wizard, choose these listeners and create an admin account:</p>
+<table>
+<thead>
+<tr>
+<th>Listener</th>
+<th>Address</th>
+<th style="text-align: right;">Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin web interface</td>
+<td><code>127.0.0.1</code></td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr>
+<td>DNS server</td>
+<td>The Pi's reserved LAN IPv4 address</td>
+<td style="text-align: right;">53</td>
+</tr>
+</tbody>
+</table>
+<p>Under <strong>Settings → DNS settings</strong>, enter <code>127.0.0.1:5335</code> as the only <strong>Upstream DNS servers</strong> entry. Leave <strong>Fallback DNS servers</strong> empty. Use <strong>Test upstreams</strong>, then save. The numeric loopback upstream needs no bootstrap lookup.</p>
+<p>Stop the foreground process with Ctrl+C in the Pi terminal. In the same directory, install it as a service and check the listeners again:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>./AdGuardHome<span class="w"> </span>-s<span class="w"> </span>install
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>sudo<span class="w"> </span>./AdGuardHome<span class="w"> </span>-s<span class="w"> </span>status
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>sudo<span class="w"> </span>ss<span class="w"> </span>-lntup<span class="w"> </span><span class="s1">'( sport = :53 or sport = :5335 or sport = :3000 )'</span>
 </code></pre></div></td></tr></table></div>
-<p>Start the containers:
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<p>Check that AdGuard Home listens on the Pi's LAN address for DNS and on loopback for administration. Unbound should still listen on loopback. Keep these ports private to your Pi or LAN. <a href="https://adguard-dns.io/kb/adguard-home/getting-started/">AdGuard Home installation guide</a></p>
+<h2 id="3-test-from-one-client">3. Test from one client<a class="headerlink" href="#3-test-from-one-client" title="Permanent link">¶</a></h2>
+<p>From another device on the LAN, query the Pi explicitly. This leaves the client's normal DNS settings in place:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>dig<span class="w"> </span>@192.168.1.42<span class="w"> </span>example.com.<span class="w"> </span>A<span class="w"> </span>+time<span class="o">=</span><span class="m">3</span><span class="w"> </span>+tries<span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>dig<span class="w"> </span>@192.168.1.42<span class="w"> </span>example.com.<span class="w"> </span>A<span class="w"> </span>+tcp<span class="w"> </span>+time<span class="o">=</span><span class="m">3</span><span class="w"> </span>+tries<span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>dig<span class="w"> </span>@192.168.1.42<span class="w"> </span>proto.on.quad9.net.<span class="w"> </span>TXT<span class="w"> </span>+short
 </code></pre></div></td></tr></table></div>
-<hr>
-<h2 id="step-3-initial-setup-integration">Step 3: Initial Setup &amp; Integration<a class="headerlink" href="#step-3-initial-setup-integration" title="Permanent link">¶</a></h2>
-<h3 id="1-adguard-home-initial-setup">1. AdGuard Home Initial Setup<a class="headerlink" href="#1-adguard-home-initial-setup" title="Permanent link">¶</a></h3>
-<p>Navigate to <code>http://&lt;your-pi-ip&gt;:3000</code> in your web browser.
-1. Click <strong>Get Started</strong>.
-2. <strong>Admin Web Interface</strong>: Listen on <code>All Interfaces</code> (Port <code>80</code>).
-3. <strong>DNS Server</strong>: Listen on <code>All Interfaces</code> (Port <code>53</code>).
-4. Set up an Admin username and password.</p>
-<h3 id="2-route-adguard-home-to-unbound">2. Route AdGuard Home to Unbound<a class="headerlink" href="#2-route-adguard-home-to-unbound" title="Permanent link">¶</a></h3>
-<ol>
-<li>Log in to the AdGuard Home Web UI on <code>http://&lt;your-pi-ip&gt;</code>.</li>
-<li>Navigate to <strong>Settings</strong> -&gt; <strong>DNS Settings</strong>.</li>
-<li>Under <strong>Upstream DNS servers</strong>, delete all default servers and input:
-   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>127.0.0.1:5335
+<p>On a client without <code>dig</code>, use <code>nslookup example.com 192.168.1.42</code> to test an ordinary lookup. Confirm that the queries appear in AdGuard Home's <strong>Query log</strong> and that Quad9 reports <code>dot</code> through AdGuard Home as well.</p>
+<p>To test blocking without relying on a live advertising domain, add the temporary rule below under <strong>Filters → Custom filtering rules</strong>:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>||example.net^
 </code></pre></div></td></tr></table></div>
-   <em>(This tells AdGuard Home to forward all filtered requests to our local Unbound instance running on Docker port 5335).</em></li>
-<li>Under <strong>Upstream mode</strong>, select <strong>Parallel requests</strong> or <strong>Load balancing</strong>.</li>
-<li>Scroll down to <strong>Bootstrap DNS servers</strong>, enter Cloudflare's DNS <code>1.1.1.1</code> and click <strong>Test Upstreams</strong> to verify communication. If it succeeds, click <strong>Apply</strong>.</li>
-</ol>
-<hr>
-<h2 id="step-4-add-filter-lists-for-ad-blocking">Step 4: Add Filter Lists for Ad Blocking<a class="headerlink" href="#step-4-add-filter-lists-for-ad-blocking" title="Permanent link">¶</a></h2>
-<p>By default, AdGuard Home enables basic blocklists. To block even more ads, trackers, and telemetry:
-1. Navigate to <strong>Filters</strong> -&gt; <strong>DNS Blocklists</strong>.
-2. Click <strong>Add Blocklist</strong> -&gt; <strong>Choose from list</strong>.
-3. Enable popular lists:
-   - <strong>AdAway</strong>: Excellent for blocking mobile ads.
-   - <strong>OISD</strong>: High compatibility list with minimal false positives.
-   - <strong>Steven Black's List</strong>: Universal HOSTS blocklist.
-4. Click <strong>Save</strong>.</p>
-<hr>
-<h2 id="step-5-configure-devices-to-use-your-new-dns">Step 5: Configure Devices to Use Your New DNS<a class="headerlink" href="#step-5-configure-devices-to-use-your-new-dns" title="Permanent link">¶</a></h2>
-<p>To apply this network-wide, set your Raspberry Pi's IP address as the <strong>primary DNS server</strong> on your home router's DHCP settings.</p>
-<p>If you want to configure a single Linux device manually using <code>nmcli</code> (NetworkManager):
-</p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>modify<span class="w"> </span><span class="s2">"Wired connection 1"</span><span class="w"> </span>ipv4.dns<span class="w"> </span><span class="s2">"&lt;your-pi-ip&gt;"</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>sudo<span class="w"> </span>nmcli<span class="w"> </span>connection<span class="w"> </span>up<span class="w"> </span><span class="s2">"Wired connection 1"</span>
-</code></pre></div></td></tr></table></div>
-<p>By completing this configuration, your local network requests are filtered for tracking and ads locally, and then encrypted securely via DNS over TLS before they leave your home.</p></div>
+<p>Run <code>dig @192.168.1.42 example.net. A</code> and check that the query log marks it as blocked. The response depends on the configured blocking mode. Remove the test rule afterward.</p>
+<h2 id="4-switch-clients-when-ready">4. Switch clients when ready<a class="headerlink" href="#4-switch-clients-when-ready" title="Permanent link">¶</a></h2>
+<p>Set one test device to use the Pi as its DNS server and use it normally. Then, if you want the whole LAN to use AdGuard Home, record the previous DNS settings and set the Pi's address in the router's <strong>LAN DHCP DNS</strong> settings. Renew the client lease and check its real queries in the log.</p>
+<p>A second advertised DNS server may be used while the Pi is available. IPv6 DNS advertised by the router or a browser's own encrypted DNS can also bypass the Pi. Check the client settings and query log before assuming a change applied. If clients lose name resolution, restore the previous router or client DNS setting and renew the lease.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unbound never starts</td>
+<td>Read <code>unbound-checkconf</code> and <code>sudo journalctl -u unbound -b --no-pager</code>, then check the loopback port.</td>
+</tr>
+<tr>
+<td>Unbound returns <code>SERVFAIL</code></td>
+<td>Check the system clock, CA bundle, upstream certificate name and outbound TCP 853.</td>
+</tr>
+<tr>
+<td>Unbound works, but AdGuard Home's upstream test fails</td>
+<td>Verify <code>127.0.0.1:5335</code> and that both services run in the same network namespace.</td>
+</tr>
+<tr>
+<td>Direct queries to the Pi time out</td>
+<td>Check AdGuard Home's LAN listener, the client network and local firewall. DNS needs both UDP and TCP 53.</td>
+</tr>
+<tr>
+<td>Direct queries work, but normal browsing produces no entries</td>
+<td>Inspect DHCP DNS, IPv6 DNS and the browser's encrypted DNS settings.</td>
+</tr>
+</tbody>
+</table>
+<p>For a container-based alternative, see <a href="../setting_up_pi-hole_and_unbound_on_docker_compose_for_network-wide_ad_blocking/">Pi-hole with Unbound in Docker Compose</a>.</p></div>
 
 
 
@@ -11371,7 +11290,7 @@ If <code>systemd-resolved</code> is blocking the port, disable it:
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2026 10:09:19 JST">2026-11-02</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 28, 2026 19:56:48 JST">2026-11-28</span>
   </span>
 
     
