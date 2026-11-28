@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Boot Raspberry Pi 5 from an NVMe SSD with an M.2 HAT+. Set EEPROM boot order, compare PCIe Gen 2 and Gen 3 safely, measure boot and storage, and recover errors.">
+        <meta name="description" content="Set up NVMe boot on Raspberry Pi 5, check that root and firmware are on the SSD, and diagnose detection or boot failures before trying PCIe Gen 3.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery - With Raspberry Pi</title>
+        <title>Boot Raspberry Pi 5 from an NVMe SSD - With Raspberry Pi</title>
       
     
     
@@ -83,25 +83,25 @@
 
   <meta name="author" content="With Raspberry Pi Editorial Team">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta property="og:title" content="Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery - With Raspberry Pi">
-  <meta property="og:description" content="Boot Raspberry Pi 5 from an NVMe SSD with an M.2 HAT+. Set EEPROM boot order, compare PCIe Gen 2 and Gen 3 safely, measure boot and storage, and recover errors.">
+  <meta property="og:title" content="Boot Raspberry Pi 5 from an NVMe SSD - With Raspberry Pi">
+  <meta property="og:description" content="Set up NVMe boot on Raspberry Pi 5, check that root and firmware are on the SSD, and diagnose detection or boot failures before trying PCIe Gen 3.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/">
   <meta property="og:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery">
+  <meta property="og:image:alt" content="Boot Raspberry Pi 5 from an NVMe SSD">
   <meta property="og:site_name" content="With Raspberry Pi">
   
     <meta property="article:published_time" content="2026-06-03">
   
   
-    <meta property="article:modified_time" content="2026-08-22">
+    <meta property="article:modified_time" content="2026-11-28">
   
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery - With Raspberry Pi">
-  <meta name="twitter:description" content="Boot Raspberry Pi 5 from an NVMe SSD with an M.2 HAT+. Set EEPROM boot order, compare PCIe Gen 2 and Gen 3 safely, measure boot and storage, and recover errors.">
+  <meta name="twitter:title" content="Boot Raspberry Pi 5 from an NVMe SSD - With Raspberry Pi">
+  <meta name="twitter:description" content="Set up NVMe boot on Raspberry Pi 5, check that root and firmware are on the SSD, and diagnose detection or boot failures before trying PCIe Gen 3.">
   <meta name="twitter:image" content="https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg">
 
   <meta name="google-site-verification" content="google07041ecefb07f871">
@@ -121,8 +121,8 @@
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery",
-    "description": "Boot Raspberry Pi 5 from an NVMe SSD with an M.2 HAT+. Set EEPROM boot order, compare PCIe Gen 2 and Gen 3 safely, measure boot and storage, and recover errors.",
+    "headline": "Boot Raspberry Pi 5 from an NVMe SSD",
+    "description": "Set up NVMe boot on Raspberry Pi 5, check that root and firmware are on the SSD, and diagnose detection or boot failures before trying PCIe Gen 3.",
     "url": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/",
     "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/"},
     "image": ["https://ohyaan.github.io/images/og/pages/tips__how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3.jpg"],
@@ -133,7 +133,7 @@
       "logo": {"@type": "ImageObject", "url": "https://ohyaan.github.io/images/COLOUR-Raspberry-Pi-Symbol-Registered-300x300.png"}
     },
     "datePublished": "2026-06-03",
-    "dateModified": "2026-08-22"
+    "dateModified": "2026-11-28"
   }
   </script>
   <script type="application/ld+json">
@@ -142,7 +142,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://ohyaan.github.io/"},
-      {"@type": "ListItem", "position": 2, "name": "Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery", "item": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/"}
+      {"@type": "ListItem", "position": 2, "name": "Boot Raspberry Pi 5 from an NVMe SSD", "item": "https://ohyaan.github.io/tips/how_to_boot_raspberry_pi_5_from_nvme_ssd_and_enable_pcie_gen_3/"}
     ]
   }
   </script>
@@ -167,7 +167,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-5-nvme-boot-and-pcie-gen-3-setup-tests-and-recovery" class="md-skip">
+        <a href="#boot-raspberry-pi-5-from-an-nvme-ssd" class="md-skip">
           Skip to content
         </a>
       
@@ -203,7 +203,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery
+              Boot Raspberry Pi 5 from an NVMe SSD
             
           </span>
         </div>
@@ -10335,7 +10335,7 @@
           
   
   <span class="md-ellipsis">
-    Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery
+    Boot Raspberry Pi 5 from an NVMe SSD
     
   </span>
   
@@ -10347,7 +10347,7 @@
         
   
   <span class="md-ellipsis">
-    Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery
+    Boot Raspberry Pi 5 from an NVMe SSD
     
   </span>
   
@@ -10368,15 +10368,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
@@ -10415,18 +10406,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-enable-pcie-gen-3-speed-override" class="md-nav__link">
+  <a href="#confirm-that-the-pi-booted-from-nvme" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Enable PCIe Gen 3 (Speed Override)
+      Confirm that the Pi booted from NVMe
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-test-the-ssd-performance" class="md-nav__link">
+  <a href="#optional-enable-pcie-gen-3" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 5: Test the SSD Performance
+      Optional: Enable PCIe Gen 3
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-pcie-link-and-ssd-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check the PCIe link and SSD performance
     </span>
   </a>
   
@@ -11118,15 +11118,8 @@
 
 
 
-<div><h1 id="raspberry-pi-5-nvme-boot-and-pcie-gen-3-setup-tests-and-recovery">Raspberry Pi 5 NVMe Boot and PCIe Gen 3: Setup, Tests, and Recovery<a class="headerlink" href="#raspberry-pi-5-nvme-boot-and-pcie-gen-3-setup-tests-and-recovery" title="Permanent link">¶</a></h1>
-<p>Booting a Raspberry Pi 5 from NVMe can improve responsiveness, storage endurance, and random I/O, but it does not guarantee a faster application or a stable PCIe Gen 3 link. This guide covers hardware installation, EEPROM boot order, safe Gen 2 versus Gen 3 comparison, and recovery when a drive disappears or the link becomes unstable.</p>
-<div class="admonition abstract">
-<p class="admonition-title">Quick answer</p>
-<p>Start with the supported PCIe Gen 2 mode and a known-good M.2 HAT+ or compatible adapter. Confirm that the Pi detects the drive, boot from it, and record five cold-boot and storage runs. Only then try <code>dtparam=pciex1_gen=3</code>; Raspberry Pi does not certify Pi 5 for Gen 3, so revert to Gen 2 after any I/O errors, resets, or boot failures.</p>
-</div>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">¶</a></h2>
-<p>One of the most exciting features of the Raspberry Pi 5 is its built-in PCI Express (PCIe) 2.0 x1 connector. By using an M.2 NVMe HAT (Hardware Attached on Top), you can bypass the slow MicroSD card slot and boot your system from a solid-state drive (SSD). </p>
-<p>NVMe can improve random I/O, sustained throughput, capacity, and endurance, but the result depends on the drive, HAT, PCIe link, filesystem, cooling, and workload. Measure your device instead of treating a headline transfer rate as guaranteed performance. Raspberry Pi documents Gen 2 as the validated default and describes Gen 3 as an experimental override; use its <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0">PCIe documentation</a> as the source of truth for current firmware behaviour.</p>
+<div><h1 id="boot-raspberry-pi-5-from-an-nvme-ssd">Boot Raspberry Pi 5 from an NVMe SSD<a class="headerlink" href="#boot-raspberry-pi-5-from-an-nvme-ssd" title="Permanent link">¶</a></h1>
+<p>To boot a Raspberry Pi 5 from NVMe, install Raspberry Pi OS on the SSD, put NVMe first in the EEPROM boot order, and confirm that both <code>/</code> and <code>/boot/firmware</code> are mounted from the SSD. Keep the microSD card as a recovery option and use the default PCIe Gen 2 speed for the first boot.</p>
 <!-- Inline AdSense Component -->
 <div class="adsense-inline">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6051992210534346" crossorigin="anonymous"></script>
@@ -11136,14 +11129,13 @@
   </script>
 </div>
 
-<hr>
+<p><a href="#check-whether-linux-detects-the-ssd">Check SSD detection</a> · <a href="#confirm-that-the-pi-booted-from-nvme">Verify NVMe boot</a> · <a href="#troubleshooting">Troubleshoot a failed boot</a> · <a href="#optional-enable-pcie-gen-3">Try PCIe Gen 3</a></p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>To follow this guide, you will need:
-- <strong>Raspberry Pi 5</strong>
-- <strong>NVMe M.2 SSD</strong> (typically M.2 2230 or 2280 depending on your HAT, M-Key recommended).
-- <strong>M.2 NVMe HAT</strong> (e.g., Raspberry Pi M.2 HAT+, Pineberry Pi HatDrive, or Waveshare M.2 HAT).
-- <strong>Official Raspberry Pi 27W USB-C Power Supply</strong> (highly recommended, as NVMe SSDs draw more power during peak read/write operations).</p>
-<hr>
+<ul>
+<li>A <strong>Raspberry Pi 5</strong> and a working microSD installation for checks and recovery.</li>
+<li>An <strong>M.2 NVMe SSD</strong> and a compatible PCIe adapter. The official M.2 HAT+ takes 2230 and 2242 M-key drives. The official Compact model takes 2230. For a different adapter, check its supported lengths and mounting points. <a href="https://www.raspberrypi.com/documentation/accessories/m2-hat-plus.html">M.2 HAT+ documentation</a></li>
+<li>The recommended <strong>Raspberry Pi 27W USB-C power supply</strong>, or a suitable supply for the Pi and attached hardware.</li>
+</ul>
 <h2 id="step-1-install-the-hardware">Step 1: Install the Hardware<a class="headerlink" href="#step-1-install-the-hardware" title="Permanent link">¶</a></h2>
 <ol>
 <li>Ensure the Raspberry Pi 5 is completely powered off and unplugged.</li>
@@ -11151,7 +11143,11 @@
 <li>Secure the NVMe HAT onto the Pi 5 using the provided spacers and screws.</li>
 <li>Insert your NVMe SSD into the M.2 slot on the HAT and secure it with the mounting screw.</li>
 </ol>
-<hr>
+<h3 id="check-whether-linux-detects-the-ssd">Check whether Linux detects the SSD<a class="headerlink" href="#check-whether-linux-detects-the-ssd" title="Permanent link">¶</a></h3>
+<p>Boot the known-good microSD installation with the SSD connected to the HAT and run:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>lsblk<span class="w"> </span>-d<span class="w"> </span>-o<span class="w"> </span>NAME,TYPE,TRAN,SIZE,MODEL
+</code></pre></div></td></tr></table></div>
+<p>A PCIe NVMe namespace normally appears as a disk such as <code>nvme0n1</code>, with <code>nvme</code> in the transport column. This confirms that Linux sees it, even before it contains an OS. If you use a non-HAT+ adapter, Linux may need <code>dtparam=pciex1</code> in the running installation's <code>/boot/firmware/config.txt</code> followed by a reboot. Add it to the SSD image's equivalent file too if needed. For a missing drive, check the <a href="#troubleshooting">PCIe settings and hardware</a> before changing boot priority. <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#enable-pcie">Raspberry Pi PCIe configuration</a></p>
 <h2 id="step-2-flash-raspberry-pi-os-to-the-ssd">Step 2: Flash Raspberry Pi OS to the SSD<a class="headerlink" href="#step-2-flash-raspberry-pi-os-to-the-ssd" title="Permanent link">¶</a></h2>
 <p>The easiest way to install the OS on your SSD is using the <strong>Raspberry Pi Imager</strong> on another computer.</p>
 <ol>
@@ -11160,63 +11156,83 @@
 <li>Select <strong>Raspberry Pi 5</strong> as the device.</li>
 <li>Choose <strong>Raspberry Pi OS (64-bit)</strong>.</li>
 <li>Select your NVMe SSD as the target storage.</li>
-<li>Click <strong>Next</strong> and configure any OS settings (like SSH, Username, and Wi-Fi), then write the image.</li>
+<li>Configure the account and network if needed, then write and verify the image. Writing erases the selected drive. Check its model and capacity against the drive you intend to overwrite.</li>
 </ol>
-<p><em>Alternatively, if you already have the Pi running on a MicroSD card with the SSD connected, you can open the built-in </em><em>SD Card Copier</em><em> tool in the Raspberry Pi OS desktop menu to clone your active SD card directly to the SSD.</em></p>
-<hr>
+<p>If the installed Desktop image includes SD Card Copier and you want to clone a working microSD, select the card as the source and the SSD as the destination. Enable <strong>New Partition UUIDs</strong> if offered so both media can be distinguished when connected. Keep the original microSD intact and test the SSD by itself after cloning.</p>
 <h2 id="step-3-configure-boot-priority-in-eeprom">Step 3: Configure Boot Priority in EEPROM<a class="headerlink" href="#step-3-configure-boot-priority-in-eeprom" title="Permanent link">¶</a></h2>
-<p>For the Raspberry Pi 5 to boot from the PCIe lane instead of looking for a MicroSD card first, you must update the bootloader (EEPROM) settings.</p>
-<ol>
-<li>Boot your Pi 5 (using your SD card if the SSD isn't bootable yet).</li>
-<li>Open a terminal and edit the bootloader configuration:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>rpi-eeprom-config<span class="w"> </span>--edit
-</code></pre></div></td></tr></table></div></li>
-<li>Look for the <code>BOOT_ORDER</code> line. Change it to the following:
-   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>BOOT_ORDER=0xf416
+<p>From your working installation, read the current boot order before deciding whether to edit it:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>rpi-eeprom-config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'^(BOOT_ORDER|PCIE_PROBE)='</span>
 </code></pre></div></td></tr></table></div>
-   <em>Explanation</em>: The number <code>6</code> at the end tells the bootloader to try booting from the NVMe device (PCIe) first, before falling back to the SD card (<code>1</code>).</li>
-<li>Save and exit the editor (<code>Ctrl+X</code>, <code>Y</code>, <code>Enter</code>).</li>
-<li>Reboot your system to apply the bootloader changes:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>reboot
-</code></pre></div></td></tr></table></div></li>
-</ol>
-<p>At this point, you can remove the MicroSD card and verify that the Raspberry Pi 5 boots directly from the SSD.</p>
+<p>Save the original settings. If NVMe is already first and the probe setting below is in place for any non-HAT+ adapter, proceed to the boot check. Otherwise use the EEPROM editor:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>rpi-eeprom-config<span class="w"> </span>--edit
+</code></pre></div></td></tr></table></div>
+<p>Raspberry Pi's example is <code>BOOT_ORDER=0xf416</code>. Read it from right to left: NVMe (<code>6</code>), microSD (<code>1</code>), USB mass storage (<code>4</code>), then retry (<code>f</code>). If you rely on another fallback such as network boot, keep it in your order. Save the edit and reboot to apply it, then rerun the read command. <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#boot_order">EEPROM boot order reference</a></p>
 <h3 id="non-hat-adapters-probe-pcie-before-booting">Non-HAT+ adapters: probe PCIe before booting<a class="headerlink" href="#non-hat-adapters-probe-pcie-before-booting" title="Permanent link">¶</a></h3>
 <p>HAT+ hardware can identify itself to the Pi. With a non-HAT+ adapter, the official boot flow may also require this EEPROM setting before the firmware probes PCIe:</p>
 <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>PCIE_PROBE=1
 </code></pre></div></td></tr></table></div>
-<p>Add it only in the EEPROM editor used above, not in <code>config.txt</code>. Keep a bootable microSD recovery card until the NVMe image has booted reliably. See the <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#booting-from-nvme">official NVMe boot instructions</a> for the current hardware-specific requirements.</p>
-<hr>
-<h2 id="step-4-enable-pcie-gen-3-speed-override">Step 4: Enable PCIe Gen 3 (Speed Override)<a class="headerlink" href="#step-4-enable-pcie-gen-3-speed-override" title="Permanent link">¶</a></h2>
-<p>Raspberry Pi 5 exposes a PCIe Gen 2.0 x1 connection. A Gen 3 override is available for experimentation, but it is not the default validated link mode. Signal integrity depends on the HAT, FPC cable, drive, layout, and power, so validate stability before storing important data.</p>
+<p>Set <code>PCIE_PROBE</code> in the EEPROM editor. The <code>dtparam=pciex1</code> line from the detection step belongs in <code>config.txt</code>. <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#boot-from-pcie">Raspberry Pi PCIe boot instructions</a></p>
+<h2 id="confirm-that-the-pi-booted-from-nvme">Confirm that the Pi booted from NVMe<a class="headerlink" href="#confirm-that-the-pi-booted-from-nvme" title="Permanent link">¶</a></h2>
+<p>On the running Pi, check the source of each mount and compare it with the device tree:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>findmnt<span class="w"> </span>--mountpoint<span class="w"> </span>/<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>findmnt<span class="w"> </span>--mountpoint<span class="w"> </span>/boot/firmware<span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>lsblk<span class="w"> </span>-o<span class="w"> </span>NAME,TYPE,TRAN,SIZE,FSTYPE,MOUNTPOINTS
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Both mounts are on partitions of the same NVMe disk, for example <code>nvme0n1p2</code> and <code>nvme0n1p1</code></td>
+<td>The running installation is using the SSD for root and firmware files</td>
+</tr>
+<tr>
+<td><code>/</code> or <code>/boot/firmware</code> is on <code>mmcblk0</code></td>
+<td>The card is still involved. Check boot order and whether the SSD image has distinct partition identifiers</td>
+</tr>
+<tr>
+<td>A mount is missing or points to an unexpected disk</td>
+<td>Check the image and mount configuration before writing to <code>/boot/firmware</code></td>
+</tr>
+</tbody>
+</table>
+<p>The mount checks identify what Linux is using. To verify that the SSD can boot on its own, shut down, disconnect power, and remove the microSD and any other bootable media. Start the Pi again and repeat the checks. Keep the working card for recovery.</p>
+<h2 id="optional-enable-pcie-gen-3">Optional: Enable PCIe Gen 3<a class="headerlink" href="#optional-enable-pcie-gen-3" title="Permanent link">¶</a></h2>
+<p>The Pi 5 defaults to Gen 2. Raspberry Pi documents a Gen 3 override and warns that the board is uncertified for that mode. Try it only after the SSD boots reliably at Gen 2. <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie-gen-3-0">Raspberry Pi PCIe speed documentation</a></p>
 <ol>
 <li>Open <code>/boot/firmware/config.txt</code>:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/boot/firmware/config.txt
 </code></pre></div></td></tr></table></div></li>
 <li>Add the following lines to the bottom of the file:
-   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a># Enable PCIe Gen 3.0 Speeds
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>dtparam=pciex1_gen=3
+   <div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a># Enable PCIe Gen 3.0 Speeds
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>dtparam=pciex1_gen=3
 </code></pre></div></td></tr></table></div></li>
 <li>Save and close the file.</li>
 <li>Reboot the Pi to apply:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>reboot
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div></li>
 </ol>
-<hr>
-<h2 id="step-5-test-the-ssd-performance">Step 5: Test the SSD Performance<a class="headerlink" href="#step-5-test-the-ssd-performance" title="Permanent link">¶</a></h2>
-<p>Once the Pi boots, verify the negotiated PCIe link before measuring storage:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>lspci<span class="w"> </span>-vv<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A20<span class="w"> </span>-i<span class="w"> </span><span class="s1">'non-volatile memory'</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>nvme<span class="w"> </span>list
+<h2 id="check-the-pcie-link-and-ssd-performance">Check the PCIe link and SSD performance<a class="headerlink" href="#check-the-pcie-link-and-ssd-performance" title="Permanent link">¶</a></h2>
+<p>Before measuring storage, use <code>lspci</code> from the <code>pciutils</code> package to find the SSD's PCI address:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>lspci<span class="w"> </span>-Dnn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s1">'non-volatile memory'</span>
 </code></pre></div></td></tr></table></div>
-<p><code>LnkSta</code> reports the active link speed and width. A storage result alone does not prove which generation negotiated.</p>
+<p>Replace the address below with the one at the start of the SSD's line:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>lspci<span class="w"> </span>-s<span class="w"> </span><span class="m">0000</span>:01:00.0<span class="w"> </span>-vv<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">'Lnk(Cap|Sta):'</span>
+</code></pre></div></td></tr></table></div>
+<p>Read <code>LnkSta</code> for the negotiated speed and width. At <code>Width x1</code>, <code>Speed 5GT/s</code> is Gen 2 and <code>Speed 8GT/s</code> is Gen 3. <code>LnkCap</code> describes the device's capability.</p>
 <ol>
 <li>Install <code>hdparm</code>:
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hdparm<span class="w"> </span>-y
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>hdparm
 </code></pre></div></td></tr></table></div></li>
 <li>Test the disk read speed (replace <code>/dev/nvme0n1</code> with your drive identifier if different):
-   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>hdparm<span class="w"> </span>-tT<span class="w"> </span>/dev/nvme0n1
+   <div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>hdparm<span class="w"> </span>-t<span class="w"> </span>/dev/nvme0n1
 </code></pre></div></td></tr></table></div></li>
 </ol>
 <p><code>hdparm</code> is a quick read check, not a complete benchmark. Use the <a href="../raspberry_pi_benchmark_power_temperature_storage_network_ai/">reproducible Raspberry Pi benchmark methodology</a> for <code>fio</code>, raw JSON, temperature, power, throttling, and a disposable test file. Compare Gen 2 and Gen 3 with the same drive state and workload.</p>
@@ -11252,49 +11268,73 @@
 </tr>
 </tbody>
 </table>
-<p>For a filesystem-level test, install <code>fio</code> and benchmark a disposable directory on the mounted NVMe filesystem. Do not point a test at <code>/dev/nvme0n1</code>, which can destroy partitions and data.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>fio
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/nvme-bench"</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a>fio<span class="w"> </span>--name<span class="o">=</span>randread-4k<span class="w"> </span>--directory<span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/nvme-bench"</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span>--rw<span class="o">=</span>randread<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>1G<span class="w"> </span>--iodepth<span class="o">=</span><span class="m">16</span><span class="w"> </span>--numjobs<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">  </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--time_based<span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--group_reporting
+<p>For a filesystem-level test, choose a directory on the mounted SSD. The example uses your home directory and needs at least 1 GiB of free space. Verify the target before creating the test file:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>findmnt<span class="w"> </span>--target<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>TARGET,SOURCE,FSTYPE
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>df<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
 </code></pre></div></td></tr></table></div>
-<p>Repeat the same command at least three times after each reboot and retain the complete output. To compare boot time, perform five cold boots for each mode and record:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>systemd-analyze<span class="w"> </span><span class="nb">time</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>systemd-analyze<span class="w"> </span>critical-chain
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>vcgencmd<span class="w"> </span>get_throttled
+<p>Once you confirm that this location is on the SSD and has enough space, install <code>fio</code> and run the test. Use a regular file on the mounted filesystem as the target.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>fio
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="nv">bench_dir</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/nvme-bench.XXXXXXXX"</span><span class="k">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">  </span>fio<span class="w"> </span>--name<span class="o">=</span>randread-4k<span class="w"> </span>--filename<span class="o">=</span><span class="s2">"</span><span class="nv">$bench_dir</span><span class="s2">/test.bin"</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">    </span>--rw<span class="o">=</span>randread<span class="w"> </span>--bs<span class="o">=</span>4k<span class="w"> </span>--size<span class="o">=</span>1G<span class="w"> </span>--iodepth<span class="o">=</span><span class="m">1</span><span class="w"> </span>--numjobs<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">    </span>--direct<span class="o">=</span><span class="m">1</span><span class="w"> </span>--time_based<span class="w"> </span>--runtime<span class="o">=</span><span class="m">60</span><span class="w"> </span>--group_reporting
+</code></pre></div></td></tr></table></div>
+<p>After each run, save the result and remove the test file and its temporary directory from the same shell:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nb">test</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$bench_dir</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">  </span>rm<span class="w"> </span>-f<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="nv">$bench_dir</span><span class="s2">/test.bin"</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">  </span>rmdir<span class="w"> </span>--<span class="w"> </span><span class="s2">"</span><span class="nv">$bench_dir</span><span class="s2">"</span>
+</code></pre></div></td></tr></table></div>
+<p>Repeat the same workload at least three times per mode. To compare boot time, perform five cold boots for each mode and record:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>systemd-analyze<span class="w"> </span><span class="nb">time</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>systemd-analyze<span class="w"> </span>critical-chain
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>vcgencmd<span class="w"> </span>get_throttled
 </code></pre></div></td></tr></table></div>
 <p>Report the median and range, not the single fastest run. A Gen 3 result is useful only if the link remains stable under repeated boot and I/O load.</p>
 <h2 id="stability-check-before-trusting-gen-3">Stability check before trusting Gen 3<a class="headerlink" href="#stability-check-before-trusting-gen-3" title="Permanent link">¶</a></h2>
-<p>After every Gen 3 test, inspect the current and previous boot for PCIe, NVMe, filesystem, or power-related warnings:</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>dmesg<span class="w"> </span>--level<span class="o">=</span>err,warn<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'pcie|nvme|reset|timeout|error'</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'pcie|nvme|reset|timeout|error'</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3"></a>vcgencmd<span class="w"> </span>get_throttled
+<p>After every Gen 3 test, inspect the current boot for PCIe, NVMe, or filesystem warnings:</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-b<span class="w"> </span>-k<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">'pcie|nvme|reset|timeout|error'</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>vcgencmd<span class="w"> </span>get_throttled
 </code></pre></div></td></tr></table></div>
-<p>If any reset, timeout, I/O error, or unexplained boot failure occurs, return to Gen 2 by removing <code>dtparam=pciex1_gen=3</code>, reboot, and repeat detection and storage checks. Do not use an unstable Gen 3 configuration for the only copy of important data.</p>
-<hr>
+<p>Use <code>-b -1</code> in place of <code>-b</code> to inspect the previous boot if its journal is available. If a reset, timeout or I/O error appears, remove the Gen 3 override, reboot and repeat detection and storage checks at Gen 2.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>The Pi fails to boot from the SSD</strong>:<ul>
-<li>Double-check the ribbon FPC cable connection. Unplug and reseat the cable on both the Pi and the HAT.</li>
-<li>Verify your power supply. Underpowered SSDs will disconnect during boot. If you aren't using the official 27W adapter, the Pi 5 restricts current limits which might crash the SSD.</li>
-</ul>
-</li>
-<li><strong>System is unstable at PCIe Gen 3 speeds</strong>:<ul>
-<li>Remove <code>dtparam=pciex1_gen=3</code> from <code>/boot/firmware/config.txt</code> and reboot to return to the validated Gen 2 default. Reseat the FPC cable, test with the recommended power supply, and inspect kernel logs before trying Gen 3 again.</li>
-</ul>
-</li>
-</ul></div>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Next check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No NVMe disk in <code>lsblk</code> when booted from microSD</td>
+<td>Check that PCIe is enabled. Shut down and unplug before checking the ribbon orientation, connector latches, and SSD seating. Check the power supply if the drive appears intermittently.</td>
+</tr>
+<tr>
+<td>Linux detects the SSD, but it will not boot</td>
+<td>Check that Imager verified the SSD image, that EEPROM tries NVMe, and that <code>PCIE_PROBE=1</code> is set for a non-HAT+ adapter.</td>
+</tr>
+<tr>
+<td>The Pi starts, but root or firmware is still on microSD</td>
+<td>Compare both mount sources. Check for duplicate partition IDs after cloning and try the SSD alone after shutting down.</td>
+</tr>
+<tr>
+<td>The Pi stopped booting after Gen 3 was enabled</td>
+<td>Boot the recovery card at Gen 2, or attach the SSD to another computer. Identify the SSD's boot partition, remove its Gen 3 override and retry.</td>
+</tr>
+</tbody>
+</table></div>
 
 
 
@@ -11317,7 +11357,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="August 22, 2026 13:40:55 JST">2026-08-22</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 28, 2026 09:23:32 JST">2026-11-28</span>
   </span>
 
     
